@@ -124,6 +124,21 @@ export function ButtonLink({ value }) {
   );
 }
 
+export function ButtonLinkIqro({ value }) {
+  const status = value ? value.toLowerCase() : "";
+
+  return (
+    <div className="">
+      <Link
+        to={"detail/" + status}
+        className="px-4 bg-mamasingle py-2 rounded-md shadow-md text-white mr-2"
+      >
+        Detail
+      </Link>
+    </div>
+  );
+}
+
 export function AvatarCell({ value, column, row }) {
   return (
     <div className="flex items-center">
@@ -187,7 +202,7 @@ function Table({ columns, data, url }) {
           globalFilter={state.globalFilter}
           setGlobalFilter={setGlobalFilter}
         />
-        {/* {headerGroups.map((headerGroup) =>
+        {headerGroups.map((headerGroup) =>
           headerGroup.headers.map((column) =>
             column.Filter ? (
               <div className="mt-2 sm:mt-0" key={column.id}>
@@ -195,7 +210,7 @@ function Table({ columns, data, url }) {
               </div>
             ) : null
           )
-        )} */}
+        )}
         <Link
           to={url}
           className=" bg-mamasingle px-4 py-2 rounded-md text-white"

@@ -94,7 +94,7 @@ export const Page = (props) => {
               <ul className="font-semibold relative left-10">
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datarumahtahfiz">Iqro</Link>
+                  <Link to="iqro">Iqro</Link>
                 </li>
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
@@ -118,15 +118,15 @@ export const Page = (props) => {
               <ul className="font-semibold relative left-10">
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datarumahtahfiz">Iqro</Link>
+                  <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
                 </li>
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datapengajar">Juz 30</Link>
+                  <Link to="datapengajar">Pengajar</Link>
                 </li>
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datasantri">Al - Qur'an</Link>
+                  <Link to="datasantri">Santri</Link>
                 </li>
               </ul>
             ) : null}

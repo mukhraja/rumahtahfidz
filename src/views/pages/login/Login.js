@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../components";
 import { gambardepan, logo } from "../../../gambar";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const url = "http://localhost:2000/user";
@@ -8,8 +9,7 @@ const url = "http://localhost:2000/user";
 export default function Login() {
   const [email, SetEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(email);
-  console.log(password);
+  let navigate = useNavigate();
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -28,6 +28,8 @@ export default function Login() {
         const token = response.data.data;
         console.log(token);
         localStorage.setItem("token", token);
+        console.log("Login Berhasil");
+        navigate("dashboard");
       })
       .catch((error) => {
         console.log(error.response.data.error);
@@ -35,7 +37,7 @@ export default function Login() {
   };
 
   return (
-    <div className=" bg-gray-50">
+    <div className=" bg-gray-50 font-poppins">
       <div className="flex justify-center h-screen items-center">
         <div className=" w-2/5 mr-6">
           <img src={gambardepan} />

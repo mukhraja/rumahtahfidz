@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { rumahtahfidz } from "../../../gambar";
 import Table, {
   AvatarCell,
@@ -6,26 +8,17 @@ import Table, {
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
-
-const getData = () => {
-  const data = [
-    {
-      no: "1",
-      name: "Rumah Tahfiz 1",
-      nis: "RT0001",
-      kepala: "Ustadz Adri",
-    },
-    {
-      no: "2",
-      name: "Rumah Tahfiz 2",
-      nis: "RT0002",
-      kepala: "Ustadz Andrian",
-    },
-  ];
-  return [...data, ...data, ...data];
-};
-
+import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 const Rumahtahfiz = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(doGetRumahTahfidzRequest());
+  }, []);
+
+  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  console.log(rumahtahfidzdata);
+
   const columns = React.useMemo(
     () => [
       {
@@ -33,23 +26,23 @@ const Rumahtahfiz = () => {
         accessor: "name",
       },
       {
-        Header: "NIS",
-        accessor: "nis",
+        Header: "NIT",
+        accessor: "nit",
       },
       {
         Header: "Kepala Tahfiz",
-        accessor: "kepala",
+        accessor: "chief",
       },
       {
         Header: "Detail",
-        accessor: "no",
+        accessor: "id",
         Cell: ButtonLink,
       },
     ],
     []
   );
 
-  const data = React.useMemo(() => getData(), []);
+  const data = React.useMemo(() => rumahtahfidzdata, [rumahtahfidzdata]);
 
   return (
     <div className=" overflow-hidden">

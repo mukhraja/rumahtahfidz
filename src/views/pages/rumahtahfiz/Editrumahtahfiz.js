@@ -1,12 +1,12 @@
 import React from "react";
 import { rumahtahfidz } from "../../../gambar";
 
-const Tambahrumahtahfiz = () => {
+const Editrumahtahfiz = () => {
   return (
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Tambah Rumah Tahfidz
+          Edit Rumah Tahfidz
         </h1>
         <img src={rumahtahfidz} className="h-20" />
       </div>
@@ -54,4 +54,4 @@ const Tambahrumahtahfiz = () => {
   );
 };
 
-export default Tambahrumahtahfiz;
+export default Editrumahtahfiz;
