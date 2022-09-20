@@ -3,7 +3,7 @@ import config from "../config/config";
 
 const list = async () => {
   try {
-    const result = await axios.get(`${config.domain}/pondok`);
+    const result = await axios.get(`${config.domain}/guru`);
     console.log(result);
     return result.data;
   } catch (error) {

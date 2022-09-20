@@ -19,6 +19,8 @@ export const Page = (props) => {
   const [active, setActive] = useState(false);
   const [hafalan, setHafalan] = useState(false);
   const [laporan, setLaporan] = useState(false);
+  const [subHafalan, setSubHafalan] = useState(false);
+  const [subHafalana, setSubHafalana] = useState(false);
 
   const aktifkan = () => {
     setActive(!active);
@@ -29,6 +31,12 @@ export const Page = (props) => {
   };
   const laporkan = () => {
     setLaporan(!laporan);
+  };
+  const getsubHafalan = () => {
+    setSubHafalan(!subHafalan);
+  };
+  const getsubHafalana = () => {
+    setSubHafalana(!subHafalana);
   };
   return (
     <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800">
@@ -91,19 +99,47 @@ export const Page = (props) => {
               </a>
             </li>
             {hafalan ? (
-              <ul className="font-semibold relative left-10">
-                <li className="py-2 flex">
+              <ul className="font-semibold relative left-5">
+                <li className="py-2 flex" onClick={getsubHafalan}>
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="iqro">Iqro</Link>
+                  <h1>Santri</h1>
                 </li>
-                <li className="py-2 flex">
+                {subHafalan ? (
+                  <ul className="font-semibold relative left-5">
+                    <li className="py-2 flex">
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="iqro">Iqro</Link>
+                    </li>
+                    <li className="py-2 flex">
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datapengajar">Juz 30</Link>
+                    </li>
+                    <li className="py-2 flex">
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datasantri">Al - Qur'an</Link>
+                    </li>
+                  </ul>
+                ) : null}
+                <li className="py-2 flex" onClick={getsubHafalana}>
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datapengajar">Juz 30</Link>
+                  <h1>Ustadzah</h1>
                 </li>
-                <li className="py-2 flex">
-                  <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datasantri">Al - Qur'an</Link>
-                </li>
+                {subHafalana ? (
+                  <ul className="font-semibold relative left-5">
+                    <li className="py-2 flex">
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="iqro">Iqro</Link>
+                    </li>
+                    <li className="py-2 flex">
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datapengajar">Juz 30</Link>
+                    </li>
+                    <li className="py-2 flex">
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datasantri">Al - Qur'an</Link>
+                    </li>
+                  </ul>
+                ) : null}
               </ul>
             ) : null}
             <li className="my-px" onClick={laporkan}>
