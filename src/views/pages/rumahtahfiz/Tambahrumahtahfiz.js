@@ -6,6 +6,8 @@ import {
   doCreateRumahTahfidzRequest,
   doGetRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
@@ -57,7 +59,11 @@ const Tambahrumahtahfiz = () => {
 
       dispatch(doCreateRumahTahfidzRequest(payload));
 
-      // navigate("/datarumahtahfiz", { state: { refresh: true } });
+      toast.success("Data berhasil ditambahkan...");
+
+      setTimeout(() => {
+        navigate("/datarumahtahfiz", { state: { refresh: true } });
+      }, 3000);
     },
   });
 
@@ -215,12 +221,15 @@ const Tambahrumahtahfiz = () => {
               </div>
             </div>
           </div>
+          <div className="z-30">
+            <ToastContainer autoClose={2000} />
+          </div>
 
           {/*  */}
           <div>
             <button
               className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="button"
+              type="submit"
               onClick={formik.handleSubmit}
             >
               SIMPAN
