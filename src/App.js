@@ -22,12 +22,15 @@ function App() {
             element={<Tambahrumahtahfiz />}
           />
           <Route
-            path="datarumahtahfiz/detail"
+            path="datarumahtahfiz/detail/:id"
             element={<Detailrumahtahfiz />}
           />
           <Route path="iqro" element={<Iqro />} />
           <Route path="iqro/tambah" element={<Tambahiqro />} />
-          <Route path="datarumahtahfiz/edit" element={<Editrumahtahfiz />} />
+          <Route
+            path="datarumahtahfiz/edit/:id"
+            element={<Editrumahtahfiz />}
+          />
           <Route path="datapengajar" element={<Pengajar />} />
           <Route path="datasantri" element={<Santri />} />
         </Route>

@@ -8,16 +8,21 @@ import Table, {
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetRumahTahfidzRequest,
+  doDeleteRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Rumahtahfiz = () => {
   const dispatch = useDispatch();
+
+  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   useEffect(() => {
     dispatch(doGetRumahTahfidzRequest());
   }, []);
-
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
-  console.log(rumahtahfidzdata);
 
   const columns = React.useMemo(
     () => [
@@ -54,6 +59,9 @@ const Rumahtahfiz = () => {
       </div>
       <div className="mt-6 px-4">
         <Table columns={columns} data={data} url="tambah" />
+      </div>
+      <div className="z-30">
+        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

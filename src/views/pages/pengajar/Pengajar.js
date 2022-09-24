@@ -39,6 +39,8 @@ const Pengajar = () => {
       {
         Header: "PONDOK",
         accessor: "Pondok.name",
+        Filter: SelectColumnFilter, // new
+        filter: "includes",
       },
       {
         Header: "Detail",

@@ -12,11 +12,20 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDoubleRightIcon,
+  TrashIcon,
+  EyeIcon,
+  PencilIcon,
 } from "@heroicons/react/solid";
 import { Button, PageButton } from "./shared/Button";
 import { classNames } from "./shared/Utils";
 import { SortIcon, SortUpIcon, SortDownIcon } from "./shared/Icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  doGetRumahTahfidzRequest,
+  doDeleteRumahTahfidzRequest,
+} from "../../../../src/reduxsaga/actions/RumahTahfidz";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -106,20 +115,33 @@ export function StatusPill({ value }) {
 export function ButtonLink({ value }) {
   const status = value ? value.toLowerCase() : "";
 
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteRumahTahfidzRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
   return (
-    <div className="">
+    <div className=" flex">
       <Link
         to={"detail/" + status}
-        className="px-4 bg-mamasingle py-2 rounded-md shadow-md text-white mr-2"
+        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
       >
-        Detail
+        <EyeIcon className="w-5" />
       </Link>
       <Link
-        to={"hapus/" + status}
-        className="px-4 bg-red-400 py-2 rounded-md shadow-md text-white"
+        to={"edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        Hapus
+        <PencilIcon className="w-5" />
       </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
     </div>
   );
 }
