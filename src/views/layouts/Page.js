@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import Logo from "../../gambar/logo.png";
 import {
   ArrowNarrowLeftIcon,
@@ -14,6 +14,7 @@ import {
   LockOpenIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
+import { useSelector } from "react-redux";
 
 export const Page = (props) => {
   const [active, setActive] = useState(false);
@@ -21,6 +22,8 @@ export const Page = (props) => {
   const [laporan, setLaporan] = useState(false);
   const [subHafalan, setSubHafalan] = useState(false);
   const [subHafalana, setSubHafalana] = useState(false);
+
+  const { userProfile } = useSelector((state) => state.userState);
 
   const aktifkan = () => {
     setActive(!active);
@@ -38,8 +41,11 @@ export const Page = (props) => {
   const getsubHafalana = () => {
     setSubHafalana(!subHafalana);
   };
+
+  const { pathname } = useLocation();
+
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800">
+    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto">
       <aside className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-white">
         <div className="sidebar-header flex items-center justify-center py-4">
           <div className="inline-flex">
@@ -51,7 +57,11 @@ export const Page = (props) => {
             <li className="my-px">
               <Link
                 to="dashboard"
-                className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                className={
+                  pathname === "/dashboard"
+                    ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                    : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                }
               >
                 <span className="text-lg text-gray-700">
                   <HomeIcon className="w-5" />
@@ -59,45 +69,70 @@ export const Page = (props) => {
                 <span className="ml-3 font-semibold">Dashboard</span>
               </Link>
             </li>
-            <li className="my-px">
-              <div
-                className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
-                onClick={aktifkan}
-              >
-                <span className="text-lg text-gray-700">
-                  <DatabaseIcon className="w-5" />
-                </span>
-                <div className="ml-3 font-semibold">Master Data</div>
-              </div>
-              {active ? (
-                <ul className="font-semibold relative left-10">
-                  <li className="py-2 flex">
-                    <FolderOpenIcon className="w-5 mr-2" />
-                    <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
-                  </li>
-                  <li className="py-2 flex">
-                    <FolderOpenIcon className="w-5 mr-2" />
-                    <Link to="datapengajar">Pengajar</Link>
-                  </li>
-                  <li className="py-2 flex">
-                    <FolderOpenIcon className="w-5 mr-2" />
-                    <Link to="datasantri">Santri</Link>
-                  </li>
-                </ul>
-              ) : null}
-            </li>
+            {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
+            userProfile.role === "eac8c1bf-86ee-4857-b8e9-c7e68691041b" ? (
+              <li className="my-px">
+                <div
+                  className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
+                  onClick={aktifkan}
+                >
+                  <span className="text-lg text-gray-700">
+                    <DatabaseIcon className="w-5" />
+                  </span>
+                  <div className="ml-3 font-semibold">Master Data</div>
+                </div>
+                {active ? (
+                  <ul className="font-semibold relative left-10">
+                    <li
+                      className={
+                        pathname === "/datarumahtahfiz"
+                          ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                          : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                      }
+                    >
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
+                    </li>
+                    <li
+                      className={
+                        pathname === "/datapengajar"
+                          ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                          : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                      }
+                    >
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datapengajar">Pengajar</Link>
+                    </li>
+                    <li
+                      className={
+                        pathname === "/datasantri"
+                          ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                          : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                      }
+                    >
+                      <FolderOpenIcon className="w-5 mr-2" />
+                      <Link to="datasantri">Santri</Link>
+                    </li>
+                  </ul>
+                ) : null}
+              </li>
+            ) : null}
 
-            <li className="my-px">
-              <a
-                className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
-                onClick={hafalkan}
-              >
-                <span className="text-lg text-gray-700">
-                  <BookOpenIcon className="w-5" />
-                </span>
-                <span className="ml-3 font-semibold">Hafalan</span>
-              </a>
-            </li>
+            {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+              <li className="my-px">
+                <a
+                  className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
+                  onClick={hafalkan}
+                >
+                  <span className="text-lg text-gray-700">
+                    <BookOpenIcon className="w-5" />
+                  </span>
+                  <span className="ml-3 font-semibold">Hafalan</span>
+                </a>
+              </li>
+            ) : (
+              ""
+            )}
             {hafalan ? (
               <ul className="font-semibold relative left-5">
                 <li className="py-2 flex" onClick={getsubHafalan}>
@@ -106,17 +141,35 @@ export const Page = (props) => {
                 </li>
                 {subHafalan ? (
                   <ul className="font-semibold relative left-5">
-                    <li className="py-2 flex">
+                    <li
+                      className={
+                        pathname === "/dataiqrosantri"
+                          ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                          : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                      }
+                    >
                       <FolderOpenIcon className="w-5 mr-2" />
-                      <Link to="iqro">Iqro</Link>
+                      <Link to="dataiqrosantri">Iqro</Link>
                     </li>
-                    <li className="py-2 flex">
+                    <li
+                      className={
+                        pathname === "/datasurahpendeksantri"
+                          ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                          : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                      }
+                    >
                       <FolderOpenIcon className="w-5 mr-2" />
-                      <Link to="datapengajar">Juz 30</Link>
+                      <Link to="datasurahpendeksantri">Juz 30</Link>
                     </li>
-                    <li className="py-2 flex">
+                    <li
+                      className={
+                        pathname === "/dataalquransantri"
+                          ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                          : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                      }
+                    >
                       <FolderOpenIcon className="w-5 mr-2" />
-                      <Link to="datasantri">Al - Qur'an</Link>
+                      <Link to="dataalquransantri">Al - Qur'an</Link>
                     </li>
                   </ul>
                 ) : null}
@@ -142,14 +195,17 @@ export const Page = (props) => {
                 ) : null}
               </ul>
             ) : null}
-            <li className="my-px" onClick={laporkan}>
-              <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
-                <span className="text-lg text-gray-700">
-                  <FolderIcon className="w-5" />
-                </span>
-                <span className="ml-3 font-semibold">Laporan</span>
-              </a>
-            </li>
+            {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
+            userProfile.role === "1b864518-299d-469c-b270-4d4b9d5b120f" ? (
+              <li className="my-px" onClick={laporkan}>
+                <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
+                  <span className="text-lg text-gray-700">
+                    <FolderIcon className="w-5" />
+                  </span>
+                  <span className="ml-3 font-semibold">Laporan</span>
+                </a>
+              </li>
+            ) : null}
             {laporan ? (
               <ul className="font-semibold relative left-10">
                 <li className="py-2 flex">
@@ -162,7 +218,7 @@ export const Page = (props) => {
                 </li>
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datasantri">Santri</Link>
+                  <Link to="laporansantri">Santri</Link>
                 </li>
               </ul>
             ) : null}
@@ -215,8 +271,8 @@ export const Page = (props) => {
                   className="h-10 w-10 bg-gray-200 border rounded-full"
                 />
                 <span className="flex flex-col ml-2">
-                  <span className="truncate w-20 font-semibold tracking-wide leading-none">
-                    Aji Setiaji
+                  <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
+                    {userProfile.name}
                   </span>
                   <span className="w-20 text-gray-500 text-xs leading-none mt-1">
                     Administrator

@@ -1,6 +1,7 @@
 import axios from "axios";
 import config from "../config/config";
 
+// GET
 const list = async () => {
   try {
     const result = await axios.get(`${config.domain}/pondok`);
@@ -11,6 +12,7 @@ const list = async () => {
   }
 };
 
+// CREATE
 const createrumah = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
@@ -23,6 +25,7 @@ const createrumah = async (payload) => {
   }
 };
 
+// GETID
 const getrumahid = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload.id);
@@ -35,6 +38,7 @@ const getrumahid = async (payload) => {
   }
 };
 
+// UPDATE
 const updaterumah = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload.formdata);
@@ -49,6 +53,7 @@ const updaterumah = async (payload) => {
   }
 };
 
+// UPDATERUMAHNOFILE
 const updaterumahNoFile = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload.id);
@@ -64,6 +69,7 @@ const updaterumahNoFile = async (payload) => {
   }
 };
 
+// DELETE
 const deleterumah = async (payload) => {
   try {
     const result = await axios.delete(`${config.domain}/pondok/${payload}`);

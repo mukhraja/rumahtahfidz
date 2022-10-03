@@ -26,6 +26,13 @@ import {
   doGetRumahTahfidzRequest,
   doDeleteRumahTahfidzRequest,
 } from "../../../../src/reduxsaga/actions/RumahTahfidz";
+import { doDeleteSantriRequest } from "../../../reduxsaga/actions/Santri";
+import { doDeleteIqroSantriRequest } from "../../../reduxsaga/actions/Iqrosantri";
+import {
+  doDeleteSurahPendekSantriRequest,
+  doDeleteSurahPendekSantriSucceed,
+} from "../../../reduxsaga/actions/SurahPendekSantri";
+import { doDeleteAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -112,13 +119,62 @@ export function StatusPill({ value }) {
   );
 }
 
-export function ButtonLink({ value }) {
+export function ButtonLinkRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
+  const { userProfile } = useSelector((state) => state.userState);
 
   const dispatch = useDispatch();
 
   const onDelete = async (id) => {
     dispatch(doDeleteRumahTahfidzRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  return (
+    <div>
+      {userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="w-5" />
+          </Link>
+        </div>
+      ) : null}
+      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        <div className=" flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="w-5" />
+          </Link>
+          <Link
+            to={"edit/" + status}
+            className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <PencilIcon className="w-5" />
+          </Link>
+          <button
+            onClick={() => onDelete(value)}
+            className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <TrashIcon className="w-5" />
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export function ButtonLinkSantri({ value }) {
+  const status = value ? value.toLowerCase() : "";
+
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteSantriRequest(id));
     toast.success("Data berhasil dihapus...");
   };
 
@@ -150,13 +206,97 @@ export function ButtonLinkIqro({ value }) {
   const status = value ? value.toLowerCase() : "";
 
   return (
-    <div className="">
+    <div className="flex">
       <Link
         to={"detail/" + status}
-        className="px-4 bg-mamasingle py-2 rounded-md shadow-md text-white mr-2"
+        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
       >
-        Detail
+        <EyeIcon className="w-5" />
       </Link>
+    </div>
+  );
+}
+
+export function ButtonLinkIqroList({ value }) {
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteIqroSantriRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  const status = value;
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"/dataiqrosantri/edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+
+export function ButtonLinkSurahPendekList({ value }) {
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteSurahPendekSantriRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  const status = value;
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"/datasurahpendeksantri/edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+
+export function ButtonLinkAlquranList({ value }) {
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteAlquranSantriRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  const status = value;
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"/dataalquransantri/edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
     </div>
   );
 }
@@ -215,6 +355,8 @@ function Table({ columns, data, url }) {
     usePagination // new
   );
 
+  const { userProfile } = useSelector((state) => state.userState);
+
   // Render the UI for your table
   return (
     <>
@@ -233,12 +375,14 @@ function Table({ columns, data, url }) {
             ) : null
           )
         )}
-        <Link
-          to={url}
-          className=" bg-mamasingle px-4 py-2 rounded-md text-white"
-        >
-          Tambah Data
-        </Link>
+        {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+          <Link
+            to={url}
+            className=" bg-mamasingle px-4 py-2 rounded-md text-white"
+          >
+            Tambah Data
+          </Link>
+        ) : null}
       </div>
       {/* table */}
       <div className="mt-4 flex flex-col">

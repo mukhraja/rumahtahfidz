@@ -3,10 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { rumahtahfidz } from "../../../gambar";
 import Table, {
-  AvatarCell,
-  ButtonLink,
-  SelectColumnFilter,
-  StatusPill,
+  ButtonLinkRumahTahfidz,
 } from "../../components/datatable/Table.js";
 import {
   doGetRumahTahfidzRequest,
@@ -41,7 +38,7 @@ const Rumahtahfiz = () => {
       {
         Header: "Detail",
         accessor: "id",
-        Cell: ButtonLink,
+        Cell: ButtonLinkRumahTahfidz,
       },
     ],
     []
@@ -51,7 +48,7 @@ const Rumahtahfiz = () => {
 
   return (
     <div className=" overflow-hidden">
-      <div className="mx-4 my-4 bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Data Rumah Tahfidz
         </h1>

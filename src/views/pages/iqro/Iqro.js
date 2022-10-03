@@ -1,5 +1,10 @@
-import React from "react";
-import { rumahtahfidz } from "../../../gambar";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { bacaiqro } from "../../../gambar";
+import {
+  doGetIqroAwalSantriRequest,
+  doGetIqroSantriRequest,
+} from "../../../reduxsaga/actions/Iqrosantri";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -9,41 +14,23 @@ import Table, {
 } from "../../components/datatable/Table.js";
 
 const Iqro = () => {
-  const getData = () => {
-    const data = [
-      {
-        no: "1",
-        name: "Aji Setiaji",
-        iqro: "6",
-        halaman: "27",
-        keterangan: "Belum dapat lanjut karena terlambat",
-      },
-      {
-        no: "2",
-        name: "Irfan Nur Kholik",
-        iqro: "5",
-        halaman: "15",
-        keterangan: "Belum dapat lanjut karena terlambat",
-      },
-      {
-        no: "3",
-        name: "Mahessa",
-        iqro: "5",
-        halaman: "15",
-        keterangan: "Belum dapat lanjut karena terlambat",
-      },
-    ];
-    return [...data, ...data, ...data];
-  };
+  const dispatch = useDispatch();
+
+  const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+
+  useEffect(() => {
+    dispatch(doGetIqroAwalSantriRequest());
+  }, []);
+
   const columns = React.useMemo(
     () => [
       {
         Header: "Nama",
-        accessor: "name",
+        accessor: "namasantri",
       },
       {
         Header: "Iqro",
-        accessor: "iqro",
+        accessor: "name",
         Filter: SelectColumnFilter, // new
         filter: "includes",
       },
@@ -53,25 +40,25 @@ const Iqro = () => {
       },
       {
         Header: "Keterangan",
-        accessor: "keterangan",
+        accessor: "ket",
       },
       {
         Header: "Detail",
-        accessor: "no",
+        accessor: "santriId",
         Cell: ButtonLinkIqro,
       },
     ],
     []
   );
 
-  const data = React.useMemo(() => getData(), []);
+  const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
     <div className=" overflow-hidden">
-      <div className="mx-4 my-4 bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Data IQRO
         </h1>
-        <img src={rumahtahfidz} className="h-20" />
+        <img src={bacaiqro} className="h-20" />
       </div>
       <div className="mt-6 px-4">
         <Table columns={columns} data={data} url="tambah" />

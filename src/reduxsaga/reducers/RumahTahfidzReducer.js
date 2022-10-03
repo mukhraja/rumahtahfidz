@@ -62,6 +62,14 @@ const RumahTahfidzReducer = (state = INIT_STATE, action) => {
   }
 };
 
+const applyCreateRumahTahfidzSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    rumahtahfidzdata: [...payload.data],
+  };
+};
+
 const applyGetRumahTahfidzSucceed = (state, action) => {
   const { payload } = action;
   return {
@@ -91,14 +99,6 @@ const applyUpdateNoFileRumahTahfidzSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: [payload],
-  };
-};
-
-const applyCreateRumahTahfidzSucceed = (state, action) => {
-  const { payload } = action;
-  return {
-    ...state,
-    rumahtahfidzdata: [...payload.data],
   };
 };
 

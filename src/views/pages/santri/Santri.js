@@ -1,23 +1,21 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { santri } from "../../../gambar";
 import Table, {
-  AvatarCell,
-  ButtonLink,
+  ButtonLinkSantri,
   SelectColumnFilter,
-  StatusPill,
 } from "../../components/datatable/Table.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 const Santri = () => {
   const dispatch = useDispatch();
 
+  const { santridata } = useSelector((state) => state.santriState);
+
   useEffect(() => {
     dispatch(doGetSantriRequest());
   }, []);
-
-  const { santridata } = useSelector((state) => state.santriState);
-  console.log(santridata);
 
   const columns = React.useMemo(
     () => [
@@ -38,9 +36,15 @@ const Santri = () => {
         accessor: "city",
       },
       {
+        Header: "PONDOK",
+        accessor: "Pondok.name",
+        Filter: SelectColumnFilter, // new
+        filter: "includes",
+      },
+      {
         Header: "Detail",
         accessor: "id",
-        Cell: ButtonLink,
+        Cell: ButtonLinkSantri,
       },
     ],
     []
@@ -50,7 +54,7 @@ const Santri = () => {
 
   return (
     <div className=" overflow-hidden">
-      <div className="mx-4 my-4 bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Data Santri
         </h1>
@@ -58,6 +62,9 @@ const Santri = () => {
       </div>
       <div className="mt-6 px-4">
         <Table columns={columns} data={data} url="tambah" />
+      </div>
+      <div className="z-30">
+        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import { pengajar } from "../../../gambar";
 import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
 import Table, {
   AvatarCell,
-  ButtonLink,
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
@@ -45,7 +44,7 @@ const Pengajar = () => {
       {
         Header: "Detail",
         accessor: "id",
-        Cell: ButtonLink,
+        // Cell: ButtonLink,
       },
     ],
     []

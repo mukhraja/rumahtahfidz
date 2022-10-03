@@ -80,6 +80,7 @@ export const doUpdateRumahTahfidzFailed = (payload) => ({
   type: ActionType.UPDATE_RUMAHTAHFIDZ_FAILED,
   payload,
 });
+// UPDATENOFILE
 
 export const doUpdateNoFIleRumahTahfidzRequest = (payload) => ({
   type: ActionType.UPDATE_RUMAHTAHFIDZ_NOFILE_REQUEST,

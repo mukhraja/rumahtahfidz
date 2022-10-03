@@ -90,7 +90,7 @@ const Tambahrumahtahfiz = () => {
 
   return (
     <div className=" overflow-hidden">
-      <div className="mx-4 my-4 bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Tambah Rumah Tahfidz
         </h1>
@@ -122,14 +122,15 @@ const Tambahrumahtahfiz = () => {
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Alamat</h1>
-            <input
+            <textarea
               className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.address}
               onChange={formik.handleChange}
               name="address"
               id="address"
               placeholder="Alamat Rumah Pondok Tahfidz"
-            />
+            >
+              {formik.values.address}
+            </textarea>
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">No. Telepon</h1>
@@ -229,7 +230,7 @@ const Tambahrumahtahfiz = () => {
           <div>
             <button
               className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="submit"
+              type="button"
               onClick={formik.handleSubmit}
             >
               SIMPAN

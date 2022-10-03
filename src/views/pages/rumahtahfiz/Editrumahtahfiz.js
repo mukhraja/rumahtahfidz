@@ -18,8 +18,6 @@ const Editrumahtahfiz = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [photo, setPhoto] = useState(false);
-
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   useEffect(() => {
@@ -70,8 +68,13 @@ const Editrumahtahfiz = () => {
     },
   });
 
-  const [previewImg, setPreviewImg] = useState();
   const [uploaded, setUploaded] = useState(false);
+  const [photo, setPhoto] = useState();
+
+  useEffect(() => {
+    let img = config.urlImage + "/" + formik.values.photo;
+    setPhoto(img);
+  }, [rumahtahfidzdata]);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -79,7 +82,7 @@ const Editrumahtahfiz = () => {
 
     reader.onload = () => {
       formik.setFieldValue("photo", file);
-      setPreviewImg(reader.result);
+      setPhoto(reader.result);
     };
     reader.readAsDataURL(file);
     setUploaded(true);
@@ -88,17 +91,17 @@ const Editrumahtahfiz = () => {
   const onClearImage = (event) => {
     event.preventDefault();
     setUploaded(false);
-    setPreviewImg(null);
+    setPhoto(null);
   };
   return (
     <div className=" overflow-hidden">
       <form method="POST" action="#">
-        <div className="mx-4 my-4 bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center">
+        <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold text-2xl font-poppins">
             Edit Rumah Tahfidz
           </h1>
           <img
-            src={config.urlImage + "/" + formik.values.photo}
+            src={photo}
             className="rounded-full bg-red-400 bg-cover w-20 h-20"
           />
         </div>
@@ -183,7 +186,7 @@ const Editrumahtahfiz = () => {
                 ) : (
                   <>
                     <img
-                      src={previewImg}
+                      src={photo}
                       center
                       alt="image"
                       className=" h-20 w-20"
