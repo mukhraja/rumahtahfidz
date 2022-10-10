@@ -1,7 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import RedirectPage from "./views/components/redirectpage/RedirectPage";
 import { Page } from "./views/layouts/Page";
-import { Dashboard, Login, Pengajar, Rumahtahfiz, Santri } from "./views/pages";
+import {
+  Dashboard,
+  Landing,
+  Login,
+  Pengajar,
+  Rumahtahfiz,
+  Santri,
+} from "./views/pages";
 import DetailIqro from "./views/pages/iqro/DetailIqro";
 import EditIqroSantri from "./views/pages/iqro/EditIqroSantri";
 import Iqro from "./views/pages/iqro/Iqro";
@@ -22,6 +29,15 @@ import EditAlquranSantri from "./views/pages/alquran/EditAlquran";
 import TambahAlquran from "./views/pages/alquran/TambahAlquran";
 import LaporanSantri from "./views/pages/laporan/santri/LaporanSantri";
 import { useSelector } from "react-redux";
+import User from "./views/pages/user/User";
+import Database from "./views/pages/database/Database";
+import DetailUser from "./views/pages/user/DetailUser";
+import TambahUser from "./views/pages/user/TambahUser";
+import EditUser from "./views/pages/user/EditUser";
+import InfoUser from "./views/pages/user/InfoUser";
+import DetailPengajar from "./views/pages/pengajar/DetailPengajar";
+import TambahPengajar from "./views/pages/pengajar/TambahPengajar";
+import EditPengajar from "./views/pages/pengajar/EditPengajar";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -29,6 +45,7 @@ function App() {
   return (
     <div>
       <Routes>
+        {/* <Route path="/" element={<Landing />} /> */}
         <Route path="/" element={<Login />} />
         <Route element={<Page />}>
           <Route
@@ -112,6 +129,18 @@ function App() {
             path="datapengajar"
             element={isLoggedIn ? <Pengajar /> : <Navigate to="/" />}
           />
+          <Route
+            path="datapengajar/detail/:id"
+            element={isLoggedIn ? <DetailPengajar /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datapengajar/tambah"
+            element={isLoggedIn ? <TambahPengajar /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datapengajar/edit/:id"
+            element={isLoggedIn ? <EditPengajar /> : <Navigate to="/" />}
+          />
           {/* Datasantri */}
           <Route
             path="datasantri"
@@ -129,10 +158,37 @@ function App() {
             path="datasantri/edit/:id"
             element={isLoggedIn ? <EditSantri /> : <Navigate to="/" />}
           />
+          {/* User */}
+          <Route
+            path="datauser"
+            element={isLoggedIn ? <User /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datauser/tambah"
+            element={isLoggedIn ? <TambahUser /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datauser/edit/:id"
+            element={isLoggedIn ? <EditUser /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datauser/detail/:id"
+            element={isLoggedIn ? <DetailUser /> : <Navigate to="/" />}
+          />
           {/* Laporan Santri */}
           <Route
             path="laporansantri"
             element={isLoggedIn ? <LaporanSantri /> : <Navigate to="/" />}
+          />
+          {/* Database */}
+          <Route
+            path="database"
+            element={isLoggedIn ? <Database /> : <Navigate to="/" />}
+          />
+          {/* User Information */}
+          <Route
+            path="profile/:id"
+            element={isLoggedIn ? <InfoUser /> : <Navigate to="/" />}
           />
         </Route>
       </Routes>

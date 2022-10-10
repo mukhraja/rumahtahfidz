@@ -5,65 +5,92 @@ import { useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  doGetRumahTahfidzByIdRequest,
-  doUpdateNoFIleRumahTahfidzRequest,
-  doUpdateRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
 import config from "../../../reduxsaga/config/config";
+import {
+  doGetGuruByIdRequest,
+  doUpdateNoFIleGuruRequest,
+  doUpdateGuruRequest,
+} from "../../../reduxsaga/actions/Guru";
+import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 
-const Editrumahtahfiz = () => {
+const EditPengajar = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { gurudata } = useSelector((state) => state.guruState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   useEffect(() => {
     const payload = { id };
-    dispatch(doGetRumahTahfidzByIdRequest(payload));
+    dispatch(doGetGuruByIdRequest(payload));
+    dispatch(doGetRumahTahfidzRequest());
   }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: rumahtahfidzdata.length ? rumahtahfidzdata[0].name : null,
-      nit: rumahtahfidzdata.length ? rumahtahfidzdata[0].nit : null,
-      address: rumahtahfidzdata.length ? rumahtahfidzdata[0].address : null,
-      telephone: rumahtahfidzdata.length ? rumahtahfidzdata[0].telephone : null,
-      chief: rumahtahfidzdata.length ? rumahtahfidzdata[0].chief : null,
-      photo: rumahtahfidzdata.length ? rumahtahfidzdata[0].photo : undefined,
+      name: gurudata.length ? gurudata[0].name : null,
+      niu: gurudata.length ? gurudata[0].niu : null,
+      email: gurudata.length ? gurudata[0].email : null,
+      datebirth: gurudata.length ? gurudata[0].datebirth : null,
+      gender: gurudata.length ? gurudata[0].gender : null,
+      telephone: gurudata.length ? gurudata[0].telephone : null,
+      education: gurudata.length ? gurudata[0].education : null,
+      address: gurudata.length ? gurudata[0].address : null,
+      ayah: gurudata.length ? gurudata[0].ayah : null,
+      ibu: gurudata.length ? gurudata[0].ibu : null,
+      mulai_masuk: gurudata.length ? gurudata[0].mulai_masuk : null,
+      mulai_vakum: gurudata.length ? gurudata[0].mulai_vakum : null,
+      pondokId: gurudata.length ? gurudata[0].pondokId : null,
+      photo: gurudata.length ? gurudata[0].photo : undefined,
     },
     onSubmit: async (values) => {
       if (uploaded === true) {
         let payload = new FormData();
         payload.append("name", values.name);
-        payload.append("nit", values.nit);
-        payload.append("address", values.address);
+        payload.append("niu", values.niu);
+        payload.append("email", values.email);
+        payload.append("datebirth", values.datebirth);
+        payload.append("gender", values.gender);
         payload.append("telephone", values.telephone);
-        payload.append("chief", values.chief);
+        payload.append("education", values.education);
+        payload.append("address", values.address);
+        payload.append("ayah", values.ayah);
+        payload.append("ibu", values.ibu);
+        payload.append("mulai_masuk", values.mulai_masuk);
+        payload.append("mulai_vakum", values.mulai_vakum);
+        payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
         payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
-        toast.success("Data berhasil diupdate...");
-        setTimeout(() => {
-          navigate("/datarumahtahfiz");
-        }, 3000);
+        dispatch(doUpdateGuruRequest(payload));
+        toast.success("Data berhasil diupdate Form...");
+        // setTimeout(() => {
+        //   navigate("/datsantri");
+        // }, 3000);
       } else {
         const payload = {
           id,
           name: values.name,
-          nit: values.nit,
-          address: values.address,
+          niu: values.niu,
+          email: values.email,
+          datebirth: values.datebirth,
+          gender: values.gender,
           telephone: values.telephone,
-          chief: values.chief,
+          education: values.education,
+          address: values.address,
+          ayah: values.ayah,
+          ibu: values.ibu,
+          mulai_masuk: values.mulai_masuk,
+          mulai_vakum: values.mulai_vakum,
+          pondokId: values.pondokId,
         };
-        dispatch(doUpdateNoFIleRumahTahfidzRequest(payload));
+        dispatch(doUpdateNoFIleGuruRequest(payload));
         toast.success("Data berhasil diupdate...");
-        setTimeout(() => {
-          navigate("/datarumahtahfiz");
-        }, 3000);
+        // setTimeout(() => {
+        //   navigate("/datasantri");
+        // }, 3000);
       }
     },
   });
@@ -74,7 +101,7 @@ const Editrumahtahfiz = () => {
   useEffect(() => {
     let img = config.urlImage + "/" + formik.values.photo;
     setPhoto(img);
-  }, [rumahtahfidzdata]);
+  }, [gurudata]);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -98,7 +125,7 @@ const Editrumahtahfiz = () => {
       <form method="POST" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold text-2xl font-poppins">
-            Edit Rumah Tahfidz
+            Edit Pengajar {formik.values.name}
           </h1>
           <img
             src={photo}
@@ -118,19 +145,64 @@ const Editrumahtahfiz = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">NIT</h1>
+            <h1 className="block col-span-2">NIU</h1>
             <input
-              id="nit"
-              name="nit"
+              id="niu"
+              name="niu"
               className="border rounded-md block col-span-2 pl-2 py-1"
-              value={formik.values.nit}
+              value={formik.values.niu}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Email</h1>
+            <input
+              id="email"
+              name="email"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
+            <input
+              type="date"
+              id="datebirth"
+              name="datebirth"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              value={formik.values.datebirth}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Jenis Kelamin</h1>
+            <input
+              id="gender"
+              name="gender"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              value={formik.values.gender}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Pendidikan</h1>
+            <input
+              id="education"
+              name="education"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              value={formik.values.education}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Alamat</h1>
-            <input
+            <textarea
               id="address"
               name="address"
               className="border rounded-md block col-span-2 pl-2 py-1"
@@ -140,28 +212,71 @@ const Editrumahtahfiz = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">No. Telepon</h1>
+            <h1 className="block col-span-2">Ayah</h1>
             <input
+              id="ayah"
+              name="ayah"
               className="border rounded-md block col-span-2 pl-2 py-1"
-              id="telephone"
-              name="telephone"
-              value={formik.values.telephone}
+              value={formik.values.ayah}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Nama Kepala Tahfidz</h1>
+            <h1 className="block col-span-2">Ibu</h1>
             <input
+              id="ibu"
+              name="ibu"
               className="border rounded-md block col-span-2 pl-2 py-1"
-              id="chief"
-              name="chief"
-              value={formik.values.chief}
+              value={formik.values.ibu}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
 
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Mulai Masuk</h1>
+            <input
+              type="date"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              id="mulai_masuk"
+              name="mulai_masuk"
+              value={formik.values.mulai_masuk}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Mulai Vakum</h1>
+            <input
+              type="date"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              id="mulai_vakum"
+              name="mulai_vakum"
+              value={formik.values.mulai_vakum}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2">
+            <h1 className="block col-span-2">Penempatan</h1>
+            <select
+              name="pondokId"
+              id="pondokId"
+              value={formik.values.pondokId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              autoComplete="pondokId"
+              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            >
+              <option value="" selected disabled hidden>
+                Pilih Rumah Tahfidz
+              </option>
+              {rumahtahfidzdata.map((e) => (
+                <option value={e.id}>{e.name}</option>
+              ))}
+            </select>
+          </div>
           <div class="col-span-4 row-span-2 py-2">
             <label className="block font-medium text-gray-700 text-xs">
               Photo
@@ -233,7 +348,7 @@ const Editrumahtahfiz = () => {
             </button>
             <button
               className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() => navigate("/datarumahtahfiz")}
+              onClick={() => navigate("/datasantri")}
             >
               CANCEL
             </button>
@@ -244,4 +359,4 @@ const Editrumahtahfiz = () => {
   );
 };
 
-export default Editrumahtahfiz;
+export default EditPengajar;

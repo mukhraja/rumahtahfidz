@@ -6,6 +6,8 @@ import bacaiqro from "./bacaiqro.png";
 import bacajuz from "./bacajuz.png";
 import pengajar from "./pengajar.png";
 import rumahtahfidz from "./rumahtahfidz.png";
+import database from "./database.png";
+import user from "./user.png";
 
 export {
   logo,
@@ -16,4 +18,6 @@ export {
   bacajuz,
   pengajar,
   rumahtahfidz,
+  database,
+  user,
 };

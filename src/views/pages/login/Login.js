@@ -47,7 +47,7 @@ export default function Login() {
   return (
     <div className=" bg-gray-50 font-poppins">
       <div className="flex justify-center h-screen items-center">
-        <div className=" w-2/6 mr-14">
+        <div className=" w-2/6 mr-14 sm:hidden">
           <img src={gambardepan} />
         </div>
 

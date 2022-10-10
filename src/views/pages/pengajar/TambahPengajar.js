@@ -1,18 +1,15 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { santri } from "../../../gambar";
+import { pengajar } from "../../../gambar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import {
-  doCreateSantriRequest,
-  doGetSantriRequest,
-} from "../../../reduxsaga/actions/Santri";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import { doCreateGuruRequest } from "../../../reduxsaga/actions/Guru";
 
-const TambahSantri = () => {
+const TambahPengajar = () => {
   useEffect(() => {
     dispatch(doGetRumahTahfidzRequest());
   }, []);
@@ -44,16 +41,17 @@ const TambahSantri = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      nis: "",
-      address: "",
+      niu: "",
+      email: "",
       datebirth: "",
       gender: "",
-      education: "",
-      city: "",
-      province: "",
-      parent: "",
       telephone: "",
-      tgl_masuk: "",
+      education: "",
+      address: "",
+      ayah: "",
+      ibu: "",
+      mulai_masuk: "",
+      mulai_vakum: "",
       pondokId: "",
       photo: undefined,
     },
@@ -61,26 +59,27 @@ const TambahSantri = () => {
     onSubmit: async (values) => {
       let payload = new FormData();
       payload.append("name", values.name);
-      payload.append("nis", values.nis);
-      payload.append("address", values.address);
+      payload.append("niu", values.niu);
+      payload.append("email", values.email);
       payload.append("datebirth", values.datebirth);
       payload.append("gender", values.gender);
-      payload.append("education", values.education);
-      payload.append("city", values.city);
-      payload.append("province", values.province);
-      payload.append("parent", values.parent);
       payload.append("telephone", values.telephone);
-      payload.append("tgl_masuk", values.tgl_masuk);
+      payload.append("education", values.education);
+      payload.append("address", values.address);
+      payload.append("ayah", values.ayah);
+      payload.append("ibu", values.ibu);
+      payload.append("mulai_masuk", values.mulai_masuk);
+      payload.append("mulai_vakum", values.mulai_vakum);
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);
 
-      dispatch(doCreateSantriRequest(payload));
+      dispatch(doCreateGuruRequest(payload));
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datasantri", { state: { refresh: true } });
-      }, 3000);
+      //   setTimeout(() => {
+      //     navigate("/dataguru", { state: { refresh: true } });
+      //   }, 3000);
     },
   });
 
@@ -109,9 +108,9 @@ const TambahSantri = () => {
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Tambah Santri
+          Tambah Pengajar
         </h1>
-        <img src={santri} className="h-20" />
+        <img src={pengajar} className="h-20" />
       </div>
       <div className="m-4 bg-white p-4 rounded-md font-poppins text-sm">
         <form method="POST" action="#">
@@ -127,14 +126,14 @@ const TambahSantri = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">NIS</h1>
+            <h1 className="block col-span-2">NIU</h1>
             <input
               className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.nis}
+              value={formik.values.niu}
               onChange={formik.handleChange}
-              name="nis"
-              id="nis"
-              placeholder="Nomor Identik santri"
+              name="niu"
+              id="niu"
+              placeholder="Nomor Identik Ustadz/ Ustadzah"
             />
           </div>
           <div className="grid grid-cols-8 my-2">
@@ -162,6 +161,17 @@ const TambahSantri = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2">
+            <h1 className="block col-span-2">Telepon</h1>
+            <input
+              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.telephone}
+              onChange={formik.handleChange}
+              name="telephone"
+              id="telephone"
+              placeholder="Telepon"
+            />
+          </div>
+          <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Jenis Kelamin</h1>
             <input
               className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
@@ -184,59 +194,50 @@ const TambahSantri = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Kota</h1>
+            <h1 className="block col-span-2">Ayah</h1>
             <input
               className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.city}
+              value={formik.values.ayah}
               onChange={formik.handleChange}
-              name="city"
-              id="city"
-              placeholder="Kota"
+              name="ayah"
+              id="ayah"
+              placeholder="Nama Ayah"
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Provinsi</h1>
+            <h1 className="block col-span-2">Ibu</h1>
             <input
               className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.province}
+              value={formik.values.ibu}
               onChange={formik.handleChange}
-              name="province"
-              id="province"
-              placeholder="Provinsi"
+              name="ibu"
+              id="ibu"
+              placeholder="Ibu"
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Orang tua / Wali</h1>
-            <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.parent}
-              onChange={formik.handleChange}
-              name="parent"
-              id="parent"
-              placeholder="Orang tua"
-            />
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Telepon</h1>
-            <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.telephone}
-              onChange={formik.handleChange}
-              name="telephone"
-              id="telephone"
-              placeholder="Telepon"
-            />
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Tanggal Masuk</h1>
+            <h1 className="block col-span-2">Mulai Masuk</h1>
             <input
               type="date"
               className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.tgl_masuk}
+              value={formik.values.mulai_masuk}
               onChange={formik.handleChange}
-              name="tgl_masuk"
-              id="tgl_masuk"
-              placeholder="Tanggal Masuk"
+              name="mulai_masuk"
+              id="mulai_masuk"
+              placeholder="Mulai Masuk"
+            />
+          </div>
+
+          <div className="grid grid-cols-8 my-2">
+            <h1 className="block col-span-2">Mulai Vakum</h1>
+            <input
+              type="date"
+              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.mulai_vakum}
+              onChange={formik.handleChange}
+              name="mulai_vakum"
+              id="mulai_vakum"
+              placeholder="Mulai Vakum"
             />
           </div>
           <div className="grid grid-cols-8 my-2">
@@ -344,4 +345,4 @@ const TambahSantri = () => {
   );
 };
 
-export default TambahSantri;
+export default TambahPengajar;

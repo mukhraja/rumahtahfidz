@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   doGetRumahTahfidzByIdRequest,
+  doGetRumahTahfidzRequest,
   doUpdateNoFIleRumahTahfidzRequest,
   doUpdateRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
@@ -24,10 +25,12 @@ const EditSantri = () => {
   const navigate = useNavigate();
 
   const { santridata } = useSelector((state) => state.santriState);
+  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   useEffect(() => {
     const payload = { id };
     dispatch(doGetSantriByIdRequest(payload));
+    dispatch(doGetRumahTahfidzRequest());
   }, []);
 
   const formik = useFormik({
@@ -124,7 +127,7 @@ const EditSantri = () => {
       <form method="POST" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold text-2xl font-poppins">
-            Edit Rumah Tahfidz
+            Edit Santri {formik.values.name}
           </h1>
           <img
             src={photo}
@@ -168,6 +171,7 @@ const EditSantri = () => {
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
             <input
+              type="date"
               id="datebirth"
               name="datebirth"
               className="border rounded-md block col-span-2 pl-2 py-1"
@@ -256,6 +260,7 @@ const EditSantri = () => {
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Tanggal Masuk</h1>
             <input
+              type="date"
               className="border rounded-md block col-span-2 pl-2 py-1"
               id="tgl_masuk"
               name="tgl_masuk"
@@ -264,16 +269,24 @@ const EditSantri = () => {
               onChange={formik.handleChange}
             />
           </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
+          <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Penempatan</h1>
-            <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
-              id="pondokId"
+            <select
               name="pondokId"
+              id="pondokId"
               value={formik.values.pondokId}
-              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-            />
+              onBlur={formik.handleBlur}
+              autoComplete="pondokId"
+              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            >
+              <option value="" selected disabled hidden>
+                Pilih Rumah Tahfidz
+              </option>
+              {rumahtahfidzdata.map((e) => (
+                <option value={e.id}>{e.name}</option>
+              ))}
+            </select>
           </div>
 
           <div class="col-span-4 row-span-2 py-2">
@@ -339,14 +352,14 @@ const EditSantri = () => {
 
           <div>
             <button
-              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm"
+              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
               type="submit"
               onClick={formik.handleSubmit}
             >
               SIMPAN
             </button>
             <button
-              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2"
+              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
               onClick={() => navigate("/datasantri")}
             >
               CANCEL

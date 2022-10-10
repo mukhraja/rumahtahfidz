@@ -92,15 +92,55 @@ const EditSurahPendekSantri = () => {
     },
   });
 
+  const juzamma = [
+    "An Naba’",
+    "An Nazi’at",
+    "Abasa'",
+    "At Takwir",
+    "Al Infithar",
+    "Al Muthaffifin",
+    "Al Insyiqaq",
+    "Al Buruj",
+    "Ath Thariq",
+    "Al A’laa",
+    "Al Ghasyiah",
+    "Al Fajr",
+    "Al Balad",
+    "Asy Syams",
+    "Al Lail",
+    "Ad Dhuha",
+    "Asy Syarh",
+    "At Tin",
+    "Al ‘Alaq",
+    "Al Qadr",
+    "Al Bayyinah",
+    "Az Zalzalah",
+    "Al ‘Aadiyah",
+    "Al Qari’ah",
+    "At Takatsur",
+    "Al ‘Ashr",
+    "Al Humazah",
+    "Al Fiil",
+    "Quraisy",
+    "Al Ma’un",
+    "Al Kautsar",
+    "Al Kafirun",
+    "An Nashr",
+    "Al Lahab",
+    "Al Ikhlash",
+    "Al Falaq",
+    "An Nas",
+  ];
+
   return (
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Hafalan Iqro
+          Hafalan Surah Pendek
         </h1>
         <img src={bacaiqro} className="h-20" />
       </div>
-      <div className="m-4 bg-white p-4 rounded-md font-poppins">
+      <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Nama</h1>
           <input
@@ -113,21 +153,30 @@ const EditSurahPendekSantri = () => {
           />
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Iqro</h1>
-          <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            placeholder="Iqro Ke ..."
+          <h1 className="block col-span-2">Surah Pendek</h1>
+          <select
             name="name"
             id="name"
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-          />
+            autoComplete="name"
+            data-dropup-auto="false"
+            class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+          >
+            <option value="" selected disabled hidden>
+              Pilih Surah Pendek
+            </option>
+            {juzamma.map((e) => (
+              <option value={e}>{e}</option>
+            ))}
+          </select>
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            type="date"
             name="tgl_selesai"
             id="tgl_selesai"
             value={formik.values.tgl_selesai}

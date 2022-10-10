@@ -322,6 +322,33 @@ const LaporanSantri = () => {
                             })}
                           </div>
                         </td>
+                        <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <div className=" flex justify-center">
+                            {e.Surahpendeksantris.map((e, i, array) => {
+                              if (
+                                e.name == "An Nazi’at" &&
+                                e.ket == "selesai"
+                              ) {
+                                // return <CheckCircleIcon className="h-6" />;
+                                return "selesai";
+                              } else {
+                                return null;
+                              }
+                            })}
+                          </div>
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <div className=" flex justify-center">
+                            {e.Surahpendeksantris.map((e, i, array) => {
+                              if (e.name == "An Naba’" && e.ket == "selesai") {
+                                // return <CheckCircleIcon className="h-6" />;
+                                return "selesai";
+                              } else {
+                                return null;
+                              }
+                            })}
+                          </div>
+                        </td>
                       </tr>
                     ))}
               </tbody>

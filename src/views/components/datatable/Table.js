@@ -33,6 +33,8 @@ import {
   doDeleteSurahPendekSantriSucceed,
 } from "../../../reduxsaga/actions/SurahPendekSantri";
 import { doDeleteAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
+import { doDeleteUserRequest } from "../../../reduxsaga/actions/User";
+import { doDeleteGuruRequest } from "../../../reduxsaga/actions/Guru";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -175,6 +177,73 @@ export function ButtonLinkSantri({ value }) {
 
   const onDelete = async (id) => {
     dispatch(doDeleteSantriRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"detail/" + status}
+        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <EyeIcon className="w-5" />
+      </Link>
+      <Link
+        to={"edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+export function ButtonLinkGuru({ value }) {
+  const status = value ? value.toLowerCase() : "";
+
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteGuruRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"detail/" + status}
+        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <EyeIcon className="w-5" />
+      </Link>
+      <Link
+        to={"edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+
+export function ButtonLinkUser({ value }) {
+  const status = value ? value.toLowerCase() : "";
+
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteUserRequest(id));
     toast.success("Data berhasil dihapus...");
   };
 

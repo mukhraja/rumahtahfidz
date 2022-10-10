@@ -1,6 +1,7 @@
 import * as ActionType from "../constants/User";
 
 const INIT_STATE = {
+  userdata: [],
   userProfile: {},
   isLogout: false,
   isLoading: true,
@@ -52,6 +53,62 @@ const UserReducer = (state = INIT_STATE, action) => {
         isLoggedIn: false,
       };
     }
+    // GETALL
+    case ActionType.GET_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_USER_SUCCEED:
+      return applyGetUserSucceed(state, action);
+    // GETBYID
+    case ActionType.GET_BY_ID_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_ID_USER_SUCCEED:
+      return applyGetByIdUserSucceed(state, action);
+    // CREATE
+    case ActionType.CREATE_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.CREATE_USER_SUCCEED:
+      return applyCreateUserSucceed(state, action);
+    // CREATE NO FILE
+    case ActionType.CREATE_USER_NOFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.CREATE_USER_NOFILE_SUCCEED:
+      return applyCreateUserNofileSucceed(state, action);
+    // Update
+    case ActionType.UPDATE_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.UPDATE_USER_SUCCEED:
+      return applyUpdateUserSucceed(state, action);
+    // UPDATE NO FILE
+    case ActionType.UPDATE_USER_NOFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.UPDATE_USER_NOFILE_SUCCEED:
+      return applyUpdateNoFileUserSucceed(state, action);
+    // DELETE
+    case ActionType.DELETE_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.DELETE_USER_SUCCEED:
+      return applyDeleteUserSucceed(state, action);
     default:
       return state;
   }
@@ -95,6 +152,65 @@ const applyGetSignoutSucceed = (state, action) => {
     isLoggedIn: false,
     isLogout: true,
     message: "",
+  };
+};
+
+const applyCreateUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
+  };
+};
+const applyCreateUserNofileSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
+  };
+};
+
+const applyGetUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: payload.data,
+  };
+};
+
+const applyGetByIdUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [payload.data],
+  };
+};
+
+const applyUpdateUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
+  };
+};
+
+const applyUpdateNoFileUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [payload],
+  };
+};
+
+const applyDeleteUserSucceed = (state, action) => {
+  const { payload } = action;
+  const User = state.userdata.filter((el) => el.id !== payload);
+  console.log(User);
+  return {
+    ...state,
+    userdata: [...User],
+    isLoading: false,
+    isRefresh: false,
   };
 };
 

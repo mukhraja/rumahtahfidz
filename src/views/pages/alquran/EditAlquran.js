@@ -96,7 +96,7 @@ const EditAlquranSantri = () => {
         </h1>
         <img src={hafalquran} className="h-20" />
       </div>
-      <div className="m-4 bg-white p-4 rounded-md font-poppins">
+      <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Nama</h1>
           <input
@@ -148,6 +148,7 @@ const EditAlquranSantri = () => {
           <h1 className="block col-span-2">Tanggal Selesai</h1>
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            type="date"
             name="tgl_selesai"
             id="tgl_selesai"
             value={formik.values.tgl_selesai}

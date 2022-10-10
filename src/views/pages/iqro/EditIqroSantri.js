@@ -90,7 +90,7 @@ const EditIqroSantri = () => {
         </h1>
         <img src={bacaiqro} className="h-20" />
       </div>
-      <div className="m-4 bg-white p-4 rounded-md font-poppins">
+      <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Nama</h1>
           <input
@@ -129,6 +129,7 @@ const EditIqroSantri = () => {
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
           <input
+            type="date"
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
             name="tgl_selesai"
             id="tgl_selesai"
@@ -151,14 +152,14 @@ const EditIqroSantri = () => {
         </div>
         <div>
           <button
-            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm"
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
             type="button"
             onClick={formik.handleSubmit}
           >
             SIMPAN
           </button>
           <button
-            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2"
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
             onClick={() => navigate("/dataiqrosantri")}
           >
             CANCEL

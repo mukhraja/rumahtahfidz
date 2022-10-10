@@ -8,6 +8,7 @@ import * as ActionTypeIqroSantri from "../constants/IqroSantri";
 import * as ActionTypeSurahPendekSantri from "../constants/SurahPendekSantri";
 import * as ActionTypeAlquranSantri from "../constants/AlquranSantri";
 import * as ActionTypeUser from "../constants/User";
+import * as ActionTypeRole from "../constants/Role";
 
 // Khusus Middleware
 import {
@@ -26,7 +27,14 @@ import {
   handleUpdateNoFileSantri,
   handleUpdateSantri,
 } from "./SantriSaga";
-import { handleGetGuru } from "./GuruSaga";
+import {
+  handleCreateGuru,
+  handleDeleteGuru,
+  handleGetByIdGuru,
+  handleGetGuru,
+  handleUpdateGuru,
+  handleUpdateNoFileGuru,
+} from "./GuruSaga";
 import {
   handleCreateIqroSantri,
   handleDeleteIqroSantri,
@@ -51,7 +59,25 @@ import {
   handleGetAlquranSantri,
   handleUpdateAlquranSantri,
 } from "./AlquranSaga";
-import { handleSignup, handleSignin, handleSignout } from "./UserSaga";
+import {
+  handleSignup,
+  handleSignin,
+  handleSignout,
+  handleGetUser,
+  handleGetByIdUser,
+  handleCreateUser,
+  handleUpdateUser,
+  handleUpdateNoFileUser,
+  handleDeleteUser,
+  handleCreateNoFileUser,
+} from "./UserSaga";
+import {
+  handleCreateRole,
+  handleDeleteRole,
+  handleGetByIdRole,
+  handleGetRole,
+  handleUpdateRole,
+} from "./RoleSaga";
 
 function* watchAll() {
   yield all([
@@ -92,6 +118,14 @@ function* watchAll() {
     takeEvery(ActionTypeSantri.DELETE_SANTRI_REQUEST, handleDeleteSantri),
     // GURU
     takeEvery(ActionTypeGuru.GET_GURU_REQUEST, handleGetGuru),
+    takeEvery(ActionTypeGuru.GET_BY_ID_GURU_REQUEST, handleGetByIdGuru),
+    takeEvery(ActionTypeGuru.CREATE_GURU_REQUEST, handleCreateGuru),
+    takeEvery(ActionTypeGuru.UPDATE_GURU_REQUEST, handleUpdateGuru),
+    takeEvery(
+      ActionTypeGuru.UPDATE_GURU_NOFILE_REQUEST,
+      handleUpdateNoFileGuru
+    ),
+    takeEvery(ActionTypeGuru.DELETE_GURU_REQUEST, handleDeleteGuru),
     // Iqro Santri
     takeEvery(ActionTypeIqroSantri.GET_IQROSANTRI_REQUEST, handleGetIqroSantri),
     takeEvery(
@@ -168,6 +202,25 @@ function* watchAll() {
     takeEvery(ActionTypeUser.ADD_SIGNUP_REQUEST, handleSignup),
     takeEvery(ActionTypeUser.GET_SIGNIN_REQUEST, handleSignin),
     takeEvery(ActionTypeUser.GET_SIGNOUT_REQUEST, handleSignout),
+    takeEvery(ActionTypeUser.GET_USER_REQUEST, handleGetUser),
+    takeEvery(ActionTypeUser.GET_BY_ID_USER_REQUEST, handleGetByIdUser),
+    takeEvery(ActionTypeUser.CREATE_USER_REQUEST, handleCreateUser),
+    takeEvery(
+      ActionTypeUser.CREATE_USER_NOFILE_REQUEST,
+      handleCreateNoFileUser
+    ),
+    takeEvery(ActionTypeUser.UPDATE_USER_REQUEST, handleUpdateUser),
+    takeEvery(
+      ActionTypeUser.UPDATE_USER_NOFILE_REQUEST,
+      handleUpdateNoFileUser
+    ),
+    takeEvery(ActionTypeUser.DELETE_USER_REQUEST, handleDeleteUser),
+    // Role
+    takeEvery(ActionTypeRole.GET_ROLE_REQUEST, handleGetRole),
+    takeEvery(ActionTypeRole.GET_BY_ID_ROLE_REQUEST, handleGetByIdRole),
+    takeEvery(ActionTypeRole.CREATE_ROLE_REQUEST, handleCreateRole),
+    takeEvery(ActionTypeRole.UPDATE_ROLE_REQUEST, handleUpdateRole),
+    takeEvery(ActionTypeRole.DELETE_ROLE_REQUEST, handleDeleteRole),
   ]);
 }
 

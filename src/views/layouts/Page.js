@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import Logo from "../../gambar/logo.png";
 import {
   ArrowNarrowLeftIcon,
@@ -12,9 +18,17 @@ import {
   FolderOpenIcon,
   HomeIcon,
   LockOpenIcon,
+  QrcodeIcon,
+  RewindIcon,
+  SaveIcon,
+  ServerIcon,
   UserCircleIcon,
+  UserGroupIcon,
+  UserIcon,
+  UsersIcon,
 } from "@heroicons/react/outline";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { doSignoutRequest } from "../../reduxsaga/actions/User";
 
 export const Page = (props) => {
   const [active, setActive] = useState(false);
@@ -22,6 +36,8 @@ export const Page = (props) => {
   const [laporan, setLaporan] = useState(false);
   const [subHafalan, setSubHafalan] = useState(false);
   const [subHafalana, setSubHafalana] = useState(false);
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { userProfile } = useSelector((state) => state.userState);
 
@@ -43,6 +59,11 @@ export const Page = (props) => {
   };
 
   const { pathname } = useLocation();
+
+  const onSignOut = () => {
+    dispatch(doSignoutRequest());
+    navigate("/", { replace: true });
+  };
 
   return (
     <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto">
@@ -223,34 +244,56 @@ export const Page = (props) => {
               </ul>
             ) : null}
             <li className="my-px">
+              <Link
+                to="datauser"
+                className={
+                  pathname === "/datauser"
+                    ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                    : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                }
+              >
+                <span className="text-lg text-gray-700">
+                  <UsersIcon className="w-5" />
+                </span>
+                <span className="ml-3 font-semibold">Manage User</span>
+              </Link>
+            </li>
+            <li className="my-px">
+              <Link
+                to="database"
+                className={
+                  pathname === "/database"
+                    ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                    : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                }
+              >
+                <span className="text-lg text-gray-700">
+                  <ServerIcon className="w-5" />
+                </span>
+                <span className="ml-3 font-semibold">Database</span>
+              </Link>
+            </li>
+            <li className="my-px">
               <span className="flex font-medium text-sm text-gray-700 px-4 my-4 uppercase">
                 Account
               </span>
             </li>
             <li className="my-px">
-              <a
-                href="{{ url('/admin/account') }}"
+              <Link
+                to={`profile/${userProfile.userId}`}
                 className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
               >
                 <span className="text-lg text-gray-700">
                   <UserCircleIcon className="w-5" />
                 </span>
                 <span className="ml-3 font-semibold">Profile</span>
-              </a>
+              </Link>
             </li>
             <li className="my-px">
-              <a
-                href="{{ url('/admin/settings') }}"
-                className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
+              <div
+                className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                onClick={onSignOut}
               >
-                <span className="text-lg text-gray-700">
-                  <CogIcon className="w-5" />
-                </span>
-                <span className="ml-3 font-semibold">Settings</span>
-              </a>
-            </li>
-            <li className="my-px">
-              <div className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
                 <span className="text-lg text-gray-700">
                   <LockOpenIcon className="w-5" />
                 </span>

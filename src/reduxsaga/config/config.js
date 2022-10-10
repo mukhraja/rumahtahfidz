@@ -1,5 +1,6 @@
 const config = {
-  domain: "http://localhost:2000/v1/api",
+  // domain: "http://localhost:2000/v1/api",
+  domain: "https://rumahtahfidz.herokuapp.com/v1/api/",
   // urlImageCure: "http://localhost:3001/codeid/api/curriculum_reviews/images",
   // urlImageInst: "http://localhost:3001/codeid/api/instructor/images",
   // domainAuth: "http://localhost:3001/codeid/api/auth",
