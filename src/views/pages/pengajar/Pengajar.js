@@ -53,7 +53,7 @@ const Pengajar = () => {
     []
   );
 
-  const data = React.useMemo(() => gurudata, [gurudata]);
+  // const data = React.useMemo(() => gurudata, [gurudata]);
   return (
     <div>
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
@@ -63,7 +63,7 @@ const Pengajar = () => {
         <img src={pengajar} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={data} url="tambah" />
+        <Table columns={columns} data={gurudata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

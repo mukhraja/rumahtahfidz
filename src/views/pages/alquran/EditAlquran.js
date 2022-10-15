@@ -13,6 +13,7 @@ import {
   doGetAlquranSantriByIdRequest,
   doUpdateAlquranSantriRequest,
 } from "../../../reduxsaga/actions/Alquransantri";
+import moment from "moment";
 
 const EditAlquranSantri = () => {
   const { id } = useParams();
@@ -50,6 +51,8 @@ const EditAlquranSantri = () => {
     // ),
   });
 
+  const keterangan = ["mengulang", "belum lancar", "selesai"];
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -60,7 +63,7 @@ const EditAlquranSantri = () => {
       ayat: alquransantridata.length ? alquransantridata[0].ayat : null,
       halaman: alquransantridata.length ? alquransantridata[0].halaman : null,
       tgl_selesai: alquransantridata.length
-        ? alquransantridata[0].tgl_selesai
+        ? moment(alquransantridata[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
       ket: alquransantridata.length ? alquransantridata[0].ket : null,
       santriId: alquransantridata.length
@@ -101,7 +104,7 @@ const EditAlquranSantri = () => {
           <h1 className="block col-span-2">Nama</h1>
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            placeholder="Iqro Ke ..."
+            placeholder="Nama Santri"
             name="namesantri"
             id="namesantri"
             value={formik.values.namesantri}
@@ -112,7 +115,7 @@ const EditAlquranSantri = () => {
           <h1 className="block col-span-2">Surah</h1>
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            placeholder="Iqro Ke ..."
+            placeholder="Surah Ke ..."
             name="surah"
             id="surah"
             value={formik.values.surah}
@@ -124,7 +127,7 @@ const EditAlquranSantri = () => {
           <h1 className="block col-span-2">Ayat</h1>
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            placeholder="Iqro Ke ..."
+            placeholder="Ayat Ke ..."
             name="ayat"
             id="ayat"
             value={formik.values.ayat}
@@ -158,15 +161,22 @@ const EditAlquranSantri = () => {
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
-          <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            placeholder="Belum Lancar | Tuntas | Mengulang"
+          <select
             name="ket"
             id="ket"
             value={formik.values.ket}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-          />
+            autoComplete="ket"
+            class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+          >
+            <option value="" selected disabled hidden>
+              Pilih Keterangan
+            </option>
+            {keterangan.map((e) => (
+              <option value={e}>{e}</option>
+            ))}
+          </select>
         </div>
         <div>
           <button

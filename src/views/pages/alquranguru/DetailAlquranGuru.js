@@ -4,38 +4,47 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { bacaiqro } from "../../../gambar";
+import {
+  doGetAlquranGuruByIdRequest,
+  doGetAlquranGuruRequest,
+} from "../../../reduxsaga/actions/Alquranguru";
+import { doGetAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
+import { doGetGuruByIdRequest } from "../../../reduxsaga/actions/Guru";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
-import { doGetSurahPendekSantriRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
 import config from "../../../reduxsaga/config/config";
 import Table, {
+  ButtonLinkAlquranGuruList,
+  ButtonLinkAlquranList,
   ButtonLinkIqro,
   ButtonLinkIqroList,
-  ButtonLinkSurahPendekList,
   SelectColumnFilter,
 } from "../../components/datatable/Table";
 
-const DetailSurahPendek = () => {
+const DetailAlquranGuru = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { santridata } = useSelector((state) => state.santriState);
-  const { surahpendeksantridata } = useSelector(
-    (state) => state.surahPendekSantriState
-  );
+  const { gurudata } = useSelector((state) => state.guruState);
+  const { alqurangurudata } = useSelector((state) => state.alquranGuruState);
+
   useEffect(() => {
     const payload = { id };
-    dispatch(doGetSantriByIdRequest(payload));
-    dispatch(doGetSurahPendekSantriRequest(payload));
+    dispatch(doGetGuruByIdRequest(payload));
+    dispatch(doGetAlquranGuruRequest(payload));
   }, []);
 
   const columns = React.useMemo(
     () => [
       {
-        Header: "Iqro",
-        accessor: "name",
+        Header: "Surah",
+        accessor: "surah",
         Filter: SelectColumnFilter, // new
         filter: "includes",
+      },
+      {
+        Header: "Ayat",
+        accessor: "ayat",
       },
       {
         Header: "Halaman",
@@ -52,18 +61,19 @@ const DetailSurahPendek = () => {
       {
         Header: "Detail",
         accessor: "id",
-        Cell: ButtonLinkSurahPendekList,
+        Cell: ButtonLinkAlquranGuruList,
       },
     ],
     []
   );
 
+  // const data = React.useMemo(() => alqurangurudata, [alqurangurudata]);
   return (
     <div className=" overflow-hidden">
-      {santridata.map((e) => (
+      {gurudata.map((e) => (
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold text-2xl font-poppins">
-            Data Hafalan Surah Pendek {e.name}
+            Data Hafalan Alquran {e.name}
           </h1>
           <img src={config.urlImage + "/" + e.photo} className="h-20" />
         </div>
@@ -71,8 +81,8 @@ const DetailSurahPendek = () => {
       <div className="mt-6 px-4">
         <Table
           columns={columns}
-          data={surahpendeksantridata}
-          url="/datasurahpendeksantri/tambah"
+          data={alqurangurudata}
+          url="/dataalquranguru/tambah"
         />
       </div>
       <div className="z-30">
@@ -82,4 +92,4 @@ const DetailSurahPendek = () => {
   );
 };
 
-export default DetailSurahPendek;
+export default DetailAlquranGuru;

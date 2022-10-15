@@ -20,22 +20,18 @@ const Tambahrumahtahfiz = () => {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Enter Job Title").required("Title is required"),
-    address: Yup.string("Please enter Primary Skill").required(
-      "Primary Skill is required"
+    name: Yup.string("Masukkan nama rumah tahfiz").required(
+      "Masukkan nama rumah tahfiz"
     ),
-    nit: Yup.string("Please enter Primary Skill").required(
-      "Primary Skill is required"
+    nit: Yup.string("Masukkan nomor identik tahfiz").required(
+      "Masukkan nomor identik tahfiz"
     ),
-    telephone: Yup.string("Please enter Primary Skill").required(
-      "Primary Skill is required"
+    address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
+    telephone: Yup.string("Masukkan telephone").required("Masukkan telephone"),
+    chief: Yup.string("Masukkan nomor telephone").required(
+      "Masukkan nomor telephone"
     ),
-    chief: Yup.string("Please enter Primary Skill").required(
-      "Primary Skill is required"
-    ),
-    photo: Yup.string("Please enter Primary Skill").required(
-      "Primary Skill is required"
-    ),
+    photo: Yup.string("Masukkan photo").required("Masukkan photo"),
   });
 
   const formik = useFormik({
@@ -107,7 +103,13 @@ const Tambahrumahtahfiz = () => {
               id="name"
               name="name"
               placeholder="Nama Rumah Pondok Tahfidz"
+              required
             />
+            {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">NIT</h1>
@@ -119,6 +121,11 @@ const Tambahrumahtahfiz = () => {
               id="nit"
               placeholder="Nomor Identik Rumah Pondok Tahfidz"
             />
+            {formik.touched.nit && formik.errors.nit ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.nit}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Alamat</h1>
@@ -131,6 +138,11 @@ const Tambahrumahtahfiz = () => {
             >
               {formik.values.address}
             </textarea>
+            {formik.touched.address && formik.errors.address ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.address}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">No. Telepon</h1>
@@ -142,6 +154,11 @@ const Tambahrumahtahfiz = () => {
               id="telephone"
               placeholder="Nomor Telepon Rumah Pondok Tahfidz"
             />
+            {formik.touched.telephone && formik.errors.telephone ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.telephone}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Nama Kepala Tahfidz</h1>
@@ -153,18 +170,12 @@ const Tambahrumahtahfiz = () => {
               id="chief"
               placeholder="Kepala Rumah Pondok Tahfidz"
             />
+            {formik.touched.chief && formik.errors.chief ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.chief}
+              </span>
+            ) : null}
           </div>
-          {/* <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Foto Tahfidz</h1>
-          <span>:</span>
-          <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            id="photo"
-            type="file"
-            accept="image/*"
-            onChange={uploadOnChange("file")}
-          />
-        </div> */}
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Photo
@@ -219,6 +230,11 @@ const Tambahrumahtahfiz = () => {
                     />
                   </label>
                 </div>
+                {formik.touched.photo && formik.errors.photo ? (
+                  <span className="my-1 text-sm text-red-600 w-full ml-3">
+                    {formik.errors.photo}
+                  </span>
+                ) : null}
               </div>
             </div>
           </div>

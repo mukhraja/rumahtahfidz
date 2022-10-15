@@ -63,7 +63,7 @@ const DetailAlquran = () => {
     []
   );
 
-  const data = React.useMemo(() => alquransantridata, [alquransantridata]);
+  // const data = React.useMemo(() => alquransantridata, [alquransantridata]);
   return (
     <div className=" overflow-hidden">
       {santridata.map((e) => (
@@ -75,7 +75,11 @@ const DetailAlquran = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        <Table columns={columns} data={data} url="/dataalquransantri/tambah" />
+        <Table
+          columns={columns}
+          data={alquransantridata}
+          url="/dataalquransantri/tambah"
+        />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

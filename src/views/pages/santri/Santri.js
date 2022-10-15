@@ -50,7 +50,7 @@ const Santri = () => {
     []
   );
 
-  const data = React.useMemo(() => santridata, [santridata]);
+  // const data = React.useMemo(() => santridata, [santridata]);
 
   return (
     <div className=" overflow-hidden">
@@ -61,7 +61,7 @@ const Santri = () => {
         <img src={santri} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={data} url="tambah" />
+        <Table columns={columns} data={santridata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bacaiqro } from "../../../gambar";
-import {
-  doGetIqroAwalSantriRequest,
-  doGetIqroSantriRequest,
-} from "../../../reduxsaga/actions/Iqrosantri";
+import { hafalquran } from "../../../gambar";
+import { doGetAlquranAwalGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -13,26 +10,30 @@ import Table, {
   StatusPill,
 } from "../../components/datatable/Table.js";
 
-const Iqro = () => {
+const AlquranGuru = () => {
   const dispatch = useDispatch();
 
-  const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+  const { alqurangurudata } = useSelector((state) => state.alquranGuruState);
 
   useEffect(() => {
-    dispatch(doGetIqroAwalSantriRequest());
+    dispatch(doGetAlquranAwalGuruRequest());
   }, []);
 
   const columns = React.useMemo(
     () => [
       {
         Header: "Nama",
-        accessor: "namasantri",
+        accessor: "namaguru",
       },
       {
-        Header: "Iqro",
-        accessor: "name",
+        Header: "Surah",
+        accessor: "surah",
         Filter: SelectColumnFilter, // new
         filter: "includes",
+      },
+      {
+        Header: "Ayat",
+        accessor: "ayat",
       },
       {
         Header: "Halaman",
@@ -44,27 +45,27 @@ const Iqro = () => {
       },
       {
         Header: "Detail",
-        accessor: "santriId",
+        accessor: "guruId",
         Cell: ButtonLinkIqro,
       },
     ],
     []
   );
 
-  // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
+  // const data = React.useMemo(() => alqurangurudata, [alqurangurudata]);
   return (
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Data IQRO
+          Data Hafalan Qur'an Guru
         </h1>
-        <img src={bacaiqro} className="h-20" />
+        <img src={hafalquran} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={iqrosantridata} url="tambah" />
+        <Table columns={columns} data={alqurangurudata} url="tambah" />
       </div>
     </div>
   );
 };
 
-export default Iqro;
+export default AlquranGuru;

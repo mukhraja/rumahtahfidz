@@ -202,15 +202,15 @@ export const Page = (props) => {
                   <ul className="font-semibold relative left-5">
                     <li className="py-2 flex">
                       <FolderOpenIcon className="w-5 mr-2" />
-                      <Link to="iqro">Iqro</Link>
+                      <Link to="dataiqroguru">Iqro</Link>
                     </li>
                     <li className="py-2 flex">
                       <FolderOpenIcon className="w-5 mr-2" />
-                      <Link to="datapengajar">Juz 30</Link>
+                      <Link to="datasurahpendekguru">Juz 30</Link>
                     </li>
                     <li className="py-2 flex">
                       <FolderOpenIcon className="w-5 mr-2" />
-                      <Link to="datasantri">Al - Qur'an</Link>
+                      <Link to="dataalquranguru">Al - Qur'an</Link>
                     </li>
                   </ul>
                 ) : null}

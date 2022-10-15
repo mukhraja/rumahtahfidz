@@ -17,9 +17,13 @@ import {
   doGetSurahPendekSantriByIdRequest,
   doUpdateSurahPendekSantriRequest,
 } from "../../../reduxsaga/actions/SurahPendekSantri";
+import {
+  doGetSurahPendekGuruByIdRequest,
+  doUpdateSurahPendekGuruRequest,
+} from "../../../reduxsaga/actions/SurahPendekGuru";
 import moment from "moment";
 
-const EditSurahPendekSantri = () => {
+const EditSurahPendekGuru = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,13 +31,13 @@ const EditSurahPendekSantri = () => {
   const [select, setSelect] = useState();
   console.log(select);
 
-  const { surahpendeksantridata } = useSelector(
-    (state) => state.surahPendekSantriState
+  const { surahpendekgurudata } = useSelector(
+    (state) => state.surahPendekGuruState
   );
 
   useEffect(() => {
     const payload = { id };
-    dispatch(doGetSurahPendekSantriByIdRequest(payload));
+    dispatch(doGetSurahPendekGuruByIdRequest(payload));
   }, []);
 
   const handleChange = (e) => {
@@ -62,16 +66,16 @@ const EditSurahPendekSantri = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      namesantri: surahpendeksantridata.length
-        ? surahpendeksantridata[0].Santri.name
+      namaguru: surahpendekgurudata.length
+        ? surahpendekgurudata[0].Guru.name
         : null,
-      name: surahpendeksantridata.length ? surahpendeksantridata[0].name : null,
-      tgl_selesai: surahpendeksantridata.length
-        ? moment(surahpendeksantridata[0].tgl_selesai).format("YYYY-MM-DD")
+      name: surahpendekgurudata.length ? surahpendekgurudata[0].name : null,
+      tgl_selesai: surahpendekgurudata.length
+        ? moment(surahpendekgurudata[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      ket: surahpendeksantridata.length ? surahpendeksantridata[0].ket : null,
-      santriId: surahpendeksantridata.length
-        ? surahpendeksantridata[0].Santri.id
+      ket: surahpendekgurudata.length ? surahpendekgurudata[0].ket : null,
+      guruId: surahpendekgurudata.length
+        ? surahpendekgurudata[0].Guru.id
         : null,
     },
     validationSchema: validationSchema,
@@ -83,12 +87,12 @@ const EditSurahPendekSantri = () => {
         ket: values.ket,
       };
 
-      dispatch(doUpdateSurahPendekSantriRequest(payload));
+      dispatch(doUpdateSurahPendekGuruRequest(payload));
 
       toast.success("Data berhasil ditambahkan...");
 
       setTimeout(() => {
-        navigate("/datasurahpendeksantri", { state: { refresh: true } });
+        navigate("/datasurahpendekguru", { state: { refresh: true } });
       }, 3000);
     },
   });
@@ -149,9 +153,9 @@ const EditSurahPendekSantri = () => {
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
             placeholder="Iqro Ke ..."
-            name="namesantri"
-            id="namesantri"
-            value={formik.values.namesantri}
+            name="namaguru"
+            id="namaguru"
+            value={formik.values.namaguru}
             disabled
           />
         </div>
@@ -216,7 +220,7 @@ const EditSurahPendekSantri = () => {
           </button>
           <button
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2"
-            onClick={() => navigate("/datasurahpendeksantri")}
+            onClick={() => navigate("/datasurahpendekguru")}
           >
             CANCEL
           </button>
@@ -229,4 +233,4 @@ const EditSurahPendekSantri = () => {
   );
 };
 
-export default EditSurahPendekSantri;
+export default EditSurahPendekGuru;

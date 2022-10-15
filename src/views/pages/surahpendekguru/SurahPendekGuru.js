@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bacaiqro } from "../../../gambar";
-import {
-  doGetIqroAwalSantriRequest,
-  doGetIqroSantriRequest,
-} from "../../../reduxsaga/actions/Iqrosantri";
+import { bacajuz } from "../../../gambar";
+import { doGetSurahPendekAwalGuruRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -13,58 +10,61 @@ import Table, {
   StatusPill,
 } from "../../components/datatable/Table.js";
 
-const Iqro = () => {
+const SurahPendekGuru = () => {
   const dispatch = useDispatch();
 
-  const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+  const { surahpendekgurudata } = useSelector(
+    (state) => state.surahPendekGuruState
+  );
 
   useEffect(() => {
-    dispatch(doGetIqroAwalSantriRequest());
+    dispatch(doGetSurahPendekAwalGuruRequest());
   }, []);
 
   const columns = React.useMemo(
     () => [
       {
         Header: "Nama",
-        accessor: "namasantri",
+        accessor: "namaguru",
       },
       {
-        Header: "Iqro",
+        Header: "Surah Pendek",
         accessor: "name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
       },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
+
       {
         Header: "Keterangan",
         accessor: "ket",
       },
       {
+        Header: "Pondok",
+        accessor: "namapondok",
+        Filter: SelectColumnFilter, // new
+        filter: "includes",
+      },
+      {
         Header: "Detail",
-        accessor: "santriId",
+        accessor: "guruId",
         Cell: ButtonLinkIqro,
       },
     ],
     []
   );
 
-  // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
+  // const data = React.useMemo(() => surahpendekgurudata, [surahpendekgurudata]);
   return (
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Data IQRO
+          Data Surah Pendek Guru
         </h1>
-        <img src={bacaiqro} className="h-20" />
+        <img src={bacajuz} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={iqrosantridata} url="tambah" />
+        <Table columns={columns} data={surahpendekgurudata} url="tambah" />
       </div>
     </div>
   );
 };
 
-export default Iqro;
+export default SurahPendekGuru;

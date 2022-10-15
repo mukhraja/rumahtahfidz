@@ -13,13 +13,14 @@ import {
   doGetIqroSantriByIdRequest,
   doUpdateIqroSantriRequest,
 } from "../../../reduxsaga/actions/Iqrosantri";
+import { doGetGuruByIdRequest } from "../../../reduxsaga/actions/Guru";
 import {
-  doGetSurahPendekSantriByIdRequest,
-  doUpdateSurahPendekSantriRequest,
-} from "../../../reduxsaga/actions/SurahPendekSantri";
+  doGetIqroGuruByIdRequest,
+  doUpdateIqroGuruRequest,
+} from "../../../reduxsaga/actions/IqroGuru";
 import moment from "moment";
 
-const EditSurahPendekSantri = () => {
+const EditIqroGuru = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,13 +28,11 @@ const EditSurahPendekSantri = () => {
   const [select, setSelect] = useState();
   console.log(select);
 
-  const { surahpendeksantridata } = useSelector(
-    (state) => state.surahPendekSantriState
-  );
+  const { iqrogurudata } = useSelector((state) => state.iqroGuruState);
 
   useEffect(() => {
     const payload = { id };
-    dispatch(doGetSurahPendekSantriByIdRequest(payload));
+    dispatch(doGetIqroGuruByIdRequest(payload));
   }, []);
 
   const handleChange = (e) => {
@@ -62,76 +61,34 @@ const EditSurahPendekSantri = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      namesantri: surahpendeksantridata.length
-        ? surahpendeksantridata[0].Santri.name
+      nameguru: iqrogurudata.length ? iqrogurudata[0].Guru.name : null,
+      name: iqrogurudata.length ? iqrogurudata[0].name : null,
+      halaman: iqrogurudata.length ? iqrogurudata[0].halaman : null,
+      tgl_selesai: iqrogurudata.length
+        ? moment(iqrogurudata[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      name: surahpendeksantridata.length ? surahpendeksantridata[0].name : null,
-      tgl_selesai: surahpendeksantridata.length
-        ? moment(surahpendeksantridata[0].tgl_selesai).format("YYYY-MM-DD")
-        : null,
-      ket: surahpendeksantridata.length ? surahpendeksantridata[0].ket : null,
-      santriId: surahpendeksantridata.length
-        ? surahpendeksantridata[0].Santri.id
-        : null,
+      ket: iqrogurudata.length ? iqrogurudata[0].ket : null,
+      guruId: iqrogurudata.length ? iqrogurudata[0].Guru.id : null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const payload = {
         id,
         name: values.name,
+        halaman: values.halaman,
         tgl_selesai: values.tgl_selesai,
         ket: values.ket,
       };
 
-      dispatch(doUpdateSurahPendekSantriRequest(payload));
+      dispatch(doUpdateIqroGuruRequest(payload));
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datasurahpendeksantri", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/dataiqroguru", { state: { refresh: true } });
+      // }, 3000);
     },
   });
-
-  const juzamma = [
-    "An Naba’",
-    "An Nazi’at",
-    "Abasa'",
-    "At Takwir",
-    "Al Infithar",
-    "Al Muthaffifin",
-    "Al Insyiqaq",
-    "Al Buruj",
-    "Ath Thariq",
-    "Al A’laa",
-    "Al Ghasyiah",
-    "Al Fajr",
-    "Al Balad",
-    "Asy Syams",
-    "Al Lail",
-    "Ad Dhuha",
-    "Asy Syarh",
-    "At Tin",
-    "Al ‘Alaq",
-    "Al Qadr",
-    "Al Bayyinah",
-    "Az Zalzalah",
-    "Al ‘Aadiyah",
-    "Al Qari’ah",
-    "At Takatsur",
-    "Al ‘Ashr",
-    "Al Humazah",
-    "Al Fiil",
-    "Quraisy",
-    "Al Ma’un",
-    "Al Kautsar",
-    "Al Kafirun",
-    "An Nashr",
-    "Al Lahab",
-    "Al Ikhlash",
-    "Al Falaq",
-    "An Nas",
-  ];
 
   const keterangan = ["mengulang", "belum lancar", "selesai"];
 
@@ -139,7 +96,7 @@ const EditSurahPendekSantri = () => {
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Hafalan Surah Pendek
+          Hafalan Iqro
         </h1>
         <img src={bacaiqro} className="h-20" />
       </div>
@@ -149,37 +106,41 @@ const EditSurahPendekSantri = () => {
           <input
             className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
             placeholder="Iqro Ke ..."
-            name="namesantri"
-            id="namesantri"
-            value={formik.values.namesantri}
+            name="nameguru"
+            id="nameguru"
+            value={formik.values.nameguru}
             disabled
           />
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Surah Pendek</h1>
-          <select
+          <h1 className="block col-span-2">Iqro</h1>
+          <input
+            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            placeholder="Iqro Ke ..."
             name="name"
             id="name"
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            autoComplete="name"
-            data-dropup-auto="false"
-            class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-          >
-            <option value="" selected disabled hidden>
-              Pilih Surah Pendek
-            </option>
-            {juzamma.map((e) => (
-              <option value={e}>{e}</option>
-            ))}
-          </select>
+          />
+        </div>
+        <div className="grid grid-cols-8 my-2">
+          <h1 className="block col-span-2">Halaman</h1>
+          <input
+            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            placeholder="Halaman ..."
+            name="halaman"
+            id="halaman"
+            value={formik.values.halaman}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
           <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
             type="date"
+            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
             name="tgl_selesai"
             id="tgl_selesai"
             value={formik.values.tgl_selesai}
@@ -208,15 +169,15 @@ const EditSurahPendekSantri = () => {
         </div>
         <div>
           <button
-            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm"
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
             type="button"
             onClick={formik.handleSubmit}
           >
             SIMPAN
           </button>
           <button
-            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2"
-            onClick={() => navigate("/datasurahpendeksantri")}
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
+            onClick={() => navigate("/dataiqroguru")}
           >
             CANCEL
           </button>
@@ -229,4 +190,4 @@ const EditSurahPendekSantri = () => {
   );
 };
 
-export default EditSurahPendekSantri;
+export default EditIqroGuru;

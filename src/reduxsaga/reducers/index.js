@@ -6,6 +6,9 @@ import SantriReducer from "./SantriReducer";
 import IqroSantriReducer from "./IqroSantriReducer";
 import SurahPendekSantriReducer from "./SurahPendekSantriReducer";
 import AlquranSantriReducer from "./AlquranSantriReducer";
+import IqroGuruReducer from "./IqroGuruReducer";
+import SurahPendekGuruReducer from "./SurahPendekGuruReducer";
+import AlquranGuruReducer from "./AlquranGuruReducer";
 import UserReducer from "./UserReducer";
 import RoleReducer from "./RoleReducer";
 
@@ -16,6 +19,9 @@ const rootReducer = combineReducers({
   iqroSantriState: IqroSantriReducer,
   surahPendekSantriState: SurahPendekSantriReducer,
   alquranSantriState: AlquranSantriReducer,
+  iqroGuruState: IqroGuruReducer,
+  surahPendekGuruState: SurahPendekGuruReducer,
+  alquranGuruState: AlquranGuruReducer,
   userState: UserReducer,
   roleState: RoleReducer,
 });

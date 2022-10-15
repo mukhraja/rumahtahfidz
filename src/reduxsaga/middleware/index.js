@@ -9,6 +9,9 @@ import * as ActionTypeSurahPendekSantri from "../constants/SurahPendekSantri";
 import * as ActionTypeAlquranSantri from "../constants/AlquranSantri";
 import * as ActionTypeUser from "../constants/User";
 import * as ActionTypeRole from "../constants/Role";
+import * as ActionTypeIqroGuru from "../constants/IqroGuru";
+import * as ActionTypeSurahPendekGuru from "../constants/SurahPendekGuru";
+import * as ActionTypeAlquranGuru from "../constants/AlquranGuru";
 
 // Khusus Middleware
 import {
@@ -78,6 +81,30 @@ import {
   handleGetRole,
   handleUpdateRole,
 } from "./RoleSaga";
+import {
+  handleCreateIqroGuru,
+  handleDeleteIqroGuru,
+  handleGetByIdIqroGuru,
+  handleGetIqroAwalGuru,
+  handleGetIqroGuru,
+  handleUpdateIqroGuru,
+} from "./IqroGuruSaga";
+import {
+  handleCreateSurahPendekGuru,
+  handleDeleteSurahPendekGuru,
+  handleGetByIdSurahPendekGuru,
+  handleGetSurahPendekAwalGuru,
+  handleGetSurahPendekGuru,
+  handleUpdateSurahPendekGuru,
+} from "./SurahPendekGuruSaga";
+import {
+  handleCreateAlquranGuru,
+  handleDeleteAlquranGuru,
+  handleGetByIdAlquranGuru,
+  handleGetAlquranAwalGuru,
+  handleGetAlquranGuru,
+  handleUpdateAlquranGuru,
+} from "./AlquranGuruSaga";
 
 function* watchAll() {
   yield all([
@@ -221,6 +248,69 @@ function* watchAll() {
     takeEvery(ActionTypeRole.CREATE_ROLE_REQUEST, handleCreateRole),
     takeEvery(ActionTypeRole.UPDATE_ROLE_REQUEST, handleUpdateRole),
     takeEvery(ActionTypeRole.DELETE_ROLE_REQUEST, handleDeleteRole),
+    // Iqro Guru
+    takeEvery(ActionTypeIqroGuru.GET_IQROGURU_REQUEST, handleGetIqroGuru),
+    takeEvery(
+      ActionTypeIqroGuru.GET_BY_ID_IQROGURU_REQUEST,
+      handleGetByIdIqroGuru
+    ),
+    takeEvery(
+      ActionTypeIqroGuru.GET_IQROGURUAWAL_REQUEST,
+      handleGetIqroAwalGuru
+    ),
+    takeEvery(ActionTypeIqroGuru.CREATE_IQROGURU_REQUEST, handleCreateIqroGuru),
+    takeEvery(ActionTypeIqroGuru.UPDATE_IQROGURU_REQUEST, handleUpdateIqroGuru),
+    takeEvery(ActionTypeIqroGuru.DELETE_IQROGURU_REQUEST, handleDeleteIqroGuru),
+    // Surah Pendek Guru
+    takeEvery(
+      ActionTypeSurahPendekGuru.GET_SURAHPENDEKGURU_REQUEST,
+      handleGetSurahPendekGuru
+    ),
+    takeEvery(
+      ActionTypeSurahPendekGuru.GET_BY_ID_SURAHPENDEKGURU_REQUEST,
+      handleGetByIdSurahPendekGuru
+    ),
+    takeEvery(
+      ActionTypeSurahPendekGuru.GET_SURAHPENDEKGURUAWAL_REQUEST,
+      handleGetSurahPendekAwalGuru
+    ),
+    takeEvery(
+      ActionTypeSurahPendekGuru.CREATE_SURAHPENDEKGURU_REQUEST,
+      handleCreateSurahPendekGuru
+    ),
+    takeEvery(
+      ActionTypeSurahPendekGuru.UPDATE_SURAHPENDEKGURU_REQUEST,
+      handleUpdateSurahPendekGuru
+    ),
+    takeEvery(
+      ActionTypeSurahPendekGuru.DELETE_SURAHPENDEKGURU_REQUEST,
+      handleDeleteSurahPendekGuru
+    ),
+    // Alquran Guru
+    takeEvery(
+      ActionTypeAlquranGuru.GET_ALQURANGURU_REQUEST,
+      handleGetAlquranGuru
+    ),
+    takeEvery(
+      ActionTypeAlquranGuru.GET_BY_ID_ALQURANGURU_REQUEST,
+      handleGetByIdAlquranGuru
+    ),
+    takeEvery(
+      ActionTypeAlquranGuru.GET_ALQURANGURUAWAL_REQUEST,
+      handleGetAlquranAwalGuru
+    ),
+    takeEvery(
+      ActionTypeAlquranGuru.CREATE_ALQURANGURU_REQUEST,
+      handleCreateAlquranGuru
+    ),
+    takeEvery(
+      ActionTypeAlquranGuru.UPDATE_ALQURANGURU_REQUEST,
+      handleUpdateAlquranGuru
+    ),
+    takeEvery(
+      ActionTypeAlquranGuru.DELETE_ALQURANGURU_REQUEST,
+      handleDeleteAlquranGuru
+    ),
   ]);
 }
 

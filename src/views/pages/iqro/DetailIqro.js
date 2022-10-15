@@ -59,7 +59,7 @@ const DetailIqro = () => {
     []
   );
 
-  const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
+  // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
     <div className=" overflow-hidden">
       {santridata.map((e) => (
@@ -71,7 +71,11 @@ const DetailIqro = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        <Table columns={columns} data={data} url="/dataiqrosantri/tambah" />
+        <Table
+          columns={columns}
+          data={iqrosantridata}
+          url="/dataiqrosantri/tambah"
+        />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

@@ -20,22 +20,19 @@ const TambahPengajar = () => {
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Enter Job Title").required("Title is required"),
-    // address: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // nis: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // telephone: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // chief: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // photo: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
+    name: Yup.string("Masukkan nama rumah tahfiz").required(
+      "Masukkan nama rumah tahfiz"
+    ),
+    niu: Yup.string("Masukkan nomor identik ustadz/ah").required(
+      "Masukkan nomor identik tahfiz"
+    ),
+    email: Yup.string("Masukkan email").required("Masukkan email"),
+    datebirth: Yup.string("Masukkan tanggal lahir").required(
+      "Masukkan tanggal lahir"
+    ),
+    chief: Yup.string("Masukkan nomor telephone").required(
+      "Masukkan nomor telephone"
+    ),
   });
 
   const formik = useFormik({

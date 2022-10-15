@@ -38,6 +38,18 @@ import InfoUser from "./views/pages/user/InfoUser";
 import DetailPengajar from "./views/pages/pengajar/DetailPengajar";
 import TambahPengajar from "./views/pages/pengajar/TambahPengajar";
 import EditPengajar from "./views/pages/pengajar/EditPengajar";
+import IqroGuru from "./views/pages/iqroguru/IqroGuru";
+import SurahPendekGuru from "./views/pages/surahpendekguru/SurahPendekGuru";
+import AlquranGuru from "./views/pages/alquranguru/AlquranGuru";
+import DetailIqroGuru from "./views/pages/iqroguru/DetailIqroGuru";
+import EditIqroGuru from "./views/pages/iqroguru/EditIqroGuru";
+import TambahIqroGuru from "./views/pages/iqroguru/TambahIqroGuru";
+import DetailSurahPendekGuru from "./views/pages/surahpendekguru/DetailSurahPendekGuru";
+import EditSurahPendekGuru from "./views/pages/surahpendekguru/EditSurahPendekGuru";
+import TambahSurahPendekGuru from "./views/pages/surahpendekguru/TambahSurahPendekGuru";
+import TambahAlquranGuru from "./views/pages/alquranguru/TambahAlquranGuru";
+import DetailAlquranGuru from "./views/pages/alquranguru/DetailAlquranGuru";
+import EditAlquranGuru from "./views/pages/alquranguru/EditAlquranGuru";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -123,6 +135,61 @@ function App() {
           <Route
             path="dataalquransantri/edit/:id"
             element={isLoggedIn ? <EditAlquranSantri /> : <Navigate to="/" />}
+          />
+          {/* Dataiqroguru */}
+          <Route
+            path="dataiqroguru"
+            element={isLoggedIn ? <IqroGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataiqroguru/tambah"
+            element={isLoggedIn ? <TambahIqroGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataiqroguru/detail/:id"
+            element={isLoggedIn ? <DetailIqroGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataiqropengajar/edit/:id"
+            element={isLoggedIn ? <EditIqroGuru /> : <Navigate to="/" />}
+          />
+          {/* Datasurahpendekguru */}
+          <Route
+            path="datasurahpendekguru"
+            element={isLoggedIn ? <SurahPendekGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datasurahpendekguru/tambah"
+            element={
+              isLoggedIn ? <TambahSurahPendekGuru /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="datasurahpendekguru/detail/:id"
+            element={
+              isLoggedIn ? <DetailSurahPendekGuru /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="datasurahpendekguru/edit/:id"
+            element={isLoggedIn ? <EditSurahPendekGuru /> : <Navigate to="/" />}
+          />
+          {/* Dataalquranguru */}
+          <Route
+            path="dataalquranguru"
+            element={isLoggedIn ? <AlquranGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataalquranguru/tambah"
+            element={isLoggedIn ? <TambahAlquranGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataalquranguru/detail/:id"
+            element={isLoggedIn ? <DetailAlquranGuru /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataalquranguru/edit/:id"
+            element={isLoggedIn ? <EditAlquranGuru /> : <Navigate to="/" />}
           />
           {/* Pengajar */}
           <Route

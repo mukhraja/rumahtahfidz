@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
@@ -58,7 +59,9 @@ const EditIqroSantri = () => {
       namesantri: iqrosantridata.length ? iqrosantridata[0].Santri.name : null,
       name: iqrosantridata.length ? iqrosantridata[0].name : null,
       halaman: iqrosantridata.length ? iqrosantridata[0].halaman : null,
-      tgl_selesai: iqrosantridata.length ? iqrosantridata[0].tgl_selesai : null,
+      tgl_selesai: iqrosantridata.length
+        ? moment(iqrosantridata[0].tgl_selesai).format("YYYY-MM-DD")
+        : null,
       ket: iqrosantridata.length ? iqrosantridata[0].ket : null,
       santriId: iqrosantridata.length ? iqrosantridata[0].Santri.id : null,
     },
@@ -81,6 +84,8 @@ const EditIqroSantri = () => {
       }, 3000);
     },
   });
+
+  const keterangan = ["mengulang", "belum lancar", "selesai"];
 
   return (
     <div className=" overflow-hidden">
@@ -140,15 +145,22 @@ const EditIqroSantri = () => {
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
-          <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
-            placeholder="Belum Lancar | Tuntas | Mengulang"
+          <select
             name="ket"
             id="ket"
             value={formik.values.ket}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-          />
+            autoComplete="ket"
+            class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+          >
+            <option value="" selected disabled hidden>
+              Pilih Keterangan
+            </option>
+            {keterangan.map((e) => (
+              <option value={e}>{e}</option>
+            ))}
+          </select>
         </div>
         <div>
           <button

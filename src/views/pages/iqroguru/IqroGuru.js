@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bacaiqro } from "../../../gambar";
 import {
-  doGetIqroAwalSantriRequest,
+  doGetIqroAwalGuruRequest,
   doGetIqroSantriRequest,
-} from "../../../reduxsaga/actions/Iqrosantri";
+} from "../../../reduxsaga/actions/IqroGuru";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -12,21 +12,39 @@ import Table, {
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
 
-const Iqro = () => {
+const IqroGuru = () => {
   const dispatch = useDispatch();
 
-  const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+  const { iqrogurudata } = useSelector((state) => state.iqroGuruState);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    dispatch(doGetIqroAwalSantriRequest());
+    // (async () => {
+    dispatch(doGetIqroAwalGuruRequest());
+    // })();
+    // setDataUpdate(iqrogurudata);
   }, []);
 
-  const columns = React.useMemo(
+  useEffect(() => {
+    // (async () => {
+    axios
+      .get(config.domain + "/iqroguru/listawal")
+      .then((res) => setData(res.data.data))
+      .catch((err) => console.log(err));
+    // })();
+  }, []);
+
+  console.log(data);
+  // console.log(iqrogurudata);
+  const columns = useMemo(
     () => [
       {
         Header: "Nama",
-        accessor: "namasantri",
+        accessor: "namaguru",
       },
       {
         Header: "Iqro",
@@ -44,27 +62,28 @@ const Iqro = () => {
       },
       {
         Header: "Detail",
-        accessor: "santriId",
+        accessor: "guruId",
         Cell: ButtonLinkIqro,
       },
     ],
     []
   );
 
-  // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
+  // const data = useMemo(() => iqrogurudata, []);
+
   return (
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Data IQRO
+          Data IQRO Guru
         </h1>
         <img src={bacaiqro} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={iqrosantridata} url="tambah" />
+        <Table columns={columns} data={iqrogurudata} url="tambah" />
       </div>
     </div>
   );
 };
 
-export default Iqro;
+export default IqroGuru;

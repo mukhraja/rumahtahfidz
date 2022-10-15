@@ -35,6 +35,8 @@ import {
 import { doDeleteAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
 import { doDeleteUserRequest } from "../../../reduxsaga/actions/User";
 import { doDeleteGuruRequest } from "../../../reduxsaga/actions/Guru";
+import { doDeleteIqroGuruRequest } from "../../../reduxsaga/actions/IqroGuru";
+import { doDeleteAlquranGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -356,6 +358,94 @@ export function ButtonLinkAlquranList({ value }) {
     <div className=" flex">
       <Link
         to={"/dataalquransantri/edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+
+export function ButtonLinkIqroPengajarList({ value }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteIqroGuruRequest(id));
+    toast.success("Data berhasil dihapus...");
+    setTimeout(() => {
+      navigate("/dataiqroguru");
+    }, 3000);
+  };
+
+  const status = value;
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"/dataiqropengajar/edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+
+export function ButtonLinkSurahPendekGuruList({ value }) {
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteSurahPendekSantriRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  const status = value;
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"/datasurahpendekguru/edit/" + status}
+        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <PencilIcon className="w-5" />
+      </Link>
+      <button
+        onClick={() => onDelete(value)}
+        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+      >
+        <TrashIcon className="w-5" />
+      </button>
+    </div>
+  );
+}
+
+export function ButtonLinkAlquranGuruList({ value }) {
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteAlquranGuruRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  const status = value;
+
+  return (
+    <div className=" flex">
+      <Link
+        to={"/dataalquranguru/edit/" + status}
         className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <PencilIcon className="w-5" />

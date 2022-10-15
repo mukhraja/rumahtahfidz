@@ -51,7 +51,7 @@ const User = () => {
     []
   );
 
-  const data = React.useMemo(() => userdata, [userdata]);
+  // const data = React.useMemo(() => userdata, [userdata]);
 
   return (
     <div className=" overflow-hidden">
@@ -62,7 +62,7 @@ const User = () => {
         <img src={user} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={data} url="tambah" />
+        <Table columns={columns} data={userdata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
@@ -25,6 +26,20 @@ const Editrumahtahfiz = () => {
     dispatch(doGetRumahTahfidzByIdRequest(payload));
   }, []);
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string("Masukkan nama rumah tahfiz").required(
+      "Masukkan nama rumah tahfiz"
+    ),
+    nit: Yup.string("Masukkan nomor identik tahfiz").required(
+      "Masukkan nomor identik tahfiz"
+    ),
+    address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
+    telephone: Yup.string("Masukkan telephone").required("Masukkan telephone"),
+    chief: Yup.string("Masukkan nomor telephone").required(
+      "Masukkan nomor telephone"
+    ),
+  });
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -35,6 +50,7 @@ const Editrumahtahfiz = () => {
       chief: rumahtahfidzdata.length ? rumahtahfidzdata[0].chief : null,
       photo: rumahtahfidzdata.length ? rumahtahfidzdata[0].photo : undefined,
     },
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       if (uploaded === true) {
         let payload = new FormData();
@@ -116,6 +132,11 @@ const Editrumahtahfiz = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">NIT</h1>
@@ -127,6 +148,11 @@ const Editrumahtahfiz = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.nit && formik.errors.nit ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.nit}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Alamat</h1>
@@ -138,6 +164,11 @@ const Editrumahtahfiz = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.address && formik.errors.address ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.address}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">No. Telepon</h1>
@@ -149,6 +180,11 @@ const Editrumahtahfiz = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.telephone && formik.errors.telephone ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.telephone}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Nama Kepala Tahfidz</h1>
@@ -160,6 +196,11 @@ const Editrumahtahfiz = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.chief && formik.errors.chief ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.chief}
+              </span>
+            ) : null}
           </div>
 
           <div class="col-span-4 row-span-2 py-2">

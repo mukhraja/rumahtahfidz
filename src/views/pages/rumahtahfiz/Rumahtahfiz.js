@@ -44,7 +44,7 @@ const Rumahtahfiz = () => {
     []
   );
 
-  const data = React.useMemo(() => rumahtahfidzdata, [rumahtahfidzdata]);
+  // const data = React.useMemo(() => rumahtahfidzdata, [rumahtahfidzdata]);
 
   return (
     <div className=" overflow-hidden">
@@ -55,7 +55,7 @@ const Rumahtahfiz = () => {
         <img src={rumahtahfidz} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={data} url="tambah" />
+        <Table columns={columns} data={rumahtahfidzdata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />
