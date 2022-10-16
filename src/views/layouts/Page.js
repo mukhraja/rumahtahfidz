@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Logo from "../../gambar/logo.png";
 import {
+  ArrowLeftIcon,
   ArrowNarrowLeftIcon,
   ArrowsExpandIcon,
   ArrowSmLeftIcon,
@@ -65,9 +66,10 @@ export const Page = (props) => {
     navigate("/", { replace: true });
   };
   //lg:w-64
+  // -translate-x-full
   return (
     <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto sm:text-xs">
-      <aside className="sidebar lg:w-64 shadow transform -translate-x-full lg:translate-x-0 transition-transform duration-150 ease-in bg-white">
+      <aside className="sidebar md:w-64 sm:w-96 shadow transform translate-x-0 transition-transform duration-150 ease-in bg-white">
         <div className="sidebar-header flex items-center justify-center py-4">
           <div className="inline-flex">
             <img className=" w-20" src={Logo} alt="logo.jpg" />
@@ -297,6 +299,11 @@ export const Page = (props) => {
               </div>
             </li>
           </ul>
+          <div className="w-full text-center py-2">
+            <button className="bg-green-400 p-2 rounded-full shadow-md lg:hidden">
+              <ArrowLeftIcon className="w-5" />
+            </button>
+          </div>
         </div>
       </aside>
       <main className="main flex flex-col flex-grow -ml-40 lg:ml-0 transition-all duration-150 ease-in">
