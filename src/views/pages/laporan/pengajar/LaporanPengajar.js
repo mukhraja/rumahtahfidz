@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDownloadExcel } from "react-export-table-to-excel";
-import { santri } from "../../../../gambar";
+import { pengajar } from "../../../../gambar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetSantriRequest } from "../../../../reduxsaga/actions/Santri";
 import { doGetRumahTahfidzRequest } from "../../../../reduxsaga/actions/RumahTahfidz";
-const LaporanSantri = () => {
+import { doGetGuruRequest } from "../../../../reduxsaga/actions/Guru";
+const LaporanPengajar = () => {
   const tableRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -15,12 +15,12 @@ const LaporanSantri = () => {
   const [select, setSelect] = useState("");
   console.log(select);
 
-  const { santridata } = useSelector((state) => state.santriState);
+  const { gurudata } = useSelector((state) => state.guruState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   useEffect(() => {
     dispatch(doGetRumahTahfidzRequest());
-    dispatch(doGetSantriRequest());
+    dispatch(doGetGuruRequest());
   }, []);
 
   const handleChange = (e) => {
@@ -195,9 +195,9 @@ const LaporanSantri = () => {
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
-          Laporan Data Santri
+          Laporan Data Ustadz/ah
         </h1>
-        <img src={santri} className="h-20" />
+        <img src={pengajar} className="h-20" />
       </div>
       <div className="mt-4 p-4 mx-4 bg-white rounded-lg shadow-lg">
         <div className=" font-poppins py-2 flex">
@@ -270,8 +270,8 @@ const LaporanSantri = () => {
                 </tr>
               </thead>
               <tbody className="">
-                {santridata &&
-                  santridata
+                {gurudata &&
+                  gurudata
                     .filter((el) => {
                       if (select === "") {
                         return el;
@@ -287,7 +287,7 @@ const LaporanSantri = () => {
                         {hafalsantriiqro.map((hafal) => (
                           <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
-                              {e.Iqrosantris.map((e, i, array) => {
+                              {e.Iqrogurus.map((e, i, array) => {
                                 if (e.name == hafal && e.ket == "selesai") {
                                   // return <CheckCircleIcon className="h-6" />;
                                   return "selesai";
@@ -301,7 +301,7 @@ const LaporanSantri = () => {
                         {hafalsantrisurahpendek.map((hafal) => (
                           <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
-                              {e.Surahpendeksantris.map((e, i, array) => {
+                              {e.Surahpendekgurus.map((e, i, array) => {
                                 if (e.name == hafal && e.ket == "selesai") {
                                   // return <CheckCircleIcon className="h-6" />;
                                   return "selesai";
@@ -315,7 +315,7 @@ const LaporanSantri = () => {
                         {hafalsantrialquran.map((hafal) => (
                           <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
-                              {e.Alquransantris.map((e, i, array) => {
+                              {e.Alqurangurus.map((e, i, array) => {
                                 if (e.juz == hafal && e.ket == "selesai") {
                                   // return <CheckCircleIcon className="h-6" />;
                                   return "selesai";
@@ -340,4 +340,4 @@ const LaporanSantri = () => {
   );
 };
 
-export default LaporanSantri;
+export default LaporanPengajar;

@@ -47,7 +47,7 @@ export default function Login() {
   return (
     <div className=" bg-gray-50 font-poppins">
       <div className="flex justify-center h-screen items-center">
-        <div className=" w-2/6 mr-14 sm:hidden">
+        <div className=" w-2/6 mr-14 hidden md:block">
           <img src={gambardepan} />
         </div>
 
@@ -104,10 +104,6 @@ export default function Login() {
             {message ? (
               <h1 className="my-2 text-sm text-red-600">{message}</h1>
             ) : null}
-            <h2 className="text-xs text-center py-4">
-              Tidak Punya Akun ?{" "}
-              <b className=" text-green-500">Daftar disini</b>
-            </h2>
           </div>
         </div>
       </div>

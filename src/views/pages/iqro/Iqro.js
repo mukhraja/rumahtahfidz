@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroAwalSantriRequest,
@@ -18,11 +20,7 @@ const Iqro = () => {
 
   const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
 
-  useEffect(() => {
-    dispatch(doGetIqroAwalSantriRequest());
-  }, []);
-
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: "Nama",
@@ -44,16 +42,20 @@ const Iqro = () => {
       },
       {
         Header: "Detail",
-        accessor: "santriId",
+        accessor: "guruId",
         Cell: ButtonLinkIqro,
       },
     ],
     []
   );
 
+  useEffect(() => {
+    dispatch(doGetIqroAwalSantriRequest());
+  }, []);
+
   // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
-    <div className=" overflow-hidden">
+    <div className=" overflow-hidden font-poppins">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Data IQRO

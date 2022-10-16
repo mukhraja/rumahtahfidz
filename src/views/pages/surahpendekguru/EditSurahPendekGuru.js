@@ -91,9 +91,9 @@ const EditSurahPendekGuru = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datasurahpendekguru", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/datasurahpendekguru", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 

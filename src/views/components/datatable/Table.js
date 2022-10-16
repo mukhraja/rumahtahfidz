@@ -290,10 +290,14 @@ export function ButtonLinkIqro({ value }) {
 
 export function ButtonLinkIqroList({ value }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onDelete = async (id) => {
     dispatch(doDeleteIqroSantriRequest(id));
     toast.success("Data berhasil dihapus...");
+    setTimeout(() => {
+      navigate("/dataiqrosantri", { state: { refresh: true } });
+    }, 3000);
   };
 
   const status = value;

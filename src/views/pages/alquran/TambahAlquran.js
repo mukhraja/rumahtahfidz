@@ -69,9 +69,9 @@ const TambahAlquran = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/dataalquransantri", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/dataalquransantri", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 

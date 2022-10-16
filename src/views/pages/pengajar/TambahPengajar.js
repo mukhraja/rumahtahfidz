@@ -26,13 +26,13 @@ const TambahPengajar = () => {
     niu: Yup.string("Masukkan nomor identik ustadz/ah").required(
       "Masukkan nomor identik tahfiz"
     ),
-    email: Yup.string("Masukkan email").required("Masukkan email"),
-    datebirth: Yup.string("Masukkan tanggal lahir").required(
-      "Masukkan tanggal lahir"
-    ),
-    chief: Yup.string("Masukkan nomor telephone").required(
-      "Masukkan nomor telephone"
-    ),
+    // email: Yup.string("Masukkan email").required("Masukkan email"),
+    // datebirth: Yup.string("Masukkan tanggal lahir").required(
+    //   "Masukkan tanggal lahir"
+    // ),
+    // chief: Yup.string("Masukkan nomor telephone").required(
+    //   "Masukkan nomor telephone"
+    // ),
   });
 
   const formik = useFormik({
@@ -74,9 +74,9 @@ const TambahPengajar = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      //   setTimeout(() => {
-      //     navigate("/dataguru", { state: { refresh: true } });
-      //   }, 3000);
+      setTimeout(() => {
+        navigate("/datapengajar", { state: { refresh: true } });
+      }, 3000);
     },
   });
 

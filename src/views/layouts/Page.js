@@ -64,10 +64,10 @@ export const Page = (props) => {
     dispatch(doSignoutRequest());
     navigate("/", { replace: true });
   };
-
+  //lg:w-64
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto">
-      <aside className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-white">
+    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto sm:text-xs">
+      <aside className="sidebar lg:w-64 shadow transform -translate-x-full lg:translate-x-0 transition-transform duration-150 ease-in bg-white">
         <div className="sidebar-header flex items-center justify-center py-4">
           <div className="inline-flex">
             <img className=" w-20" src={Logo} alt="logo.jpg" />
@@ -231,11 +231,7 @@ export const Page = (props) => {
               <ul className="font-semibold relative left-10">
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
-                </li>
-                <li className="py-2 flex">
-                  <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datapengajar">Pengajar</Link>
+                  <Link to="laporanpengajar">Pengajar</Link>
                 </li>
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
@@ -303,7 +299,7 @@ export const Page = (props) => {
           </ul>
         </div>
       </aside>
-      <main className="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+      <main className="main flex flex-col flex-grow -ml-40 lg:ml-0 transition-all duration-150 ease-in">
         <header className="header bg-white shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
             <div className="flex ml-auto">
@@ -313,7 +309,7 @@ export const Page = (props) => {
                   alt="walpaper.jpg"
                   className="h-10 w-10 bg-gray-200 border rounded-full"
                 />
-                <span className="flex flex-col ml-2">
+                <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
                     {userProfile.name}
                   </span>
