@@ -43,35 +43,35 @@ const DetailSantri = () => {
               <h1 className="block col-span-2">Alamat</h1>
               <h1 className="block col-span-5">{e.address}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Tanggal Lahir</h1>
               <h1 className="block col-span-2">{e.datebirth}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block col-span-2">Jenis Kelamin</h1>
               <h1 className="block col-span-2">{e.gender}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Pendidikan</h1>
               <h1 className="block col-span-2">{e.education}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block col-span-2">Kota</h1>
               <h1 className="block col-span-2">{e.city}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Provinsi</h1>
               <h1 className="block col-span-2">{e.province}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block col-span-2">Parent</h1>
               <h1 className="block col-span-2">{e.parent}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Telepon</h1>
               <h1 className="block col-span-2">{e.telephone}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block col-span-2">Penempatan</h1>
               <h1 className="block col-span-2">{e.Pondok.name}</h1>
             </div>

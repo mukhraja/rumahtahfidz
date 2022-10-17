@@ -28,22 +28,23 @@ const TambahIqroGuru = () => {
     setSelect(e.target.value);
   };
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Enter Job Title").required("Title is required"),
-    // address: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // nis: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // telephone: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // chief: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // photo: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
+    name: Yup.string("Masukkan Iqra").required(
+      "Masukkan Iqra"
+    ),
+  
+    halaman: Yup.string("Masukkan halaman").required(
+      "Masukkan halaman"
+    ),
+    ket: Yup.string("Masukkan keterangan").required(
+      "Masukkan keterangan"
+    ),
+    
+    tgl_selesai: Yup.string("Masukkan tgl selesai").required(
+      "Masukkan tgl selesai"
+    ),
+    guruId: Yup.string("Pilih Ustadz/ah").required(
+      "Pilih Ustadz/ah"
+    ),
   });
 
   const formik = useFormik({
@@ -126,6 +127,11 @@ const TambahIqroGuru = () => {
                 <option value={e.id}>{e.name}</option>
               ))}
           </select>
+          {formik.touched.guruId && formik.errors.guruId ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.guruId}
+              </span>
+            ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Iqro</h1>
@@ -145,6 +151,11 @@ const TambahIqroGuru = () => {
               <option value={e}>{e}</option>
             ))}
           </select>
+          {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Halaman</h1>
@@ -157,6 +168,11 @@ const TambahIqroGuru = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+          {formik.touched.halaman && formik.errors.halaman ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.halaman}
+              </span>
+            ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
@@ -169,6 +185,11 @@ const TambahIqroGuru = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+          {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.tgl_selesai}
+              </span>
+            ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
@@ -188,6 +209,11 @@ const TambahIqroGuru = () => {
               <option value={e}>{e}</option>
             ))}
           </select>
+           {formik.touched.ket && formik.errors.ket ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.ket}
+              </span>
+            ) : null}
         </div>
         <div>
           <button

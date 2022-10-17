@@ -43,15 +43,15 @@ const DetailPengajar = () => {
               <h1 className="block col-span-2">Alamat</h1>
               <h1 className="block col-span-5">{e.address}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Tanggal Lahir</h1>
               <h1 className="block col-span-2">{e.datebirth}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block col-span-2">Jenis Kelamin</h1>
               <h1 className="block col-span-2">{e.gender}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Pendidikan</h1>
               <h1 className="block col-span-2">{e.education}</h1>
             </div>
@@ -59,7 +59,7 @@ const DetailPengajar = () => {
               <h1 className="block col-span-2">Telepon</h1>
               <h1 className="block col-span-2">{e.telephone}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Ayah</h1>
               <h1 className="block col-span-2">{e.ayah}</h1>
             </div>
@@ -67,7 +67,7 @@ const DetailPengajar = () => {
               <h1 className="block col-span-2">Ibu</h1>
               <h1 className="block col-span-2">{e.ibu}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block col-span-2">Mulai Masuk</h1>
               <h1 className="block col-span-2">{e.mulai_masuk}</h1>
             </div>
@@ -89,7 +89,7 @@ const DetailPengajar = () => {
               </button>
               <button
                 className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-                onClick={() => navigate("/datasantri")}
+                onClick={() => navigate("/datapengajar")}
               >
                 Kembali
               </button>

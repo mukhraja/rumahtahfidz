@@ -6,6 +6,7 @@ import { rumahtahfidz } from "../../../gambar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../../reduxsaga/config/config";
+import * as Yup from "yup";
 import {
   doGetGuruByIdRequest,
   doUpdateNoFIleGuruRequest,
@@ -28,6 +29,46 @@ const EditPengajar = () => {
     dispatch(doGetRumahTahfidzRequest());
   }, []);
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string("Masukkan nama ustadz/ah").required(
+      "Masukkan nama pengajar"
+    ),
+    niu: Yup.string("Masukkan nomor identik ustadz/ah").required(
+      "Masukkan nomor identik ustadz/ah"
+    ),
+    email: Yup.string("Masukkan email").required("Masukkan email"),
+    datebirth: Yup.string("Masukkan tanggal lahir").required(
+      "Masukkan tanggal lahir"
+    ),
+    gender: Yup.string("Masukkan jenis kelamin").required(
+      "Masukkan nomor jenis kelamin"
+    ),
+    telephone: Yup.string("Masukkan nomor telephone").required(
+      "Masukkan nomor telephone"
+    ),
+    education: Yup.string("Masukkan pendidikan").required(
+      "Masukkan nomor pendidikan"
+    ),
+    address: Yup.string("Masukkan alamat").required(
+      "Masukkan alamat"
+    ),
+    ayah: Yup.string("Masukkan nama ayah").required(
+      "Masukkan nama ayah"
+    ),
+    ibu: Yup.string("Masukkan nama ibu").required(
+      "Masukkan nama ibu"
+    ),
+    mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
+      "Pilih Tanggal Masuk"
+    ),
+    mulai_vakum: Yup.string("Pilih Tanggal Vakum").required(
+      "Pilih Tanggal Vakum"
+    ),
+    pondokId: Yup.string("Pilih Pondok ID").required(
+      "Pilih Pondok ID"
+    ),
+  });
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -46,6 +87,7 @@ const EditPengajar = () => {
       pondokId: gurudata.length ? gurudata[0].pondokId : null,
       photo: gurudata.length ? gurudata[0].photo : undefined,
     },
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       if (uploaded === true) {
         let payload = new FormData();
@@ -143,6 +185,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">NIU</h1>
@@ -154,6 +201,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.niu && formik.errors.niu ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.niu}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Email</h1>
@@ -165,6 +217,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.email && formik.errors.email ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.email}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
@@ -177,6 +234,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.datebirth && formik.errors.datebirth ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.datebirth}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Jenis Kelamin</h1>
@@ -188,6 +250,27 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.gender && formik.errors.gender ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.gender}
+              </span>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block col-span-2">Telepon</h1>
+            <input
+              id="telephone"
+              name="telephone"
+              className="border rounded-md block col-span-2 pl-2 py-1"
+              value={formik.values.telephone}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.telephone && formik.errors.telephone ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.telephone}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Pendidikan</h1>
@@ -199,6 +282,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.education && formik.errors.education ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.education}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Alamat</h1>
@@ -210,6 +298,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.address && formik.errors.address ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.address}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Ayah</h1>
@@ -221,6 +314,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.ayah && formik.errors.ayah ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.ayah}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Ibu</h1>
@@ -232,6 +330,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.ibu && formik.errors.ibu ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.ibu}
+              </span>
+            ) : null}
           </div>
 
           <div className="grid grid-cols-8 my-2 text-xs">
@@ -245,6 +348,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.mulai_masuk && formik.errors.mulai_masuk ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.mulai_masuk}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Mulai Vakum</h1>
@@ -257,6 +365,11 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.mulai_vakum && formik.errors.mulai_vakum ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.mulai_vakum}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Penempatan</h1>
@@ -276,6 +389,11 @@ const EditPengajar = () => {
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
+            {formik.touched.pondokId && formik.errors.pondokId ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.pondokId}
+              </span>
+            ) : null}
           </div>
           <div class="col-span-4 row-span-2 py-2">
             <label className="block font-medium text-gray-700 text-xs">
@@ -348,7 +466,7 @@ const EditPengajar = () => {
             </button>
             <button
               className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() => navigate("/datasantri")}
+              onClick={() => navigate("/datapengajar")}
             >
               CANCEL
             </button>

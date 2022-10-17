@@ -35,22 +35,22 @@ const EditIqroSantri = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Enter Job Title").required("Title is required"),
-    // address: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // nis: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // telephone: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // chief: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // photo: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
+    name: Yup.string("Masukkan iqra").required(
+      "Masukkan iqra"
+    ),
+    halaman: Yup.string("Masukkan halaman").required(
+      "Masukkan halaman"
+    ),
+    tgl_selesai: Yup.string("Masukkan tgl selesai").required(
+      "Masukkan tgl selesai"
+    ),
+    ket: Yup.string("Masukkan keterangan").required(
+      "Masukkan keterangan"
+    ),
+    
+    santriId: Yup.string("Pilih Santri").required(
+      "Pilih Santri"
+    ),
   });
 
   const formik = useFormik({
@@ -106,6 +106,7 @@ const EditIqroSantri = () => {
             value={formik.values.namesantri}
             disabled
           />
+          
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Iqro</h1>
@@ -117,7 +118,13 @@ const EditIqroSantri = () => {
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            
           />
+          {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Halaman</h1>
@@ -129,7 +136,14 @@ const EditIqroSantri = () => {
             value={formik.values.halaman}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            
           />
+          {formik.touched.halaman && formik.errors.halaman ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.halaman}
+              </span>
+            ) : null}
+           
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
@@ -142,6 +156,11 @@ const EditIqroSantri = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+           {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.tgl_selesai}
+              </span>
+            ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
@@ -161,6 +180,11 @@ const EditIqroSantri = () => {
               <option value={e}>{e}</option>
             ))}
           </select>
+          {formik.touched.ket && formik.errors.ket ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.ket}
+              </span>
+            ) : null}
         </div>
         <div>
           <button

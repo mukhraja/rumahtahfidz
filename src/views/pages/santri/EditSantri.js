@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as Yup from "yup";
 import {
   doGetRumahTahfidzByIdRequest,
   doGetRumahTahfidzRequest,
@@ -33,6 +34,48 @@ const EditSantri = () => {
     dispatch(doGetRumahTahfidzRequest());
   }, []);
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string("Masukkan nama santri").required(
+      "Masukkan nama santri"
+    ),
+    nis: Yup.string("Masukkan nomor identik santri").required(
+      "Masukkan nomor identik santri"
+    ),
+    address: Yup.string("Masukkan alamat").required(
+      "Masukkan alamat"
+    ),
+    datebirth: Yup.string("Masukkan tanggal lahir").required(
+      "Masukkan tanggal lahir"
+    ),
+    gender: Yup.string("Masukkan jenis kelamin").required(
+      "Masukkan nomor jenis kelamin"
+    ),
+     education: Yup.string("Masukkan pendidikan").required(
+      "Masukkan nomor pendidikan"
+    ),
+    city: Yup.string("Masukkan kota").required(
+      "Masukkan kota"
+    ),
+    province: Yup.string("Masukkan province").required(
+      "Masukkan provinsi"
+    ),
+    parent: Yup.string("Masukkan nama orang tua").required(
+      "Masukkan nama orang tua"
+    ),
+    telephone: Yup.string("Masukkan nomor telephone").required(
+      "Masukkan nomor telephone"
+    ),
+    tgl_masuk: Yup.string("Pilih Tanggal Masuk").required(
+      "Pilih Tanggal Masuk"
+    ),
+    pondokId: Yup.string("Pilih Pondok ID").required(
+      "Pilih Pondok ID"
+    ),
+    photo: Yup.string("Masukkan nama ibu").required(
+      "Upload Photo"
+    ),
+  });
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -50,6 +93,7 @@ const EditSantri = () => {
       pondokId: santridata.length ? santridata[0].pondokId : null,
       photo: santridata.length ? santridata[0].photo : undefined,
     },
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       if (uploaded === true) {
         let payload = new FormData();
@@ -145,6 +189,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">NIS</h1>
@@ -156,6 +205,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.nis && formik.errors.nis ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.nis}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Alamat</h1>
@@ -167,6 +221,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.address && formik.errors.address ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.address}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
@@ -179,6 +238,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.datebirth && formik.errors.datebirth ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.datebirth}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Jenis Kelamin</h1>
@@ -190,6 +254,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.gender && formik.errors.gender ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.gender}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Pendidikan</h1>
@@ -201,6 +270,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.education && formik.errors.education ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.education}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Kota</h1>
@@ -212,6 +286,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.city && formik.errors.city ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.city}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Provinsi</h1>
@@ -223,17 +302,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">No. Telepon</h1>
-            <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
-              id="telephone"
-              name="telephone"
-              value={formik.values.telephone}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
+            {formik.touched.province && formik.errors.province ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.province}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Orang Tua / Wali</h1>
@@ -245,6 +318,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.parent && formik.errors.parent ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.parent}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">No. Telepon</h1>
@@ -256,7 +334,13 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik.touched.telephone && formik.errors.telephone ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.telephone}
+              </span>
+            ) : null}
           </div>
+         
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block col-span-2">Tanggal Masuk</h1>
             <input
@@ -268,6 +352,11 @@ const EditSantri = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+             {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.tgl_masuk}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Penempatan</h1>
@@ -287,6 +376,11 @@ const EditSantri = () => {
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
+            {formik.touched.pondokId && formik.errors.pondokId ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.pondokId}
+              </span>
+            ) : null}
           </div>
 
           <div class="col-span-4 row-span-2 py-2">

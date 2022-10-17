@@ -23,22 +23,45 @@ const TambahSantri = () => {
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Enter Job Title").required("Title is required"),
-    // address: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // nis: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // telephone: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // chief: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
-    // photo: Yup.string("Please enter Primary Skill").required(
-    //   "Primary Skill is required"
-    // ),
+    name: Yup.string("Masukkan nama santri").required(
+      "Masukkan nama santri"
+    ),
+    nis: Yup.string("Masukkan nomor identik santri").required(
+      "Masukkan nomor identik santri"
+    ),
+    address: Yup.string("Masukkan alamat").required(
+      "Masukkan alamat"
+    ),
+    datebirth: Yup.string("Masukkan tanggal lahir").required(
+      "Masukkan tanggal lahir"
+    ),
+    gender: Yup.string("Masukkan jenis kelamin").required(
+      "Masukkan nomor jenis kelamin"
+    ),
+     education: Yup.string("Masukkan pendidikan").required(
+      "Masukkan nomor pendidikan"
+    ),
+    city: Yup.string("Masukkan kota").required(
+      "Masukkan kota"
+    ),
+    province: Yup.string("Masukkan province").required(
+      "Masukkan provinsi"
+    ),
+    parent: Yup.string("Masukkan nama orang tua").required(
+      "Masukkan nama orang tua"
+    ),
+    telephone: Yup.string("Masukkan nomor telephone").required(
+      "Masukkan nomor telephone"
+    ),
+    tgl_masuk: Yup.string("Pilih Tanggal Masuk").required(
+      "Pilih Tanggal Masuk"
+    ),
+    pondokId: Yup.string("Pilih Pondok ID").required(
+      "Pilih Pondok ID"
+    ),
+    photo: Yup.string("Masukkan nama ibu").required(
+      "Upload Photo"
+    ),
   });
 
   const formik = useFormik({
@@ -125,6 +148,11 @@ const TambahSantri = () => {
               name="name"
               placeholder="Nama Santri"
             />
+             {formik.touched.name && formik.errors.name ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.name}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">NIS</h1>
@@ -136,6 +164,11 @@ const TambahSantri = () => {
               id="nis"
               placeholder="Nomor Identik santri"
             />
+             {formik.touched.nis && formik.errors.nis ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.nis}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Alamat</h1>
@@ -146,8 +179,13 @@ const TambahSantri = () => {
               id="address"
               placeholder="Alamat"
             >
-              {formik.values.address}
+              
             </textarea>
+            {formik.touched.address && formik.errors.address ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.address}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
@@ -160,6 +198,11 @@ const TambahSantri = () => {
               id="datebirth"
               placeholder="Tempat / Tanggal Lahir"
             />
+            {formik.touched.datebirth && formik.errors.datebirth ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.datebirth}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Jenis Kelamin</h1>
@@ -171,6 +214,11 @@ const TambahSantri = () => {
               id="gender"
               placeholder="Jenis Kelamin"
             />
+            {formik.touched.gender && formik.errors.gender ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.gender}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Pendidikan</h1>
@@ -182,6 +230,11 @@ const TambahSantri = () => {
               id="education"
               placeholder="Pendidikan"
             />
+            {formik.touched.education && formik.errors.education ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.education}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Kota</h1>
@@ -193,6 +246,11 @@ const TambahSantri = () => {
               id="city"
               placeholder="Kota"
             />
+            {formik.touched.city && formik.errors.city ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.city}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Provinsi</h1>
@@ -204,6 +262,11 @@ const TambahSantri = () => {
               id="province"
               placeholder="Provinsi"
             />
+             {formik.touched.province && formik.errors.province ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.province}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Orang tua / Wali</h1>
@@ -215,6 +278,11 @@ const TambahSantri = () => {
               id="parent"
               placeholder="Orang tua"
             />
+            {formik.touched.parent && formik.errors.parent ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.parent}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Telepon</h1>
@@ -226,6 +294,11 @@ const TambahSantri = () => {
               id="telephone"
               placeholder="Telepon"
             />
+             {formik.touched.telephone && formik.errors.telephone ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.telephone}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Tanggal Masuk</h1>
@@ -238,6 +311,11 @@ const TambahSantri = () => {
               id="tgl_masuk"
               placeholder="Tanggal Masuk"
             />
+             {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.tgl_masuk}
+              </span>
+            ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block col-span-2">Penempatan</h1>
@@ -257,6 +335,11 @@ const TambahSantri = () => {
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
+            {formik.touched.pondokId && formik.errors.pondokId ? (
+              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+                {formik.errors.pondokId}
+              </span>
+            ) : null}
           </div>
 
           <div class="col-span-4 row-span-2 py-2">
@@ -313,6 +396,11 @@ const TambahSantri = () => {
                     />
                   </label>
                 </div>
+                {formik.touched.photo && formik.errors.photo ? (
+                  <span className="my-1 text-sm text-red-600 w-full ml-3">
+                    {formik.errors.photo}
+                  </span>
+                ) : null}
               </div>
             </div>
           </div>
