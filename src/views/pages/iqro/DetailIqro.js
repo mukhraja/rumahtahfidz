@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,7 +19,6 @@ import Table, {
 const DetailIqro = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { santridata } = useSelector((state) => state.santriState);
   const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
@@ -30,7 +29,7 @@ const DetailIqro = () => {
     dispatch(doGetIqroSantriRequest(payload));
   }, []);
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: "Iqro",

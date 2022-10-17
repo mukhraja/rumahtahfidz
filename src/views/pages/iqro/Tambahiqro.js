@@ -67,16 +67,16 @@ const Tambahiqro = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/dataiqrosantri", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/dataiqrosantri", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { santridata } = useSelector((state) => state.santriState);
 
-  const iqro = [1, 2, 3, 4, 5, 6];
+  const iqro = ["IQRO 1", "IQRO 2", "IQRO 3", "IQRO 4", "IQRO 5", "IQRO 6"];
   const keterangan = ["mengulang", "belum lancar", "selesai"];
   return (
     <div className=" overflow-hidden">
@@ -226,7 +226,7 @@ const Tambahiqro = () => {
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2"
             onClick={() => navigate("/dataiqrosantri")}
           >
-            CANCEL
+            KEMBALI
           </button>
         </div>
       </div>

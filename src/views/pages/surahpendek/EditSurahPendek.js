@@ -77,9 +77,9 @@ const EditSurahPendekSantri = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datasurahpendeksantri", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/datasurahpendeksantri", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 

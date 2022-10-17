@@ -50,6 +50,7 @@ import TambahSurahPendekGuru from "./views/pages/surahpendekguru/TambahSurahPend
 import TambahAlquranGuru from "./views/pages/alquranguru/TambahAlquranGuru";
 import DetailAlquranGuru from "./views/pages/alquranguru/DetailAlquranGuru";
 import EditAlquranGuru from "./views/pages/alquranguru/EditAlquranGuru";
+import LaporanPengajar from "./views/pages/laporan/pengajar/LaporanPengajar";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -246,6 +247,11 @@ function App() {
           <Route
             path="laporansantri"
             element={isLoggedIn ? <LaporanSantri /> : <Navigate to="/" />}
+          />
+          {/* Laporan Pengajar */}
+          <Route
+            path="laporanpengajar"
+            element={isLoggedIn ? <LaporanPengajar /> : <Navigate to="/" />}
           />
           {/* Database */}
           <Route

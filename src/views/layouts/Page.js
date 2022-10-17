@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Logo from "../../gambar/logo.png";
 import {
+  ArrowLeftIcon,
   ArrowNarrowLeftIcon,
   ArrowsExpandIcon,
   ArrowSmLeftIcon,
@@ -26,6 +27,7 @@ import {
   UserGroupIcon,
   UserIcon,
   UsersIcon,
+  ViewBoardsIcon,
 } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { doSignoutRequest } from "../../reduxsaga/actions/User";
@@ -65,9 +67,22 @@ export const Page = (props) => {
     navigate("/", { replace: true });
   };
 
+  const [menu, setMenu] = useState(false);
+
+  const onMenu = () => {
+    setMenu(!menu);
+  };
+
+  console.log(menu);
+  //lg:w-64
+  // -translate-x-full
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto">
-      <aside className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-white">
+    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto sm:text-xs">
+      <aside
+        className={`sidebar md:w-64 sm:w-96 shadow transform ${
+          menu === true ? "hidden" : "translate-x-0"
+        } transition-transform duration-150 ease-in bg-white absolute z-20 lg:static sm:h-screen sm:w-full lg:h-screen`}
+      >
         <div className="sidebar-header flex items-center justify-center py-4">
           <div className="inline-flex">
             <img className=" w-20" src={Logo} alt="logo.jpg" />
@@ -231,11 +246,7 @@ export const Page = (props) => {
               <ul className="font-semibold relative left-10">
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
-                </li>
-                <li className="py-2 flex">
-                  <FolderOpenIcon className="w-5 mr-2" />
-                  <Link to="datapengajar">Pengajar</Link>
+                  <Link to="laporanpengajar">Pengajar</Link>
                 </li>
                 <li className="py-2 flex">
                   <FolderOpenIcon className="w-5 mr-2" />
@@ -301,11 +312,39 @@ export const Page = (props) => {
               </div>
             </li>
           </ul>
+          <div className="w-full text-center py-2">
+            <button
+              className="bg-green-400 p-2 rounded-full shadow-md lg:hidden"
+              onClick={onMenu}
+            >
+              <ArrowLeftIcon className="w-5" />
+            </button>
+          </div>
         </div>
       </aside>
-      <main className="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+      {/* -ml-40  */}
+      <main className="main flex flex-col flex-grow lg:ml-0 transition-all duration-150 ease-in">
         <header className="header bg-white shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
+            <div
+              className={`lg:hidden ${menu === false ? "hidden" : ""}`}
+              onClick={onMenu}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                />
+              </svg>
+            </div>
             <div className="flex ml-auto">
               <a className="flex flex-row items-center mr-4">
                 <img
@@ -313,7 +352,7 @@ export const Page = (props) => {
                   alt="walpaper.jpg"
                   className="h-10 w-10 bg-gray-200 border rounded-full"
                 />
-                <span className="flex flex-col ml-2">
+                <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
                     {userProfile.name}
                   </span>
