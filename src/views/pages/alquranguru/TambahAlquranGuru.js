@@ -74,9 +74,9 @@ const TambahAlquranGuru = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/dataalquranguru", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/dataalquranguru", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 
