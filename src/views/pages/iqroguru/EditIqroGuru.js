@@ -81,9 +81,9 @@ const EditIqroGuru = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      // setTimeout(() => {
-      //   navigate("/dataiqroguru", { state: { refresh: true } });
-      // }, 3000);
+      setTimeout(() => {
+        navigate("/dataiqroguru", { state: { refresh: true } });
+      }, 3000);
     },
   });
 

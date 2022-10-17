@@ -64,9 +64,9 @@ const TambahSurahPendek = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      // setTimeout(() => {
-      //   navigate("/datasurahpendeksantri", { state: { refresh: true } });
-      // }, 3000);
+      setTimeout(() => {
+        navigate("/datasurahpendeksantri", { state: { refresh: true } });
+      }, 3000);
     },
   });
 
@@ -242,7 +242,7 @@ const TambahSurahPendek = () => {
           </button>
           <button
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2"
-            onClick={() => navigate("/dataiqrosantri")}
+            onClick={() => navigate("/datasurahpendeksantri")}
           >
             CANCEL
           </button>

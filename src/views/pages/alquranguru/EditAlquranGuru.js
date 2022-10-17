@@ -81,9 +81,9 @@ const EditAlquranGuru = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      //   setTimeout(() => {
-      //     navigate("/dataalquransantri", { state: { refresh: true } });
-      //   }, 3000);
+        setTimeout(() => {
+          navigate("/dataalquranguru", { state: { refresh: true } });
+        }, 3000);
     },
   });
 

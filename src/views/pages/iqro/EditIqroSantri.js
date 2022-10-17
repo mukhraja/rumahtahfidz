@@ -79,9 +79,9 @@ const EditIqroSantri = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      // setTimeout(() => {
-      //   navigate("/dataiqrosantri", { state: { refresh: true } });
-      // }, 3000);
+      setTimeout(() => {
+        navigate("/dataiqrosantri", { state: { refresh: true } });
+      }, 3000);
     },
   });
 
