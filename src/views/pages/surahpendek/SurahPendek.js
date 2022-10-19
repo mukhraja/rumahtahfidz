@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bacajuz } from "../../../gambar";
 import { doGetSurahPendekAwalSantriRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
@@ -19,6 +19,51 @@ const SurahPendek = () => {
 
   useEffect(() => {
     dispatch(doGetSurahPendekAwalSantriRequest());
+  }, []);
+
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namasantri",
+        },
+        {
+          Header: "Detail",
+          accessor: "santriId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namasantri",
+        },
+        {
+          Header: "Surah Pendek",
+          accessor: "name",
+        },
+
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Pondok",
+          accessor: "namapondok",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Detail",
+          accessor: "santriId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    }
   }, []);
 
   const columns = React.useMemo(
@@ -60,7 +105,7 @@ const SurahPendek = () => {
         <img src={bacajuz} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={surahpendeksantridata} url="tambah" />
+        <Table columns={Display} data={surahpendeksantridata} url="tambah" />
       </div>
     </div>
   );

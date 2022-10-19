@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { santri } from "../../../gambar";
 import Table, {
@@ -17,38 +17,87 @@ const Santri = () => {
     dispatch(doGetSantriRequest());
   }, []);
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "name",
-      },
-      {
-        Header: "NIS",
-        accessor: "nis",
-      },
-      {
-        Header: "Keluarga",
-        accessor: "parent",
-      },
-      {
-        Header: "Kota",
-        accessor: "city",
-      },
-      {
-        Header: "PONDOK",
-        accessor: "Pondok.name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkSantri,
-      },
-    ],
-    []
-  );
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkSantri,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "NIS",
+          accessor: "nis",
+        },
+        {
+          Header: "Keluarga",
+          accessor: "parent",
+        },
+        {
+          Header: "Kota",
+          accessor: "city",
+        },
+        {
+          Header: "PONDOK",
+          accessor: "Pondok.name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkSantri,
+        },
+      ]);
+    }
+  }, []);
+
+  console.log(Display);
+
+  // const columns = [
+  //   {
+  //     Header: "Nama",
+  //     accessor: "name",
+  //   },
+  //   {
+  //     Header: "NIS",
+  //     accessor: "nis",
+  //   },
+  //   {
+  //     Header: "Keluarga",
+  //     accessor: "parent",
+  //   },
+  //   {
+  //     Header: "Kota",
+  //     accessor: "city",
+  //   },
+  //   {
+  //     Header: "PONDOK",
+  //     accessor: "Pondok.name",
+  //     Filter: SelectColumnFilter, // new
+  //     filter: "includes",
+  //   },
+  //   {
+  //     Header: "Detail",
+  //     accessor: "id",
+  //     Cell: ButtonLinkSantri,
+  //   },
+  // ];
+
+  // console.log(Display);
 
   // const data = React.useMemo(() => santridata, [santridata]);
 
@@ -61,7 +110,7 @@ const Santri = () => {
         <img src={santri} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={santridata} url="tambah" />
+        <Table columns={Display} data={santridata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

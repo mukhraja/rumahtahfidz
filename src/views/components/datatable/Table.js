@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   useTable,
   useFilters,
@@ -142,7 +142,7 @@ export function ButtonLinkRumahTahfidz({ value }) {
             to={"detail/" + status}
             className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
           >
-            <EyeIcon className="w-5" />
+            <EyeIcon className="lg:w-5 sm:w-2" />
           </Link>
         </div>
       ) : null}
@@ -150,21 +150,21 @@ export function ButtonLinkRumahTahfidz({ value }) {
         <div className=" flex">
           <Link
             to={"detail/" + status}
-            className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+            className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
           >
-            <EyeIcon className="w-5" />
+            <EyeIcon className="lg:w-5 sm:w-2" />
           </Link>
           <Link
             to={"edit/" + status}
-            className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+            className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
           >
-            <PencilIcon className="w-5" />
+            <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
           <button
             onClick={() => onDelete(value)}
-            className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
           >
-            <TrashIcon className="w-5" />
+            <TrashIcon className="lg:w-5 sm:w-2" />
           </button>
         </div>
       ) : null}
@@ -186,21 +186,21 @@ export function ButtonLinkSantri({ value }) {
     <div className=" flex">
       <Link
         to={"detail/" + status}
-        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <EyeIcon className="w-5" />
+        <EyeIcon className="lg:w-5 sm:w-2" />
       </Link>
       <Link
         to={"edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -219,21 +219,21 @@ export function ButtonLinkGuru({ value }) {
     <div className=" flex">
       <Link
         to={"detail/" + status}
-        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <EyeIcon className="w-5" />
+        <EyeIcon className="lg:w-5 sm:w-2" />
       </Link>
       <Link
         to={"edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -280,9 +280,9 @@ export function ButtonLinkIqro({ value }) {
     <div className="flex">
       <Link
         to={"detail/" + status}
-        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <EyeIcon className="w-5" />
+        <EyeIcon className="lg:w-5 sm:w-2" />
       </Link>
     </div>
   );
@@ -564,7 +564,7 @@ function Table({ columns, data, url }) {
                         // we can add them into the header props
                         <th
                           scope="col"
-                          className="group px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider"
+                          className="group px-6 py-3 text-left text-xs font-light text-gray-500 uppercase tracking-wider"
                           {...column.getHeaderProps(
                             column.getSortByToggleProps()
                           )}
@@ -606,7 +606,7 @@ function Table({ columns, data, url }) {
                               role="cell"
                             >
                               {cell.column.Cell.name === "defaultRenderer" ? (
-                                <div className="text-sm text-gray-500">
+                                <div className="text-xs text-gray-500">
                                   {cell.render("Cell")}
                                 </div>
                               ) : (

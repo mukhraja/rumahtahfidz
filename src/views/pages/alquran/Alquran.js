@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hafalquran } from "../../../gambar";
 import { doGetAlquranAwalSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
@@ -21,6 +21,53 @@ const Alquran = () => {
     dispatch(doGetAlquranAwalSantriRequest());
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namasantri",
+        },
+        {
+          Header: "Detail",
+          accessor: "santriId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namasantri",
+        },
+        {
+          Header: "Surah",
+          accessor: "surah",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Ayat",
+          accessor: "ayat",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Detail",
+          accessor: "santriId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    }
+  }, []);
   const columns = React.useMemo(
     () => [
       {
@@ -63,7 +110,7 @@ const Alquran = () => {
         <img src={hafalquran} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={alquransantridata} url="tambah" />
+        <Table columns={Display} data={alquransantridata} url="tambah" />
       </div>
     </div>
   );

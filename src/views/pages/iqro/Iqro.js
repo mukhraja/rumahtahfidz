@@ -20,6 +20,50 @@ const Iqro = () => {
 
   const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namasantri",
+        },
+        {
+          Header: "Detail",
+          accessor: "guruId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namasantri",
+        },
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Detail",
+          accessor: "santriId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    }
+  }, []);
+
   const columns = useMemo(
     () => [
       {
@@ -63,7 +107,7 @@ const Iqro = () => {
         <img src={bacaiqro} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={iqrosantridata} url="tambah" />
+        <Table columns={Display} data={iqrosantridata} url="tambah" />
       </div>
     </div>
   );

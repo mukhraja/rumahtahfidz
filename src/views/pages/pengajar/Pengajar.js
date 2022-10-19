@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pengajar } from "../../../gambar";
 import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
@@ -18,6 +18,54 @@ const Pengajar = () => {
 
   useEffect(() => {
     dispatch(doGetGuruRequest());
+  }, []);
+
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkGuru,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "NIU",
+          accessor: "niu",
+        },
+        {
+          Header: "MASUK",
+          accessor: "mulai_masuk",
+        },
+        {
+          Header: "VAKUM",
+          accessor: "mulai_vakum",
+        },
+        {
+          Header: "PONDOK",
+          accessor: "Pondok.name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkGuru,
+        },
+      ]);
+    }
   }, []);
 
   const columns = React.useMemo(
@@ -63,7 +111,7 @@ const Pengajar = () => {
         <img src={pengajar} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={gurudata} url="tambah" />
+        <Table columns={Display} data={gurudata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

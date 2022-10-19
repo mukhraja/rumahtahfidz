@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { rumahtahfidz } from "../../../gambar";
 import Table, {
@@ -21,28 +21,65 @@ const Rumahtahfiz = () => {
     dispatch(doGetRumahTahfidzRequest());
   }, []);
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "name",
-      },
-      {
-        Header: "NIT",
-        accessor: "nit",
-      },
-      {
-        Header: "Kepala Tahfiz",
-        accessor: "chief",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkRumahTahfidz,
-      },
-    ],
-    []
-  );
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkRumahTahfidz,
+        },
+      ]);
+    } else
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "NIT",
+          accessor: "nit",
+        },
+        {
+          Header: "Kepala Tahfiz",
+          accessor: "chief",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkRumahTahfidz,
+        },
+      ]);
+  }, []);
+
+  // const columns = React.useMemo(
+  //   () => [
+  //     {
+  //       Header: "Nama",
+  //       accessor: "name",
+  //     },
+  //     {
+  //       Header: "NIT",
+  //       accessor: "nit",
+  //     },
+  //     {
+  //       Header: "Kepala Tahfiz",
+  //       accessor: "chief",
+  //     },
+  //     {
+  //       Header: "Detail",
+  //       accessor: "id",
+  //       Cell: ButtonLinkRumahTahfidz,
+  //     },
+  //   ],
+  //   []
+  // );
 
   // const data = React.useMemo(() => rumahtahfidzdata, [rumahtahfidzdata]);
 
@@ -55,7 +92,7 @@ const Rumahtahfiz = () => {
         <img src={rumahtahfidz} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={rumahtahfidzdata} url="tambah" />
+        <Table columns={Display} data={rumahtahfidzdata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />
