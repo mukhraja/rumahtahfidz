@@ -32,6 +32,54 @@ const DetailSurahPendekGuru = () => {
     dispatch(doGetSurahPendekGuruRequest(payload));
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "name",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkSurahPendekGuruList,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkSurahPendekGuruList,
+        },
+      ]);
+    }
+  }, []);
+
   const columns = React.useMemo(
     () => [
       {
@@ -74,7 +122,7 @@ const DetailSurahPendekGuru = () => {
       ))}
       <div className="mt-6 px-4">
         <Table
-          columns={columns}
+          columns={Display}
           data={surahpendekgurudata}
           url="/datasurahpendekguru/tambah"
         />

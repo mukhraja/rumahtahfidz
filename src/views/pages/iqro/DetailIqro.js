@@ -29,6 +29,50 @@ const DetailIqro = () => {
     dispatch(doGetIqroSantriRequest(payload));
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Iqro",
+          accessor: "name",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkIqroList,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkIqroList,
+        },
+      ]);
+    }
+  }, []);
+
   const columns = useMemo(
     () => [
       {
@@ -71,7 +115,7 @@ const DetailIqro = () => {
       ))}
       <div className="mt-6 px-4">
         <Table
-          columns={columns}
+          columns={Display}
           data={iqrosantridata}
           url="/dataiqrosantri/tambah"
         />

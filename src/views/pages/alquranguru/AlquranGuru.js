@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hafalquran } from "../../../gambar";
 import { doGetAlquranAwalGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
@@ -17,6 +17,58 @@ const AlquranGuru = () => {
 
   useEffect(() => {
     dispatch(doGetAlquranAwalGuruRequest());
+  }, []);
+
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namaguru",
+        },
+        {
+          Header: "Surah",
+          accessor: "surah",
+        },
+        {
+          Header: "Detail",
+          accessor: "guruId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namaguru",
+        },
+        {
+          Header: "Surah",
+          accessor: "surah",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Ayat",
+          accessor: "ayat",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Detail",
+          accessor: "guruId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    }
   }, []);
 
   const columns = React.useMemo(
@@ -62,7 +114,7 @@ const AlquranGuru = () => {
         <img src={hafalquran} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={alqurangurudata} url="tambah" />
+        <Table columns={Display} data={alqurangurudata} url="tambah" />
       </div>
     </div>
   );

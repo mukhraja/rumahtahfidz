@@ -38,6 +38,50 @@ const IqroGuru = () => {
     // })();
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namaguru",
+        },
+        {
+          Header: "Detail",
+          accessor: "guruId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "namaguru",
+        },
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Detail",
+          accessor: "guruId",
+          Cell: ButtonLinkIqro,
+        },
+      ]);
+    }
+  }, []);
+
   console.log(data);
   // console.log(iqrogurudata);
   const columns = useMemo(
@@ -80,7 +124,7 @@ const IqroGuru = () => {
         <img src={bacaiqro} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={iqrogurudata} url="tambah" />
+        <Table columns={Display} data={iqrogurudata} url="tambah" />
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ const Iqro = () => {
         },
         {
           Header: "Detail",
-          accessor: "guruId",
+          accessor: "santriId",
           Cell: ButtonLinkIqro,
         },
       ]);

@@ -37,6 +37,56 @@ const DetailIqroGuru = () => {
     dispatch(doGetIqroGuruRequest(payload));
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkIqroPengajarList,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkIqroPengajarList,
+        },
+      ]);
+    }
+  }, []);
+
   const columns = React.useMemo(
     () => [
       {
@@ -79,7 +129,7 @@ const DetailIqroGuru = () => {
       ))}
       <div className="mt-6 px-4">
         <Table
-          columns={columns}
+          columns={Display}
           data={iqrogurudata}
           url="/dataalquranguru/tambah"
         />

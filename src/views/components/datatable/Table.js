@@ -253,21 +253,21 @@ export function ButtonLinkUser({ value }) {
     <div className=" flex">
       <Link
         to={"detail/" + status}
-        className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <EyeIcon className="w-5" />
+        <EyeIcon className="lg:w-5 sm:w-2" />
       </Link>
       <Link
         to={"edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -306,15 +306,15 @@ export function ButtonLinkIqroList({ value }) {
     <div className=" flex">
       <Link
         to={"/dataiqrosantri/edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -334,15 +334,15 @@ export function ButtonLinkSurahPendekList({ value }) {
     <div className=" flex">
       <Link
         to={"/datasurahpendeksantri/edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -362,15 +362,15 @@ export function ButtonLinkAlquranList({ value }) {
     <div className=" flex">
       <Link
         to={"/dataalquransantri/edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -394,15 +394,15 @@ export function ButtonLinkIqroPengajarList({ value }) {
     <div className=" flex">
       <Link
         to={"/dataiqropengajar/edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -422,15 +422,15 @@ export function ButtonLinkSurahPendekGuruList({ value }) {
     <div className=" flex">
       <Link
         to={"/datasurahpendekguru/edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );
@@ -450,15 +450,15 @@ export function ButtonLinkAlquranGuruList({ value }) {
     <div className=" flex">
       <Link
         to={"/dataalquranguru/edit/" + status}
-        className="px-3 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <PencilIcon className="w-5" />
+        <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
         onClick={() => onDelete(value)}
-        className="px-3 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
-        <TrashIcon className="w-5" />
+        <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
     </div>
   );

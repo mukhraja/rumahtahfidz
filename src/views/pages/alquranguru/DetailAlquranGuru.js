@@ -34,6 +34,54 @@ const DetailAlquranGuru = () => {
     dispatch(doGetAlquranGuruRequest(payload));
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "surah",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkAlquranGuruList,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "surah",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Ayat",
+          accessor: "ayat",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkAlquranGuruList,
+        },
+      ]);
+    }
+  }, []);
+
   const columns = React.useMemo(
     () => [
       {
@@ -80,7 +128,7 @@ const DetailAlquranGuru = () => {
       ))}
       <div className="mt-6 px-4">
         <Table
-          columns={columns}
+          columns={Display}
           data={alqurangurudata}
           url="/dataalquranguru/tambah"
         />

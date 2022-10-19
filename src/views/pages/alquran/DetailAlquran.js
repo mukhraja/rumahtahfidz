@@ -30,6 +30,54 @@ const DetailAlquran = () => {
     dispatch(doGetAlquranSantriRequest(payload));
   }, []);
 
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "surah",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkAlquranList,
+        },
+      ]);
+    } else {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "surah",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Ayat",
+          accessor: "ayat",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkAlquranList,
+        },
+      ]);
+    }
+  }, []);
+
   const columns = React.useMemo(
     () => [
       {
@@ -76,7 +124,7 @@ const DetailAlquran = () => {
       ))}
       <div className="mt-6 px-4">
         <Table
-          columns={columns}
+          columns={Display}
           data={alquransantridata}
           url="/dataalquransantri/tambah"
         />
