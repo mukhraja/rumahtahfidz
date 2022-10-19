@@ -46,56 +46,68 @@ const Dashboard = () => {
       <div className="sm:flex-none lg:flex w-full justify-center">
         <div className="my-4 lg:ml-4 lg:mr-2 sm:mx-2 shadow-md rounded-lg lg:h-40 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-4 flex sm:flex-wrap justify-center lg:justify-around sm:static md:top-0 lg:relative lg:top-5">
-            <div className="shadow-md p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
-              <div className="flex justify-center pb-5">
-                <img src={santri} className="h-20" />
+            <Link to="/datasantri">
+              <div className="shadow-md p-3 lg:p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
+                <div className="flex justify-center pb-5">
+                  <img src={santri} className="h-20" />
+                </div>
+                <h1 className=" font-medium">Santri</h1>
+                <h2 className="font-medium">{santridata.length}</h2>
               </div>
-              <h1 className=" font-medium">Santri</h1>
-              <h2 className="font-medium">{santridata.length}</h2>
-            </div>
-            <div className="shadow-md p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
-              <div className="flex justify-center pb-5">
-                <img src={hafalquran} className="h-20" />
+            </Link>
+            <Link to="/dataalquransantri">
+              <div className="shadow-md p-3 lg:p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
+                <div className="flex justify-center pb-5">
+                  <img src={hafalquran} className="h-20" />
+                </div>
+                <h1 className=" font-medium">Hafal Qur'an</h1>
+                <h2 className="font-medium">{alquransantridata.length}</h2>
               </div>
-              <h1 className=" font-medium">Hafal Qur'an</h1>
-              <h2 className="font-medium">{alquransantridata.length}</h2>
-            </div>
-            <div className="shadow-md p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
-              <div className="flex justify-center pb-5">
-                <img src={bacaiqro} className="h-20" />
+            </Link>
+            <Link to="/dataiqrosantri">
+              <div className="shadow-md p-3 lg:p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
+                <div className="flex justify-center pb-5">
+                  <img src={bacaiqro} className="h-20" />
+                </div>
+                <h1 className=" font-medium">Baca Iqro</h1>
+                <h2 className="font-medium">{iqrosantridata.length}</h2>
               </div>
-              <h1 className=" font-medium">Baca Iqro</h1>
-              <h2 className="font-medium">{iqrosantridata.length}</h2>
-            </div>
-            <div className="shadow-md p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
-              <div className="flex justify-center pb-5">
-                <img src={bacajuz} className="h-20" />
+            </Link>
+            <Link to="/datasurahpendeksantri">
+              <div className="shadow-md p-3 lg:p-4 sm:m-2 lg:m-0 text-center rounded-lg w-40 items-center bg-white">
+                <div className="flex justify-center pb-5">
+                  <img src={bacajuz} className="h-20" />
+                </div>
+                <h1 className=" font-medium">Baca Juz 30</h1>
+                <h2 className="font-medium">{surahpendeksantridata.length}</h2>
               </div>
-              <h1 className=" font-medium">Baca Juz 30</h1>
-              <h2 className="font-medium">{surahpendeksantridata.length}</h2>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="my-4 lg:ml-2 lg:mr-4 sm:mx-2 shadow-md rounded-lg lg:h-40 sm:w-full lg:w-1/2 bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-4 flex sm:flex-wrap justify-center lg:justify-around sm:static sm:top-0 lg:relative lg:top-5">
-            <div className="shadow-md p-4 text-center rounded-lg w-40 items-center bg-white sm:m-2 lg:m-0">
-              <div className="flex justify-center pb-5">
-                <img src={pengajar} className="h-20" />
+            <Link to="/datapengajar">
+              <div className="shadow-md p-3 lg:p-4 text-center rounded-lg w-40 items-center bg-white sm:m-2 lg:m-0">
+                <div className="flex justify-center pb-5">
+                  <img src={pengajar} className="h-20" />
+                </div>
+                <h1 className=" font-medium">Pengajar</h1>
+                <h2 className="font-medium">{gurudata.length}</h2>
               </div>
-              <h1 className=" font-medium">Pengajar</h1>
-              <h2 className="font-medium">{gurudata.length}</h2>
-            </div>
-            <div className="shadow-md p-4 text-center rounded-lg w-40 items-center bg-white sm:m-2 lg:m-0">
-              <div className="flex justify-center pb-5">
-                <img src={rumahtahfidz} className="h-20" />
+            </Link>
+            <Link to="/datarumahtahfiz">
+              <div className="shadow-md p-3 lg:p-4 text-center rounded-lg w-40 items-center bg-white sm:m-2 lg:m-0">
+                <div className="flex justify-center pb-5">
+                  <img src={rumahtahfidz} className="h-20" />
+                </div>
+                <h1 className=" font-medium">Rumah Tahfidz</h1>
+                <h2 className="font-medium">{rumahtahfidzdata.length}</h2>
               </div>
-              <h1 className=" font-medium">Rumah Tahfidz</h1>
-              <h2 className="font-medium">{rumahtahfidzdata.length}</h2>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
-      <div className="mt-24 mx-5  rounded-lg pt-5 shadow-md bg-white ">
+      <div className="lg:mt-24 sm:mt-4 mx-5  rounded-lg pt-5 shadow-md bg-white ">
         <div className="flex justify-between px-5 py-3">
           <div className="font-medium text-lg flex items-center">
             <span className="text-gray-700 mr-2">
