@@ -473,7 +473,7 @@ export const Page = (props) => {
         </div>
       </aside>
       {/* -ml-40  */}
-      <main className="main flex flex-col flex-grow lg:ml-52 transition-all duration-150 ease-in">
+      <main className="main flex flex-col flex-grow lg:ml-52  transition-all duration-150 ease-in">
         <header className="header bg-white shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
             <div
@@ -496,7 +496,7 @@ export const Page = (props) => {
               </svg>
             </div>
             <div className="flex ml-auto">
-              <a className="flex flex-row items-center mr-4">
+              <a className="flex flex-row items-center">
                 <img
                   src="https://pbs.twimg.com/profile_images/378800000298815220/b567757616f720812125bfbac395ff54_normal.png"
                   alt="walpaper.jpg"
@@ -514,7 +514,7 @@ export const Page = (props) => {
             </div>
           </div>
         </header>
-        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
           <Outlet />
         </div>
         <footer className="footer px-4 py-6">

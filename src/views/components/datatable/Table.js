@@ -543,7 +543,7 @@ function Table({ columns, data, url }) {
             to={url}
             className=" bg-mamasingle px-4 py-2 rounded-md text-white"
           >
-            Tambah Data
+            Tambah
           </Link>
         ) : null}
       </div>

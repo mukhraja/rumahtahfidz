@@ -43,7 +43,7 @@ const Dashboard = () => {
 
   return (
     <div className=" font-poppins">
-      <div className="sm:flex-none lg:flex w-full justify-center">
+      <div className="sm:flex-none lg:flex justify-center">
         <div className="my-4 lg:ml-4 lg:mr-2 sm:mx-2 shadow-md rounded-lg lg:h-28 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static md:top-0 lg:relative lg:top-5">
             <Link to="/datasantri">
