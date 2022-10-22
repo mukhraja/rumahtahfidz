@@ -118,7 +118,7 @@ const EditUser = () => {
     <div className="">
       <form method="PUT" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-          <h1 className="text-white font-semibold text-2xl font-poppins">
+          <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Edit Pengguna
           </h1>
           <img
@@ -128,9 +128,9 @@ const EditUser = () => {
         </div>
         <div className="m-4 bg-white p-4 rounded-md font-poppins">
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Nama</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               name="name"
               id="name"
               value={formik.values.name}
@@ -139,77 +139,79 @@ const EditUser = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Email</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Email</h1>
             <input
               id="email"
               name="email"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.email}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Password</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Password</h1>
             <input
               id="password"
               name="password"
               type="password"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.password}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Alamat</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
             <textarea
               id="address"
               name="address"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.address}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
+            <h1 className="block lg:col-span-2 col-span-4">
+              Tempat / Tanggal Lahir
+            </h1>
             <input
               type="date"
               id="datebirth"
               name="datebirth"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.datebirth}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Jenis Kelamin</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
             <input
               id="gender"
               name="gender"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.gender}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Umur</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Umur</h1>
             <input
               id="age"
               name="age"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.age}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">No. Telepon</h1>
+            <h1 className="block lg:col-span-2 col-span-4">No. Telepon</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               id="telephone"
               name="telephone"
               value={formik.values.telephone}
@@ -218,7 +220,7 @@ const EditUser = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Role</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Role</h1>
             <select
               name="roleId"
               id="roleId"
@@ -226,7 +228,7 @@ const EditUser = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               autoComplete="roleId"
-              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             >
               <option value="" selected disabled hidden>
                 Pilih Role

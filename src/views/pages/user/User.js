@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../gambar";
 import Table, {
@@ -16,6 +16,57 @@ const User = () => {
 
   useEffect(() => {
     dispatch(doGetUserRequest());
+  }, []);
+
+  const [Display, setDisplay] = useState([]);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkUser,
+        },
+      ]);
+    } else {
+      setDisplay(
+        [
+          {
+            Header: "Nama",
+            accessor: "name",
+          },
+          {
+            Header: "Email",
+            accessor: "email",
+          },
+          {
+            Header: "Telephone",
+            accessor: "telephone",
+          },
+          {
+            Header: "Address",
+            accessor: "address",
+          },
+          {
+            Header: "Role",
+            accessor: "Role.name",
+            Filter: SelectColumnFilter, // new
+            filter: "includes",
+          },
+          {
+            Header: "Detail",
+            accessor: "id",
+            Cell: ButtonLinkUser,
+          },
+        ],
+        []
+      );
+    }
   }, []);
 
   const columns = React.useMemo(
@@ -56,13 +107,13 @@ const User = () => {
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Pengguna
         </h1>
         <img src={user} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={columns} data={userdata} url="tambah" />
+        <Table columns={Display} data={userdata} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

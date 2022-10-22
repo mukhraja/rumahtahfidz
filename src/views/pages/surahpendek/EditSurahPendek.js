@@ -126,16 +126,16 @@ const EditSurahPendekSantri = () => {
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Hafalan Surah Pendek
         </h1>
         <img src={bacaiqro} className="h-20" />
       </div>
       <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Nama</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
           <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             placeholder="Iqro Ke ..."
             name="namesantri"
             id="namesantri"
@@ -144,7 +144,7 @@ const EditSurahPendekSantri = () => {
           />
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Surah Pendek</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Surah Pendek</h1>
           <select
             disabled
             name="name"
@@ -154,7 +154,7 @@ const EditSurahPendekSantri = () => {
             onBlur={formik.handleBlur}
             autoComplete="name"
             data-dropup-auto="false"
-            class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
           >
             <option value="" selected disabled hidden>
               Pilih Surah Pendek
@@ -165,9 +165,9 @@ const EditSurahPendekSantri = () => {
           </select>
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Tanggal Selesai</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Tanggal Selesai</h1>
           <input
-            className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             type="date"
             name="tgl_selesai"
             id="tgl_selesai"
@@ -176,13 +176,13 @@ const EditSurahPendekSantri = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
-            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+            <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
               {formik.errors.tgl_selesai}
             </span>
           ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block col-span-2">Keterangan</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Keterangan</h1>
           <select
             name="ket"
             id="ket"
@@ -190,7 +190,7 @@ const EditSurahPendekSantri = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             autoComplete="ket"
-            class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+            class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
           >
             <option value="" selected disabled hidden>
               Pilih Keterangan
@@ -200,7 +200,7 @@ const EditSurahPendekSantri = () => {
             ))}
           </select>
           {formik.touched.ket && formik.errors.ket ? (
-            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+            <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
               {formik.errors.ket}
             </span>
           ) : null}

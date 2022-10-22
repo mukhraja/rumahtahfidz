@@ -87,7 +87,7 @@ const Tambahrumahtahfiz = () => {
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Rumah Tahfidz
         </h1>
         <img src={rumahtahfidz} className="h-20" />
@@ -95,9 +95,9 @@ const Tambahrumahtahfiz = () => {
       <div className="m-4 bg-white p-4 rounded-md font-poppins text-sm">
         <form method="POST" action="#">
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Nama</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.name}
               onChange={formik.handleChange}
               id="name"
@@ -106,15 +106,15 @@ const Tambahrumahtahfiz = () => {
               required
             />
             {formik.touched.name && formik.errors.name ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.name}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">NIT</h1>
+            <h1 className="block lg:col-span-2 col-span-4">NIT</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.nit}
               onChange={formik.handleChange}
               name="nit"
@@ -122,15 +122,15 @@ const Tambahrumahtahfiz = () => {
               placeholder="Nomor Identik Rumah Pondok Tahfidz"
             />
             {formik.touched.nit && formik.errors.nit ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.nit}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Alamat</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
             <textarea
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               onChange={formik.handleChange}
               name="address"
               id="address"
@@ -139,15 +139,15 @@ const Tambahrumahtahfiz = () => {
               {formik.values.address}
             </textarea>
             {formik.touched.address && formik.errors.address ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.address}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">No. Telepon</h1>
+            <h1 className="block lg:col-span-2 col-span-4">No. Telepon</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.telephone}
               onChange={formik.handleChange}
               name="telephone"
@@ -155,15 +155,17 @@ const Tambahrumahtahfiz = () => {
               placeholder="Nomor Telepon Rumah Pondok Tahfidz"
             />
             {formik.touched.telephone && formik.errors.telephone ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.telephone}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Nama Kepala Tahfidz</h1>
+            <h1 className="block lg:col-span-2 col-span-4">
+              Nama Kepala Tahfidz
+            </h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.chief}
               onChange={formik.handleChange}
               name="chief"
@@ -171,7 +173,7 @@ const Tambahrumahtahfiz = () => {
               placeholder="Kepala Rumah Pondok Tahfidz"
             />
             {formik.touched.chief && formik.errors.chief ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.chief}
               </span>
             ) : null}

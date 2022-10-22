@@ -50,13 +50,13 @@ const Database = () => {
   return (
     <div className=" overflow-hidden">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Database
         </h1>
         <img src={database} className="h-20" />
       </div>
       <div className="mt-4 p-4 mx-4 bg-white rounded-lg shadow-lg font-poppins text-xs">
-        <div className="grid grid-cols-4 gap-4 py-2">
+        {/* <div className="grid grid-cols-4 gap-4 py-2">
           <h1 className="">Import</h1>
           <input
             id="database"
@@ -65,23 +65,23 @@ const Database = () => {
             className=" col-span-2 border rounded p-1"
             onChange={changeHandler}
           />
-        </div>
-        <div className="grid grid-cols-4 gap-4">
+        </div> */}
+        {/* <div className="grid grid-cols-4 gap-4">
           <h1 className=""> </h1>
           <button
             onClick={formik.handleSubmit}
             type="button"
-            className="bg-green-400 rounded-sm shadow-md p-2 text-white"
+            className="bg-green-400 rounded-sm shadow-md p-2 text-white col-span-4"
           >
             Import
           </button>
-        </div>
+        </div> */}
         <div className="grid grid-cols-4 py-4 gap-4">
-          <h1 className="">Export</h1>
+          <h1 className="col-span-2 py-2">Export</h1>
           <button
             type="button"
             onClick={onExport}
-            className="bg-blue-400 rounded-sm shadow-md p-2 text-white"
+            className="bg-blue-400 rounded-sm shadow-md p-2 col-span-2 text-white"
           >
             Export
           </button>

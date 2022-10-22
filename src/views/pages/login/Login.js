@@ -51,13 +51,16 @@ export default function Login() {
           <img src={gambardepan} />
         </div>
 
-        <div className=" w-96">
-          <div className="shadow-lg px-20 py-10 rounded-md">
+        <div
+          className=" lg:w-96 w-72 bg-white shadow-lg sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
+          style={{ backdropFilter: "blur(20px)" }}
+        >
+          <div className="px-20 py-10 rounded-md">
             <div className="w-full flex justify-center">
               <img src={logo} className=" w-32 mb-8" />
             </div>
-            <form method="POST">
-              <h1 className="mb-2">Email</h1>
+            <form method="POST" className="text-xs">
+              <h1 className="my-2">Email</h1>
               <input
                 id="email"
                 name="email"
@@ -67,13 +70,13 @@ export default function Login() {
                 onBlur={formik.handleBlur}
                 autoComplete="email"
                 required
-                className="shadow-sm mb-2 py-2 pl-3 rounded-md text-sm w-full"
+                className=" mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Email . . ."
               />
               {formik.touched.email && formik.errors.email ? (
-                <sapn className="my-2 text-sm text-red-600 w-full">
+                <span className="mb-2 text-xs text-red-600 w-full italic">
                   {formik.errors.email}
-                </sapn>
+                </span>
               ) : null}
               <h1 className="my-2">Password</h1>
               <input
@@ -85,11 +88,11 @@ export default function Login() {
                 onBlur={formik.handleBlur}
                 autoComplete="current-password"
                 required
-                className=" shadow-sm mb-2 py-2 pl-3 rounded-md text-sm w-full"
-                placeholder="Password"
+                className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="***************"
               />
               {formik.touched.password && formik.errors.password ? (
-                <span className="mb-2 text-sm text-red-600 w-full">
+                <span className="mb-2 text-xs text-red-600 w-full italic">
                   {formik.errors.password}
                 </span>
               ) : null}

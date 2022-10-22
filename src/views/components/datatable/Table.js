@@ -636,7 +636,7 @@ function Table({ columns, data, url }) {
         </div>
         <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
           <div className="flex gap-x-2 items-baseline">
-            <span className="text-sm text-gray-700">
+            <span className="lg:text-sm text-xs text-gray-700">
               Page <span className="font-medium">{state.pageIndex + 1}</span> of{" "}
               <span className="font-medium">{pageOptions.length}</span>
             </span>
@@ -669,7 +669,7 @@ function Table({ columns, data, url }) {
               >
                 <span className="sr-only">First</span>
                 <ChevronDoubleLeftIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
                   aria-hidden="true"
                 />
               </PageButton>
@@ -679,14 +679,14 @@ function Table({ columns, data, url }) {
               >
                 <span className="sr-only">Previous</span>
                 <ChevronLeftIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
                   aria-hidden="true"
                 />
               </PageButton>
               <PageButton onClick={() => nextPage()} disabled={!canNextPage}>
                 <span className="sr-only">Next</span>
                 <ChevronRightIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
                   aria-hidden="true"
                 />
               </PageButton>
@@ -697,7 +697,7 @@ function Table({ columns, data, url }) {
               >
                 <span className="sr-only">Last</span>
                 <ChevronDoubleRightIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
                   aria-hidden="true"
                 />
               </PageButton>

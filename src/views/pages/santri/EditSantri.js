@@ -158,7 +158,7 @@ const EditSantri = () => {
     <div className="">
       <form method="POST" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-          <h1 className="text-white font-semibold text-2xl font-poppins">
+          <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Edit Santri {formik.values.name}
           </h1>
           <img
@@ -168,9 +168,9 @@ const EditSantri = () => {
         </div>
         <div className="m-4 bg-white p-4 rounded-md font-poppins">
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Nama</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               name="name"
               id="name"
               value={formik.values.name}
@@ -178,128 +178,130 @@ const EditSantri = () => {
               onChange={formik.handleChange}
             />
             {formik.touched.name && formik.errors.name ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.name}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">NIS</h1>
+            <h1 className="block lg:col-span-2 col-span-4">NIS</h1>
             <input
               id="nis"
               name="nis"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.nis}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.nis && formik.errors.nis ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.nis}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Alamat</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
             <textarea
               id="address"
               name="address"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.address}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.address && formik.errors.address ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.address}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
+            <h1 className="block lg:col-span-2 col-span-4">
+              Tempat / Tanggal Lahir
+            </h1>
             <input
               type="date"
               id="datebirth"
               name="datebirth"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.datebirth}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.datebirth && formik.errors.datebirth ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.datebirth}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Jenis Kelamin</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
             <input
               id="gender"
               name="gender"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.gender}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.gender && formik.errors.gender ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.gender}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Pendidikan</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
             <input
               id="education"
               name="education"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.education}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.education && formik.errors.education ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.education}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Kota</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Kota</h1>
             <input
               id="city"
               name="city"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.city}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.city && formik.errors.city ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.city}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Provinsi</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Provinsi</h1>
             <input
               id="province"
               name="province"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               value={formik.values.province}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.touched.province && formik.errors.province ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.province}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Orang Tua / Wali</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Orang Tua / Wali</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               id="parent"
               name="parent"
               value={formik.values.parent}
@@ -307,15 +309,15 @@ const EditSantri = () => {
               onChange={formik.handleChange}
             />
             {formik.touched.parent && formik.errors.parent ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.parent}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">No. Telepon</h1>
+            <h1 className="block lg:col-span-2 col-span-4">No. Telepon</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               id="telephone"
               name="telephone"
               value={formik.values.telephone}
@@ -323,17 +325,17 @@ const EditSantri = () => {
               onChange={formik.handleChange}
             />
             {formik.touched.telephone && formik.errors.telephone ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.telephone}
               </span>
             ) : null}
           </div>
 
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block col-span-2">Tanggal Masuk</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Tanggal Masuk</h1>
             <input
               type="date"
-              className="border rounded-md block col-span-2 pl-2 py-1"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
               id="tgl_masuk"
               name="tgl_masuk"
               value={formik.values.tgl_masuk}
@@ -341,13 +343,13 @@ const EditSantri = () => {
               onChange={formik.handleChange}
             />
             {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.tgl_masuk}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Penempatan</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
             <select
               name="pondokId"
               id="pondokId"
@@ -355,7 +357,7 @@ const EditSantri = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               autoComplete="pondokId"
-              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             >
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
@@ -365,7 +367,7 @@ const EditSantri = () => {
               ))}
             </select>
             {formik.touched.pondokId && formik.errors.pondokId ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.pondokId}
               </span>
             ) : null}

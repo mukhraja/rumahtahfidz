@@ -107,7 +107,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className=" lg:mt-10 sm:mt-4 mx-5  rounded-lg pt-5 shadow-md bg-white ">
+      <div className=" lg:mt-10 sm:mt-4 mx-2 rounded-lg pt-5 shadow-md bg-white ">
         <div className="flex justify-between px-5 py-3">
           <div className="font-medium text-lg flex items-center">
             <span className="text-gray-700 mr-2">
@@ -130,7 +130,7 @@ const Dashboard = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-xs font-light">
                 {rumahtahfidzdata.map((e, i) => (
                   <tr>
                     <td className="border border-gray-200 border-x-0 px-4 py-3">

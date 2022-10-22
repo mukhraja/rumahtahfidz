@@ -129,7 +129,7 @@ const TambahUser = () => {
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Pengguna
         </h1>
         <img src={user} className="h-20" />
@@ -138,9 +138,9 @@ const TambahUser = () => {
         <form method="POST" action="#">
           <div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Nama</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
               <input
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 id="name"
@@ -149,9 +149,9 @@ const TambahUser = () => {
               />
             </div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Email</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Email</h1>
               <input
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 id="email"
@@ -160,9 +160,9 @@ const TambahUser = () => {
               />
             </div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Password</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Password</h1>
               <input
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 id="password"
@@ -171,9 +171,9 @@ const TambahUser = () => {
               />
             </div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Alamat</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
               <textarea
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 onChange={formik.handleChange}
                 name="address"
                 id="address"
@@ -183,9 +183,11 @@ const TambahUser = () => {
               </textarea>
             </div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Tempat / Tanggal Lahir</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                Tempat / Tanggal Lahir
+              </h1>
               <input
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 type="date"
                 value={formik.values.datebirth}
                 onChange={formik.handleChange}
@@ -195,9 +197,9 @@ const TambahUser = () => {
               />
             </div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Umur</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Umur</h1>
               <input
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 value={formik.values.age}
                 onChange={formik.handleChange}
                 name="age"
@@ -206,9 +208,9 @@ const TambahUser = () => {
               />
             </div>
             <div className="grid grid-cols-8 my-2">
-              <h1 className="block col-span-2">Jenis Kelamin</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
               <input
-                className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
                 value={formik.values.gender}
                 onChange={formik.handleChange}
                 name="gender"
@@ -218,9 +220,9 @@ const TambahUser = () => {
             </div>
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Telepon</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.telephone}
               onChange={formik.handleChange}
               name="telephone"
@@ -229,9 +231,9 @@ const TambahUser = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Parent</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Parent</h1>
             <input
-              className="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.parent}
               onChange={formik.handleChange}
               name="parent"
@@ -240,7 +242,7 @@ const TambahUser = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block col-span-2">Role</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Role</h1>
             <select
               name="roleId"
               id="roleId"
@@ -248,7 +250,7 @@ const TambahUser = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               autoComplete="roleId"
-              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs"
+              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             >
               <option value="" selected disabled hidden>
                 Pilih Role
