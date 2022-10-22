@@ -110,7 +110,7 @@ const Editrumahtahfiz = () => {
     setPhoto(null);
   };
   return (
-    <div className=" overflow-hidden">
+    <div className="">
       <form method="POST" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold text-2xl font-poppins">

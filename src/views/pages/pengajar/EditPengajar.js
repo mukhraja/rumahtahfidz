@@ -49,24 +49,16 @@ const EditPengajar = () => {
     education: Yup.string("Masukkan pendidikan").required(
       "Masukkan nomor pendidikan"
     ),
-    address: Yup.string("Masukkan alamat").required(
-      "Masukkan alamat"
-    ),
-    ayah: Yup.string("Masukkan nama ayah").required(
-      "Masukkan nama ayah"
-    ),
-    ibu: Yup.string("Masukkan nama ibu").required(
-      "Masukkan nama ibu"
-    ),
+    address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
+    ayah: Yup.string("Masukkan nama ayah").required("Masukkan nama ayah"),
+    ibu: Yup.string("Masukkan nama ibu").required("Masukkan nama ibu"),
     mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
     ),
     mulai_vakum: Yup.string("Pilih Tanggal Vakum").required(
       "Pilih Tanggal Vakum"
     ),
-    pondokId: Yup.string("Pilih Pondok ID").required(
-      "Pilih Pondok ID"
-    ),
+    pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
   });
 
   const formik = useFormik({
@@ -163,7 +155,7 @@ const EditPengajar = () => {
     setPhoto(null);
   };
   return (
-    <div className=" overflow-hidden">
+    <div className="">
       <form method="POST" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold text-2xl font-poppins">
@@ -185,7 +177,7 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-             {formik.touched.name && formik.errors.name ? (
+            {formik.touched.name && formik.errors.name ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.name}
               </span>
@@ -298,7 +290,7 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-             {formik.touched.address && formik.errors.address ? (
+            {formik.touched.address && formik.errors.address ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.address}
               </span>
@@ -314,7 +306,7 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-             {formik.touched.ayah && formik.errors.ayah ? (
+            {formik.touched.ayah && formik.errors.ayah ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.ayah}
               </span>
@@ -330,7 +322,7 @@ const EditPengajar = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-             {formik.touched.ibu && formik.errors.ibu ? (
+            {formik.touched.ibu && formik.errors.ibu ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.ibu}
               </span>

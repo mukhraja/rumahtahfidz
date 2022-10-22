@@ -51,6 +51,7 @@ import TambahAlquranGuru from "./views/pages/alquranguru/TambahAlquranGuru";
 import DetailAlquranGuru from "./views/pages/alquranguru/DetailAlquranGuru";
 import EditAlquranGuru from "./views/pages/alquranguru/EditAlquranGuru";
 import LaporanPengajar from "./views/pages/laporan/pengajar/LaporanPengajar";
+import Dashboard2 from "./views/pages/dashboard/Dashboard2";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -58,7 +59,7 @@ function App() {
   return (
     <div>
       <Routes>
-        {/* <Route path="/" element={<Landing />} /> */}
+        {/* <Route path="/" element={<Dashboard2 />} /> */}
         <Route path="/" element={<Login />} />
         <Route element={<Page />}>
           <Route

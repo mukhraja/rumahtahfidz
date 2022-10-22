@@ -31,19 +31,13 @@ const TambahSurahPendekGuru = () => {
     setSelect(e.target.value);
   };
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Masukkan surah pendek").required(
-      "Masukkan surah pendek"
-    ),
+    name: Yup.string("Masukkan surah pendek").required("Masukkan surah pendek"),
     tgl_selesai: Yup.string("Masukkan tgl selesai").required(
       "Masukkan tgl selesai"
     ),
-    ket: Yup.string("Masukkan keterangan").required(
-      "Masukkan keterangan"
-    ),
-    
-    guruId: Yup.string("Pilih Pengajar").required(
-      "Pilih Pengajar"
-    ),
+    ket: Yup.string("Masukkan keterangan").required("Masukkan keterangan"),
+
+    guruId: Yup.string("Pilih Pengajar").required("Pilih Pengajar"),
   });
 
   const formik = useFormik({
@@ -116,7 +110,7 @@ const TambahSurahPendekGuru = () => {
 
   const keterangan = ["mengulang", "belum lancar", "selesai"];
   return (
-    <div className=" overflow-hidden">
+    <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Tambah Hafalan Surah Pendek
@@ -163,10 +157,10 @@ const TambahSurahPendekGuru = () => {
               ))}
           </select>
           {formik.touched.guruId && formik.errors.guruId ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.guruId}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.guruId}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Surah Pendek</h1>
@@ -188,10 +182,10 @@ const TambahSurahPendekGuru = () => {
             ))}
           </select>
           {formik.touched.name && formik.errors.name ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.name}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.name}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
@@ -205,10 +199,10 @@ const TambahSurahPendekGuru = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.tgl_selesai}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.tgl_selesai}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
@@ -229,10 +223,10 @@ const TambahSurahPendekGuru = () => {
             ))}
           </select>
           {formik.touched.ket && formik.errors.ket ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.ket}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.ket}
+            </span>
+          ) : null}
         </div>
         <div>
           <button

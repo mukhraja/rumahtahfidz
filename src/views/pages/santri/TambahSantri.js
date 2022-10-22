@@ -23,30 +23,22 @@ const TambahSantri = () => {
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Masukkan nama santri").required(
-      "Masukkan nama santri"
-    ),
+    name: Yup.string("Masukkan nama santri").required("Masukkan nama santri"),
     nis: Yup.string("Masukkan nomor identik santri").required(
       "Masukkan nomor identik santri"
     ),
-    address: Yup.string("Masukkan alamat").required(
-      "Masukkan alamat"
-    ),
+    address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
     gender: Yup.string("Masukkan jenis kelamin").required(
       "Masukkan nomor jenis kelamin"
     ),
-     education: Yup.string("Masukkan pendidikan").required(
+    education: Yup.string("Masukkan pendidikan").required(
       "Masukkan nomor pendidikan"
     ),
-    city: Yup.string("Masukkan kota").required(
-      "Masukkan kota"
-    ),
-    province: Yup.string("Masukkan province").required(
-      "Masukkan provinsi"
-    ),
+    city: Yup.string("Masukkan kota").required("Masukkan kota"),
+    province: Yup.string("Masukkan province").required("Masukkan provinsi"),
     parent: Yup.string("Masukkan nama orang tua").required(
       "Masukkan nama orang tua"
     ),
@@ -56,12 +48,8 @@ const TambahSantri = () => {
     tgl_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
     ),
-    pondokId: Yup.string("Pilih Pondok ID").required(
-      "Pilih Pondok ID"
-    ),
-    photo: Yup.string("Masukkan nama ibu").required(
-      "Upload Photo"
-    ),
+    pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
+    photo: Yup.string("Masukkan nama ibu").required("Upload Photo"),
   });
 
   const formik = useFormik({
@@ -129,7 +117,7 @@ const TambahSantri = () => {
   };
 
   return (
-    <div className=" overflow-hidden">
+    <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Tambah Santri
@@ -148,7 +136,7 @@ const TambahSantri = () => {
               name="name"
               placeholder="Nama Santri"
             />
-             {formik.touched.name && formik.errors.name ? (
+            {formik.touched.name && formik.errors.name ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.name}
               </span>
@@ -164,7 +152,7 @@ const TambahSantri = () => {
               id="nis"
               placeholder="Nomor Identik santri"
             />
-             {formik.touched.nis && formik.errors.nis ? (
+            {formik.touched.nis && formik.errors.nis ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.nis}
               </span>
@@ -178,9 +166,7 @@ const TambahSantri = () => {
               name="address"
               id="address"
               placeholder="Alamat"
-            >
-              
-            </textarea>
+            ></textarea>
             {formik.touched.address && formik.errors.address ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.address}
@@ -262,7 +248,7 @@ const TambahSantri = () => {
               id="province"
               placeholder="Provinsi"
             />
-             {formik.touched.province && formik.errors.province ? (
+            {formik.touched.province && formik.errors.province ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.province}
               </span>
@@ -294,7 +280,7 @@ const TambahSantri = () => {
               id="telephone"
               placeholder="Telepon"
             />
-             {formik.touched.telephone && formik.errors.telephone ? (
+            {formik.touched.telephone && formik.errors.telephone ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.telephone}
               </span>
@@ -311,7 +297,7 @@ const TambahSantri = () => {
               id="tgl_masuk"
               placeholder="Tanggal Masuk"
             />
-             {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
+            {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
               <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
                 {formik.errors.tgl_masuk}
               </span>

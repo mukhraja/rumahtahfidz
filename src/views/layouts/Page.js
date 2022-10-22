@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link,
   Outlet,
@@ -73,15 +73,24 @@ export const Page = (props) => {
     setMenu(!menu);
   };
 
+  const [Display, setDisplay] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth <= 900) {
+      setDisplay(true);
+    }
+  }, []);
+
   console.log(menu);
   //lg:w-64
   // -translate-x-full
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800 overflow-y-auto sm:text-xs">
+    <div className="flex h-screen bg-gray-100 text-gray-800 overflow-hidden sm:text-xs">
       <aside
-        className={`sidebar md:w-64 sm:w-96 shadow transform lg:block ${
+        className={`sidebar md:w-52 sm:w-96 shadow transform lg:block ${
           menu === true ? "hidden" : "translate-x-0"
-        } transition-transform duration-150 ease-in bg-white absolute z-20 lg:absolute sm:h-screen sm:w-full lg:h-full`}
+        } transition-transform duration-150 ease-in bg-white flex flex-col
+         absolute z-20 lg:absolute sm:h-screen h-screen sm:w-full lg:h-full overflow-y-auto overflow-x-hidden scrollbar-hide`}
       >
         <div className="bg-white">
           <div className="sidebar-header flex items-center justify-center py-4">
@@ -98,6 +107,13 @@ export const Page = (props) => {
                     pathname === "/dashboard"
                       ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
                       : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                  }
+                  onClick={
+                    Display === true
+                      ? () => {
+                          setMenu(true);
+                        }
+                      : ""
                   }
                 >
                   <span className="text-lg text-gray-700">
@@ -126,6 +142,13 @@ export const Page = (props) => {
                             ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
                             : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
                         }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
                       >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
@@ -136,6 +159,13 @@ export const Page = (props) => {
                             ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
                             : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
                         }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
                       >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="datapengajar">Pengajar</Link>
@@ -145,6 +175,13 @@ export const Page = (props) => {
                           pathname === "/datasantri"
                             ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
                             : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                        }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
                         }
                       >
                         <FolderOpenIcon className="w-5 mr-2" />
@@ -184,6 +221,13 @@ export const Page = (props) => {
                             ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
                             : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
                         }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
                       >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="dataiqrosantri">Iqro</Link>
@@ -194,6 +238,13 @@ export const Page = (props) => {
                             ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
                             : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
                         }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
                       >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="datasurahpendeksantri">Juz 30</Link>
@@ -203,6 +254,13 @@ export const Page = (props) => {
                           pathname === "/dataalquransantri"
                             ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
                             : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                        }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
                         }
                       >
                         <FolderOpenIcon className="w-5 mr-2" />
@@ -216,15 +274,54 @@ export const Page = (props) => {
                   </li>
                   {subHafalana ? (
                     <ul className="font-semibold relative left-5">
-                      <li className="py-2 flex">
+                      <li
+                        className={
+                          pathname === "/dataiqroguru"
+                            ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                            : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                        }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
+                      >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="dataiqroguru">Iqro</Link>
                       </li>
-                      <li className="py-2 flex">
+                      <li
+                        className={
+                          pathname === "/datasurahpendekguru"
+                            ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                            : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                        }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
+                      >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="datasurahpendekguru">Juz 30</Link>
                       </li>
-                      <li className="py-2 flex">
+                      <li
+                        className={
+                          pathname === "/dataalquranguru"
+                            ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                            : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                        }
+                        onClick={
+                          Display === true
+                            ? () => {
+                                setMenu(true);
+                              }
+                            : ""
+                        }
+                      >
                         <FolderOpenIcon className="w-5 mr-2" />
                         <Link to="dataalquranguru">Al - Qur'an</Link>
                       </li>
@@ -245,11 +342,37 @@ export const Page = (props) => {
               ) : null}
               {laporan ? (
                 <ul className="font-semibold relative left-10">
-                  <li className="py-2 flex">
+                  <li
+                    className={
+                      pathname === "/laporanpengajar"
+                        ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                        : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
                     <FolderOpenIcon className="w-5 mr-2" />
                     <Link to="laporanpengajar">Pengajar</Link>
                   </li>
-                  <li className="py-2 flex">
+                  <li
+                    className={
+                      pathname === "/laporansantri"
+                        ? "flex  p-2 my-1 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                        : "flex  p-2 my-1 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
                     <FolderOpenIcon className="w-5 mr-2" />
                     <Link to="laporansantri">Santri</Link>
                   </li>
@@ -262,6 +385,13 @@ export const Page = (props) => {
                     pathname === "/datauser"
                       ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
                       : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                  }
+                  onClick={
+                    Display === true
+                      ? () => {
+                          setMenu(true);
+                        }
+                      : ""
                   }
                 >
                   <span className="text-lg text-gray-700">
@@ -278,6 +408,13 @@ export const Page = (props) => {
                       ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
                       : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
                   }
+                  onClick={
+                    Display === true
+                      ? () => {
+                          setMenu(true);
+                        }
+                      : ""
+                  }
                 >
                   <span className="text-lg text-gray-700">
                     <ServerIcon className="w-5" />
@@ -293,7 +430,18 @@ export const Page = (props) => {
               <li className="my-px">
                 <Link
                   to={`profile/${userProfile.userId}`}
-                  className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
+                  className={
+                    pathname === `/profile/${userProfile.userId}`
+                      ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                      : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                  }
+                  onClick={
+                    Display === true
+                      ? () => {
+                          setMenu(true);
+                        }
+                      : ""
+                  }
                 >
                   <span className="text-lg text-gray-700">
                     <UserCircleIcon className="w-5" />
@@ -325,7 +473,7 @@ export const Page = (props) => {
         </div>
       </aside>
       {/* -ml-40  */}
-      <main className="main flex flex-col flex-grow lg:ml-64 transition-all duration-150 ease-in">
+      <main className="main flex flex-col flex-grow lg:ml-52 transition-all duration-150 ease-in">
         <header className="header bg-white shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
             <div
@@ -366,7 +514,7 @@ export const Page = (props) => {
             </div>
           </div>
         </header>
-        <div className="flex flex-grow flex-col">
+        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </div>
         <footer className="footer px-4 py-6">

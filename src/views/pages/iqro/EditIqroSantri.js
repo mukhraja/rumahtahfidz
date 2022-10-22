@@ -35,22 +35,14 @@ const EditIqroSantri = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Masukkan iqra").required(
-      "Masukkan iqra"
-    ),
-    halaman: Yup.string("Masukkan halaman").required(
-      "Masukkan halaman"
-    ),
+    name: Yup.string("Masukkan iqra").required("Masukkan iqra"),
+    halaman: Yup.string("Masukkan halaman").required("Masukkan halaman"),
     tgl_selesai: Yup.string("Masukkan tgl selesai").required(
       "Masukkan tgl selesai"
     ),
-    ket: Yup.string("Masukkan keterangan").required(
-      "Masukkan keterangan"
-    ),
-    
-    santriId: Yup.string("Pilih Santri").required(
-      "Pilih Santri"
-    ),
+    ket: Yup.string("Masukkan keterangan").required("Masukkan keterangan"),
+
+    santriId: Yup.string("Pilih Santri").required("Pilih Santri"),
   });
 
   const formik = useFormik({
@@ -88,7 +80,7 @@ const EditIqroSantri = () => {
   const keterangan = ["mengulang", "belum lancar", "selesai"];
 
   return (
-    <div className=" overflow-hidden">
+    <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Hafalan Iqro
@@ -106,7 +98,6 @@ const EditIqroSantri = () => {
             value={formik.values.namesantri}
             disabled
           />
-          
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Iqro</h1>
@@ -118,13 +109,12 @@ const EditIqroSantri = () => {
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            
           />
           {formik.touched.name && formik.errors.name ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.name}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.name}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Halaman</h1>
@@ -136,14 +126,12 @@ const EditIqroSantri = () => {
             value={formik.values.halaman}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            
           />
           {formik.touched.halaman && formik.errors.halaman ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.halaman}
-              </span>
-            ) : null}
-           
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.halaman}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
@@ -156,11 +144,11 @@ const EditIqroSantri = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-           {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.tgl_selesai}
-              </span>
-            ) : null}
+          {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.tgl_selesai}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
@@ -181,10 +169,10 @@ const EditIqroSantri = () => {
             ))}
           </select>
           {formik.touched.ket && formik.errors.ket ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.ket}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.ket}
+            </span>
+          ) : null}
         </div>
         <div>
           <button

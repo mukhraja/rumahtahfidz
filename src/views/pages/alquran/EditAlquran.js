@@ -36,22 +36,14 @@ const EditAlquranSantri = () => {
     surah: Yup.string("Masukkan Surah Alquran").required(
       "Masukkan Surah Alquran"
     ),
-    ayat: Yup.string("Masukkan ayat").required(
-      "Masukkan ayat"
-    ),
-    halaman: Yup.string("Masukkan halaman").required(
-      "Masukkan halaman"
-    ),
-    ket: Yup.string("Masukkan keterangan").required(
-      "Masukkan keterangan"
-    ),
-    
+    ayat: Yup.string("Masukkan ayat").required("Masukkan ayat"),
+    halaman: Yup.string("Masukkan halaman").required("Masukkan halaman"),
+    ket: Yup.string("Masukkan keterangan").required("Masukkan keterangan"),
+
     tgl_selesai: Yup.string("Masukkan tgl selesai").required(
       "Masukkan tgl selesai"
     ),
-    santriId: Yup.string("Pilih Santri").required(
-      "Pilih Santri"
-    ),
+    santriId: Yup.string("Pilih Santri").required("Pilih Santri"),
   });
 
   const keterangan = ["mengulang", "belum lancar", "selesai"];
@@ -88,14 +80,14 @@ const EditAlquranSantri = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-        // setTimeout(() => {
-        //   navigate("/dataalquransantri", { state: { refresh: true } });
-        // }, 3000);
+      // setTimeout(() => {
+      //   navigate("/dataalquransantri", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 
   return (
-    <div className=" overflow-hidden">
+    <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Hafalan Al - Qur'an
@@ -125,11 +117,11 @@ const EditAlquranSantri = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-           {formik.touched.surah && formik.errors.surah ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.surah}
-              </span>
-            ) : null}
+          {formik.touched.surah && formik.errors.surah ? (
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.surah}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Ayat</h1>
@@ -143,10 +135,10 @@ const EditAlquranSantri = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.ayat && formik.errors.ayat ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.ayat}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.ayat}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Halaman</h1>
@@ -159,11 +151,11 @@ const EditAlquranSantri = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-            {formik.touched.halaman && formik.errors.halaman ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.halaman}
-              </span>
-            ) : null}
+          {formik.touched.halaman && formik.errors.halaman ? (
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.halaman}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Tanggal Selesai</h1>
@@ -177,10 +169,10 @@ const EditAlquranSantri = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.tgl_selesai && formik.errors.tgl_selesai ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.tgl_selesai}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.tgl_selesai}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block col-span-2">Keterangan</h1>
@@ -201,10 +193,10 @@ const EditAlquranSantri = () => {
             ))}
           </select>
           {formik.touched.ket && formik.errors.ket ? (
-              <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
-                {formik.errors.ket}
-              </span>
-            ) : null}
+            <span className="my-1 col-span-2 text-sm text-red-600 w-full ml-3">
+              {formik.errors.ket}
+            </span>
+          ) : null}
         </div>
         <div>
           <button
