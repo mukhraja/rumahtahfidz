@@ -541,7 +541,7 @@ function Table({ columns, data, url }) {
         {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
           <Link
             to={url}
-            className=" bg-mamasingle px-4 py-2 rounded-md text-white"
+            className=" bg-mamasingle lg:px-4 px-2 py-1 rounded-md text-white"
           >
             Tambah
           </Link>
@@ -549,8 +549,8 @@ function Table({ columns, data, url }) {
       </div>
       {/* table */}
       <div className="mt-4 flex flex-col">
-        <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div className="-my-2 overflow-x-auto">
+          <div className="py-2 align-middle inline-block min-w-full">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table
                 {...getTableProps()}
@@ -564,7 +564,7 @@ function Table({ columns, data, url }) {
                         // we can add them into the header props
                         <th
                           scope="col"
-                          className="group px-6 py-3 text-left text-xs font-light text-gray-500 uppercase tracking-wider"
+                          className="group lg:px-6 px-2 py-3 text-left text-xs font-light text-gray-500 uppercase tracking-wider"
                           {...column.getHeaderProps(
                             column.getSortByToggleProps()
                           )}
@@ -602,7 +602,7 @@ function Table({ columns, data, url }) {
                           return (
                             <td
                               {...cell.getCellProps()}
-                              className="px-6 py-4 whitespace-nowrap"
+                              className="lg:px-6 px-2 py-4 whitespace-nowrap"
                               role="cell"
                             >
                               {cell.column.Cell.name === "defaultRenderer" ? (

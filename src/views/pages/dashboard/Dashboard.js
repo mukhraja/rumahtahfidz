@@ -43,8 +43,8 @@ const Dashboard = () => {
 
   return (
     <div className=" font-poppins">
-      <div className="sm:flex-none lg:flex justify-center">
-        <div className="my-4 lg:ml-4 lg:mr-2 sm:mx-2 shadow-md rounded-lg lg:h-28 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
+      <div className="sm:flex-none lg:flex justify-center mx-2">
+        <div className="my-4 lg:ml-4 lg:mr-2 shadow-md rounded-lg lg:h-28 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static md:top-0 lg:relative lg:top-5">
             <Link to="/datasantri">
               <div className="shadow-md p-2 lg:px-1 py-4 sm:m-2 lg:m-0 text-center rounded-lg w-32 items-center bg-white">
@@ -84,7 +84,7 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-        <div className="my-4 lg:ml-2 lg:mr-4 sm:mx-2 shadow-md rounded-lg lg:h-28 sm:w-full lg:w-1/2 bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
+        <div className="my-4 lg:ml-2 lg:mr-4 shadow-md rounded-lg lg:h-28 sm:w-full lg:w-1/2 bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static sm:top-0 lg:relative lg:top-5">
             <Link to="/datapengajar">
               <div className="shadow-md p-2 lg:px-1 py-4 text-center rounded-lg w-32 items-center bg-white sm:m-2 lg:m-0">

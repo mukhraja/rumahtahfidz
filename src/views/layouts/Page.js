@@ -85,7 +85,7 @@ export const Page = (props) => {
   //lg:w-64
   // -translate-x-full
   return (
-    <div className="flex h-screen bg-gray-100 text-gray-800 overflow-hidden sm:text-xs">
+    <div className="flex h-screen w-screen bg-gray-100 text-gray-800 overflow-hidden sm:text-xs">
       <aside
         className={`sidebar md:w-52 sm:w-96 shadow transform lg:block ${
           menu === true ? "hidden" : "translate-x-0"
