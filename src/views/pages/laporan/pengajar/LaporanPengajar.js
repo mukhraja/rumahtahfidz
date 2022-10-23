@@ -200,7 +200,7 @@ const LaporanPengajar = () => {
       </div>
       <div className="mt-4 p-4 mx-4 bg-white rounded-lg shadow-lg">
         <div className=" font-poppins py-2 flex flex-wrap">
-          <h1>Pilih Tahfidz</h1>
+          <h1 className="md:py-2">Pilih Tahfidz</h1>
           <select
             name="pondokId"
             id="pondokId"
