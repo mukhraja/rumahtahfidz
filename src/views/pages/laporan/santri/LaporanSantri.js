@@ -227,7 +227,11 @@ const LaporanSantri = () => {
             Cetak
           </button>
         </div>
-        <div style={{ width: "1100px" }}>
+        <div
+          style={{
+            width: window.innerWidth / 1.4,
+          }}
+        >
           <div className=" overflow-auto">
             <table className=" font-poppins" ref={tableRef}>
               <thead className="border-b bg-gray-50">
