@@ -193,40 +193,42 @@ const LaporanPengajar = () => {
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Laporan Data Ustadz/ah
         </h1>
         <img src={pengajar} className="h-20" />
       </div>
       <div className="mt-4 p-4 mx-4 bg-white rounded-lg shadow-lg">
-        <div className=" font-poppins py-2 flex">
-          <div className=" flex">
-            <h1>Pilih Tahfidz</h1>
-            <select
-              name="pondokId"
-              id="pondokId"
-              value={select}
-              onChange={handleChange}
-              autoComplete="pondokId"
-              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs mx-2"
-            >
-              <option value="" selected disabled hidden>
-                Pilih Rumah Tahfidz
-              </option>
-              <option value="">All</option>
-              {rumahtahfidzdata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
-            </select>
-          </div>
+        <div className=" font-poppins py-2 flex flex-wrap">
+          <h1>Pilih Tahfidz</h1>
+          <select
+            name="pondokId"
+            id="pondokId"
+            value={select}
+            onChange={handleChange}
+            autoComplete="pondokId"
+            class="border rounded-md pl-2 py-1 placeholder:text-xs lg:mx-2 my-1 text-xs"
+          >
+            <option value="" selected disabled hidden>
+              Pilih Rumah Tahfidz
+            </option>
+            <option value="">All</option>
+            {rumahtahfidzdata.map((e) => (
+              <option value={e.id}>{e.name}</option>
+            ))}
+          </select>
           <button
-            className=" bg-blue-400 px-4 rounded-md shadow-md text-white mx-2"
+            className=" bg-blue-400 lg:px-4 px-6 py-2 rounded-md shadow-md text-white lg:mx-2"
             onClick={onDownload}
           >
             Cetak
           </button>
         </div>
-        <div style={{ width: window.innerWidth / 1.3 }}>
+        <div
+          style={{
+            width: window.innerWidth / 1.4,
+          }}
+        >
           <div className=" overflow-auto">
             <table className=" font-poppins" ref={tableRef}>
               <thead className="border-b bg-gray-50">
