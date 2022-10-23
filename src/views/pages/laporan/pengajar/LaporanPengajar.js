@@ -32,7 +32,6 @@ const LaporanPengajar = () => {
     filename: "Users table",
     sheet: "Users",
   });
-
   const hafalsantri = [
     "IQRO 1",
     "IQRO 2",
@@ -227,7 +226,7 @@ const LaporanPengajar = () => {
             Cetak
           </button>
         </div>
-        <div style={{ width: "1100px" }}>
+        <div style={{ width: window.innerWidth / 1.3 }}>
           <div className=" overflow-auto">
             <table className=" font-poppins" ref={tableRef}>
               <thead className="border-b bg-gray-50">
