@@ -22,6 +22,10 @@ export const GET_BY_ID_SURAHPENDEKGURU_SUCCEED =
   "surahpendekguru/getid/succeed";
 export const GET_BY_ID_SURAHPENDEKGURU_FAILED = "surahpendekguru/getid/failed";
 
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_REQUEST = "surahpendekguru/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_SUCCEED = "surahpendekguru/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_FAILED = "surahpendekguru/getrumahtahfidz/failed";
+
 export const UPDATE_SURAHPENDEKGURU_REQUEST = "surahpendekguru/update/request";
 export const UPDATE_SURAHPENDEKGURU_SUCCEED = "surahpendekguru/update/succeed";
 export const UPDATE_SURAHPENDEKGURU_FAILED = "surahpendekguru/update/failed";

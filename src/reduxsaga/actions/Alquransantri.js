@@ -47,6 +47,22 @@ export const doGetAlquranSantriByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetAlquranSantriByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetAlquranSantriByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetAlquranSantriByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateAlquranSantriRequest = (payload) => ({
   type: ActionType.CREATE_ALQURANSANTRI_REQUEST,

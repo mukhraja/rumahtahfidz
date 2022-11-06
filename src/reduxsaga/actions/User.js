@@ -71,6 +71,22 @@ export const doGetUserByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetUserByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_USER_REQUEST,
+  payload,
+});
+
+export const doGetUserByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_USER_SUCCEED,
+  payload,
+});
+
+export const doGetUserByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_USER_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateUserRequest = (payload) => ({
   type: ActionType.CREATE_USER_REQUEST,

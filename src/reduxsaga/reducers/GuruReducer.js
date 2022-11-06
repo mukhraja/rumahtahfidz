@@ -23,6 +23,14 @@ const GuruReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_GURU_SUCCEED:
       return applyGetByIdGuruSucceed(state, action);
+        // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_GURU_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_GURU_SUCCEED:
+      return applyGetByRumahTahfizGuruSucceed(state, action);
     // CREATE
     case ActionType.CREATE_GURU_REQUEST:
       return {
@@ -81,6 +89,14 @@ const applyGetByIdGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [payload.data],
+  };
+};
+
+const applyGetByRumahTahfizGuruSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    gurudata: [...payload.data],
   };
 };
 

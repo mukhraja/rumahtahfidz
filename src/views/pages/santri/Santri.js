@@ -7,14 +7,19 @@ import Table, {
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
+import { doGetSantriByRumahTahfidzRequest, doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 const Santri = () => {
   const dispatch = useDispatch();
 
   const { santridata } = useSelector((state) => state.santriState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    dispatch(doGetSantriRequest());
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
+    dispatch(doGetSantriRequest())
+    }else{
+      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId))
+    }
   }, []);
 
   const [Display, setDisplay] = useState([]);
@@ -64,42 +69,6 @@ const Santri = () => {
       ]);
     }
   }, []);
-
-  console.log(Display);
-
-  // const columns = [
-  //   {
-  //     Header: "Nama",
-  //     accessor: "name",
-  //   },
-  //   {
-  //     Header: "NIS",
-  //     accessor: "nis",
-  //   },
-  //   {
-  //     Header: "Keluarga",
-  //     accessor: "parent",
-  //   },
-  //   {
-  //     Header: "Kota",
-  //     accessor: "city",
-  //   },
-  //   {
-  //     Header: "PONDOK",
-  //     accessor: "Pondok.name",
-  //     Filter: SelectColumnFilter, // new
-  //     filter: "includes",
-  //   },
-  //   {
-  //     Header: "Detail",
-  //     accessor: "id",
-  //     Cell: ButtonLinkSantri,
-  //   },
-  // ];
-
-  // console.log(Display);
-
-  // const data = React.useMemo(() => santridata, [santridata]);
 
   return (
     <div className="">

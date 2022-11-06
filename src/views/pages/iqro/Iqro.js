@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroAwalSantriRequest,
+  doGetIqroSantriByRumahTahfidzRequest,
   doGetIqroSantriRequest,
 } from "../../../reduxsaga/actions/Iqrosantri";
 import Table, {
@@ -19,6 +20,7 @@ const Iqro = () => {
   const dispatch = useDispatch();
 
   const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const [Display, setDisplay] = useState([]);
 
@@ -94,7 +96,11 @@ const Iqro = () => {
   );
 
   useEffect(() => {
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
     dispatch(doGetIqroAwalSantriRequest());
+    }else{
+      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId))
+    }
   }, []);
 
   // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);

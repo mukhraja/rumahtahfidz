@@ -51,6 +51,18 @@ const getiqroid = async (payload) => {
   }
 };
 
+const getiqrorumahtahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(`${config.domain}/iqroguru/byrumahtahfidz/${payload}`);
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // UPDATE
 const updateiqro = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -83,4 +95,5 @@ export default {
   getiqroid,
   updateiqro,
   deleteiqro,
+  getiqrorumahtahfidz
 };

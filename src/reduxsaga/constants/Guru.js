@@ -14,6 +14,10 @@ export const GET_BY_ID_GURU_REQUEST = "guru/getid/request";
 export const GET_BY_ID_GURU_SUCCEED = "guru/getid/succeed";
 export const GET_BY_ID_GURU_FAILED = "guru/getid/failed";
 
+export const GET_BY_RUMAHTAHFIDZ_GURU_REQUEST = "guru/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_GURU_SUCCEED = "guru/getrumahtahfidz/succed";
+export const GET_BY_RUMAHTAHFIDZ_GURU_FAILED = "guru/getrumahtahfidz/failed";
+
 export const UPDATE_GURU_REQUEST = "guru/update/request";
 export const UPDATE_GURU_SUCCEED = "guru/update/succeed";
 export const UPDATE_GURU_FAILED = "guru/update/failed";

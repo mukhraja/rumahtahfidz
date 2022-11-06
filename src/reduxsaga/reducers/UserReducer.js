@@ -69,6 +69,14 @@ const UserReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_USER_SUCCEED:
       return applyGetByIdUserSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_USER_SUCCEED:
+      return applyGetByRumahTahfizUserSucceed(state, action);
     // CREATE
     case ActionType.CREATE_USER_REQUEST:
       return {
@@ -183,6 +191,14 @@ const applyGetByIdUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [payload.data],
+  };
+};
+
+const applyGetByRumahTahfizUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
   };
 };
 

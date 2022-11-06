@@ -136,17 +136,7 @@ export function ButtonLinkRumahTahfidz({ value }) {
 
   return (
     <div>
-      {userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? (
-        <div className="flex">
-          <Link
-            to={"detail/" + status}
-            className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
-          >
-            <EyeIcon className="lg:w-5 sm:w-2" />
-          </Link>
-        </div>
-      ) : null}
-      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ? (
         <div className=" flex">
           <Link
             to={"detail/" + status}
@@ -167,7 +157,16 @@ export function ButtonLinkRumahTahfidz({ value }) {
             <TrashIcon className="lg:w-5 sm:w-2" />
           </button>
         </div>
-      ) : null}
+      ) : (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -176,6 +175,7 @@ export function ButtonLinkSantri({ value }) {
   const status = value ? value.toLowerCase() : "";
 
   const dispatch = useDispatch();
+  const { userProfile } = useSelector((state) => state.userState);
 
   const onDelete = async (id) => {
     dispatch(doDeleteSantriRequest(id));
@@ -183,25 +183,39 @@ export function ButtonLinkSantri({ value }) {
   };
 
   return (
-    <div className=" flex">
-      <Link
-        to={"detail/" + status}
-        className="px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <EyeIcon className="lg:w-5 sm:w-2" />
-      </Link>
-      <Link
-        to={"edit/" + status}
-        className="px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <PencilIcon className="lg:w-5 sm:w-2" />
-      </Link>
-      <button
-        onClick={() => onDelete(value)}
-        className="px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <TrashIcon className="lg:w-5 sm:w-2" />
-      </button>
+    <div>
+      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+          <Link
+            to={"edit/" + status}
+            className="px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <PencilIcon className="lg:w-5 sm:w-2" />
+          </Link>
+          <button
+            onClick={() => onDelete(value)}
+            className="px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <TrashIcon className="lg:w-5 sm:w-2" />
+          </button>
+        </div>
+      ) : (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -209,6 +223,7 @@ export function ButtonLinkGuru({ value }) {
   const status = value ? value.toLowerCase() : "";
 
   const dispatch = useDispatch();
+  const { userProfile } = useSelector((state) => state.userState);
 
   const onDelete = async (id) => {
     dispatch(doDeleteGuruRequest(id));
@@ -216,25 +231,39 @@ export function ButtonLinkGuru({ value }) {
   };
 
   return (
-    <div className=" flex">
-      <Link
-        to={"detail/" + status}
-        className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <EyeIcon className="lg:w-5 sm:w-2" />
-      </Link>
-      <Link
-        to={"edit/" + status}
-        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <PencilIcon className="lg:w-5 sm:w-2" />
-      </Link>
-      <button
-        onClick={() => onDelete(value)}
-        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <TrashIcon className="lg:w-5 sm:w-2" />
-      </button>
+    <div>
+      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+          <Link
+            to={"edit/" + status}
+            className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <PencilIcon className="lg:w-5 sm:w-2" />
+          </Link>
+          <button
+            onClick={() => onDelete(value)}
+            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <TrashIcon className="lg:w-5 sm:w-2" />
+          </button>
+        </div>
+      ) : (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -243,6 +272,7 @@ export function ButtonLinkUser({ value }) {
   const status = value ? value.toLowerCase() : "";
 
   const dispatch = useDispatch();
+  const { userProfile } = useSelector((state) => state.userState);
 
   const onDelete = async (id) => {
     dispatch(doDeleteUserRequest(id));
@@ -538,7 +568,8 @@ function Table({ columns, data, url }) {
             ) : null
           )
         )}
-        {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
           <Link
             to={url}
             className=" bg-mamasingle lg:px-4 px-2 py-1 rounded-md text-white"

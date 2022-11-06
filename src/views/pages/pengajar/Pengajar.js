@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pengajar } from "../../../gambar";
-import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
+import {
+  doGetGuruByRumahTahfidzRequest,
+  doGetGuruRequest,
+} from "../../../reduxsaga/actions/Guru";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Table, {
@@ -10,17 +13,25 @@ import Table, {
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
+import Moment from "react-moment";
 
 const Pengajar = () => {
   const dispatch = useDispatch();
 
   const { gurudata } = useSelector((state) => state.guruState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    dispatch(doGetGuruRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetGuruRequest());
+    } else {
+      dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId));
+    }
   }, []);
 
   const [Display, setDisplay] = useState([]);
+
+  console.log(gurudata);
 
   useEffect(() => {
     if (window.innerWidth <= 500) {
@@ -67,39 +78,6 @@ const Pengajar = () => {
       ]);
     }
   }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "name",
-      },
-      {
-        Header: "NIU",
-        accessor: "niu",
-      },
-      {
-        Header: "MASUK",
-        accessor: "mulai_masuk",
-      },
-      {
-        Header: "VAKUM",
-        accessor: "mulai_vakum",
-      },
-      {
-        Header: "PONDOK",
-        accessor: "Pondok.name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkGuru,
-      },
-    ],
-    []
-  );
 
   // const data = React.useMemo(() => gurudata, [gurudata]);
   return (

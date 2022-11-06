@@ -36,7 +36,7 @@ const EditPengajar = () => {
     niu: Yup.string("Masukkan nomor identik ustadz/ah").required(
       "Masukkan nomor identik ustadz/ah"
     ),
-    email: Yup.string("Masukkan email").required("Masukkan email"),
+    tempat: Yup.string("Masukkan tempat").required("Masukkan tempat"),
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
@@ -45,9 +45,6 @@ const EditPengajar = () => {
     ),
     telephone: Yup.string("Masukkan nomor telephone").required(
       "Masukkan nomor telephone"
-    ),
-    education: Yup.string("Masukkan pendidikan").required(
-      "Masukkan nomor pendidikan"
     ),
     address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
     ayah: Yup.string("Masukkan nama ayah").required("Masukkan nama ayah"),
@@ -66,11 +63,10 @@ const EditPengajar = () => {
     initialValues: {
       name: gurudata.length ? gurudata[0].name : null,
       niu: gurudata.length ? gurudata[0].niu : null,
-      email: gurudata.length ? gurudata[0].email : null,
+      tempat: gurudata.length ? gurudata[0].tempat : null,
       datebirth: gurudata.length ? gurudata[0].datebirth : null,
       gender: gurudata.length ? gurudata[0].gender : null,
       telephone: gurudata.length ? gurudata[0].telephone : null,
-      education: gurudata.length ? gurudata[0].education : null,
       address: gurudata.length ? gurudata[0].address : null,
       ayah: gurudata.length ? gurudata[0].ayah : null,
       ibu: gurudata.length ? gurudata[0].ibu : null,
@@ -85,11 +81,10 @@ const EditPengajar = () => {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("niu", values.niu);
-        payload.append("email", values.email);
+        payload.append("tempat", values.tempat);
         payload.append("datebirth", values.datebirth);
         payload.append("gender", values.gender);
         payload.append("telephone", values.telephone);
-        payload.append("education", values.education);
         payload.append("address", values.address);
         payload.append("ayah", values.ayah);
         payload.append("ibu", values.ibu);
@@ -108,11 +103,10 @@ const EditPengajar = () => {
           id,
           name: values.name,
           niu: values.niu,
-          email: values.email,
+          tempat: values.tempat,
           datebirth: values.datebirth,
           gender: values.gender,
           telephone: values.telephone,
-          education: values.education,
           address: values.address,
           ayah: values.ayah,
           ibu: values.ibu,
@@ -200,30 +194,23 @@ const EditPengajar = () => {
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Email</h1>
-            <input
-              id="email"
-              name="email"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              value={formik.values.email}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.email}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block lg:col-span-2 col-span-4">
               Tempat / Tanggal Lahir
             </h1>
             <input
+              type="text"
+              className="border rounded-md block lg:col-span-1 mr-1 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.tempat}
+              onChange={formik.handleChange}
+              name="tempat"
+              id="tempat"
+              placeholder="Tempat"
+            />
+            <input
               type="date"
               id="datebirth"
               name="datebirth"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
+              className="border rounded-md block lg:col-span-1 col-span-4 pl-2 py-1"
               value={formik.values.datebirth}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -231,6 +218,11 @@ const EditPengajar = () => {
             {formik.touched.datebirth && formik.errors.datebirth ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.datebirth}
+              </span>
+            ) : null}
+            {formik.touched.tempat && formik.errors.tempat ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                {formik.errors.tempat}
               </span>
             ) : null}
           </div>
@@ -263,22 +255,6 @@ const EditPengajar = () => {
             {formik.touched.telephone && formik.errors.telephone ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
                 {formik.errors.telephone}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
-            <input
-              id="education"
-              name="education"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              value={formik.values.education}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.education && formik.errors.education ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.education}
               </span>
             ) : null}
           </div>

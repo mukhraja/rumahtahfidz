@@ -24,6 +24,14 @@ const SantriReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_SANTRI_SUCCEED:
       return applyGetByIdSantriSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_SANTRI_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_SANTRI_SUCCEED:
+      return applyGetByRumahTahfizSantriSucceed(state, action);
     // CREATE
     case ActionType.CREATE_SANTRI_REQUEST:
       return {
@@ -82,6 +90,14 @@ const applyGetByIdSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [payload.data],
+  };
+};
+
+const applyGetByRumahTahfizSantriSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    santridata: [...payload.data],
   };
 };
 

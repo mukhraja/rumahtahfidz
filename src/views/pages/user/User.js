@@ -8,14 +8,19 @@ import Table, {
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetUserRequest } from "../../../reduxsaga/actions/User";
+import { doGetUserByRumahTahfidzRequest, doGetUserRequest } from "../../../reduxsaga/actions/User";
 const User = () => {
   const dispatch = useDispatch();
 
   const { userdata } = useSelector((state) => state.userState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    dispatch(doGetUserRequest());
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
+      dispatch(doGetUserRequest());
+    }else{
+      dispatch(doGetUserByRumahTahfidzRequest(userProfile.pondokId))
+    }
   }, []);
 
   const [Display, setDisplay] = useState([]);

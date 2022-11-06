@@ -21,11 +21,13 @@ import {
   handleDeleteRumahTahfdiz,
   handleUpdateRumahTahfdiz,
   handleUpdateNoFileRumahTahfdiz,
+  handleGetByRumahTahfdiz,
 } from "./RumahTahfidzSaga";
 import {
   handleCreateSantri,
   handleDeleteSantri,
   handleGetByIdSantri,
+  handleGetByRumahTahfidzSantri,
   handleGetSantri,
   handleUpdateNoFileSantri,
   handleUpdateSantri,
@@ -34,6 +36,7 @@ import {
   handleCreateGuru,
   handleDeleteGuru,
   handleGetByIdGuru,
+  handleGetByRumahTahfidzGuru,
   handleGetGuru,
   handleUpdateGuru,
   handleUpdateNoFileGuru,
@@ -42,6 +45,7 @@ import {
   handleCreateIqroSantri,
   handleDeleteIqroSantri,
   handleGetByIdIqroSantri,
+  handleGetByRumahTahfidzIqroSantri,
   handleGetIqroAwalSantri,
   handleGetIqroSantri,
   handleUpdateIqroSantri,
@@ -50,6 +54,7 @@ import {
   handleCreateSurahPendekSantri,
   handleDeleteSurahPendekSantri,
   handleGetByIdSurahPendekSantri,
+  handleGetByRumahTahfidzSurahPendekSantri,
   handleGetSurahPendekAwalSantri,
   handleGetSurahPendekSantri,
   handleUpdateSurahPendekSantri,
@@ -61,6 +66,7 @@ import {
   handleGetAlquranAwalSantri,
   handleGetAlquranSantri,
   handleUpdateAlquranSantri,
+  handleGetByRumahTahfidzAlquranSantri,
 } from "./AlquranSaga";
 import {
   handleSignup,
@@ -73,6 +79,7 @@ import {
   handleUpdateNoFileUser,
   handleDeleteUser,
   handleCreateNoFileUser,
+  handleGetByRumahTahfidzUser,
 } from "./UserSaga";
 import {
   handleCreateRole,
@@ -85,6 +92,7 @@ import {
   handleCreateIqroGuru,
   handleDeleteIqroGuru,
   handleGetByIdIqroGuru,
+  handleGetByRumahTahfidzIqroGuru,
   handleGetIqroAwalGuru,
   handleGetIqroGuru,
   handleUpdateIqroGuru,
@@ -93,6 +101,7 @@ import {
   handleCreateSurahPendekGuru,
   handleDeleteSurahPendekGuru,
   handleGetByIdSurahPendekGuru,
+  handleGetByRumahTahfidzSurahPendekGuru,
   handleGetSurahPendekAwalGuru,
   handleGetSurahPendekGuru,
   handleUpdateSurahPendekGuru,
@@ -104,6 +113,7 @@ import {
   handleGetAlquranAwalGuru,
   handleGetAlquranGuru,
   handleUpdateAlquranGuru,
+  handleGetByRumahTahfidzAlquranGuru,
 } from "./AlquranGuruSaga";
 
 function* watchAll() {
@@ -117,6 +127,7 @@ function* watchAll() {
       ActionTypeRumahTahfidz.GET_BY_ID_RUMAHTAHFIDZ_REQUEST,
       handleGetByIdRumahTahfdiz
     ),
+    takeEvery(ActionTypeRumahTahfidz.GET_BY_RUMAHTAHFIDZ_REQUEST, handleGetByRumahTahfdiz),
     takeEvery(
       ActionTypeRumahTahfidz.CREATE_RUMAHTAHFIDZ_REQUEST,
       handleCreateRumahTahfdiz
@@ -136,6 +147,7 @@ function* watchAll() {
     // Santri
     takeEvery(ActionTypeSantri.GET_SANTRI_REQUEST, handleGetSantri),
     takeEvery(ActionTypeSantri.GET_BY_ID_SANTRI_REQUEST, handleGetByIdSantri),
+    takeEvery(ActionTypeSantri.GET_BY_RUMAHTAHFIDZ_SANTRI_REQUEST, handleGetByRumahTahfidzSantri),
     takeEvery(ActionTypeSantri.CREATE_SANTRI_REQUEST, handleCreateSantri),
     takeEvery(ActionTypeSantri.UPDATE_SANTRI_REQUEST, handleUpdateSantri),
     takeEvery(
@@ -146,6 +158,7 @@ function* watchAll() {
     // GURU
     takeEvery(ActionTypeGuru.GET_GURU_REQUEST, handleGetGuru),
     takeEvery(ActionTypeGuru.GET_BY_ID_GURU_REQUEST, handleGetByIdGuru),
+    takeEvery(ActionTypeGuru.GET_BY_RUMAHTAHFIDZ_GURU_REQUEST, handleGetByRumahTahfidzGuru),
     takeEvery(ActionTypeGuru.CREATE_GURU_REQUEST, handleCreateGuru),
     takeEvery(ActionTypeGuru.UPDATE_GURU_REQUEST, handleUpdateGuru),
     takeEvery(
@@ -159,6 +172,7 @@ function* watchAll() {
       ActionTypeIqroSantri.GET_BY_ID_IQROSANTRI_REQUEST,
       handleGetByIdIqroSantri
     ),
+    takeEvery(ActionTypeIqroSantri.GET_BY_RUMAHTAHFIDZ_IQROSANTRI_REQUEST, handleGetByRumahTahfidzIqroSantri),
     takeEvery(
       ActionTypeIqroSantri.GET_IQROSANTRIAWAL_REQUEST,
       handleGetIqroAwalSantri
@@ -184,6 +198,7 @@ function* watchAll() {
       ActionTypeSurahPendekSantri.GET_BY_ID_SURAHPENDEKSANTRI_REQUEST,
       handleGetByIdSurahPendekSantri
     ),
+    takeEvery(ActionTypeSurahPendekSantri.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_REQUEST, handleGetByRumahTahfidzSurahPendekSantri),
     takeEvery(
       ActionTypeSurahPendekSantri.GET_SURAHPENDEKSANTRIAWAL_REQUEST,
       handleGetSurahPendekAwalSantri
@@ -209,6 +224,7 @@ function* watchAll() {
       ActionTypeAlquranSantri.GET_BY_ID_ALQURANSANTRI_REQUEST,
       handleGetByIdAlquranSantri
     ),
+    takeEvery(ActionTypeAlquranSantri.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_REQUEST, handleGetByRumahTahfidzAlquranSantri),
     takeEvery(
       ActionTypeAlquranSantri.GET_ALQURANSANTRIAWAL_REQUEST,
       handleGetAlquranAwalSantri
@@ -231,6 +247,7 @@ function* watchAll() {
     takeEvery(ActionTypeUser.GET_SIGNOUT_REQUEST, handleSignout),
     takeEvery(ActionTypeUser.GET_USER_REQUEST, handleGetUser),
     takeEvery(ActionTypeUser.GET_BY_ID_USER_REQUEST, handleGetByIdUser),
+    takeEvery(ActionTypeUser.GET_BY_RUMAHTAHFIDZ_USER_REQUEST, handleGetByRumahTahfidzUser),
     takeEvery(ActionTypeUser.CREATE_USER_REQUEST, handleCreateUser),
     takeEvery(
       ActionTypeUser.CREATE_USER_NOFILE_REQUEST,
@@ -254,6 +271,7 @@ function* watchAll() {
       ActionTypeIqroGuru.GET_BY_ID_IQROGURU_REQUEST,
       handleGetByIdIqroGuru
     ),
+    takeEvery(ActionTypeIqroGuru.GET_BY_RUMAHTAHFIDZ_IQROGURU_REQUEST, handleGetByRumahTahfidzIqroGuru),
     takeEvery(
       ActionTypeIqroGuru.GET_IQROGURUAWAL_REQUEST,
       handleGetIqroAwalGuru
@@ -270,6 +288,7 @@ function* watchAll() {
       ActionTypeSurahPendekGuru.GET_BY_ID_SURAHPENDEKGURU_REQUEST,
       handleGetByIdSurahPendekGuru
     ),
+    takeEvery(ActionTypeSurahPendekGuru.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_REQUEST, handleGetByRumahTahfidzSurahPendekGuru),
     takeEvery(
       ActionTypeSurahPendekGuru.GET_SURAHPENDEKGURUAWAL_REQUEST,
       handleGetSurahPendekAwalGuru
@@ -295,6 +314,7 @@ function* watchAll() {
       ActionTypeAlquranGuru.GET_BY_ID_ALQURANGURU_REQUEST,
       handleGetByIdAlquranGuru
     ),
+    takeEvery(ActionTypeAlquranGuru.GET_BY_RUMAHTAHFIDZ_ALQURANGURU_REQUEST, handleGetByRumahTahfidzAlquranGuru),
     takeEvery(
       ActionTypeAlquranGuru.GET_ALQURANGURUAWAL_REQUEST,
       handleGetAlquranAwalGuru

@@ -47,6 +47,22 @@ export const doGetAlquranGuruByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetAlquranGuruByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANGURU_REQUEST,
+  payload,
+});
+
+export const doGetAlquranGuruByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANGURU_SUCCEED,
+  payload,
+});
+
+export const doGetAlquranGuruByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANGURU_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateAlquranGuruRequest = (payload) => ({
   type: ActionType.CREATE_ALQURANGURU_REQUEST,

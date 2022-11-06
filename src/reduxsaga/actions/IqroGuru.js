@@ -47,6 +47,22 @@ export const doGetIqroGuruByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetIqroGuruByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_IQROGURU_REQUEST,
+  payload,
+});
+
+export const doGetIqroGuruByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_IQROGURU_SUCCEED,
+  payload,
+});
+
+export const doGetIqroGuruByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_IQROGURU_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateIqroGuruRequest = (payload) => ({
   type: ActionType.CREATE_IQROGURU_REQUEST,

@@ -47,6 +47,22 @@ export const doGetSurahPendekSantriByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetSurahPendekSantriByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetSurahPendekSantriByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetSurahPendekSantriByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateSurahPendekSantriRequest = (payload) => ({
   type: ActionType.CREATE_SURAHPENDEKSANTRI_REQUEST,

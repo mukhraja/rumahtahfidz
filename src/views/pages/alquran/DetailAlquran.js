@@ -23,6 +23,7 @@ const DetailAlquran = () => {
   const { alquransantridata } = useSelector(
     (state) => state.alquranSantriState
   );
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
     const payload = { id };
@@ -33,11 +34,54 @@ const DetailAlquran = () => {
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
-    if (window.innerWidth <= 500) {
+    if (window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 &&userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
       setDisplay([
         {
           Header: "Surah",
           accessor: "surah",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkAlquranList,
+        },
+      ]);
+    } else if (window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 &&userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884") {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "surah",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+      ]);
+    } else if (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+      setDisplay([
+        {
+          Header: "Surah",
+          accessor: "surah",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Ayat",
+          accessor: "ayat",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
         },
         {
           Header: "Detail",
@@ -69,47 +113,9 @@ const DetailAlquran = () => {
           Header: "Update",
           accessor: "updatedAt",
         },
-        {
-          Header: "Detail",
-          accessor: "id",
-          Cell: ButtonLinkAlquranList,
-        },
       ]);
     }
   }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Surah",
-        accessor: "surah",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Ayat",
-        accessor: "ayat",
-      },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
-      {
-        Header: "Keterangan",
-        accessor: "ket",
-      },
-      {
-        Header: "Update",
-        accessor: "updatedAt",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkAlquranList,
-      },
-    ],
-    []
-  );
 
   // const data = React.useMemo(() => alquransantridata, [alquransantridata]);
   return (

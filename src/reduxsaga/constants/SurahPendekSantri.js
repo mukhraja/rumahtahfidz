@@ -36,3 +36,7 @@ export const UPDATE_SURAHPENDEKSANTRI_SUCCEED =
   "surahpendeksantri/update/succeed";
 export const UPDATE_SURAHPENDEKSANTRI_FAILED =
   "surahpendeksantri/update/failed";
+
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_REQUEST = "surahpendeksantri/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_SUCCEED = "surahpendeksantri/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_FAILED = "surahpendeksantri/getrumahtahfidz/failed";

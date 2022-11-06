@@ -23,6 +23,19 @@ const getguruid = async (payload) => {
   }
 };
 
+// GETBYRUMAHTAHFIDZ
+const getgururumahtahfidz = async (payload) => {
+  console.log("SAMPAI GET RUMAH TAHFIDZ");
+  console.log(payload);
+  try {
+    const result = await axios.get(`${config.domain}/guru/byrumahtahfidz/${payload}`);
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // CREATE
 const createguru = async (payload) => {
   console.log("SAMPAI di create");
@@ -82,4 +95,5 @@ export default {
   updateguruNoFile,
   getguruid,
   deleteguru,
+  getgururumahtahfidz
 };

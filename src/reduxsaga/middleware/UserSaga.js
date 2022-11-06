@@ -28,6 +28,9 @@ import {
   doCreateUserNoFileRequest,
   doCreateUserNoFileFailed,
   doCreateUserNoFileSucceed,
+  doGetUserByRumahTahfidzRequest,
+  doGetUserByRumahTahfidzFailed,
+  doGetUserByRumahTahfidzSucceed,
 } from "../actions/User";
 import apiUser from "../api/api-user";
 
@@ -93,6 +96,19 @@ function* handleGetByIdUser(action) {
     yield put(doGetUserByIdSucceed(result));
   } catch (error) {
     yield put(doGetUserByIdFailed(error));
+  }
+}
+
+// GET BY RUMAHTAHFIZ
+function* handleGetByRumahTahfidzUser(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiUser.getuserrumahtahfidz, payload);
+    yield put(doGetUserByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetUserByRumahTahfidzFailed(error));
   }
 }
 
@@ -175,4 +191,5 @@ export {
   handleUpdateNoFileUser,
   handleUpdateUser,
   handleCreateNoFileUser,
+  handleGetByRumahTahfidzUser
 };

@@ -25,6 +25,19 @@ const getsantriid = async (payload) => {
   }
 };
 
+// GETBYRUMAHTAHFIDZ
+const getsantrirumahtahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(`${config.domain}/santri/byrumahtahfidz/${payload}`);
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // CREATE
 const createsantri = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -88,4 +101,5 @@ export default {
   getsantriid,
   updateSantri,
   updateSantriNoFile,
+  getsantrirumahtahfidz
 };

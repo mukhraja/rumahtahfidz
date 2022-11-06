@@ -12,6 +12,8 @@ import {
   doUpdateNoFIleRumahTahfidzFailed,
   doUpdateRumahTahfidzSucceed,
   doUpdateRumahTahfidzFailed,
+  doGetByRumahTahfidzSucceed,
+  doGetByRumahTahfidzFailed,
 } from "../actions/RumahTahfidz";
 import apiRumahtahfidz from "../api/api-rumahtahfidz";
 
@@ -37,6 +39,19 @@ function* handleGetByIdRumahTahfdiz(action) {
     yield put(doGetRumahTahfidzByIdSucceed(result));
   } catch (error) {
     yield put(doGetRumahTahfidzByIdFailed(error));
+  }
+}
+
+// GET BY RUMAHTAHFIDZ
+function* handleGetByRumahTahfdiz(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiRumahtahfidz.getbyrumahtahfidz, payload);
+    yield put(doGetByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetByRumahTahfidzFailed(error));
   }
 }
 
@@ -102,4 +117,5 @@ export {
   handleGetByIdRumahTahfdiz,
   handleUpdateRumahTahfdiz,
   handleUpdateNoFileRumahTahfdiz,
+  handleGetByRumahTahfdiz
 };

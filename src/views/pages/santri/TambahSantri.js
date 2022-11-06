@@ -11,6 +11,7 @@ import {
   doGetSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import moment from "moment";
 
 const TambahSantri = () => {
   useEffect(() => {
@@ -28,25 +29,23 @@ const TambahSantri = () => {
       "Masukkan nomor identik santri"
     ),
     address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
+    tempat: Yup.string("Masukkan tempat").required("Masukkan tempat"),
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
     gender: Yup.string("Masukkan jenis kelamin").required(
       "Masukkan nomor jenis kelamin"
     ),
-    education: Yup.string("Masukkan pendidikan").required(
-      "Masukkan nomor pendidikan"
-    ),
-    city: Yup.string("Masukkan kota").required("Masukkan kota"),
-    province: Yup.string("Masukkan province").required("Masukkan provinsi"),
-    parent: Yup.string("Masukkan nama orang tua").required(
-      "Masukkan nama orang tua"
-    ),
+    ayah: Yup.string("Masukkan nama ayah").required("Masukkan nama ayah"),
+    ibu: Yup.string("Masukkan nama ibu").required("Masukkan nama ibu"),
     telephone: Yup.string("Masukkan nomor telephone").required(
       "Masukkan nomor telephone"
     ),
-    tgl_masuk: Yup.string("Pilih Tanggal Masuk").required(
+    mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
+    ),
+    mulai_masuk: Yup.string("Pilih Tanggal VAkum").required(
+      "Pilih Tanggal Vakum"
     ),
     pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
     photo: Yup.string("Masukkan nama ibu").required("Upload Photo"),
@@ -56,15 +55,15 @@ const TambahSantri = () => {
     initialValues: {
       name: "",
       nis: "",
-      address: "",
+      tempat: "",
       datebirth: "",
       gender: "",
-      education: "",
-      city: "",
-      province: "",
-      parent: "",
+      address: "",
+      ayah: "",
+      ibu: "",
       telephone: "",
-      tgl_masuk: "",
+      mulai_masuk: "",
+      mulai_vakum: "",
       pondokId: "",
       photo: undefined,
     },
@@ -73,15 +72,21 @@ const TambahSantri = () => {
       let payload = new FormData();
       payload.append("name", values.name);
       payload.append("nis", values.nis);
-      payload.append("address", values.address);
+      payload.append("tempat", values.tempat);
       payload.append("datebirth", values.datebirth);
       payload.append("gender", values.gender);
-      payload.append("education", values.education);
-      payload.append("city", values.city);
-      payload.append("province", values.province);
-      payload.append("parent", values.parent);
+      payload.append("address", values.address);
+      payload.append("ayah", values.ayah);
+      payload.append("ibu", values.ibu);
       payload.append("telephone", values.telephone);
-      payload.append("tgl_masuk", values.tgl_masuk);
+      payload.append(
+        "mulai_masuk",
+        moment(values.mulai_masuk).format("YYYY/MM/DD")
+      );
+      payload.append(
+        "mulai_masuk",
+        moment(values.mulai_vakum).format("YYYY/MM/DD")
+      );
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);
 
@@ -124,7 +129,7 @@ const TambahSantri = () => {
         </h1>
         <img src={santri} className="h-20" />
       </div>
-      <div className="m-4 bg-white p-4 rounded-md font-poppins text-sm">
+      <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <form method="POST" action="#">
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
@@ -137,7 +142,7 @@ const TambahSantri = () => {
               placeholder="Nama Santri"
             />
             {formik.touched.name && formik.errors.name ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.name}
               </span>
             ) : null}
@@ -153,23 +158,8 @@ const TambahSantri = () => {
               placeholder="Nomor Identik santri"
             />
             {formik.touched.nis && formik.errors.nis ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.nis}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
-            <textarea
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              onChange={formik.handleChange}
-              name="address"
-              id="address"
-              placeholder="Alamat"
-            ></textarea>
-            {formik.touched.address && formik.errors.address ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.address}
               </span>
             ) : null}
           </div>
@@ -178,8 +168,17 @@ const TambahSantri = () => {
               Tempat / Tanggal Lahir
             </h1>
             <input
+              type="text"
+              className="border rounded-md block lg:col-span-1 mr-1 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.tempat}
+              onChange={formik.handleChange}
+              name="tempat"
+              id="tempat"
+              placeholder="Tempat"
+            />
+            <input
               type="date"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-1 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.datebirth}
               onChange={formik.handleChange}
               name="datebirth"
@@ -187,7 +186,7 @@ const TambahSantri = () => {
               placeholder="Tempat / Tanggal Lahir"
             />
             {formik.touched.datebirth && formik.errors.datebirth ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.datebirth}
               </span>
             ) : null}
@@ -203,72 +202,23 @@ const TambahSantri = () => {
               placeholder="Jenis Kelamin"
             />
             {formik.touched.gender && formik.errors.gender ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.gender}
               </span>
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
-            <input
+            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
+            <textarea
               className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.education}
               onChange={formik.handleChange}
-              name="education"
-              id="education"
-              placeholder="Pendidikan"
-            />
-            {formik.touched.education && formik.errors.education ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.education}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Kota</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.city}
-              onChange={formik.handleChange}
-              name="city"
-              id="city"
-              placeholder="Kota"
-            />
-            {formik.touched.city && formik.errors.city ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.city}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Provinsi</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.province}
-              onChange={formik.handleChange}
-              name="province"
-              id="province"
-              placeholder="Provinsi"
-            />
-            {formik.touched.province && formik.errors.province ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.province}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Orang tua / Wali</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.parent}
-              onChange={formik.handleChange}
-              name="parent"
-              id="parent"
-              placeholder="Orang tua"
-            />
-            {formik.touched.parent && formik.errors.parent ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.parent}
+              name="address"
+              id="address"
+              placeholder="Alamat"
+            ></textarea>
+            {formik.touched.address && formik.errors.address ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                {formik.errors.address}
               </span>
             ) : null}
           </div>
@@ -283,25 +233,79 @@ const TambahSantri = () => {
               placeholder="Telepon"
             />
             {formik.touched.telephone && formik.errors.telephone ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.telephone}
               </span>
             ) : null}
           </div>
+          <div className="grid grid-cols-8 mt-6">
+            <h1 className="block lg:col-span-2 col-span-4">
+              Orang tua / Wali :
+            </h1>
+          </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Tanggal Masuk</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Ayah</h1>
+            <input
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.ayah}
+              onChange={formik.handleChange}
+              name="ayah"
+              id="ayah"
+              placeholder="Ayah"
+            />
+            {formik.touched.ayah && formik.errors.ayah ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                {formik.errors.ayah}
+              </span>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-8 mb-6">
+            <h1 className="block lg:col-span-2 col-span-4">Ibu</h1>
+            <input
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.ibu}
+              onChange={formik.handleChange}
+              name="ibu"
+              id="ibu"
+              placeholder="Ibu"
+            />
+            {formik.touched.ibu && formik.errors.ibu ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                {formik.errors.ibu}
+              </span>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-8 my-2">
+            <h1 className="block lg:col-span-2 col-span-4">Mulai Masuk</h1>
             <input
               type="date"
               className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.tgl_masuk}
+              value={formik.values.mulai_masuk}
               onChange={formik.handleChange}
-              name="tgl_masuk"
-              id="tgl_masuk"
+              name="mulai_masuk"
+              id="mulai_masuk"
               placeholder="Tanggal Masuk"
             />
-            {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.tgl_masuk}
+            {formik.touched.mulai_masuk && formik.errors.mulai_masuk ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                {formik.errors.mulai_masuk}
+              </span>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-8 my-2">
+            <h1 className="block lg:col-span-2 col-span-4">Mulai Vakum</h1>
+            <input
+              type="date"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.mulai_vakum}
+              onChange={formik.handleChange}
+              name="mulai_vakum"
+              id="mulai_vakum"
+              placeholder="Tanggal Masuk"
+            />
+            {formik.touched.mulai_vakum && formik.errors.mulai_vakum ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                {formik.errors.mulai_vakum}
               </span>
             ) : null}
           </div>
@@ -324,14 +328,14 @@ const TambahSantri = () => {
               ))}
             </select>
             {formik.touched.pondokId && formik.errors.pondokId ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.pondokId}
               </span>
             ) : null}
           </div>
 
           <div class="col-span-4 row-span-2 py-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xs font-medium text-gray-700">
               Photo
             </label>
             <div className="mt-1 flex justify-center px-4 pt-4 pb-4 border-2 border-gray-300 border-dashed rounded-md">
@@ -359,7 +363,7 @@ const TambahSantri = () => {
                       alt="image"
                       className=" h-20 w-20"
                     />
-                    <div className="flex text-sm text-gray-600 center text-center">
+                    <div className="flex text-xs text-gray-600 center text-center">
                       <label className="relative cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                         <span className="ml-4" onClick={onClearImage}>
                           Remove
@@ -369,7 +373,7 @@ const TambahSantri = () => {
                   </>
                 )}
 
-                <div className="text-sm text-gray-600 text-center">
+                <div className="text-xs text-gray-600 text-center">
                   <label
                     htmlFor="photo"
                     className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
@@ -385,7 +389,7 @@ const TambahSantri = () => {
                   </label>
                 </div>
                 {formik.touched.photo && formik.errors.photo ? (
-                  <span className="my-1 text-sm text-red-600 w-full ml-3">
+                  <span className="my-1 text-xs text-red-600 w-full ml-3">
                     {formik.errors.photo}
                   </span>
                 ) : null}

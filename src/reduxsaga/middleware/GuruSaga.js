@@ -12,6 +12,8 @@ import {
   doUpdateGuruFailed,
   doUpdateNoFIleGuruSucceed,
   doUpdateNoFIleGuruFailed,
+  doGetGuruByRumahTahfidzSucceed,
+  doGetGuruByRumahTahfidzFailed,
 } from "../actions/Guru";
 import apiGuru from "../api/api-guru";
 
@@ -36,6 +38,19 @@ function* handleGetByIdGuru(action) {
     yield put(doGetGuruByIdSucceed(result));
   } catch (error) {
     yield put(doGetGuruByIdFailed(error));
+  }
+}
+
+// GET BY RUMAHTAHFIZ
+function* handleGetByRumahTahfidzGuru(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiGuru.getgururumahtahfidz, payload);
+    yield put(doGetGuruByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetGuruByRumahTahfidzFailed(error));
   }
 }
 
@@ -101,4 +116,5 @@ export {
   handleUpdateGuru,
   handleDeleteGuru,
   handleUpdateNoFileGuru,
+  handleGetByRumahTahfidzGuru
 };

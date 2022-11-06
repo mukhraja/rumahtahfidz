@@ -31,6 +31,22 @@ export const doGetSantriByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetSantriByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SANTRI_REQUEST,
+  payload,
+});
+
+export const doGetSantriByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetSantriByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateSantriRequest = (payload) => ({
   type: ActionType.CREATE_SANTRI_REQUEST,

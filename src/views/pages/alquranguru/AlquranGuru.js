@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hafalquran } from "../../../gambar";
-import { doGetAlquranAwalGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
+import { doGetAlquranAwalGuruRequest, doGetAlquranGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/Alquranguru";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -14,9 +14,14 @@ const AlquranGuru = () => {
   const dispatch = useDispatch();
 
   const { alqurangurudata } = useSelector((state) => state.alquranGuruState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
     dispatch(doGetAlquranAwalGuruRequest());
+  }else{
+    dispatch(doGetAlquranGuruByRumahTahfidzRequest(userProfile.pondokId))
+  }
   }, []);
 
   const [Display, setDisplay] = useState([]);

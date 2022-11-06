@@ -32,6 +32,7 @@ const Tambahrumahtahfiz = () => {
       "Masukkan nomor telephone"
     ),
     photo: Yup.string("Masukkan photo").required("Masukkan photo"),
+    photo: Yup.string("Masukkan logo").required("Masukkan logo"),
   });
 
   const formik = useFormik({
@@ -42,6 +43,7 @@ const Tambahrumahtahfiz = () => {
       telephone: "",
       chief: "",
       photo: undefined,
+      logo: undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -51,20 +53,24 @@ const Tambahrumahtahfiz = () => {
       payload.append("address", values.address);
       payload.append("telephone", values.telephone);
       payload.append("chief", values.chief);
+      payload.append("logo", values.logo);
       payload.append("photo", values.photo);
 
       dispatch(doCreateRumahTahfidzRequest(payload));
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datarumahtahfiz", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/datarumahtahfiz", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 
   const [previewImg, setPreviewImg] = useState();
   const [uploaded, setUploaded] = useState(false);
+
+  const [previewLogo, setPreviewLogo] = useState();
+  const [uploadLogo, setUploadLogo] = useState(false);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -82,6 +88,24 @@ const Tambahrumahtahfiz = () => {
     event.preventDefault();
     setUploaded(false);
     setPreviewImg(null);
+  };
+
+  const uploadOnLogo = (name) => (event) => {
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onload = () => {
+      formik.setFieldValue("logo", file);
+      setPreviewLogo(reader.result);
+    };
+    reader.readAsDataURL(file);
+    setUploadLogo(true);
+  };
+
+  const onClearLogo = (event) => {
+    event.preventDefault();
+    setUploadLogo(false);
+    setPreviewLogo(null);
   };
 
   return (
@@ -177,6 +201,68 @@ const Tambahrumahtahfiz = () => {
                 {formik.errors.chief}
               </span>
             ) : null}
+          </div>
+          <div class="col-span-4 row-span-2 py-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Logo
+            </label>
+            <div className="mt-1 flex justify-center px-4 pt-4 pb-4 border-2 border-gray-300 border-dashed rounded-md">
+              <div className="space-y-1 text-center">
+                {uploadLogo === false ? (
+                  <svg
+                    className="h-6 w-6 text-gray-200"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : (
+                  <>
+                    <img
+                      src={previewLogo}
+                      center
+                      alt="image"
+                      className=" h-20 w-20"
+                    />
+                    <div className="flex text-sm text-gray-600 center text-center">
+                      <label className="relative cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                        <span className="ml-4" onClick={onClearLogo}>
+                          Remove
+                        </span>
+                      </label>
+                    </div>
+                  </>
+                )}
+
+                <div className="text-sm text-gray-600 text-center">
+                  <label
+                    htmlFor="logo"
+                    className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                  >
+                    <span>Upload a file</span>
+                    <input
+                      type="file"
+                      id="logo"
+                      accept="image/*"
+                      onChange={uploadOnLogo("file")}
+                      className="sr-only"
+                    />
+                  </label>
+                </div>
+                {formik.touched.logo && formik.errors.logo ? (
+                  <span className="my-1 text-sm text-red-600 w-full ml-3">
+                    {formik.errors.logo}
+                  </span>
+                ) : null}
+              </div>
+            </div>
           </div>
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">

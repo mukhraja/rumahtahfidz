@@ -32,6 +32,14 @@ const AlquranGuruReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_ALQURANGURU_SUCCEED:
       return applyGetByIdAlquranGuruSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANGURU_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANGURU_SUCCEED:
+      return applyGetAlquranByRumahTahfizSantriSucceed(state, action);
     // CREATE
     case ActionType.CREATE_ALQURANGURU_REQUEST:
       return {
@@ -76,6 +84,15 @@ const applyGetAlquranGuruSucceed = (state, action) => {
     alqurangurudata: payload.data,
   };
 };
+
+const applyGetAlquranByRumahTahfizSantriSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    alqurangurudata: [...payload.data],
+  };
+};
+
 
 const applyGetAlquranAwalGuruSucceed = (state, action) => {
   const { payload } = action;

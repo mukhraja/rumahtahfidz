@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 import { doCreateGuruRequest } from "../../../reduxsaga/actions/Guru";
+import moment from "moment";
 
 const TambahPengajar = () => {
   useEffect(() => {
@@ -26,7 +27,7 @@ const TambahPengajar = () => {
     niu: Yup.string("Masukkan nomor identik ustadz/ah").required(
       "Masukkan nomor identik ustadz/ah"
     ),
-    email: Yup.string("Masukkan email").required("Masukkan email"),
+    tempat: Yup.string("Masukkan tempat").required("Masukkan tempat"),
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
@@ -35,9 +36,6 @@ const TambahPengajar = () => {
     ),
     telephone: Yup.string("Masukkan nomor telephone").required(
       "Masukkan nomor telephone"
-    ),
-    education: Yup.string("Masukkan pendidikan").required(
-      "Masukkan nomor pendidikan"
     ),
     address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
     ayah: Yup.string("Masukkan nama ayah").required("Masukkan nama ayah"),
@@ -54,16 +52,16 @@ const TambahPengajar = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      niu: "",
-      email: "",
+      name: "ass",
+      niu: "ass",
+      tempat: "ass",
       datebirth: "",
-      gender: "",
-      telephone: "",
-      education: "",
-      address: "",
-      ayah: "",
-      ibu: "",
+      gender: "ass",
+      telephone: "ass",
+      education: "ass",
+      address: "ass",
+      ayah: "ass",
+      ibu: "ass",
       mulai_masuk: "",
       mulai_vakum: "",
       pondokId: "",
@@ -71,19 +69,31 @@ const TambahPengajar = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      // const tanggalmasuk = (
+      //   <Moment format="DD/MM/YYYY">{values.mulai_masuk}</Moment>
+      // );
+      // const tanggalvakum = (
+      //   <Moment format="DD/MM/YYYY">{values.mulai_vakum}</Moment>
+      // );
+
       let payload = new FormData();
       payload.append("name", values.name);
       payload.append("niu", values.niu);
-      payload.append("email", values.email);
+      payload.append("tempat", values.tempat);
       payload.append("datebirth", values.datebirth);
       payload.append("gender", values.gender);
       payload.append("telephone", values.telephone);
-      payload.append("education", values.education);
       payload.append("address", values.address);
       payload.append("ayah", values.ayah);
       payload.append("ibu", values.ibu);
-      payload.append("mulai_masuk", values.mulai_masuk);
-      payload.append("mulai_vakum", values.mulai_vakum);
+      payload.append(
+        "mulai_masuk",
+        moment(values.mulai_masuk).format("DD/MM/YYYY")
+      );
+      payload.append(
+        "mulai_vakum",
+        moment(values.mulai_vakum).format("DD/MM/YYYY")
+      );
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);
 
@@ -91,9 +101,9 @@ const TambahPengajar = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datapengajar", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/datapengajar", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 
@@ -126,7 +136,7 @@ const TambahPengajar = () => {
         </h1>
         <img src={pengajar} className="h-20" />
       </div>
-      <div className="m-4 bg-white p-4 rounded-md font-poppins text-sm">
+      <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <form method="POST" action="#">
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
@@ -139,7 +149,7 @@ const TambahPengajar = () => {
               placeholder="Nama Pengajar"
             />
             {formik.touched.name && formik.errors.name ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.name}
               </span>
             ) : null}
@@ -155,24 +165,8 @@ const TambahPengajar = () => {
               placeholder="Nomor Identik Ustadz/ Ustadzah"
             />
             {formik.touched.niu && formik.errors.niu ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.niu}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Email</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              name="email"
-              id="email"
-              placeholder="Masukkan Email"
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.email}
               </span>
             ) : null}
           </div>
@@ -181,8 +175,17 @@ const TambahPengajar = () => {
               Tempat / Tanggal Lahir
             </h1>
             <input
+              type="text"
+              className="border rounded-md block lg:col-span-1 mr-1 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.tempat}
+              onChange={formik.handleChange}
+              name="tempat"
+              id="tempat"
+              placeholder="Tempat"
+            />
+            <input
               type="date"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              className="border rounded-md block lg:col-span-1 col-span-4 pl-2 py-1 placeholder:text-xs"
               value={formik.values.datebirth}
               onChange={formik.handleChange}
               name="datebirth"
@@ -190,8 +193,13 @@ const TambahPengajar = () => {
               placeholder="Tempat / Tanggal Lahir"
             />
             {formik.touched.datebirth && formik.errors.datebirth ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.datebirth}
+              </span>
+            ) : null}
+            {formik.touched.tempat && formik.errors.tempat ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                {formik.errors.tempat}
               </span>
             ) : null}
           </div>
@@ -206,7 +214,7 @@ const TambahPengajar = () => {
               placeholder="Jenis Kelamin"
             />
             {formik.touched.gender && formik.errors.gender ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.gender}
               </span>
             ) : null}
@@ -223,25 +231,8 @@ const TambahPengajar = () => {
               placeholder="Telepon"
             />
             {formik.touched.telephone && formik.errors.telephone ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.telephone}
-              </span>
-            ) : null}
-          </div>
-
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.education}
-              onChange={formik.handleChange}
-              name="education"
-              id="education"
-              placeholder="Pendidikan"
-            />
-            {formik.touched.education && formik.errors.education ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.education}
               </span>
             ) : null}
           </div>
@@ -255,10 +246,13 @@ const TambahPengajar = () => {
               placeholder="Alamat"
             ></textarea>
             {formik.touched.address && formik.errors.address ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.address}
               </span>
             ) : null}
+          </div>
+          <div className="grid grid-cols-8 my-4">
+            <h1 className="block lg:col-span-2 col-span-4">Orang Tua :</h1>
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Ayah</h1>
@@ -271,12 +265,12 @@ const TambahPengajar = () => {
               placeholder="Nama Ayah"
             />
             {formik.touched.ayah && formik.errors.ayah ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.ayah}
               </span>
             ) : null}
           </div>
-          <div className="grid grid-cols-8 my-2">
+          <div className="grid grid-cols-8 mt-2 mb-4">
             <h1 className="block lg:col-span-2 col-span-4">Ibu</h1>
             <input
               className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
@@ -287,7 +281,7 @@ const TambahPengajar = () => {
               placeholder="Ibu"
             />
             {formik.touched.ibu && formik.errors.ibu ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.ibu}
               </span>
             ) : null}
@@ -304,7 +298,7 @@ const TambahPengajar = () => {
               placeholder="Mulai Masuk"
             />
             {formik.touched.mulai_masuk && formik.errors.mulai_masuk ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.mulai_masuk}
               </span>
             ) : null}
@@ -322,7 +316,7 @@ const TambahPengajar = () => {
               placeholder="Mulai Vakum"
             />
             {formik.touched.mulai_vakum && formik.errors.mulai_vakum ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.mulai_vakum}
               </span>
             ) : null}
@@ -346,14 +340,14 @@ const TambahPengajar = () => {
               ))}
             </select>
             {formik.touched.pondokId && formik.errors.pondokId ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.pondokId}
               </span>
             ) : null}
           </div>
 
           <div class="col-span-4 row-span-2 py-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xs font-medium text-gray-700">
               Photo
             </label>
             <div className="mt-1 flex justify-center px-4 pt-4 pb-4 border-2 border-gray-300 border-dashed rounded-md">
@@ -381,7 +375,7 @@ const TambahPengajar = () => {
                       alt="image"
                       className=" h-20 w-20"
                     />
-                    <div className="flex text-sm text-gray-600 center text-center">
+                    <div className="flex text-xs text-gray-600 center text-center">
                       <label className="relative cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                         <span className="ml-4" onClick={onClearImage}>
                           Remove
@@ -391,7 +385,7 @@ const TambahPengajar = () => {
                   </>
                 )}
 
-                <div className="text-sm text-gray-600 text-center">
+                <div className="text-xs text-gray-600 text-center">
                   <label
                     htmlFor="photo"
                     className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
@@ -407,7 +401,7 @@ const TambahPengajar = () => {
                   </label>
                 </div>
                 {formik.touched.photo && formik.errors.photo ? (
-                  <span className="my-1 text-sm text-red-600 w-full ml-3">
+                  <span className="my-1 text-xs text-red-600 w-full ml-3">
                     {formik.errors.photo}
                   </span>
                 ) : null}

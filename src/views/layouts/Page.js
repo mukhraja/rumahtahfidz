@@ -31,6 +31,7 @@ import {
 } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { doSignoutRequest } from "../../reduxsaga/actions/User";
+import config from "../../reduxsaga/config/config"
 
 export const Page = (props) => {
   const [active, setActive] = useState(false);
@@ -74,6 +75,7 @@ export const Page = (props) => {
   };
 
   const [Display, setDisplay] = useState(false);
+  const [Logo, setLogo] = useState();
 
   useEffect(() => {
     if (window.innerWidth <= 900) {
@@ -95,7 +97,7 @@ export const Page = (props) => {
         <div className="bg-white">
           <div className="sidebar-header flex items-center justify-center py-4">
             <div className="inline-flex">
-              <img className=" w-20" src={Logo} alt="logo.jpg" />
+              <img className=" w-28" src={config.urlImage+"/"+userProfile.logotahfidz} alt="logo.jpg" />
             </div>
           </div>
           <div className="sidebar-content px-4 py-6 font-poppins">
@@ -122,8 +124,6 @@ export const Page = (props) => {
                   <span className="ml-3 font-semibold">Dashboard</span>
                 </Link>
               </li>
-              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
-              userProfile.role === "eac8c1bf-86ee-4857-b8e9-c7e68691041b" ? (
                 <li className="my-px">
                   <div
                     className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
@@ -190,9 +190,7 @@ export const Page = (props) => {
                     </ul>
                   ) : null}
                 </li>
-              ) : null}
 
-              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
                 <li className="my-px">
                   <a
                     className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
@@ -204,9 +202,6 @@ export const Page = (props) => {
                     <span className="ml-3 font-semibold">Hafalan</span>
                   </a>
                 </li>
-              ) : (
-                ""
-              )}
               {hafalan ? (
                 <ul className="font-semibold relative left-5">
                   <li className="py-2 flex" onClick={getsubHafalan}>
@@ -268,7 +263,7 @@ export const Page = (props) => {
                       </li>
                     </ul>
                   ) : null}
-                  <li className="py-2 flex" onClick={getsubHafalana}>
+                  <li className={`py-2 flex ${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? "hidden" : ""}`} onClick={getsubHafalana}>
                     <FolderOpenIcon className="w-5 mr-2" />
                     <h1>Ustadzah</h1>
                   </li>
@@ -329,8 +324,7 @@ export const Page = (props) => {
                   ) : null}
                 </ul>
               ) : null}
-              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
-              userProfile.role === "1b864518-299d-469c-b270-4d4b9d5b120f" ? (
+              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
                 <li className="my-px" onClick={laporkan}>
                   <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
                     <span className="text-lg text-gray-700">
@@ -378,7 +372,7 @@ export const Page = (props) => {
                   </li>
                 </ul>
               ) : null}
-              <li className="my-px">
+              <li className={`my-px  ${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? "hidden" : ""}`}>
                 <Link
                   to="datauser"
                   className={
@@ -400,7 +394,7 @@ export const Page = (props) => {
                   <span className="ml-3 font-semibold">Manage User</span>
                 </Link>
               </li>
-              <li className="my-px">
+              <li className={`my-px  ${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? "hidden" : ""}`}>
                 <Link
                   to="database"
                   className={
@@ -497,17 +491,14 @@ export const Page = (props) => {
             </div>
             <div className="flex ml-auto">
               <a className="flex flex-row items-center">
-                <img
-                  src="https://pbs.twimg.com/profile_images/378800000298815220/b567757616f720812125bfbac395ff54_normal.png"
-                  alt="walpaper.jpg"
-                  className="h-10 w-10 bg-gray-200 border rounded-full"
+                <img className=" w-12" src={config.urlImage+"/"+userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
                     {userProfile.name}
                   </span>
                   <span className="w-20 text-gray-500 text-xs leading-none mt-1">
-                    Administrator
+                    {userProfile.roleName}
                   </span>
                 </span>
               </a>

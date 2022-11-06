@@ -27,6 +27,7 @@ const TambahUser = () => {
   const navigate = useNavigate();
 
   const { roledata } = useSelector((state) => state.roleState);
+  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -81,6 +82,7 @@ const TambahUser = () => {
       gender: "",
       roleId: "",
       photo: "",
+      pondokId:"",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -96,6 +98,7 @@ const TambahUser = () => {
         payload.append("gender", values.gender);
         payload.append("parent", values.parent);
         payload.append("roleId", values.roleId);
+        payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
         dispatch(doCreateUserRequest(payload));
         toast.success("Data berhasil ditambbahkan...");
@@ -114,6 +117,7 @@ const TambahUser = () => {
           gender: values.gender,
           parent: values.parent,
           roleId: values.roleId,
+          pondokId: values.pondokId,
         };
 
         dispatch(doCreateUserNoFileRequest(payload));
@@ -259,6 +263,30 @@ const TambahUser = () => {
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
+          </div>
+          <div className="grid grid-cols-8 my-2">
+            <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
+            <select
+              name="pondokId"
+              id="pondokId"
+              value={formik.values.pondokId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              autoComplete="pondokId"
+              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+            >
+              <option value="" selected disabled hidden>
+                Pilih Rumah Tahfidz
+              </option>
+              {rumahtahfidzdata.map((e) => (
+                <option value={e.id}>{e.name}</option>
+              ))}
+            </select>
+            {formik.touched.pondokId && formik.errors.pondokId ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                {formik.errors.pondokId}
+              </span>
+            ) : null}
           </div>
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">

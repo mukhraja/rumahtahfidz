@@ -32,6 +32,14 @@ const SurahPendekSantriReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_SURAHPENDEKSANTRI_SUCCEED:
       return applyGetByIdSurahPendekSantriSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_SURAHPENDEKSANTRI_SUCCEED:
+      return applyGetSurahPendekByRumahTahfizSantriSucceed(state, action);
     // CREATE
     case ActionType.CREATE_SURAHPENDEKSANTRI_REQUEST:
       return {
@@ -82,6 +90,14 @@ const applyGetSurahPendekAwalSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: payload.data,
+  };
+};
+
+const applyGetSurahPendekByRumahTahfizSantriSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    surahpendeksantridata: [...payload.data],
   };
 };
 

@@ -14,6 +14,10 @@ export const GET_BY_ID_SANTRI_REQUEST = "santri/getid/request";
 export const GET_BY_ID_SANTRI_SUCCEED = "santri/getid/succeed";
 export const GET_BY_ID_SANTRI_FAILED = "santri/getid/failed";
 
+export const GET_BY_RUMAHTAHFIDZ_SANTRI_REQUEST = "santri/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_SANTRI_SUCCEED = "santri/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_SANTRI_FAILED = "santri/getrumahtahfidz/failed";
+
 export const UPDATE_SANTRI_REQUEST = "santri/update/request";
 export const UPDATE_SANTRI_SUCCEED = "santri/update/succeed";
 export const UPDATE_SANTRI_FAILED = "santri/update/failed";

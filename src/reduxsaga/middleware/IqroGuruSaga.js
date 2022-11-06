@@ -8,6 +8,8 @@ import {
   doGetIqroAwalGuruSucceed,
   doGetIqroGuruByIdFailed,
   doGetIqroGuruByIdSucceed,
+  doGetIqroGuruByRumahTahfidzFailed,
+  doGetIqroGuruByRumahTahfidzSucceed,
   doGetIqroGuruFailed,
   doGetIqroGuruSucceed,
   doUpdateIqroGuruFailed,
@@ -50,6 +52,19 @@ function* handleGetByIdIqroGuru(action) {
     yield put(doGetIqroGuruByIdSucceed(result));
   } catch (error) {
     yield put(doGetIqroGuruByIdFailed(error));
+  }
+}
+
+// GET BY RUMAHTAHFIZ
+function* handleGetByRumahTahfidzIqroGuru(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiIqroguru.getiqrorumahtahfidz, payload);
+    yield put(doGetIqroGuruByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetIqroGuruByRumahTahfidzFailed(error));
   }
 }
 
@@ -101,4 +116,5 @@ export {
   handleDeleteIqroGuru,
   handleGetByIdIqroGuru,
   handleUpdateIqroGuru,
+  handleGetByRumahTahfidzIqroGuru
 };

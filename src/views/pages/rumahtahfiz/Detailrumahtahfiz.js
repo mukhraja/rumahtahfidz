@@ -27,34 +27,52 @@ const Detailrumahtahfiz = () => {
               Data {e.name}
             </h1>
             <img
-              src={
-                e.photo == "" ? rumahtahfidz : config.urlImage + "/" + e.photo
-              }
+              src={e.logo == "" ? rumahtahfidz : config.urlImage + "/" + e.logo}
               className="h-20"
             />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.name}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">NIT</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.nit}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
-              <h1 className="block lg:col-span-5 col-span-4">{e.address}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">No. Telepon</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">
-                Nama Kepala Tahfidz
-              </h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.chief}</h1>
+            <div className="flex justify-between">
+              <div className="w-full">
+                <div className="grid grid-cols-8 p-2 text-xs">
+                  <h1 className="block col-span-4">Nama</h1>
+                  <h1 className="block col-span-4">{e.name}</h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+                  <h1 className="block col-span-4">NIT</h1>
+                  <h1 className="block col-span-4">{e.nit}</h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs">
+                  <h1 className="block col-span-4">Alamat</h1>
+                  <h1 className="block col-span-4">{e.address}</h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+                  <h1 className="block col-span-4">No. Telepon</h1>
+                  <h1 className="block col-span-4">{e.telephone}</h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs">
+                  <h1 className="block col-span-4">Nama Kepala Tahfidz</h1>
+                  <h1 className="block col-span-4">{e.chief}</h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+                  <h1 className="block col-span-4">Jumlah Ustadz/ah</h1>
+                  <h1 className="block col-span-4">{e.Gurus.length}</h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs">
+                  <h1 className="block col-span-4">Jumlah Santri</h1>
+                  <h1 className="block col-span-4">{e.Santris.length}</h1>
+                </div>
+              </div>
+              <div className="w-1/2 justify-center flex">
+                <img
+                  src={
+                    e.photo == ""
+                      ? rumahtahfidz
+                      : config.urlImage + "/" + e.photo
+                  }
+                  className="w-1/2 object-fit h-full shadow-lg rounded-md"
+                />
+              </div>
             </div>
             <div className="py-4 font-poppins">
               <button

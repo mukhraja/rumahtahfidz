@@ -47,6 +47,22 @@ export const doGetIqroSantriByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetIqroSantriByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_IQROSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetIqroSantriByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_IQROSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetIqroSantriByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_IQROSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateIqroSantriRequest = (payload) => ({
   type: ActionType.CREATE_IQROSANTRI_REQUEST,

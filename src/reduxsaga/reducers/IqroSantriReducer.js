@@ -32,6 +32,14 @@ const IqroSantriReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_IQROSANTRI_SUCCEED:
       return applyGetByIdIqroSantriSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_IQROSANTRI_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_IQROSANTRI_SUCCEED:
+      return applyGetIqroSantriByRumahTahfizSantriSucceed(state, action);
     // CREATE
     case ActionType.CREATE_IQROSANTRI_REQUEST:
       return {
@@ -74,6 +82,14 @@ const applyGetIqroSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: payload.data,
+  };
+};
+
+const applyGetIqroSantriByRumahTahfizSantriSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    iqrosantridata: [...payload.data],
   };
 };
 

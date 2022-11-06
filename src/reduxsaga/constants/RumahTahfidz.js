@@ -6,6 +6,10 @@ export const GET_BY_ID_RUMAHTAHFIDZ_REQUEST = "rumahtahfidz/getid/request";
 export const GET_BY_ID_RUMAHTAHFIDZ_SUCCEED = "rumahtahfidz/getid/succeed";
 export const GET_BY_ID_RUMAHTAHFIDZ_FAILED = "rumahtahfidz/getid/failed";
 
+export const GET_BY_RUMAHTAHFIDZ_REQUEST = "rumahtahfidz/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_SUCCEED = "rumahtahfidz/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_FAILED = "rumahtahfidz/getrumahtahfidz/failed";
+
 export const CREATE_RUMAHTAHFIDZ_REQUEST = "rumahtahfidz/create/request";
 export const CREATE_RUMAHTAHFIDZ_SUCCEED = "rumahtahfidz/create/succeed";
 export const CREATE_RUMAHTAHFIDZ_FAILED = "rumahtahfidz/create/failed";

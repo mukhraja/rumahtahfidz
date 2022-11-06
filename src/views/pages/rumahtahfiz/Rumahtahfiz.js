@@ -8,6 +8,8 @@ import Table, {
 import {
   doGetRumahTahfidzRequest,
   doDeleteRumahTahfidzRequest,
+  doGetRumahTahfidzByIdRequest,
+  doGetByRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,9 +18,14 @@ const Rumahtahfiz = () => {
   const dispatch = useDispatch();
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
+      dispatch(doGetRumahTahfidzRequest());
+    }else{
+      dispatch(doGetByRumahTahfidzRequest(userProfile.pondokId))
+    }
   }, []);
 
   const [Display, setDisplay] = useState([]);

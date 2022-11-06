@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bacajuz } from "../../../gambar";
-import { doGetSurahPendekAwalGuruRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
+import { doGetSurahPendekAwalGuruRequest, doGetSurahPendekGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -16,9 +16,14 @@ const SurahPendekGuru = () => {
   const { surahpendekgurudata } = useSelector(
     (state) => state.surahPendekGuruState
   );
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
     dispatch(doGetSurahPendekAwalGuruRequest());
+  }else{
+    dispatch(doGetSurahPendekGuruByRumahTahfidzRequest(userProfile.pondokId))
+  }
   }, []);
 
   const [Display, setDisplay] = useState([]);

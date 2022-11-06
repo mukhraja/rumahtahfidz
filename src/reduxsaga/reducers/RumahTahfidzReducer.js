@@ -24,6 +24,14 @@ const RumahTahfidzReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_RUMAHTAHFIDZ_SUCCEED:
       return applyGetByIdRumahTahfidzSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_SUCCEED:
+      return applyGetByRumahTahfizSucceed(state, action);
     // CREATE
     case ActionType.CREATE_RUMAHTAHFIDZ_REQUEST:
       return {
@@ -86,6 +94,14 @@ const applyGetByIdRumahTahfidzSucceed = (state, action) => {
   };
 };
 
+const applyGetByRumahTahfizSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    rumahtahfidzdata: [...payload.data],
+  };
+};
+
 const applyUpdateRumahTahfidzSucceed = (state, action) => {
   const { payload } = action;
   return {
@@ -113,5 +129,7 @@ const applyDeleteRumahTahfidzSucceed = (state, action) => {
     isRefresh: false,
   };
 };
+
+
 
 export default RumahTahfidzReducer;

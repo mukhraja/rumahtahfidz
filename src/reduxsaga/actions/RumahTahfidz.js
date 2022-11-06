@@ -31,6 +31,22 @@ export const doGetRumahTahfidzByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_REQUEST,
+  payload,
+});
+
+export const doGetByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_SUCCEED,
+  payload,
+});
+
+export const doGetByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_FAILED,
+  payload,
+});
+
 // CREATE
 
 export const doCreateRumahTahfidzRequest = (payload) => ({

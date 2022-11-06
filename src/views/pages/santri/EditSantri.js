@@ -69,15 +69,15 @@ const EditSantri = () => {
     initialValues: {
       name: santridata.length ? santridata[0].name : null,
       nis: santridata.length ? santridata[0].nis : null,
-      address: santridata.length ? santridata[0].address : null,
+      tempat: santridata.length ? santridata[0].tempat : null,
       datebirth: santridata.length ? santridata[0].datebirth : null,
+      address: santridata.length ? santridata[0].address : null,
       gender: santridata.length ? santridata[0].gender : null,
-      education: santridata.length ? santridata[0].education : null,
-      city: santridata.length ? santridata[0].city : null,
-      province: santridata.length ? santridata[0].province : null,
-      parent: santridata.length ? santridata[0].parent : null,
+      ayah: santridata.length ? santridata[0].ayah : null,
+      ibu: santridata.length ? santridata[0].ibu : null,
       telephone: santridata.length ? santridata[0].telephone : null,
-      tgl_masuk: santridata.length ? santridata[0].tgl_masuk : null,
+      mulai_masuk: santridata.length ? santridata[0].mulai_masuk : null,
+      mulai_vakum: santridata.length ? santridata[0].mulai_vakum : null,
       pondokId: santridata.length ? santridata[0].pondokId : null,
       photo: santridata.length ? santridata[0].photo : undefined,
     },
@@ -87,13 +87,12 @@ const EditSantri = () => {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("nis", values.nis);
-        payload.append("address", values.address);
+        payload.append("tempat", values.address);
         payload.append("datebirth", values.datebirth);
+        payload.append("address", values.address);
         payload.append("gender", values.gender);
-        payload.append("education", values.education);
-        payload.append("city", values.city);
-        payload.append("province", values.province);
-        payload.append("parent", values.parent);
+        payload.append("ayah", values.ayah);
+        payload.append("ibu", values.ibu);
         payload.append("telephone", values.telephone);
         payload.append("tgl_masuk", values.tgl_masuk);
         payload.append("pondokId", values.pondokId);
@@ -109,15 +108,14 @@ const EditSantri = () => {
           id,
           name: values.name,
           nis: values.nis,
-          address: values.address,
+          tempat: values.tempat,
           datebirth: values.datebirth,
+          address: values.address,
           gender: values.gender,
-          education: values.education,
-          city: values.city,
-          province: values.province,
           parent: values.parent,
           telephone: values.telephone,
-          tgl_masuk: values.tgl_masuk,
+          mulai_masuk: values.mulai_masuk,
+          mulai_vakum: values.mulai_vakum,
           pondokId: values.pondokId,
         };
         dispatch(doUpdateNoFIleSantriRequest(payload));
@@ -200,30 +198,23 @@ const EditSantri = () => {
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
-            <textarea
-              id="address"
-              name="address"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              value={formik.values.address}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.address && formik.errors.address ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.address}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block lg:col-span-2 col-span-4">
               Tempat / Tanggal Lahir
             </h1>
             <input
+              type="text"
+              className="border rounded-md block lg:col-span-1 mr-1 col-span-4 pl-2 py-1 placeholder:text-xs"
+              value={formik.values.tempat}
+              onChange={formik.handleChange}
+              name="tempat"
+              id="tempat"
+              placeholder="Tempat"
+            />
+            <input
               type="date"
               id="datebirth"
               name="datebirth"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
+              className="border rounded-md block lg:col-span-1 col-span-4 pl-2 py-1"
               value={formik.values.datebirth}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -251,66 +242,18 @@ const EditSantri = () => {
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
-            <input
-              id="education"
-              name="education"
+            <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
+            <textarea
+              id="address"
+              name="address"
               className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              value={formik.values.education}
+              value={formik.values.address}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-            {formik.touched.education && formik.errors.education ? (
+            {formik.touched.address && formik.errors.address ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.education}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Kota</h1>
-            <input
-              id="city"
-              name="city"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              value={formik.values.city}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.city && formik.errors.city ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.city}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Provinsi</h1>
-            <input
-              id="province"
-              name="province"
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              value={formik.values.province}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.province && formik.errors.province ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.province}
-              </span>
-            ) : null}
-          </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Orang Tua / Wali</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              id="parent"
-              name="parent"
-              value={formik.values.parent}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.parent && formik.errors.parent ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.parent}
+                {formik.errors.address}
               </span>
             ) : null}
           </div>
@@ -330,21 +273,73 @@ const EditSantri = () => {
               </span>
             ) : null}
           </div>
-
+          <div className="grid grid-cols-8 mt-4 text-xs">
+            <h1 className="block lg:col-span-2 col-span-4">Orang Tua : </h1>
+          </div>
           <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Tanggal Masuk</h1>
+            <h1 className="block lg:col-span-2 col-span-4 py-1">Ayah</h1>
             <input
-              type="date"
               className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
-              id="tgl_masuk"
-              name="tgl_masuk"
-              value={formik.values.tgl_masuk}
+              id="ayah"
+              name="ayah"
+              value={formik.values.ayah}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-            {formik.touched.tgl_masuk && formik.errors.tgl_masuk ? (
+            {formik.touched.ayah && formik.errors.ayah ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.tgl_masuk}
+                {formik.errors.ayah}
+              </span>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-8 mb-4 text-xs">
+            <h1 className="block lg:col-span-2 col-span-4 py-1">Ibu</h1>
+            <input
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
+              id="ibu"
+              name="ibu"
+              value={formik.values.ibu}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.ibu && formik.errors.ibu ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                {formik.errors.ibu}
+              </span>
+            ) : null}
+          </div>
+
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block lg:col-span-2 col-span-4">Mulai Masuk</h1>
+            <input
+              type="date"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
+              id="mulai_masuk"
+              name="mulai_masuk"
+              value={formik.values.mulai_masuk}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.mulai_masuk && formik.errors.mulai_masuk ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                {formik.errors.mulai_masuk}
+              </span>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block lg:col-span-2 col-span-4">Mulai Vakum</h1>
+            <input
+              type="date"
+              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1"
+              id="mulai_vakum"
+              name="mulai_vakum"
+              value={formik.values.mulai_vakum}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.mulai_vakum && formik.errors.mulai_vakum ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                {formik.errors.mulai_vakum}
               </span>
             ) : null}
           </div>

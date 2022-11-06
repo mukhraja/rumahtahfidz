@@ -38,6 +38,19 @@ const getrumahid = async (payload) => {
   }
 };
 
+// GETBYRUMAHTAHFIDZ
+const getbyrumahtahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(`${config.domain}/pondok/byrumahtahfidz/${payload}`);
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // UPDATE
 const updaterumah = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -87,4 +100,5 @@ export default {
   getrumahid,
   updaterumah,
   updaterumahNoFile,
+  getbyrumahtahfidz
 };

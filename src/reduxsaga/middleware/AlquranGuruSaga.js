@@ -40,6 +40,19 @@ function* handleGetByIdAlquranGuru(action) {
   }
 }
 
+// GET BY RUMAHTAHFIZ
+function* handleGetByRumahTahfidzAlquranGuru(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiAlquranguru.getalquranrumahtahfidz, payload);
+    yield put(All.doGetAlquranGuruByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(All.doGetAlquranGuruByRumahTahfidzFailed(error));
+  }
+}
+
 // Guru
 function* handleCreateAlquranGuru(action) {
   console.log("sudah sampai di middleware");
@@ -88,4 +101,5 @@ export {
   handleDeleteAlquranGuru,
   handleGetByIdAlquranGuru,
   handleUpdateAlquranGuru,
+  handleGetByRumahTahfidzAlquranGuru
 };

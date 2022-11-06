@@ -23,6 +23,8 @@ const DetailSurahPendek = () => {
   const { surahpendeksantridata } = useSelector(
     (state) => state.surahPendekSantriState
   );
+  const { userProfile } = useSelector((state) => state.userState);
+
   useEffect(() => {
     const payload = { id };
     dispatch(doGetSantriByIdRequest(payload));
@@ -32,7 +34,7 @@ const DetailSurahPendek = () => {
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
-    if (window.innerWidth <= 500) {
+    if (window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
       setDisplay([
         {
           Header: "Iqro",
@@ -44,7 +46,28 @@ const DetailSurahPendek = () => {
           Cell: ButtonLinkSurahPendekList,
         },
       ]);
-    } else {
+    } else if (window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" ||window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884") {
+      setDisplay([
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+      ]);
+    } else if ( userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
       setDisplay([
         {
           Header: "Iqro",
@@ -71,36 +94,29 @@ const DetailSurahPendek = () => {
         },
       ]);
     }
+    else {
+      setDisplay([
+        {
+          Header: "Iqro",
+          accessor: "name",
+          Filter: SelectColumnFilter, // new
+          filter: "includes",
+        },
+        {
+          Header: "Halaman",
+          accessor: "halaman",
+        },
+        {
+          Header: "Keterangan",
+          accessor: "ket",
+        },
+        {
+          Header: "Update",
+          accessor: "updatedAt",
+        },
+      ]);
+    }
   }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Iqro",
-        accessor: "name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
-      {
-        Header: "Keterangan",
-        accessor: "ket",
-      },
-      {
-        Header: "Update",
-        accessor: "updatedAt",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkSurahPendekList,
-      },
-    ],
-    []
-  );
 
   return (
     <div className="">

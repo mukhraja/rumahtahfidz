@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { doGetAlquranGuruByRumahTahfidzFailed, doGetAlquranGuruByRumahTahfidzSucceed } from "../actions/Alquranguru";
 import * as All from "../actions/Alquransantri";
 import apiAlquransantri from "../api/api-alquransantri";
 
@@ -37,6 +38,19 @@ function* handleGetByIdAlquranSantri(action) {
     yield put(All.doGetAlquranSantriByIdSucceed(result));
   } catch (error) {
     yield put(All.doGetAlquranSantriByIdFailed(error));
+  }
+}
+
+// GET BY RUMAHTAHFIZ
+function* handleGetByRumahTahfidzAlquranSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiAlquransantri.getalquranrumahtahfidz, payload);
+    yield put(All.doGetAlquranSantriByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(All.doGetAlquranSantriByRumahTahfidzFailed(error));
   }
 }
 
@@ -88,4 +102,5 @@ export {
   handleDeleteAlquranSantri,
   handleGetByIdAlquranSantri,
   handleUpdateAlquranSantri,
+  handleGetByRumahTahfidzAlquranSantri
 };

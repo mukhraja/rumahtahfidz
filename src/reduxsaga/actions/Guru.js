@@ -30,6 +30,22 @@ export const doGetGuruByIdFailed = (payload) => ({
   payload,
 });
 
+// GET BY RUMAHTAHFIZ
+export const doGetGuruByRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_GURU_REQUEST,
+  payload,
+});
+
+export const doGetGuruByRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_GURU_SUCCEED,
+  payload,
+});
+
+export const doGetGuruByRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_RUMAHTAHFIDZ_GURU_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateGuruRequest = (payload) => ({
   type: ActionType.CREATE_GURU_REQUEST,

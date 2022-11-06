@@ -18,6 +18,10 @@ export const GET_BY_ID_ALQURANGURU_REQUEST = "alquranguru/getid/request";
 export const GET_BY_ID_ALQURANGURU_SUCCEED = "alquranguru/getid/succeed";
 export const GET_BY_ID_ALQURANGURU_FAILED = "alquranguru/getid/failed";
 
+export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_REQUEST = "alquranguru/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_SUCCEED = "alquranguru/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_FAILED = "alquranguru/getrumahtahfidz/failed";
+
 export const UPDATE_ALQURANGURU_REQUEST = "alquranguru/update/request";
 export const UPDATE_ALQURANGURU_SUCCEED = "alquranguru/update/succeed";
 export const UPDATE_ALQURANGURU_FAILED = "alquranguru/update/failed";

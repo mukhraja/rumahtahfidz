@@ -18,6 +18,10 @@ export const GET_BY_ID_ALQURANSANTRI_REQUEST = "alquransantri/getid/request";
 export const GET_BY_ID_ALQURANSANTRI_SUCCEED = "alquransantri/getid/succeed";
 export const GET_BY_ID_ALQURANSANTRI_FAILED = "alquransantri/getid/failed";
 
+export const GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_REQUEST = "alquransantri/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_SUCCEED = "alquransantri/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_FAILED = "alquransantri/getrumahtahfidz/failed";
+
 export const UPDATE_ALQURANSANTRI_REQUEST = "alquransantri/update/request";
 export const UPDATE_ALQURANSANTRI_SUCCEED = "alquransantri/update/succeed";
 export const UPDATE_ALQURANSANTRI_FAILED = "alquransantri/update/failed";

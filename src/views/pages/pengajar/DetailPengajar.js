@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import config from "../../../reduxsaga/config/config";
 import { doGetGuruByIdRequest } from "../../../reduxsaga/actions/Guru";
 import { pengajar } from "../../../gambar";
+import Moment from "react-moment";
 
 const DetailPengajar = () => {
   const { id } = useParams();
@@ -36,54 +37,83 @@ const DetailPengajar = () => {
               <h1 className="block lg:col-span-2 col-span-4">{e.name}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">NIS</h1>
+              <h1 className="block lg:col-span-2 col-span-4">NIU</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.niu}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs">
+              <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
+              <h1 className="block lg:col-span-1 col-span-1">{e.tempat}</h1>
+              <h1 className="block lg:col-span-1 col-span-1">/</h1>
+              <h1 className="block lg:col-span-2 col-span-2">
+                <Moment format="DD - MMMM - YYYY">{e.datebirth}</Moment>
+              </h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.gender}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
               <h1 className="block lg:col-span-5 col-span-4">{e.address}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.datebirth}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.gender}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.education}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs my-4">
+              <h1 className="block lg:col-span-2 col-span-4">Orang Tua :</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Ayah</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.ayah}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs mb-4">
               <h1 className="block lg:col-span-2 col-span-4">Ibu</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.ibu}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Mulai Masuk</h1>
               <h1 className="block lg:col-span-2 col-span-4">
-                {e.mulai_masuk}
+                <Moment format="DD - MMMM - YYYY">{e.mulai_masuk}</Moment>
               </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Mulai Masuk</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Mulai Vakum</h1>
               <h1 className="block lg:col-span-2 col-span-4">
-                {e.mulai_vakum}
+                <Moment format="DD - MMMM - YYYY">{e.mulai_vakum}</Moment>
               </h1>
             </div>
 
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">
+                No. Rumah Tahfidz
+              </h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.Pondok.nit}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
               <h1 className="block lg:col-span-2 col-span-4">
                 {e.Pondok.name}
+              </h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs my-4">
+              <h1 className="block lg:col-span-2 col-span-4">Hafalan :</h1>
+            </div>
+            {console.log(e.Iqrogurus.length < 1)}
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">IQRO</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                {e.Iqrogurus.length < 1
+                  ? "Belum ada hafalan"
+                  : e.Iqrogurus.at(-1).name}
+              </h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs mb-4">
+              <h1 className="block lg:col-span-2 col-span-4">Al - Quran</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                {e.Alqurangurus.length < 1
+                  ? "Belum ada hafalan"
+                  : e.Alqurangurus.at(-1).surah}
               </h1>
             </div>
             <div className="py-4 font-poppins">

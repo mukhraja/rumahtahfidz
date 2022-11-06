@@ -53,6 +53,18 @@ const getsurahpendekid = async (payload) => {
   }
 };
 
+const getsurahpendekrumahtahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(`${config.domain}/surahpendek/byrumahtahfidz/${payload}`);
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // UPDATE
 const updatesurahpendek = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -90,4 +102,5 @@ export default {
   getsurahpendekid,
   updatesurahpendek,
   deletesurahpendek,
+  getsurahpendekrumahtahfidz
 };

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import { santri } from "../../../gambar";
 import config from "../../../reduxsaga/config/config";
+import Moment from 'react-moment';
 
 const DetailSantri = () => {
   const { id } = useParams();
@@ -39,43 +40,74 @@ const DetailSantri = () => {
               <h1 className="block lg:col-span-2 col-span-4">NIS</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.nis}</h1>
             </div>
+            <div className="grid grid-cols-8 p-2 text-xs ">
+              <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.tempat} / <Moment format="DD-MM-YYYY">
+                {e.datebirth}
+                </Moment></h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.gender}</h1>
+            </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
               <h1 className="block lg:col-span-5 col-span-4">{e.address}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.datebirth}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.gender}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">Pendidikan</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.education}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Kota</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.city}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">Provinsi</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.province}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Parent</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.parent}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs my-4">
+              <h1 className="block lg:col-span-2 col-span-4">Orang Tua :</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Ayah</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.ayah}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs mb-4">
+              <h1 className="block lg:col-span-2 col-span-4">Ibu</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.ibu}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Mulai Masuk</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                <Moment format="DD-MM-YYYY">
+                  {e.mulai_masuk}
+                </Moment>
+              </h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs">
+              <h1 className="block lg:col-span-2 col-span-4">Mulai Vakum</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                <Moment format="DD-MM-YYYY">
+                  {e.mulai_vakum}
+                </Moment>
+              </h1>
+            </div>
+
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">No. Rumah Tahfidz</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                {e.Pondok.nit}
+              </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
               <h1 className="block lg:col-span-2 col-span-4">
                 {e.Pondok.name}
               </h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs my-4">
+              <h1 className="block lg:col-span-2 col-span-4">Hafalan :</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">IQRO</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.Iqrosantris.length < 1  ? "Belum ada hafalan": e.Iqrosantris.at(-1).name }</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs mb-4">
+              <h1 className="block lg:col-span-2 col-span-4">Al - Quran</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.Alquransantris.length < 1  ? "Belum ada hafalan" : e.Alquransantris.at(-1).surah}</h1>
             </div>
             <div className="py-4 font-poppins">
               <button

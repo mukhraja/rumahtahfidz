@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroAwalGuruRequest,
+  doGetIqroGuruByRumahTahfidzRequest,
   doGetIqroSantriRequest,
 } from "../../../reduxsaga/actions/IqroGuru";
 import Table, {
@@ -12,30 +13,19 @@ import Table, {
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
-import axios from "axios";
-import config from "../../../reduxsaga/config/config";
 
 const IqroGuru = () => {
   const dispatch = useDispatch();
 
   const { iqrogurudata } = useSelector((state) => state.iqroGuruState);
-
-  const [data, setData] = useState([]);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    // (async () => {
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
     dispatch(doGetIqroAwalGuruRequest());
-    // })();
-    // setDataUpdate(iqrogurudata);
-  }, []);
-
-  useEffect(() => {
-    // (async () => {
-    axios
-      .get(config.domain + "/iqroguru/listawal")
-      .then((res) => setData(res.data.data))
-      .catch((err) => console.log(err));
-    // })();
+  }else{
+    dispatch(doGetIqroGuruByRumahTahfidzRequest(userProfile.pondokId))
+  }
   }, []);
 
   const [Display, setDisplay] = useState([]);
@@ -82,38 +72,6 @@ const IqroGuru = () => {
     }
   }, []);
 
-  console.log(data);
-  // console.log(iqrogurudata);
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "namaguru",
-      },
-      {
-        Header: "Iqro",
-        accessor: "name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
-      {
-        Header: "Keterangan",
-        accessor: "ket",
-      },
-      {
-        Header: "Detail",
-        accessor: "guruId",
-        Cell: ButtonLinkIqro,
-      },
-    ],
-    []
-  );
-
-  // const data = useMemo(() => iqrogurudata, []);
 
   return (
     <div className="">

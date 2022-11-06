@@ -9,15 +9,15 @@ import {
   santri,
 } from "../../../gambar";
 import { useDispatch, useSelector } from "react-redux";
-import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
-import { doGetIqroAwalSantriRequest } from "../../../reduxsaga/actions/Iqrosantri";
-import { doGetAlquranAwalSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
-import { doGetSurahPendekAwalSantriRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
-import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
+import { doGetSantriByRumahTahfidzRequest, doGetSantriByRumahTahfidzSucceed, doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
+import { doGetIqroAwalSantriRequest, doGetIqroSantriByRumahTahfidzRequest } from "../../../reduxsaga/actions/Iqrosantri";
+import { doGetAlquranAwalSantriRequest, doGetAlquranSantriByRumahTahfidzRequest } from "../../../reduxsaga/actions/Alquransantri";
+import { doGetSurahPendekAwalSantriRequest, doGetSurahPendekSantriByRumahTahfidzRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
+import { doGetGuruByRumahTahfidzRequest, doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 import { Link } from "react-router-dom";
-
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import { doGetSurahPendekGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
+import { doGetAlquranGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/Alquranguru";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -31,14 +31,25 @@ const Dashboard = () => {
   );
   const { gurudata } = useSelector((state) => state.guruState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
+
+  console.log(userProfile.pondokId);
 
   useEffect(() => {
-    dispatch(doGetSantriRequest());
-    dispatch(doGetIqroAwalSantriRequest());
-    dispatch(doGetSurahPendekAwalSantriRequest());
-    dispatch(doGetAlquranAwalSantriRequest());
-    dispatch(doGetGuruRequest());
-    dispatch(doGetRumahTahfidzRequest());
+    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
+      dispatch(doGetSantriRequest());
+      dispatch(doGetIqroAwalSantriRequest());
+      dispatch(doGetSurahPendekAwalSantriRequest());
+      dispatch(doGetAlquranAwalSantriRequest());
+      dispatch(doGetGuruRequest());
+      dispatch(doGetRumahTahfidzRequest());
+    }else{
+      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
+      dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId));
+      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId));
+      dispatch(doGetSurahPendekSantriByRumahTahfidzRequest(userProfile.pondokId));
+      dispatch(doGetAlquranSantriByRumahTahfidzRequest(userProfile.pondokId))
+    }
   }, []);
 
   return (
@@ -95,7 +106,7 @@ const Dashboard = () => {
                 <h2 className="font-medium">{gurudata.length}</h2>
               </div>
             </Link>
-            <Link to="/datarumahtahfiz">
+            <Link to="/datarumahtahfiz" className={`${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" ? "hidden" : ""}`}>
               <div className="shadow-md p-2 lg:px-1 py-4 text-center rounded-lg w-32 items-center bg-white sm:m-2 lg:m-0">
                 <div className="flex justify-center pb-5">
                   <img src={rumahtahfidz} className="h-10" />

@@ -44,6 +44,20 @@ const getuserid = async (payload) => {
   }
 };
 
+// GETBYRUMAHTAHFIDZ
+const getuserrumahtahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(`${config.domain}/user/byrumahtahfidz/${payload}`);
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+
 // CREATE
 const createuser = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -117,4 +131,5 @@ export default {
   deleteuser,
   signin,
   signup,
+  getuserrumahtahfidz
 };

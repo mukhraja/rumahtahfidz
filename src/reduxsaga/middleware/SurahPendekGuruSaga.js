@@ -11,6 +11,8 @@ import {
   doGetSurahPendekAwalGuruSucceed,
   doGetSurahPendekGuruByIdFailed,
   doGetSurahPendekGuruByIdSucceed,
+  doGetSurahPendekGuruByRumahTahfidzFailed,
+  doGetSurahPendekGuruByRumahTahfidzSucceed,
   doGetSurahPendekGuruFailed,
   doGetSurahPendekGuruSucceed,
   doUpdateSurahPendekGuruFailed,
@@ -54,6 +56,19 @@ function* handleGetByIdSurahPendekGuru(action) {
     yield put(doGetSurahPendekGuruByIdSucceed(result));
   } catch (error) {
     yield put(doGetSurahPendekGuruByIdFailed(error));
+  }
+}
+
+// GET BY RUMAHTAHFIZ
+function* handleGetByRumahTahfidzSurahPendekGuru(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiSurahpendekguru.getsurahpendekrumahtahfidz, payload);
+    yield put(doGetSurahPendekGuruByRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetSurahPendekGuruByRumahTahfidzFailed(error));
   }
 }
 
@@ -105,4 +120,5 @@ export {
   handleDeleteSurahPendekGuru,
   handleGetByIdSurahPendekGuru,
   handleUpdateSurahPendekGuru,
+  handleGetByRumahTahfidzSurahPendekGuru
 };

@@ -32,6 +32,14 @@ const AlquranSantriReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_ID_ALQURANSANTRI_SUCCEED:
       return applyGetByIdAlquranSantriSucceed(state, action);
+    // GETBYRUMAHTAHFIDZ
+    case ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_SUCCEED:
+      return applyGetAlquranByRumahTahfizSantriSucceed(state, action);
     // CREATE
     case ActionType.CREATE_ALQURANSANTRI_REQUEST:
       return {
@@ -76,6 +84,15 @@ const applyGetAlquranSantriSucceed = (state, action) => {
     alquransantridata: payload.data,
   };
 };
+
+const applyGetAlquranByRumahTahfizSantriSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    alquransantridata: [...payload.data],
+  };
+};
+
 
 const applyGetAlquranAwalSantriSucceed = (state, action) => {
   const { payload } = action;
