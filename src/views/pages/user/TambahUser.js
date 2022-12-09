@@ -10,17 +10,28 @@ import {
   doCreateSantriRequest,
   doGetSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
 import {
   doCreateUserNoFileRequest,
   doCreateUserRequest,
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
+import moment from "moment";
 
 const TambahUser = () => {
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
     dispatch(doGetRoleRequest());
+  }, []);
+
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
   }, []);
 
   const dispatch = useDispatch();
@@ -28,6 +39,7 @@ const TambahUser = () => {
 
   const { roledata } = useSelector((state) => state.roleState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -82,7 +94,7 @@ const TambahUser = () => {
       gender: "",
       roleId: "",
       photo: "",
-      pondokId:"",
+      pondokId: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -93,10 +105,12 @@ const TambahUser = () => {
         payload.append("password", values.address);
         payload.append("telephone", values.telephone);
         payload.append("address", values.address);
-        payload.append("datebirth", values.datebirth);
+        payload.append(
+          "datebirth",
+          moment(values.datebirth).format("YYYY-MM-DD")
+        );
         payload.append("age", values.age);
         payload.append("gender", values.gender);
-        payload.append("parent", values.parent);
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
@@ -111,11 +125,10 @@ const TambahUser = () => {
           email: values.email,
           password: values.password,
           telephone: values.telephone,
-          datebirth: values.datebirth,
+          datebirth: moment(values.datebirth).format("YYYY-MM-DD"),
           address: values.address,
           age: values.age,
           gender: values.gender,
-          parent: values.parent,
           roleId: values.roleId,
           pondokId: values.pondokId,
         };
@@ -235,17 +248,6 @@ const TambahUser = () => {
             />
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Parent</h1>
-            <input
-              className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              value={formik.values.parent}
-              onChange={formik.handleChange}
-              name="parent"
-              id="parent"
-              placeholder="Parent"
-            />
-          </div>
-          <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Role</h1>
             <select
               name="roleId"
@@ -259,9 +261,13 @@ const TambahUser = () => {
               <option value="" selected disabled hidden>
                 Pilih Role
               </option>
-              {roledata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
+              {userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883" ? (
+                <option value="8b273d68-fe09-422d-a660-af3d8312f883">
+                  Admin
+                </option>
+              ) : (
+                roledata.map((e) => <option value={e.id}>{e.name}</option>)
+              )}
             </select>
           </div>
           <div className="grid grid-cols-8 my-2">

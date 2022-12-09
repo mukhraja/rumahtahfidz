@@ -55,6 +55,21 @@ export const doGetUserFailed = (payload) => ({
   payload,
 });
 
+// GETBYADMIN
+export const doGetByAdminUserRequest = () => ({
+  type: ActionType.GET_BY_ADMIN_USER_REQUEST,
+});
+
+export const doGetByAdminUserSucceed = (payload) => ({
+  type: ActionType.GET_BY_ADMIN_USER_SUCCEED,
+  payload,
+});
+
+export const doGetByAdminUserFailed = (payload) => ({
+  type: ActionType.GET_BY_ADMIN_USER_FAILED,
+  payload,
+});
+
 // GET BY ID
 export const doGetUserByIdRequest = (payload) => ({
   type: ActionType.GET_BY_ID_USER_REQUEST,
@@ -84,6 +99,22 @@ export const doGetUserByRumahTahfidzSucceed = (payload) => ({
 
 export const doGetUserByRumahTahfidzFailed = (payload) => ({
   type: ActionType.GET_BY_RUMAHTAHFIDZ_USER_FAILED,
+  payload,
+});
+
+// GET BY MASTERTAHFIZ
+export const doGetUserByMasterTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_USER_REQUEST,
+  payload,
+});
+
+export const doGetUserByMasterTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_USER_SUCCEED,
+  payload,
+});
+
+export const doGetUserByMasterTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_USER_FAILED,
   payload,
 });
 

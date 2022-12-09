@@ -24,6 +24,18 @@ export const GET_BY_RUMAHTAHFIDZ_USER_REQUEST = "user/getrumahtahfidz/succeed";
 export const GET_BY_RUMAHTAHFIDZ_USER_SUCCEED = "user/getrumahtahfidz/request";
 export const GET_BY_RUMAHTAHFIDZ_USER_FAILED = "user/getrumahtahfidz/failed";
 
+// GET BY MASTER TAHFIDZ
+export const GET_BY_MASTERTAHFIDZ_USER_REQUEST =
+  "user/getmastertahfidz/succeed";
+export const GET_BY_MASTERTAHFIDZ_USER_SUCCEED =
+  "user/getmastertahfidz/request";
+export const GET_BY_MASTERTAHFIDZ_USER_FAILED = "user/getmastertahfidz/failed";
+
+// GET BY ADMIN
+export const GET_BY_ADMIN_USER_REQUEST = "user/getbyadmin/succeed";
+export const GET_BY_ADMIN_USER_SUCCEED = "user/getbyadmin/request";
+export const GET_BY_ADMIN_USER_FAILED = "user/getbyadmin/failed";
+
 export const CREATE_USER_REQUEST = "user/create/request";
 export const CREATE_USER_SUCCEED = "user/create/succeed";
 export const CREATE_USER_FAILED = "user/create/failed";

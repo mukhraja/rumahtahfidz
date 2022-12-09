@@ -7,7 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { Combobox } from "@headlessui/react";
 import * as Yup from "yup";
 import { bacajuz } from "../../../gambar";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
 import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 import { doCreateIqroSantriRequest } from "../../../reduxsaga/actions/Iqrosantri";
 import { doCreateSurahPendekSantriRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
@@ -23,7 +26,11 @@ const TambahSurahPendekGuru = () => {
   console.log(select);
 
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
     dispatch(doGetGuruRequest());
   }, []);
 
@@ -68,6 +75,8 @@ const TambahSurahPendekGuru = () => {
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { gurudata } = useSelector((state) => state.guruState);
+  const { userProfile } = useSelector((state) => state.userState);
+
   const juzamma = [
     "An Naba’",
     "An Nazi’at",

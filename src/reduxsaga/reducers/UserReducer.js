@@ -4,7 +4,7 @@ const INIT_STATE = {
   userdata: [],
   userProfile: {},
   isLogout: false,
-  isLoading: true,
+  isLoading: false,
   isLoggedIn: false,
   token: localStorage.getItem("token"),
   message: "",
@@ -61,6 +61,14 @@ const UserReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_USER_SUCCEED:
       return applyGetUserSucceed(state, action);
+    // GETBYADMIN
+    case ActionType.GET_BY_ADMIN_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_ADMIN_USER_SUCCEED:
+      return applyGetByAdminUserSucceed(state, action);
     // GETBYID
     case ActionType.GET_BY_ID_USER_REQUEST:
       return {
@@ -77,6 +85,14 @@ const UserReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_BY_RUMAHTAHFIDZ_USER_SUCCEED:
       return applyGetByRumahTahfizUserSucceed(state, action);
+    // GETBYMASTERTAHFIDZ
+    case ActionType.GET_BY_MASTERTAHFIDZ_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_MASTERTAHFIDZ_USER_SUCCEED:
+      return applyGetByMasterTahfizUserSucceed(state, action);
     // CREATE
     case ActionType.CREATE_USER_REQUEST:
       return {
@@ -186,6 +202,14 @@ const applyGetUserSucceed = (state, action) => {
   };
 };
 
+const applyGetByAdminUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: payload.data,
+  };
+};
+
 const applyGetByIdUserSucceed = (state, action) => {
   const { payload } = action;
   return {
@@ -195,6 +219,14 @@ const applyGetByIdUserSucceed = (state, action) => {
 };
 
 const applyGetByRumahTahfizUserSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
+  };
+};
+
+const applyGetByMasterTahfizUserSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,

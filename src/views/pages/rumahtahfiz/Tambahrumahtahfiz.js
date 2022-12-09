@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { rumahtahfidz } from "../../../gambar";
 import {
   doCreateRumahTahfidzRequest,
+  doGetByRumahTahfidzRequest,
   doGetRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,12 +13,10 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 const Tambahrumahtahfiz = () => {
-  useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
-  }, []);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { userProfile } = useSelector((state) => state.userState);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama rumah tahfiz").required(
@@ -32,7 +31,7 @@ const Tambahrumahtahfiz = () => {
       "Masukkan nomor telephone"
     ),
     photo: Yup.string("Masukkan photo").required("Masukkan photo"),
-    photo: Yup.string("Masukkan logo").required("Masukkan logo"),
+    chief: Yup.string("Masukkan logo").required("Masukkan logo"),
   });
 
   const formik = useFormik({
@@ -42,6 +41,7 @@ const Tambahrumahtahfiz = () => {
       address: "",
       telephone: "",
       chief: "",
+      masterpondokId: "",
       photo: undefined,
       logo: undefined,
     },
@@ -53,6 +53,7 @@ const Tambahrumahtahfiz = () => {
       payload.append("address", values.address);
       payload.append("telephone", values.telephone);
       payload.append("chief", values.chief);
+      payload.append("masterpondokId", userProfile.masterpondokId);
       payload.append("logo", values.logo);
       payload.append("photo", values.photo);
 

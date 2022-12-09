@@ -4,8 +4,15 @@ import { useDownloadExcel } from "react-export-table-to-excel";
 import { santri } from "../../../../gambar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetSantriByRumahTahfidzRequest, doGetSantriRequest } from "../../../../reduxsaga/actions/Santri";
-import { doGetByRumahTahfidzRequest, doGetRumahTahfidzRequest } from "../../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetSantriByMasterTahfidzRequest,
+  doGetSantriByRumahTahfidzRequest,
+  doGetSantriRequest,
+} from "../../../../reduxsaga/actions/Santri";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../../reduxsaga/actions/RumahTahfidz";
 const LaporanSantri = () => {
   const tableRef = useRef(null);
 
@@ -20,13 +27,13 @@ const LaporanSantri = () => {
   const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-    dispatch(doGetRumahTahfidzRequest());
-    dispatch(doGetSantriRequest());
-  }else{
-    dispatch(doGetByRumahTahfidzRequest(userProfile.pondokId))
-    dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId))
-  }
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+      dispatch(doGetSantriRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      dispatch(doGetSantriByMasterTahfidzRequest(userProfile.masterpondokId));
+    }
   }, []);
 
   const handleChange = (e) => {

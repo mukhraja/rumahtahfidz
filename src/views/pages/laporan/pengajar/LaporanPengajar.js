@@ -4,8 +4,15 @@ import { useDownloadExcel } from "react-export-table-to-excel";
 import { pengajar } from "../../../../gambar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetByRumahTahfidzRequest, doGetRumahTahfidzRequest } from "../../../../reduxsaga/actions/RumahTahfidz";
-import { doGetGuruByRumahTahfidzRequest, doGetGuruRequest } from "../../../../reduxsaga/actions/Guru";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetGuruByMasterTahfidzRequest,
+  doGetGuruByRumahTahfidzRequest,
+  doGetGuruRequest,
+} from "../../../../reduxsaga/actions/Guru";
 const LaporanPengajar = () => {
   const tableRef = useRef(null);
 
@@ -20,13 +27,13 @@ const LaporanPengajar = () => {
   const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-    dispatch(doGetRumahTahfidzRequest());
-    dispatch(doGetGuruRequest());
-  }else{
-    dispatch(doGetByRumahTahfidzRequest(userProfile.pondokId))
-    dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId))
-  }
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+      dispatch(doGetGuruRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      dispatch(doGetGuruByMasterTahfidzRequest(userProfile.masterpondokId));
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -226,7 +233,6 @@ const LaporanPengajar = () => {
           <button
             className=" bg-blue-400 lg:px-4 px-6 py-2 rounded-md shadow-md text-white lg:mx-2"
             onClick={onDownload}
-
           >
             Cetak
           </button>

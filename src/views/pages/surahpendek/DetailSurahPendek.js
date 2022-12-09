@@ -12,6 +12,7 @@ import Table, {
   ButtonLinkIqroList,
   ButtonLinkSurahPendekList,
   SelectColumnFilter,
+  tanggalcustom,
 } from "../../components/datatable/Table";
 
 const DetailSurahPendek = () => {
@@ -34,7 +35,12 @@ const DetailSurahPendek = () => {
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
-    if (window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+    if (
+      (window.innerWidth <= 500 &&
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883") ||
+      (window.innerWidth <= 500 &&
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884")
+    ) {
       setDisplay([
         {
           Header: "Iqro",
@@ -46,7 +52,12 @@ const DetailSurahPendek = () => {
           Cell: ButtonLinkSurahPendekList,
         },
       ]);
-    } else if (window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" ||window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884") {
+    } else if (
+      (window.innerWidth <= 500 &&
+        userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883") ||
+      (window.innerWidth <= 500 &&
+        userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884")
+    ) {
       setDisplay([
         {
           Header: "Iqro",
@@ -61,13 +72,12 @@ const DetailSurahPendek = () => {
         {
           Header: "Keterangan",
           accessor: "ket",
-        },
-        {
-          Header: "Update",
-          accessor: "updatedAt",
         },
       ]);
-    } else if ( userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+    } else if (
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
+    ) {
       setDisplay([
         {
           Header: "Iqro",
@@ -86,6 +96,7 @@ const DetailSurahPendek = () => {
         {
           Header: "Update",
           accessor: "updatedAt",
+          Cell: tanggalcustom,
         },
         {
           Header: "Detail",
@@ -93,8 +104,7 @@ const DetailSurahPendek = () => {
           Cell: ButtonLinkSurahPendekList,
         },
       ]);
-    }
-    else {
+    } else {
       setDisplay([
         {
           Header: "Iqro",
@@ -109,10 +119,6 @@ const DetailSurahPendek = () => {
         {
           Header: "Keterangan",
           accessor: "ket",
-        },
-        {
-          Header: "Update",
-          accessor: "updatedAt",
         },
       ]);
     }

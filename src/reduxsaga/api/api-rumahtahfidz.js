@@ -43,7 +43,24 @@ const getbyrumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/pondok/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/pondok/byrumahtahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// GETBYPONDOKIDRUMAHTAHFIDZ
+const getbypondokidrumahtahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/pondok/byrumahtahfidzid/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -100,5 +117,6 @@ export default {
   getrumahid,
   updaterumah,
   updaterumahNoFile,
-  getbyrumahtahfidz
+  getbyrumahtahfidz,
+  getbypondokidrumahtahfidz,
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
@@ -25,7 +26,10 @@ const InfoUser = () => {
             <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
               Data {e.name}
             </h1>
-            <img src={config.urlImage + "/" + e.photo} className="h-20" />
+            <img
+              src={config.urlImage + "/" + e.photo}
+              className="h-20 rounded-full"
+            />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
@@ -38,19 +42,31 @@ const InfoUser = () => {
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Age</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.age}</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.age} Tahun</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.datebirth}</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                <Moment format="DD - MMMM - YYYY">{e.datebirth}</Moment>
+              </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Gender</h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.gender}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs ">
               <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>
               <h1 className="block lg:col-span-5 col-span-4">{e.address}</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs">
+              <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                {e.Pondok.name}
+              </h1>
             </div>
             <div className="py-4 font-poppins">
               <button

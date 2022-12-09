@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import { santri } from "../../../gambar";
 import config from "../../../reduxsaga/config/config";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 
 const DetailSantri = () => {
   const { id } = useParams();
@@ -42,9 +42,9 @@ const DetailSantri = () => {
             </div>
             <div className="grid grid-cols-8 p-2 text-xs ">
               <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.tempat} / <Moment format="DD-MM-YYYY">
-                {e.datebirth}
-                </Moment></h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                {e.tempat} / <Moment format="DD-MM-YYYY">{e.datebirth}</Moment>
+              </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
@@ -72,25 +72,21 @@ const DetailSantri = () => {
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Mulai Masuk</h1>
               <h1 className="block lg:col-span-2 col-span-4">
-                <Moment format="DD-MM-YYYY">
-                  {e.mulai_masuk}
-                </Moment>
+                <Moment format="DD-MM-YYYY">{e.mulai_masuk}</Moment>
               </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Mulai Vakum</h1>
               <h1 className="block lg:col-span-2 col-span-4">
-                <Moment format="DD-MM-YYYY">
-                  {e.mulai_vakum}
-                </Moment>
+                <Moment format="DD-MM-YYYY">{e.mulai_vakum}</Moment>
               </h1>
             </div>
 
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">No. Rumah Tahfidz</h1>
               <h1 className="block lg:col-span-2 col-span-4">
-                {e.Pondok.nit}
+                No. Rumah Tahfidz
               </h1>
+              <h1 className="block lg:col-span-2 col-span-4">{e.Pondok.nit}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
@@ -101,13 +97,47 @@ const DetailSantri = () => {
             <div className="grid grid-cols-8 p-2 text-xs my-4">
               <h1 className="block lg:col-span-2 col-span-4">Hafalan :</h1>
             </div>
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">IQRO</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.Iqrosantris.length < 1  ? "Belum ada hafalan": e.Iqrosantris.at(-1).name }</h1>
+              <h1 className="block lg:col-span-5 col-span-3">
+                {e.Iqrosantris.length < 1
+                  ? "Belum ada hafalan"
+                  : e.Iqrosantris.at(-1).name}
+              </h1>
+              <button
+                onClick={() => navigate("/dataiqrosantri/detail/" + id)}
+                className="block lg:col-span-1 col-span-1 bg-mamasingle rounded-md py-1 text-white shadow-md text-xs"
+              >
+                Detail
+              </button>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Surah Pendek</h1>
+              <h1 className="block lg:col-span-5 col-span-3">
+                {e.Surahpendeksantris.length < 1
+                  ? "Belum ada hafalan"
+                  : e.Surahpendeksantris.at(-1).name}
+              </h1>
+              <button
+                onClick={() => navigate("/datasurahpendeksantri/detail/" + id)}
+                className="block lg:col-span-1 col-span-1 bg-mamasingle rounded-md py-1 text-white shadow-md text-xs"
+              >
+                Detail
+              </button>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs mb-4">
               <h1 className="block lg:col-span-2 col-span-4">Al - Quran</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.Alquransantris.length < 1  ? "Belum ada hafalan" : e.Alquransantris.at(-1).surah}</h1>
+              <h1 className="block lg:col-span-5 col-span-3">
+                {e.Alquransantris.length < 1
+                  ? "Belum ada hafalan"
+                  : e.Alquransantris.at(-1).surah}
+              </h1>
+              <button
+                onClick={() => navigate("/dataalquransantri/detail/" + id)}
+                className="block lg:col-span-1 col-span-1 bg-mamasingle rounded-md py-1 text-white shadow-md text-xs"
+              >
+                Detail
+              </button>
             </div>
             <div className="py-4 font-poppins">
               <button

@@ -10,13 +10,21 @@ import {
   doCreateSantriRequest,
   doGetSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
 import moment from "moment";
 
 const TambahSantri = () => {
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
   }, []);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,7 +81,10 @@ const TambahSantri = () => {
       payload.append("name", values.name);
       payload.append("nis", values.nis);
       payload.append("tempat", values.tempat);
-      payload.append("datebirth", values.datebirth);
+      payload.append(
+        "datebirth",
+        moment(values.datebirth).format("YYYY-MM-DD")
+      );
       payload.append("gender", values.gender);
       payload.append("address", values.address);
       payload.append("ayah", values.ayah);

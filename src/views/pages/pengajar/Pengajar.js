@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pengajar } from "../../../gambar";
 import {
+  doGetGuruByMasterTahfidzRequest,
   doGetGuruByRumahTahfidzRequest,
   doGetGuruRequest,
 } from "../../../reduxsaga/actions/Guru";
@@ -12,6 +13,7 @@ import Table, {
   ButtonLinkGuru,
   SelectColumnFilter,
   StatusPill,
+  tanggalcustom,
 } from "../../components/datatable/Table.js";
 import Moment from "react-moment";
 
@@ -24,6 +26,8 @@ const Pengajar = () => {
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
       dispatch(doGetGuruRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetGuruByMasterTahfidzRequest(userProfile.masterpondokId));
     } else {
       dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId));
     }
@@ -59,10 +63,12 @@ const Pengajar = () => {
         {
           Header: "MASUK",
           accessor: "mulai_masuk",
+          Cell: tanggalcustom,
         },
         {
           Header: "VAKUM",
           accessor: "mulai_vakum",
+          Cell: tanggalcustom,
         },
         {
           Header: "PONDOK",

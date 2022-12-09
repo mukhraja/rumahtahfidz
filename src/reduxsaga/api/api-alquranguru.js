@@ -58,7 +58,9 @@ const getalquranrumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/alquranguru/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/alquranguru/byrumahtahfidz/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -66,6 +68,20 @@ const getalquranrumahtahfidz = async (payload) => {
   }
 };
 
+// GETBYMASTERTAHFIDZ
+const getalquranmastertahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/alquranguru/bymastertahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 // UPDATE
 const updatealquran = async (payload) => {
@@ -104,5 +120,6 @@ export default {
   getalquranid,
   updatealquran,
   deletealquran,
-  getalquranrumahtahfidz
+  getalquranrumahtahfidz,
+  getalquranmastertahfidz,
 };

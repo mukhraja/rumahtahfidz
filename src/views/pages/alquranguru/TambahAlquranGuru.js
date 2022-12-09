@@ -6,7 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
 import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 import { doCreateAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
 import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
@@ -20,7 +23,11 @@ const TambahAlquranGuru = () => {
   console.log(select);
 
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
     dispatch(doGetGuruRequest());
   }, []);
 
@@ -74,6 +81,7 @@ const TambahAlquranGuru = () => {
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { gurudata } = useSelector((state) => state.guruState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const keterangan = ["mengulang", "belum lancar", "selesai"];
 

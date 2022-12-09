@@ -1,5 +1,9 @@
 import { call, put } from "redux-saga/effects";
 import {
+  doGetIqroGuruByMasterTahfidzSucceed,
+  doGetIqroGuruByRumahTahfidzFailed,
+} from "../actions/IqroGuru";
+import {
   doCreateIqroSantriFailed,
   doCreateIqroSantriSucceed,
   doDeleteIqroSantriFailed,
@@ -8,6 +12,8 @@ import {
   doGetIqroAwalSantriSucceed,
   doGetIqroSantriByIdFailed,
   doGetIqroSantriByIdSucceed,
+  doGetIqroSantriByMasterTahfidzFailed,
+  doGetIqroSantriByMasterTahfidzSucceed,
   doGetIqroSantriByRumahTahfidzFailed,
   doGetIqroSantriByRumahTahfidzSucceed,
   doGetIqroSantriFailed,
@@ -68,6 +74,19 @@ function* handleGetByRumahTahfidzIqroSantri(action) {
   }
 }
 
+// GET BY MASTERTAHFIZ
+function* handleGetByMasterTahfidzIqroSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiIqrosantri.getiqromastertahfidz, payload);
+    yield put(doGetIqroSantriByMasterTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetIqroSantriByMasterTahfidzFailed(error));
+  }
+}
+
 // SANTRI
 function* handleCreateIqroSantri(action) {
   console.log("sudah sampai di middleware");
@@ -116,5 +135,6 @@ export {
   handleDeleteIqroSantri,
   handleGetByIdIqroSantri,
   handleUpdateIqroSantri,
-  handleGetByRumahTahfidzIqroSantri
+  handleGetByRumahTahfidzIqroSantri,
+  handleGetByMasterTahfidzIqroSantri,
 };

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroAwalSantriRequest,
+  doGetIqroSantriByMasterTahfidzRequest,
   doGetIqroSantriByRumahTahfidzRequest,
   doGetIqroSantriRequest,
 } from "../../../reduxsaga/actions/Iqrosantri";
@@ -96,16 +97,20 @@ const Iqro = () => {
   );
 
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-    dispatch(doGetIqroAwalSantriRequest());
-    }else{
-      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId))
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetIqroAwalSantriRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(
+        doGetIqroSantriByMasterTahfidzRequest(userProfile.masterpondokId)
+      );
+    } else {
+      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
 
   // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
-    <div className=" overflow-hidden font-poppins">
+    <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data IQRO

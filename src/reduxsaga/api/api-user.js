@@ -31,6 +31,17 @@ const list = async () => {
   }
 };
 
+// GETBYADMIN
+const listadmin = async () => {
+  try {
+    const result = await axios.get(`${config.domain}/user/byadmin`);
+    console.log(result);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // GETID
 const getuserid = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -49,7 +60,9 @@ const getuserrumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/user/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/user/byrumahtahfidz/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -57,6 +70,20 @@ const getuserrumahtahfidz = async (payload) => {
   }
 };
 
+// GETBYRUMAHTAHFIDZ
+const getusermastertahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/user/bymastertahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 // CREATE
 const createuser = async (payload) => {
@@ -131,5 +158,7 @@ export default {
   deleteuser,
   signin,
   signup,
-  getuserrumahtahfidz
+  getuserrumahtahfidz,
+  getusermastertahfidz,
+  listadmin,
 };

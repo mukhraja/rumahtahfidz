@@ -39,7 +39,15 @@ const IqroGuruReducer = (state = INIT_STATE, action) => {
         isLoading: true,
       };
     case ActionType.GET_BY_RUMAHTAHFIDZ_IQROGURU_SUCCEED:
-      return applyGetIqroGuruByRumahTahfizSantriSucceed(state, action);
+      return applyGetIqroGuruByRumahTahfizGuruSucceed(state, action);
+    // GETBYMASTERTAHFIDZ
+    case ActionType.GET_BY_MASTERTAHFIDZ_IQROGURU_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.GET_BY_MASTERTAHFIDZ_IQROGURU_SUCCEED:
+      return applyGetIqroGuruByMasterTahfizGuruSucceed(state, action);
     // CREATE
     case ActionType.CREATE_IQROGURU_REQUEST:
       return {
@@ -85,7 +93,15 @@ const applyGetIqroGuruSucceed = (state, action) => {
   };
 };
 
-const applyGetIqroGuruByRumahTahfizSantriSucceed = (state, action) => {
+const applyGetIqroGuruByRumahTahfizGuruSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    iqrogurudata: [...payload.data],
+  };
+};
+
+const applyGetIqroGuruByMasterTahfizGuruSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,

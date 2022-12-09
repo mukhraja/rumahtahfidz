@@ -6,7 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
 import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 import { doCreateAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
 
@@ -18,7 +21,11 @@ const TambahAlquran = () => {
   console.log(select);
 
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
     dispatch(doGetSantriRequest());
   }, []);
 
@@ -72,6 +79,7 @@ const TambahAlquran = () => {
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { santridata } = useSelector((state) => state.santriState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const keterangan = ["mengulang", "belum lancar", "selesai"];
 

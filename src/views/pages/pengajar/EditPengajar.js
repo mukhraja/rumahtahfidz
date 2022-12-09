@@ -12,7 +12,11 @@ import {
   doUpdateNoFIleGuruRequest,
   doUpdateGuruRequest,
 } from "../../../reduxsaga/actions/Guru";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
+import moment from "moment";
 
 const EditPengajar = () => {
   const { id } = useParams();
@@ -20,13 +24,22 @@ const EditPengajar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
+  }, []);
+  const { userProfile } = useSelector((state) => state.userState);
+
   const { gurudata } = useSelector((state) => state.guruState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
   useEffect(() => {
     const payload = { id };
     dispatch(doGetGuruByIdRequest(payload));
-    dispatch(doGetRumahTahfidzRequest());
+    // dispatch(doGetRumahTahfidzRequest());
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -64,14 +77,20 @@ const EditPengajar = () => {
       name: gurudata.length ? gurudata[0].name : null,
       niu: gurudata.length ? gurudata[0].niu : null,
       tempat: gurudata.length ? gurudata[0].tempat : null,
-      datebirth: gurudata.length ? gurudata[0].datebirth : null,
+      datebirth: gurudata.length
+        ? moment(gurudata[0].datebirth).format("YYYY-MM-DD")
+        : null,
       gender: gurudata.length ? gurudata[0].gender : null,
       telephone: gurudata.length ? gurudata[0].telephone : null,
       address: gurudata.length ? gurudata[0].address : null,
       ayah: gurudata.length ? gurudata[0].ayah : null,
       ibu: gurudata.length ? gurudata[0].ibu : null,
-      mulai_masuk: gurudata.length ? gurudata[0].mulai_masuk : null,
-      mulai_vakum: gurudata.length ? gurudata[0].mulai_vakum : null,
+      mulai_masuk: gurudata.length
+        ? moment(gurudata[0].mulai_masuk).format("YYYY-MM-DD")
+        : null,
+      mulai_vakum: gurudata.length
+        ? moment(gurudata[0].mulai_vakum).format("YYYY-MM-DD")
+        : null,
       pondokId: gurudata.length ? gurudata[0].pondokId : null,
       photo: gurudata.length ? gurudata[0].photo : undefined,
     },
@@ -358,6 +377,7 @@ const EditPengajar = () => {
               {rumahtahfidzdata.map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}
+              {console.log(formik.values.pondokId)}
             </select>
             {formik.touched.pondokId && formik.errors.pondokId ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">

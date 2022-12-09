@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import {
+  doGetByRumahTahfidzRequest,
   doGetRumahTahfidzByIdRequest,
   doGetRumahTahfidzRequest,
   doUpdateNoFIleRumahTahfidzRequest,
@@ -18,6 +19,7 @@ import {
   doUpdateNoFIleSantriRequest,
   doUpdateSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
+import moment from "moment";
 
 const EditSantri = () => {
   const { id } = useParams();
@@ -31,34 +33,40 @@ const EditSantri = () => {
   useEffect(() => {
     const payload = { id };
     dispatch(doGetSantriByIdRequest(payload));
-    dispatch(doGetRumahTahfidzRequest());
   }, []);
+
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
+  }, []);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama santri").required("Masukkan nama santri"),
     nis: Yup.string("Masukkan nomor identik santri").required(
       "Masukkan nomor identik santri"
     ),
-    address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
+    tempat: Yup.string("Masukkan tempat").required("Masukkan tempat"),
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
     gender: Yup.string("Masukkan jenis kelamin").required(
       "Masukkan nomor jenis kelamin"
     ),
-    education: Yup.string("Masukkan pendidikan").required(
-      "Masukkan nomor pendidikan"
-    ),
-    city: Yup.string("Masukkan kota").required("Masukkan kota"),
-    province: Yup.string("Masukkan province").required("Masukkan provinsi"),
-    parent: Yup.string("Masukkan nama orang tua").required(
-      "Masukkan nama orang tua"
-    ),
     telephone: Yup.string("Masukkan nomor telephone").required(
       "Masukkan nomor telephone"
     ),
-    tgl_masuk: Yup.string("Pilih Tanggal Masuk").required(
+    address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
+    ayah: Yup.string("Masukkan nama ayah").required("Masukkan nama ayah"),
+    ibu: Yup.string("Masukkan nama ibu").required("Masukkan nama ibu"),
+    mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
+    ),
+    mulai_vakum: Yup.string("Pilih Tanggal Vakum").required(
+      "Pilih Tanggal Vakum"
     ),
     pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
     photo: Yup.string("Masukkan nama ibu").required("Upload Photo"),
@@ -70,14 +78,20 @@ const EditSantri = () => {
       name: santridata.length ? santridata[0].name : null,
       nis: santridata.length ? santridata[0].nis : null,
       tempat: santridata.length ? santridata[0].tempat : null,
-      datebirth: santridata.length ? santridata[0].datebirth : null,
+      datebirth: santridata.length
+        ? moment(santridata[0].datebirth).format("YYYY-MM-DD")
+        : null,
       address: santridata.length ? santridata[0].address : null,
       gender: santridata.length ? santridata[0].gender : null,
       ayah: santridata.length ? santridata[0].ayah : null,
       ibu: santridata.length ? santridata[0].ibu : null,
       telephone: santridata.length ? santridata[0].telephone : null,
-      mulai_masuk: santridata.length ? santridata[0].mulai_masuk : null,
-      mulai_vakum: santridata.length ? santridata[0].mulai_vakum : null,
+      mulai_masuk: santridata.length
+        ? moment(santridata[0].mulai_masuk).format("YYYY-MM-DD")
+        : null,
+      mulai_vakum: santridata.length
+        ? moment(santridata[0].mulai_vakum).format("YYYY-MM-DD")
+        : null,
       pondokId: santridata.length ? santridata[0].pondokId : null,
       photo: santridata.length ? santridata[0].photo : undefined,
     },
@@ -87,14 +101,15 @@ const EditSantri = () => {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("nis", values.nis);
-        payload.append("tempat", values.address);
+        payload.append("tempat", values.tempat);
         payload.append("datebirth", values.datebirth);
-        payload.append("address", values.address);
         payload.append("gender", values.gender);
+        payload.append("telephone", values.telephone);
+        payload.append("address", values.address);
         payload.append("ayah", values.ayah);
         payload.append("ibu", values.ibu);
-        payload.append("telephone", values.telephone);
-        payload.append("tgl_masuk", values.tgl_masuk);
+        payload.append("mulai_masuk", values.mulai_masuk);
+        payload.append("mulai_vakum", values.mulai_vakum);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
         payload.append("id", id);
@@ -110,10 +125,10 @@ const EditSantri = () => {
           nis: values.nis,
           tempat: values.tempat,
           datebirth: values.datebirth,
-          address: values.address,
           gender: values.gender,
-          parent: values.parent,
-          telephone: values.telephone,
+          address: values.address,
+          ayah: values.ayah,
+          ibu: values.ibu,
           mulai_masuk: values.mulai_masuk,
           mulai_vakum: values.mulai_vakum,
           pondokId: values.pondokId,

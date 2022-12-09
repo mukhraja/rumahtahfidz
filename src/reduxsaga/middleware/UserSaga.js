@@ -31,6 +31,11 @@ import {
   doGetUserByRumahTahfidzRequest,
   doGetUserByRumahTahfidzFailed,
   doGetUserByRumahTahfidzSucceed,
+  doGetByAdminUserRequest,
+  doGetByAdminUserFailed,
+  doGetByAdminUserSucceed,
+  doGetUserByMasterTahfidzSucceed,
+  doGetUserByMasterTahfidzFailed,
 } from "../actions/User";
 import apiUser from "../api/api-user";
 
@@ -86,6 +91,17 @@ function* handleGetUser() {
   }
 }
 
+function* handleGetAdmin() {
+  console.log("sudah sampai di middleware");
+
+  try {
+    const result = yield call(apiUser.listadmin);
+    yield put(doGetByAdminUserSucceed(result));
+  } catch (error) {
+    yield put(doGetByAdminUserFailed(error));
+  }
+}
+
 // GET BY ID
 function* handleGetByIdUser(action) {
   console.log("sudah sampai di middleware");
@@ -109,6 +125,19 @@ function* handleGetByRumahTahfidzUser(action) {
     yield put(doGetUserByRumahTahfidzSucceed(result));
   } catch (error) {
     yield put(doGetUserByRumahTahfidzFailed(error));
+  }
+}
+
+// GET BY MASTERTAHFIZ
+function* handleGetByMasterTahfidzUser(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiUser.getusermastertahfidz, payload);
+    yield put(doGetUserByMasterTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetUserByMasterTahfidzFailed(error));
   }
 }
 
@@ -191,5 +220,7 @@ export {
   handleUpdateNoFileUser,
   handleUpdateUser,
   handleCreateNoFileUser,
-  handleGetByRumahTahfidzUser
+  handleGetByRumahTahfidzUser,
+  handleGetAdmin,
+  handleGetByMasterTahfidzUser,
 };

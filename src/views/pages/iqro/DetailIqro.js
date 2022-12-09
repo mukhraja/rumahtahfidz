@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ import Table, {
   ButtonLinkIqro,
   ButtonLinkIqroList,
   SelectColumnFilter,
+  tanggalcustom,
 } from "../../components/datatable/Table";
 
 const DetailIqro = () => {
@@ -32,10 +34,18 @@ const DetailIqro = () => {
 
   const [Display, setDisplay] = useState([]);
 
-  console.log(window.innerWidth <= 500 === true && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883");
+  console.log(
+    window.innerWidth <= 500 === true &&
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
+  );
 
   useEffect(() => {
-    if (window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+    if (
+      (window.innerWidth <= 500 &&
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883") ||
+      (window.innerWidth <= 500 &&
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884")
+    ) {
       setDisplay([
         {
           Header: "Iqro",
@@ -47,7 +57,12 @@ const DetailIqro = () => {
           Cell: ButtonLinkIqroList,
         },
       ]);
-    } else if (window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" ||window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884") {
+    } else if (
+      (window.innerWidth <= 500 &&
+        userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883") ||
+      (window.innerWidth <= 500 &&
+        userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884")
+    ) {
       setDisplay([
         {
           Header: "Iqro",
@@ -62,13 +77,20 @@ const DetailIqro = () => {
         {
           Header: "Keterangan",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
         },
         {
           Header: "Update",
           accessor: "updatedAt",
         },
       ]);
-    } else if ( userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+    } else if (
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
+    ) {
       setDisplay([
         {
           Header: "Iqro",
@@ -85,8 +107,14 @@ const DetailIqro = () => {
           accessor: "ket",
         },
         {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
+        },
+        {
           Header: "Update",
           accessor: "updatedAt",
+          Cell: tanggalcustom,
         },
         {
           Header: "Detail",
@@ -94,8 +122,7 @@ const DetailIqro = () => {
           Cell: ButtonLinkIqroList,
         },
       ]);
-    }
-    else {
+    } else {
       setDisplay([
         {
           Header: "Iqro",
@@ -110,6 +137,10 @@ const DetailIqro = () => {
         {
           Header: "Keterangan",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
         },
         {
           Header: "Update",

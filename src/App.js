@@ -52,6 +52,14 @@ import DetailAlquranGuru from "./views/pages/alquranguru/DetailAlquranGuru";
 import EditAlquranGuru from "./views/pages/alquranguru/EditAlquranGuru";
 import LaporanPengajar from "./views/pages/laporan/pengajar/LaporanPengajar";
 import Dashboard2 from "./views/pages/dashboard/Dashboard2";
+import Mastertahfidz from "./views/pages/mastertahfidz/Mastertahfidz";
+import Tambahmastertahfidz from "./views/pages/mastertahfidz/Tambahmastertahfidz";
+import Editmastertahfidz from "./views/pages/mastertahfidz/Editmastertahfidz";
+import Detailmastertahfidz from "./views/pages/mastertahfidz/Detailmastertahfidz";
+import Admin from "./views/pages/admin/Admin";
+import TambahAdmin from "./views/pages/admin/TambahAdmin";
+import EditAdmin from "./views/pages/admin/EditAdmin";
+import DetailAdmin from "./views/pages/admin/DetailAdmin";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -67,6 +75,26 @@ function App() {
             element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />}
           />
         </Route>
+        {/* Master Rumah Tahfidz */}
+        <Route element={<Page />}>
+          <Route
+            path="datamasterrumahtahfiz"
+            element={isLoggedIn ? <Mastertahfidz /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datamasterrumahtahfiz/tambah"
+            element={isLoggedIn ? <Tambahmastertahfidz /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datamasterrumahtahfiz/edit/:id"
+            element={isLoggedIn ? <Editmastertahfidz /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datamasterrumahtahfiz/detail/:id"
+            element={isLoggedIn ? <Detailmastertahfidz /> : <Navigate to="/" />}
+          />
+        </Route>
+
         {/* Rumah Tahfiz */}
         <Route element={<Page />}>
           <Route
@@ -226,6 +254,23 @@ function App() {
           <Route
             path="datasantri/edit/:id"
             element={isLoggedIn ? <EditSantri /> : <Navigate to="/" />}
+          />
+          {/* Admin */}
+          <Route
+            path="dataadmin"
+            element={isLoggedIn ? <Admin /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataadmin/tambah"
+            element={isLoggedIn ? <TambahAdmin /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataadmin/edit/:id"
+            element={isLoggedIn ? <EditAdmin /> : <Navigate to="/" />}
+          />
+          <Route
+            path="dataadmin/detail/:id"
+            element={isLoggedIn ? <DetailAdmin /> : <Navigate to="/" />}
           />
           {/* User */}
           <Route

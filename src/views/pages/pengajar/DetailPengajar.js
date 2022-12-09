@@ -99,27 +99,52 @@ const DetailPengajar = () => {
             <div className="grid grid-cols-8 p-2 text-xs my-4">
               <h1 className="block lg:col-span-2 col-span-4">Hafalan :</h1>
             </div>
-            {console.log(e.Iqrogurus.length < 1)}
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">IQRO</h1>
-              <h1 className="block lg:col-span-2 col-span-4">
+              <h1 className="block lg:col-span-5 col-span-3">
                 {e.Iqrogurus.length < 1
                   ? "Belum ada hafalan"
                   : e.Iqrogurus.at(-1).name}
               </h1>
+              <button
+                onClick={() => navigate("/dataiqroguru/detail/" + id)}
+                className="block lg:col-span-1 col-span-1 bg-mamasingle rounded-md py-1 text-white shadow-md"
+              >
+                Detail
+              </button>
+            </div>
+            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+              <h1 className="block lg:col-span-2 col-span-4">Surah Pendek</h1>
+              <h1 className="block lg:col-span-5 col-span-3">
+                {e.Surahpendekgurus.length < 1
+                  ? "Belum ada hafalan"
+                  : e.Surahpendekgurus.at(-1).name}
+              </h1>
+              <button
+                onClick={() => navigate("/datasurahpendekguru/detail/" + id)}
+                className="block lg:col-span-1 col-span-1 bg-mamasingle rounded-md py-1 text-white shadow-md"
+              >
+                Detail
+              </button>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs mb-4">
               <h1 className="block lg:col-span-2 col-span-4">Al - Quran</h1>
-              <h1 className="block lg:col-span-2 col-span-4">
+              <h1 className="block lg:col-span-5 col-span-3">
                 {e.Alqurangurus.length < 1
                   ? "Belum ada hafalan"
                   : e.Alqurangurus.at(-1).surah}
               </h1>
+              <button
+                onClick={() => navigate("/dataalquranguru/detail/" + id)}
+                className="block lg:col-span-1 col-span-1 bg-mamasingle rounded-md py-1 text-white shadow-md"
+              >
+                Detail
+              </button>
             </div>
             <div className="py-4 font-poppins">
               <button
                 className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-                onClick={() => navigate("/datasantri/edit/" + id)}
+                onClick={() => navigate("/datapengajar/edit/" + id)}
               >
                 Edit
               </button>

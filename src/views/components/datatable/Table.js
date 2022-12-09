@@ -37,6 +37,8 @@ import { doDeleteUserRequest } from "../../../reduxsaga/actions/User";
 import { doDeleteGuruRequest } from "../../../reduxsaga/actions/Guru";
 import { doDeleteIqroGuruRequest } from "../../../reduxsaga/actions/IqroGuru";
 import { doDeleteAlquranGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
+import { doDeleteMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
+import moment from "moment";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -123,6 +125,11 @@ export function StatusPill({ value }) {
   );
 }
 
+export function tanggalcustom({ value }) {
+  const tgl = moment(value).format("DD-MM-YYYY");
+  return <span className="text-gray-500">{tgl}</span>;
+}
+
 export function ButtonLinkRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
@@ -136,7 +143,56 @@ export function ButtonLinkRumahTahfidz({ value }) {
 
   return (
     <div>
-      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ? (
+      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        <div className=" flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+          <Link
+            to={"edit/" + status}
+            className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <PencilIcon className="lg:w-5 sm:w-2" />
+          </Link>
+          <button
+            onClick={() => onDelete(value)}
+            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <TrashIcon className="lg:w-5 sm:w-2" />
+          </button>
+        </div>
+      ) : (
+        <div className="flex">
+          <Link
+            to={"detail/" + status}
+            className="px-3 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <EyeIcon className="lg:w-5 sm:w-2" />
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function ButtonLinkMasterRumahTahfidz({ value }) {
+  const status = value ? value.toLowerCase() : "";
+  const { userProfile } = useSelector((state) => state.userState);
+
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteMasterPondokRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  return (
+    <div>
+      {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ? (
         <div className=" flex">
           <Link
             to={"detail/" + status}

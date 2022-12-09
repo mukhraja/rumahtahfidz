@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import GuruReducer from "./GuruReducer";
 
 import RumahTahfidzReducer from "./RumahTahfidzReducer";
+import MasterPondokReducer from "./MasterPondokReducer";
 import SantriReducer from "./SantriReducer";
 import IqroSantriReducer from "./IqroSantriReducer";
 import SurahPendekSantriReducer from "./SurahPendekSantriReducer";
@@ -14,6 +15,7 @@ import RoleReducer from "./RoleReducer";
 
 const rootReducer = combineReducers({
   rumahTahfidzState: RumahTahfidzReducer,
+  masterPondokState: MasterPondokReducer,
   santriState: SantriReducer,
   guruState: GuruReducer,
   iqroSantriState: IqroSantriReducer,

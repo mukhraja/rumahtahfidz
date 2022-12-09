@@ -12,6 +12,7 @@ import Table, {
   ButtonLinkIqro,
   ButtonLinkIqroList,
   SelectColumnFilter,
+  tanggalcustom,
 } from "../../components/datatable/Table";
 
 const DetailAlquran = () => {
@@ -34,7 +35,12 @@ const DetailAlquran = () => {
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
-    if (window.innerWidth <= 500 && userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 &&userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+    if (
+      (window.innerWidth <= 500 &&
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883") ||
+      (window.innerWidth <= 500 &&
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884")
+    ) {
       setDisplay([
         {
           Header: "Surah",
@@ -46,7 +52,12 @@ const DetailAlquran = () => {
           Cell: ButtonLinkAlquranList,
         },
       ]);
-    } else if (window.innerWidth <= 500 && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" || window.innerWidth <= 500 &&userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884") {
+    } else if (
+      (window.innerWidth <= 500 &&
+        userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883") ||
+      (window.innerWidth <= 500 &&
+        userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884")
+    ) {
       setDisplay([
         {
           Header: "Surah",
@@ -63,7 +74,10 @@ const DetailAlquran = () => {
           accessor: "ket",
         },
       ]);
-    } else if (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884") {
+    } else if (
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
+    ) {
       setDisplay([
         {
           Header: "Surah",
@@ -112,6 +126,7 @@ const DetailAlquran = () => {
         {
           Header: "Update",
           accessor: "updatedAt",
+          Cell: tanggalcustom,
         },
       ]);
     }

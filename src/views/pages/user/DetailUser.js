@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import { doGetUserByIdRequest } from "../../../reduxsaga/actions/User";
 import config from "../../../reduxsaga/config/config";
+import Moment from "react-moment";
 
 const DetailUser = () => {
   const { id } = useParams();
@@ -42,7 +43,9 @@ const DetailUser = () => {
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
-              <h1 className="block lg:col-span-2 col-span-4">{e.datebirth}</h1>
+              <h1 className="block lg:col-span-2 col-span-4">
+                <Moment format="DD - MMMM - YYYY">{e.datebirth}</Moment>
+              </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Alamat</h1>

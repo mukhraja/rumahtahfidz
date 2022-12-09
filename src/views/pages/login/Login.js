@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useFormik, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../../../reduxsaga/actions/User";
+import LoadingSpinner from "../../components/spinner/LoadingSpinner";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const { message, isLoggedIn } = useSelector((state) => state.userState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -56,6 +58,7 @@ export default function Login() {
           style={{ backdropFilter: "blur(20px)" }}
         >
           <div className="px-20 py-10 rounded-md">
+            {userProfile.isLoading ? <LoadingSpinner /> : ""}
             <div className="w-full flex justify-center">
               <img src={logo} className=" w-32 mb-8" />
             </div>
@@ -88,7 +91,7 @@ export default function Login() {
                 onBlur={formik.handleBlur}
                 autoComplete="current-password"
                 required
-                className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="***************"
               />
               {formik.touched.password && formik.errors.password ? (

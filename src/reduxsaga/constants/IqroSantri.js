@@ -18,9 +18,19 @@ export const GET_BY_ID_IQROSANTRI_REQUEST = "iqrosantri/getid/request";
 export const GET_BY_ID_IQROSANTRI_SUCCEED = "iqrosantri/getid/succeed";
 export const GET_BY_ID_IQROSANTRI_FAILED = "iqrosantri/getid/failed";
 
-export const GET_BY_RUMAHTAHFIDZ_IQROSANTRI_REQUEST = "iqrosantri/getrumahtahfidz/request";
-export const GET_BY_RUMAHTAHFIDZ_IQROSANTRI_SUCCEED = "iqrosantri/getrumahtahfidz/succeed";
-export const GET_BY_RUMAHTAHFIDZ_IQROSANTRI_FAILED = "iqrosantri/getrumahtahfidz/failed";
+export const GET_BY_RUMAHTAHFIDZ_IQROSANTRI_REQUEST =
+  "iqrosantri/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_IQROSANTRI_SUCCEED =
+  "iqrosantri/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_IQROSANTRI_FAILED =
+  "iqrosantri/getrumahtahfidz/failed";
+
+export const GET_BY_MASTERTAHFIDZ_IQROSANTRI_REQUEST =
+  "iqrosantri/getbyrumahtahfidz/request";
+export const GET_BY_MASTERTAHFIDZ_IQROSANTRI_SUCCEED =
+  "iqrosantri/getbyrumahtahfidz/succeed";
+export const GET_BY_MASTERTAHFIDZ_IQROSANTRI_FAILED =
+  "iqrosantri/getbyrumahtahfidz/failed";
 
 export const UPDATE_IQROSANTRI_REQUEST = "iqrosantri/update/request";
 export const UPDATE_IQROSANTRI_SUCCEED = "iqrosantri/update/succeed";

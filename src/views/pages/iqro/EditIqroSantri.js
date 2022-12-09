@@ -63,7 +63,7 @@ const EditIqroSantri = () => {
         id,
         name: values.name,
         halaman: values.halaman,
-        tgl_selesai: values.tgl_selesai,
+        tgl_selesai: moment(values.tgl_selesai).format("YYYY-MM-DD"),
         ket: values.ket,
       };
 

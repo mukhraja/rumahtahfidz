@@ -31,7 +31,7 @@ import {
 } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { doSignoutRequest } from "../../reduxsaga/actions/User";
-import config from "../../reduxsaga/config/config"
+import config from "../../reduxsaga/config/config";
 
 export const Page = (props) => {
   const [active, setActive] = useState(false);
@@ -97,7 +97,11 @@ export const Page = (props) => {
         <div className="bg-white">
           <div className="sidebar-header flex items-center justify-center py-4">
             <div className="inline-flex">
-              <img className=" w-28" src={config.urlImage+"/"+userProfile.logotahfidz} alt="logo.jpg" />
+              <img
+                className=" w-28"
+                src={config.urlImage + "/" + userProfile.logotahfidz}
+                alt="logo.jpg"
+              />
             </div>
           </div>
           <div className="sidebar-content px-4 py-6 font-poppins">
@@ -123,85 +127,296 @@ export const Page = (props) => {
                   </span>
                   <span className="ml-3 font-semibold">Dashboard</span>
                 </Link>
+                <li
+                  className={`my-px ${
+                    userProfile.role ===
+                      "8b273d68-fe09-422d-a660-af3d8312f884" ||
+                    userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
+                      ? "hidden"
+                      : ""
+                  }`}
+                >
+                  <Link
+                    to="datarumahtahfiz"
+                    className={
+                      pathname === "/datarumahtahfiz"
+                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <span className="text-lg text-gray-700">
+                      <FolderOpenIcon className="w-5" />
+                    </span>
+                    <span className="ml-3 font-semibold">Rumah Tahfidz</span>
+                  </Link>
+                  <Link
+                    to="datasantri"
+                    className={
+                      pathname === "/datasantri"
+                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <span className="text-lg text-gray-700">
+                      <FolderOpenIcon className="w-5" />
+                    </span>
+                    <span className="ml-3 font-semibold">Santri</span>
+                  </Link>
+                  <Link
+                    to="dataiqrosantri"
+                    className={
+                      pathname === "/dataiqrosantri"
+                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <span className="text-lg text-gray-700">
+                      <FolderOpenIcon className="w-5" />
+                    </span>
+                    <span className="ml-3 font-semibold">Iqro</span>
+                  </Link>
+                  <Link
+                    to="datasurahpendeksantri"
+                    className={
+                      pathname === "/datasurahpendeksantri"
+                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <span className="text-lg text-gray-700">
+                      <FolderOpenIcon className="w-5" />
+                    </span>
+                    <span className="ml-3 font-semibold">Surah Pendek</span>
+                  </Link>
+                  <Link
+                    to="dataalquransantri"
+                    className={
+                      pathname === "/dataalquransantri"
+                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <span className="text-lg text-gray-700">
+                      <FolderOpenIcon className="w-5" />
+                    </span>
+                    <span className="ml-3 font-semibold">Al Quran</span>
+                  </Link>
+                </li>
               </li>
-                <li className="my-px">
-                  <div
-                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
-                    onClick={aktifkan}
+              <div
+                className={`flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 ${
+                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
+                    ? ""
+                    : "hidden"
+                }`}
+                onClick={aktifkan}
+              >
+                <span className="text-lg text-gray-700">
+                  <DatabaseIcon className="w-5" />
+                </span>
+                <div className="ml-3 font-semibold">Master Data</div>
+              </div>
+              {active ? (
+                <ul className="font-semibold relative left-10">
+                  <li
+                    className={
+                      pathname === "/datamasterrumahtahfiz"
+                        ? `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5 ${
+                            userProfile.role ===
+                            "8b273d68-fe09-422d-a660-af3d8312f884"
+                              ? "hidden"
+                              : ""
+                          }`
+                        : `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5 ${
+                            userProfile.role ===
+                            "8b273d68-fe09-422d-a660-af3d8312f884"
+                              ? "hidden"
+                              : ""
+                          }`
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
                   >
-                    <span className="text-lg text-gray-700">
-                      <DatabaseIcon className="w-5" />
-                    </span>
-                    <div className="ml-3 font-semibold">Master Data</div>
-                  </div>
-                  {active ? (
-                    <ul className="font-semibold relative left-10">
-                      <li
-                        className={
-                          pathname === "/datarumahtahfiz"
-                            ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
-                            : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
-                        }
-                        onClick={
-                          Display === true
-                            ? () => {
-                                setMenu(true);
-                              }
-                            : ""
-                        }
-                      >
-                        <FolderOpenIcon className="w-5 mr-2" />
-                        <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
-                      </li>
-                      <li
-                        className={
-                          pathname === "/datapengajar"
-                            ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
-                            : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
-                        }
-                        onClick={
-                          Display === true
-                            ? () => {
-                                setMenu(true);
-                              }
-                            : ""
-                        }
-                      >
-                        <FolderOpenIcon className="w-5 mr-2" />
-                        <Link to="datapengajar">Pengajar</Link>
-                      </li>
-                      <li
-                        className={
-                          pathname === "/datasantri"
-                            ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
-                            : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
-                        }
-                        onClick={
-                          Display === true
-                            ? () => {
-                                setMenu(true);
-                              }
-                            : ""
-                        }
-                      >
-                        <FolderOpenIcon className="w-5 mr-2" />
-                        <Link to="datasantri">Santri</Link>
-                      </li>
-                    </ul>
-                  ) : null}
-                </li>
+                    <FolderOpenIcon className="w-5 mr-2" />
+                    <Link to="datamasterrumahtahfiz">Master Tahfidz</Link>
+                  </li>
+                  <li
+                    className={
+                      pathname === "/datamasterrumahtahfiz"
+                        ? `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5 ${
+                            userProfile.role ===
+                            "8b273d68-fe09-422d-a660-af3d8312f883"
+                              ? "hidden"
+                              : ""
+                          }`
+                        : `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5 ${
+                            userProfile.role ===
+                            "8b273d68-fe09-422d-a660-af3d8312f883"
+                              ? "hidden"
+                              : ""
+                          }`
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <FolderOpenIcon className="w-5 mr-2" />
+                    <Link to="datarumahtahfiz">Rumah Tahfidz</Link>
+                  </li>
+                  <li
+                    className={
+                      pathname === "/datapengajar"
+                        ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                        : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <FolderOpenIcon className="w-5 mr-2" />
+                    <Link to="datapengajar">Pengajar</Link>
+                  </li>
+                  <li
+                    className={
+                      pathname === "/datasantri"
+                        ? "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5"
+                        : "flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <FolderOpenIcon className="w-5 mr-2" />
+                    <Link to="datasantri">Santri</Link>
+                  </li>
+                  <li
+                    className={
+                      pathname === "/datauser"
+                        ? `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5 ${
+                            userProfile.role !==
+                            "8b273d68-fe09-422d-a660-af3d8312f884"
+                              ? "hidden"
+                              : ""
+                          }`
+                        : `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5 ${
+                            userProfile.role !==
+                            "8b273d68-fe09-422d-a660-af3d8312f884"
+                              ? "hidden"
+                              : ""
+                          }`
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <FolderOpenIcon className="w-5 mr-2" />
+                    <Link to="datauser">Pengguna</Link>
+                  </li>
+                  <li
+                    className={
+                      pathname === "/dataadmin"
+                        ? `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5 ${
+                            userProfile.role !==
+                            "8b273d68-fe09-422d-a660-af3d8312f883"
+                              ? "hidden"
+                              : ""
+                          }`
+                        : `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5 ${
+                            userProfile.role !==
+                            "8b273d68-fe09-422d-a660-af3d8312f883"
+                              ? "hidden"
+                              : ""
+                          }`
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <FolderOpenIcon className="w-5 mr-2" />
+                    <Link to="dataadmin">Admin</Link>
+                  </li>
+                </ul>
+              ) : null}
 
-                <li className="my-px">
-                  <a
-                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
-                    onClick={hafalkan}
-                  >
-                    <span className="text-lg text-gray-700">
-                      <BookOpenIcon className="w-5" />
-                    </span>
-                    <span className="ml-3 font-semibold">Hafalan</span>
-                  </a>
-                </li>
+              <li
+                className={`my-px ${
+                  userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ||
+                  userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883"
+                    ? "hidden"
+                    : ""
+                }`}
+              >
+                <a
+                  className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700"
+                  onClick={hafalkan}
+                >
+                  <span className="text-lg text-gray-700">
+                    <BookOpenIcon className="w-5" />
+                  </span>
+                  <span className="ml-3 font-semibold">Hafalan</span>
+                </a>
+              </li>
               {hafalan ? (
                 <ul className="font-semibold relative left-5">
                   <li className="py-2 flex" onClick={getsubHafalan}>
@@ -263,7 +478,17 @@ export const Page = (props) => {
                       </li>
                     </ul>
                   ) : null}
-                  <li className={`py-2 flex ${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? "hidden" : ""}`} onClick={getsubHafalana}>
+                  <li
+                    className={`py-2 flex ${
+                      userProfile.role !==
+                        "8b273d68-fe09-422d-a660-af3d8312f883" &&
+                      userProfile.role !==
+                        "8b273d68-fe09-422d-a660-af3d8312f884"
+                        ? "hidden"
+                        : ""
+                    }`}
+                    onClick={getsubHafalana}
+                  >
                     <FolderOpenIcon className="w-5 mr-2" />
                     <h1>Ustadzah</h1>
                   </li>
@@ -324,7 +549,8 @@ export const Page = (props) => {
                   ) : null}
                 </ul>
               ) : null}
-              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" || userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+              userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
                 <li className="my-px" onClick={laporkan}>
                   <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
                     <span className="text-lg text-gray-700">
@@ -372,29 +598,14 @@ export const Page = (props) => {
                   </li>
                 </ul>
               ) : null}
-              <li className={`my-px  ${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? "hidden" : ""}`}>
-                <Link
-                  to="datauser"
-                  className={
-                    pathname === "/datauser"
-                      ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
-                      : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
-                  }
-                  onClick={
-                    Display === true
-                      ? () => {
-                          setMenu(true);
-                        }
-                      : ""
-                  }
-                >
-                  <span className="text-lg text-gray-700">
-                    <UsersIcon className="w-5" />
-                  </span>
-                  <span className="ml-3 font-semibold">Manage User</span>
-                </Link>
-              </li>
-              <li className={`my-px  ${userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" && userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884" ? "hidden" : ""}`}>
+              <li
+                className={`my-px  ${
+                  userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" &&
+                  userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
+                    ? "hidden"
+                    : ""
+                }`}
+              >
                 <Link
                   to="database"
                   className={
@@ -445,10 +656,10 @@ export const Page = (props) => {
               </li>
               <li className="my-px">
                 <div
-                  className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                  className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-red-700 cursor-pointer"
                   onClick={onSignOut}
                 >
-                  <span className="text-lg text-gray-700">
+                  <span className="text-lg">
                     <LockOpenIcon className="w-5" />
                   </span>
                   <span className="ml-3 font-semibold">Logout</span>
@@ -491,7 +702,9 @@ export const Page = (props) => {
             </div>
             <div className="flex ml-auto">
               <a className="flex flex-row items-center">
-                <img className=" w-12" src={config.urlImage+"/"+userProfile.photo}
+                <img
+                  className=" w-12"
+                  src={config.urlImage + "/" + userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">

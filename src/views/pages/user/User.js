@@ -8,18 +8,24 @@ import Table, {
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetUserByRumahTahfidzRequest, doGetUserRequest } from "../../../reduxsaga/actions/User";
+import {
+  doGetUserByMasterTahfidzRequest,
+  doGetUserByRumahTahfidzRequest,
+  doGetUserRequest,
+} from "../../../reduxsaga/actions/User";
 const User = () => {
   const dispatch = useDispatch();
 
   const { userdata } = useSelector((state) => state.userState);
   const { userProfile } = useSelector((state) => state.userState);
 
+  // const [dataadmin, setDataadmin] = useState([]);
+
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-      dispatch(doGetUserRequest());
-    }else{
-      dispatch(doGetUserByRumahTahfidzRequest(userProfile.pondokId))
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetUserByMasterTahfidzRequest(userProfile.masterpondokId));
+    } else {
+      dispatch(doGetUserByRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
 
@@ -54,8 +60,10 @@ const User = () => {
             accessor: "telephone",
           },
           {
-            Header: "Address",
-            accessor: "address",
+            Header: "PONDOK",
+            accessor: "Pondok.name",
+            Filter: SelectColumnFilter, // new
+            filter: "includes",
           },
           {
             Header: "Role",
@@ -73,41 +81,6 @@ const User = () => {
       );
     }
   }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "name",
-      },
-      {
-        Header: "Email",
-        accessor: "email",
-      },
-      {
-        Header: "Telephone",
-        accessor: "telephone",
-      },
-      {
-        Header: "Address",
-        accessor: "address",
-      },
-      {
-        Header: "Role",
-        accessor: "Role.name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkUser,
-      },
-    ],
-    []
-  );
-
-  // const data = React.useMemo(() => userdata, [userdata]);
 
   return (
     <div className="">

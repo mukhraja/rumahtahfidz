@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroAwalGuruRequest,
+  doGetIqroGuruByMasterTahfidzRequest,
   doGetIqroGuruByRumahTahfidzRequest,
   doGetIqroSantriRequest,
 } from "../../../reduxsaga/actions/IqroGuru";
@@ -21,11 +22,13 @@ const IqroGuru = () => {
   const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-    dispatch(doGetIqroAwalGuruRequest());
-  }else{
-    dispatch(doGetIqroGuruByRumahTahfidzRequest(userProfile.pondokId))
-  }
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetIqroAwalGuruRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetIqroGuruByMasterTahfidzRequest(userProfile.masterpondokId));
+    } else {
+      dispatch(doGetIqroGuruByRumahTahfidzRequest(userProfile.pondokId));
+    }
   }, []);
 
   const [Display, setDisplay] = useState([]);
@@ -71,7 +74,6 @@ const IqroGuru = () => {
       ]);
     }
   }, []);
-
 
   return (
     <div className="">

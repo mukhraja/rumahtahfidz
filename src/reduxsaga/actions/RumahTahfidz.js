@@ -47,6 +47,22 @@ export const doGetByRumahTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY PONDOKID RUMAHTAHFIZ
+export const doGetByPondokIdRumahTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_PONDOKID_RUMAHTAHFIDZ_REQUEST,
+  payload,
+});
+
+export const doGetByPondokIdRumahTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_PONDOKID_RUMAHTAHFIDZ_SUCCEED,
+  payload,
+});
+
+export const doGetByPondokIdRumahTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_PONDOKID_RUMAHTAHFIDZ_FAILED,
+  payload,
+});
+
 // CREATE
 
 export const doCreateRumahTahfidzRequest = (payload) => ({

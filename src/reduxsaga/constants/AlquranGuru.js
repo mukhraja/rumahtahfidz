@@ -18,9 +18,19 @@ export const GET_BY_ID_ALQURANGURU_REQUEST = "alquranguru/getid/request";
 export const GET_BY_ID_ALQURANGURU_SUCCEED = "alquranguru/getid/succeed";
 export const GET_BY_ID_ALQURANGURU_FAILED = "alquranguru/getid/failed";
 
-export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_REQUEST = "alquranguru/getrumahtahfidz/request";
-export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_SUCCEED = "alquranguru/getrumahtahfidz/succeed";
-export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_FAILED = "alquranguru/getrumahtahfidz/failed";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_REQUEST =
+  "alquranguru/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_SUCCEED =
+  "alquranguru/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_ALQURANGURU_FAILED =
+  "alquranguru/getrumahtahfidz/failed";
+
+export const GET_BY_MASTERTAHFIDZ_ALQURANGURU_REQUEST =
+  "alquranguru/getbymastertahfidz/request";
+export const GET_BY_MASTERTAHFIDZ_ALQURANGURU_SUCCEED =
+  "alquranguru/getbymastertahfidz/succeed";
+export const GET_BY_MASTERTAHFIDZ_ALQURANGURU_FAILED =
+  "alquranguru/getbymastertahfidz/failed";
 
 export const UPDATE_ALQURANGURU_REQUEST = "alquranguru/update/request";
 export const UPDATE_ALQURANGURU_SUCCEED = "alquranguru/update/succeed";

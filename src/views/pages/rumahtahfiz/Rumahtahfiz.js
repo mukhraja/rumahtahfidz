@@ -10,23 +10,32 @@ import {
   doDeleteRumahTahfidzRequest,
   doGetRumahTahfidzByIdRequest,
   doGetByRumahTahfidzRequest,
+  doGetByPondokIdRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 
 const Rumahtahfiz = () => {
   const dispatch = useDispatch();
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { masterpondokdata } = useSelector((state) => state.masterPondokState);
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [data, setData] = useState([]);
+
+  console.log(data);
+
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-      dispatch(doGetRumahTahfidzRequest());
-    }else{
-      dispatch(doGetByRumahTahfidzRequest(userProfile.pondokId))
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    } else {
+      dispatch(doGetByPondokIdRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
+
+  console.log(userProfile.pondokId);
 
   const [Display, setDisplay] = useState([]);
 
@@ -64,31 +73,6 @@ const Rumahtahfiz = () => {
         },
       ]);
   }, []);
-
-  // const columns = React.useMemo(
-  //   () => [
-  //     {
-  //       Header: "Nama",
-  //       accessor: "name",
-  //     },
-  //     {
-  //       Header: "NIT",
-  //       accessor: "nit",
-  //     },
-  //     {
-  //       Header: "Kepala Tahfiz",
-  //       accessor: "chief",
-  //     },
-  //     {
-  //       Header: "Detail",
-  //       accessor: "id",
-  //       Cell: ButtonLinkRumahTahfidz,
-  //     },
-  //   ],
-  //   []
-  // );
-
-  // const data = React.useMemo(() => rumahtahfidzdata, [rumahtahfidzdata]);
 
   return (
     <div className="mx-4">

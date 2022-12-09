@@ -54,7 +54,24 @@ const getiqrorumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/iqro/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/iqro/byrumahtahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// GET IQRO BY MASTER TAHFIDZ
+const getiqromastertahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/iqro/bymastertahfidz/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -94,5 +111,6 @@ export default {
   getiqroid,
   updateiqro,
   deleteiqro,
-  getiqrorumahtahfidz
+  getiqrorumahtahfidz,
+  getiqromastertahfidz,
 };

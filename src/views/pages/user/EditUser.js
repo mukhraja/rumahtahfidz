@@ -13,6 +13,7 @@ import {
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import moment from "moment";
 
 const EditUser = () => {
   const { id } = useParams();
@@ -58,20 +59,22 @@ const EditUser = () => {
     initialValues: {
       name: userdata.length ? userdata[0].name : null,
       email: userdata.length ? userdata[0].email : null,
-      password: userdata.length ? userdata[0].password : null,
+      password: "",
       telephone: userdata.length ? userdata[0].telephone : null,
-      datebirth: userdata.length ? userdata[0].datebirth : null,
+      datebirth: userdata.length
+        ? moment(userdata[0].datebirth).format("YYYY-MM-DD")
+        : null,
       address: userdata.length ? userdata[0].address : null,
       age: userdata.length ? userdata[0].age : null,
       gender: userdata.length ? userdata[0].gender : null,
       parent: userdata.length ? userdata[0].parent : null,
       roleId: userdata.length ? userdata[0].roleId : null,
       photo: userdata.length ? userdata[0].photo : null,
+      pondokId: userdata.length ? userdata[0].pondokId : null,
     },
     onSubmit: async (values) => {
       if (uploaded === true) {
         let payload = new FormData();
-        payload.append("id", id);
         payload.append("name", values.name);
         payload.append("email", values.email);
         payload.append("password", values.password);
@@ -80,9 +83,10 @@ const EditUser = () => {
         payload.append("datebirth", values.datebirth);
         payload.append("age", values.age);
         payload.append("gender", values.gender);
-        payload.append("parent", values.parent);
         payload.append("roleId", values.roleId);
+        payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
+        payload.append("id", id);
         dispatch(doUpdateUserRequest(payload));
         toast.success("Data berhasil ditambbahkan...");
         // setTimeout(() => {
@@ -99,8 +103,8 @@ const EditUser = () => {
           address: values.address,
           age: values.age,
           gender: values.gender,
-          parent: values.parent,
           roleId: values.roleId,
+          pondokId: values.pondokId,
         };
 
         dispatch(doUpdateNoFIleUserRequest(payload));

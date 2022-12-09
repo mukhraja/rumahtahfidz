@@ -6,19 +6,27 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import {
+  doGetByRumahTahfidzRequest,
+  doGetRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/RumahTahfidz";
 import { doCreateGuruRequest } from "../../../reduxsaga/actions/Guru";
 import moment from "moment";
 
 const TambahPengajar = () => {
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetRumahTahfidzRequest());
+    } else {
+      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    }
   }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama ustadz/ah").required(
@@ -62,25 +70,21 @@ const TambahPengajar = () => {
       address: "ass",
       ayah: "ass",
       ibu: "ass",
-      mulai_masuk: "",
-      mulai_vakum: "",
-      pondokId: "",
+      mulai_masuk: "14-12-2022",
+      mulai_vakum: "14-12-2022",
+      pondokId: "96f95aea-ef38-4623-82af-979c383bbb37",
       photo: undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      // const tanggalmasuk = (
-      //   <Moment format="DD/MM/YYYY">{values.mulai_masuk}</Moment>
-      // );
-      // const tanggalvakum = (
-      //   <Moment format="DD/MM/YYYY">{values.mulai_vakum}</Moment>
-      // );
-
       let payload = new FormData();
       payload.append("name", values.name);
       payload.append("niu", values.niu);
       payload.append("tempat", values.tempat);
-      payload.append("datebirth", values.datebirth);
+      payload.append(
+        "datebirth",
+        moment(values.datebirth).format("YYYY-MM-DD")
+      );
       payload.append("gender", values.gender);
       payload.append("telephone", values.telephone);
       payload.append("address", values.address);
@@ -88,11 +92,11 @@ const TambahPengajar = () => {
       payload.append("ibu", values.ibu);
       payload.append(
         "mulai_masuk",
-        moment(values.mulai_masuk).format("DD/MM/YYYY")
+        moment(values.mulai_masuk).format("YYYY-MM-DD")
       );
       payload.append(
         "mulai_vakum",
-        moment(values.mulai_vakum).format("DD/MM/YYYY")
+        moment(values.mulai_vakum).format("YYYY-MM-DD")
       );
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);

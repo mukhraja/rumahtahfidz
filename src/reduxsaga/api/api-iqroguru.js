@@ -51,11 +51,29 @@ const getiqroid = async (payload) => {
   }
 };
 
+// GET IQRO BY RUMAH TAHFIDZ
 const getiqrorumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/iqroguru/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/iqroguru/byrumahtahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// GET IQRO BY RUMAH TAHFIDZ
+const getiqromastertahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/iqroguru/bymastertahfidz/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -95,5 +113,6 @@ export default {
   getiqroid,
   updateiqro,
   deleteiqro,
-  getiqrorumahtahfidz
+  getiqrorumahtahfidz,
+  getiqromastertahfidz,
 };

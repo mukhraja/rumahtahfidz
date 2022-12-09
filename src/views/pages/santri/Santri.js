@@ -4,10 +4,15 @@ import { santri } from "../../../gambar";
 import Table, {
   ButtonLinkSantri,
   SelectColumnFilter,
+  tanggalcustom,
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { doGetSantriByRumahTahfidzRequest, doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
+import {
+  doGetSantriByMasterTahfidzRequest,
+  doGetSantriByRumahTahfidzRequest,
+  doGetSantriRequest,
+} from "../../../reduxsaga/actions/Santri";
 const Santri = () => {
   const dispatch = useDispatch();
 
@@ -15,10 +20,12 @@ const Santri = () => {
   const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    if(userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"){
-    dispatch(doGetSantriRequest())
-    }else{
-      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId))
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetSantriRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(doGetSantriByMasterTahfidzRequest(userProfile.masterpondokId));
+    } else {
+      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
 
@@ -48,12 +55,14 @@ const Santri = () => {
           accessor: "nis",
         },
         {
-          Header: "Keluarga",
-          accessor: "parent",
+          Header: "MASUK",
+          accessor: "mulai_masuk",
+          Cell: tanggalcustom,
         },
         {
-          Header: "Kota",
-          accessor: "city",
+          Header: "VAKUM",
+          accessor: "mulai_vakum",
+          Cell: tanggalcustom,
         },
         {
           Header: "PONDOK",

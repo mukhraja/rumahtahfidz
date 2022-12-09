@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bacajuz } from "../../../gambar";
-import { doGetSurahPendekAwalSantriRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
+import {
+  doGetSurahPendekAwalSantriRequest,
+  doGetSurahPendekSantriByMasterTahfidzRequest,
+  doGetSurahPendekSantriByRumahTahfidzRequest,
+} from "../../../reduxsaga/actions/SurahPendekSantri";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -16,9 +20,20 @@ const SurahPendek = () => {
   const { surahpendeksantridata } = useSelector(
     (state) => state.surahPendekSantriState
   );
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    dispatch(doGetSurahPendekAwalSantriRequest());
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetSurahPendekAwalSantriRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(
+        doGetSurahPendekSantriByMasterTahfidzRequest(userProfile.masterpondokId)
+      );
+    } else {
+      dispatch(
+        doGetSurahPendekSantriByRumahTahfidzRequest(userProfile.pondokId)
+      );
+    }
   }, []);
 
   const [Display, setDisplay] = useState([]);

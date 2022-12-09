@@ -63,6 +63,22 @@ export const doGetIqroSantriByRumahTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY MASTERTAHFIZ
+export const doGetIqroSantriByMasterTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_IQROSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetIqroSantriByMasterTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_IQROSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetIqroSantriByMasterTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_IQROSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateIqroSantriRequest = (payload) => ({
   type: ActionType.CREATE_IQROSANTRI_REQUEST,

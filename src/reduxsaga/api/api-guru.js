@@ -28,7 +28,24 @@ const getgururumahtahfidz = async (payload) => {
   console.log("SAMPAI GET RUMAH TAHFIDZ");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/guru/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/guru/byrumahtahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// GETBYRUMAHTAHFIDZ
+const getgurumastertahfidz = async (payload) => {
+  console.log("SAMPAI GET MASTER TAHFIDZ");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/guru/bymastertahfidz/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -95,5 +112,6 @@ export default {
   updateguruNoFile,
   getguruid,
   deleteguru,
-  getgururumahtahfidz
+  getgururumahtahfidz,
+  getgurumastertahfidz,
 };

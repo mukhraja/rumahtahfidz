@@ -22,9 +22,19 @@ export const GET_BY_ID_SURAHPENDEKGURU_SUCCEED =
   "surahpendekguru/getid/succeed";
 export const GET_BY_ID_SURAHPENDEKGURU_FAILED = "surahpendekguru/getid/failed";
 
-export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_REQUEST = "surahpendekguru/getrumahtahfidz/request";
-export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_SUCCEED = "surahpendekguru/getrumahtahfidz/succeed";
-export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_FAILED = "surahpendekguru/getrumahtahfidz/failed";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_REQUEST =
+  "surahpendekguru/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_SUCCEED =
+  "surahpendekguru/getrumahtahfidz/succeed";
+export const GET_BY_RUMAHTAHFIDZ_SURAHPENDEKGURU_FAILED =
+  "surahpendekguru/getrumahtahfidz/failed";
+
+export const GET_BY_MASTERTAHFIDZ_SURAHPENDEKGURU_REQUEST =
+  "surahpendekguru/getbymastertahfidz/request";
+export const GET_BY_MASTERTAHFIDZ_SURAHPENDEKGURU_SUCCEED =
+  "surahpendekguru/getbymastertahfidz/succeed";
+export const GET_BY_MASTERTAHFIDZ_SURAHPENDEKGURU_FAILED =
+  "surahpendekguru/getbymastertahfidz/failed";
 
 export const UPDATE_SURAHPENDEKGURU_REQUEST = "surahpendekguru/update/request";
 export const UPDATE_SURAHPENDEKGURU_SUCCEED = "surahpendekguru/update/succeed";

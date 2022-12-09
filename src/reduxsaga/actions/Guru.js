@@ -46,6 +46,22 @@ export const doGetGuruByRumahTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY MASTERRUMAHTAHFIZ
+export const doGetGuruByMasterTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_GURU_REQUEST,
+  payload,
+});
+
+export const doGetGuruByMasterTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_GURU_SUCCEED,
+  payload,
+});
+
+export const doGetGuruByMasterTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_GURU_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateGuruRequest = (payload) => ({
   type: ActionType.CREATE_GURU_REQUEST,

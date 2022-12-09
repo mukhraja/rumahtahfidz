@@ -61,7 +61,24 @@ const getsurahpendekrumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
-    const result = await axios.get(`${config.domain}/surahpendekguru/byrumahtahfidz/${payload}`);
+    const result = await axios.get(
+      `${config.domain}/surahpendekguru/byrumahtahfidz/${payload}`
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// GETBYMASTERTAHFIDZ
+const getsurahpendekmastertahfidz = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.get(
+      `${config.domain}/surahpendekguru/bymastertahfidz/${payload}`
+    );
     console.log(result.data);
     return result.data;
   } catch (error) {
@@ -107,4 +124,5 @@ export default {
   updatesurahpendek,
   deletesurahpendek,
   getsurahpendekrumahtahfidz,
+  getsurahpendekmastertahfidz,
 };

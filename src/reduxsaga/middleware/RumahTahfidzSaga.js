@@ -14,6 +14,9 @@ import {
   doUpdateRumahTahfidzFailed,
   doGetByRumahTahfidzSucceed,
   doGetByRumahTahfidzFailed,
+  doGetByPondokIdRumahTahfidzRequest,
+  doGetByPondokIdRumahTahfidzFailed,
+  doGetByPondokIdRumahTahfidzSucceed,
 } from "../actions/RumahTahfidz";
 import apiRumahtahfidz from "../api/api-rumahtahfidz";
 
@@ -52,6 +55,22 @@ function* handleGetByRumahTahfdiz(action) {
     yield put(doGetByRumahTahfidzSucceed(result));
   } catch (error) {
     yield put(doGetByRumahTahfidzFailed(error));
+  }
+}
+
+// GET BY PONDOKID RUMAHTAHFIDZ
+function* handleGetByPondokIdRumahTahfdiz(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(
+      apiRumahtahfidz.getbypondokidrumahtahfidz,
+      payload
+    );
+    yield put(doGetByPondokIdRumahTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetByPondokIdRumahTahfidzFailed(error));
   }
 }
 
@@ -117,5 +136,6 @@ export {
   handleGetByIdRumahTahfdiz,
   handleUpdateRumahTahfdiz,
   handleUpdateNoFileRumahTahfdiz,
-  handleGetByRumahTahfdiz
+  handleGetByRumahTahfdiz,
+  handleGetByPondokIdRumahTahfdiz,
 };

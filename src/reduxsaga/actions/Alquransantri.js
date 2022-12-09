@@ -63,6 +63,22 @@ export const doGetAlquranSantriByRumahTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY MASTERTAHFIZ
+export const doGetAlquranSantriByMasterTahfidzRequest = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_ALQURANSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetAlquranSantriByMasterTahfidzSucceed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_ALQURANSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetAlquranSantriByMasterTahfidzFailed = (payload) => ({
+  type: ActionType.GET_BY_MASTERTAHFIDZ_ALQURANSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateAlquranSantriRequest = (payload) => ({
   type: ActionType.CREATE_ALQURANSANTRI_REQUEST,

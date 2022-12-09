@@ -11,6 +11,8 @@ import {
   doGetSurahPendekAwalGuruSucceed,
   doGetSurahPendekGuruByIdFailed,
   doGetSurahPendekGuruByIdSucceed,
+  doGetSurahPendekGuruByMasterTahfidzFailed,
+  doGetSurahPendekGuruByMasterTahfidzSucceed,
   doGetSurahPendekGuruByRumahTahfidzFailed,
   doGetSurahPendekGuruByRumahTahfidzSucceed,
   doGetSurahPendekGuruFailed,
@@ -65,10 +67,29 @@ function* handleGetByRumahTahfidzSurahPendekGuru(action) {
   const { payload } = action;
 
   try {
-    const result = yield call(apiSurahpendekguru.getsurahpendekrumahtahfidz, payload);
+    const result = yield call(
+      apiSurahpendekguru.getsurahpendekrumahtahfidz,
+      payload
+    );
     yield put(doGetSurahPendekGuruByRumahTahfidzSucceed(result));
   } catch (error) {
     yield put(doGetSurahPendekGuruByRumahTahfidzFailed(error));
+  }
+}
+
+// GET BY MASTERTAHFIZ
+function* handleGetByMasterTahfidzSurahPendekGuru(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(
+      apiSurahpendekguru.getsurahpendekmastertahfidz,
+      payload
+    );
+    yield put(doGetSurahPendekGuruByMasterTahfidzSucceed(result));
+  } catch (error) {
+    yield put(doGetSurahPendekGuruByMasterTahfidzFailed(error));
   }
 }
 
@@ -120,5 +141,6 @@ export {
   handleDeleteSurahPendekGuru,
   handleGetByIdSurahPendekGuru,
   handleUpdateSurahPendekGuru,
-  handleGetByRumahTahfidzSurahPendekGuru
+  handleGetByRumahTahfidzSurahPendekGuru,
+  handleGetByMasterTahfidzSurahPendekGuru,
 };
