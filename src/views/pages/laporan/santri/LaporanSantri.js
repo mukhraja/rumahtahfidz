@@ -42,8 +42,8 @@ const LaporanSantri = () => {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
-    filename: "Users table",
-    sheet: "Users",
+    filename: "Laporan Hafalan Santri",
+    sheet: "Santri",
   });
 
   const hafalsantri = [

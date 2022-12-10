@@ -59,8 +59,6 @@ const Dashboard = () => {
   const { userProfile } = useSelector((state) => state.userState);
   const { masterpondokdata } = useSelector((state) => state.masterPondokState);
 
-  console.log(userProfile.pondokId);
-
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
       dispatch(doGetSantriRequest());
@@ -182,55 +180,87 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className=" lg:mt-10 sm:mt-4 mx-2 rounded-lg pt-5 shadow-md bg-white ">
-        <div className="flex justify-between px-5 py-3">
-          <div className="font-medium text-lg flex items-center">
-            <span className="text-gray-700 mr-2">
-              <HomeIcon className="w-5" />
-            </span>
-            <h1 className="text-sm">Santri Terbanyak</h1>
+      {userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" ? (
+        <div className=" lg:mt-10 sm:mt-4 mx-2 rounded-lg pt-5 shadow-md bg-white ">
+          <div className="flex justify-between px-5 py-3">
+            <div className="font-medium text-lg flex items-center">
+              <span className="text-gray-700 mr-2">
+                <HomeIcon className="w-5" />
+              </span>
+              <h1 className="text-sm">Santri Terbanyak</h1>
+            </div>
+            <button className="px-3 py-1 bg-mamasingle rounded-md text-white drop-shadow-md">
+              <Link to="/datarumahtahfiz">Detail</Link>
+            </button>
           </div>
-          <button className="px-3 py-1 bg-mamasingle rounded-md text-white drop-shadow-md">
-            <Link to="/datarumahtahfiz">Detail</Link>
-          </button>
-        </div>
-        <div className="px-6 py-3">
-          <div className="w-full shadow-inner  rounded-lg">
-            <table className=" table-auto w-full rounded-xl">
-              <thead className="shadow-gray-100 bg-mamamuda">
-                <tr className="text-left px-5">
-                  <th className="px-4 py-4 text-gray-800">Rumah Tahfidz</th>
-                  <th className="px-4 py-4 text-gray-800 w-1/2 text-center">
-                    Jumlah
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="text-xs font-light">
-                {rumahtahfidzdata.map((e, i) => (
-                  <tr>
-                    <td className="border border-gray-200 border-x-0 px-4 py-3">
-                      {e.name}
-                    </td>
-                    <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                      {/* <div className="w-full bg-gray-100 rounded-full">
-                        <div
-                          className="bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full py-2"
-                          style={{ width: "90%" }}
-                        >
-                          {" "}
-                          {e.Santris.length}
-                        </div>
-                        
-                      </div> */}
-                      {e.Santris.length} Santri
-                    </td>
+          <div className="px-6 py-3">
+            <div className="w-full shadow-inner  rounded-lg">
+              <table className=" table-auto w-full rounded-xl">
+                <thead className="shadow-gray-100 bg-mamamuda">
+                  <tr className="text-left px-5">
+                    <th className="px-4 py-4 text-gray-800">Rumah Tahfidz</th>
+                    <th className="px-4 py-4 text-gray-800 w-1/2 text-center">
+                      Jumlah
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="text-xs font-light">
+                  {rumahtahfidzdata.map((e, i) => (
+                    <tr>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3">
+                        {e.name}
+                      </td>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                        {e.Santris.length} Santri
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className=" lg:mt-10 sm:mt-4 mx-2 rounded-lg pt-5 shadow-md bg-white ">
+          <div className="flex justify-between px-5 py-3">
+            <div className="font-medium text-lg flex items-center">
+              <span className="text-gray-700 mr-2">
+                <HomeIcon className="w-5" />
+              </span>
+              <h1 className="text-sm">Cabang Pondok Terbanyak</h1>
+            </div>
+            <button className="px-3 py-1 bg-mamasingle rounded-md text-white drop-shadow-md">
+              <Link to="/datamasterrumahtahfiz">Detail</Link>
+            </button>
+          </div>
+          <div className="px-6 py-3">
+            <div className="w-full shadow-inner  rounded-lg">
+              <table className=" table-auto w-full rounded-xl">
+                <thead className="shadow-gray-100 bg-mamamuda">
+                  <tr className="text-left px-5">
+                    <th className="px-4 py-4 text-gray-800">Master Tahfidz</th>
+                    <th className="px-4 py-4 text-gray-800 w-1/2 text-center">
+                      Jumlah
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-xs font-light">
+                  {masterpondokdata.map((e, i) => (
+                    <tr>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3">
+                        {e.name}
+                      </td>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                        {e.Pondoks.length} Cabang
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
