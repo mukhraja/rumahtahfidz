@@ -111,7 +111,6 @@ const Editrumahtahfiz = () => {
         payload.append("address", values.address);
         payload.append("telephone", values.telephone);
         payload.append("chief", values.chief);
-        payload.append("masterpondokId", userProfile.masterpondokId);
         payload.append("logo", values.logo);
         payload.append("photo", values.photo);
         payload.append("id", id);
@@ -127,7 +126,6 @@ const Editrumahtahfiz = () => {
         payload.append("address", values.address);
         payload.append("telephone", values.telephone);
         payload.append("chief", values.chief);
-        payload.append("masterpondokId", userProfile.masterpondokId);
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateRumahTahfidzRequest(payload));
@@ -139,7 +137,6 @@ const Editrumahtahfiz = () => {
         payload.append("address", values.address);
         payload.append("telephone", values.telephone);
         payload.append("chief", values.chief);
-        payload.append("masterpondokId", userProfile.masterpondokId);
         payload.append("logo", values.logo);
         payload.append("id", id);
         dispatch(doUpdateRumahTahfidzRequest(payload));
@@ -152,7 +149,6 @@ const Editrumahtahfiz = () => {
           address: values.address,
           telephone: values.telephone,
           chief: values.chief,
-          masterpondokId: userProfile.masterpondokId,
         };
         dispatch(doUpdateNoFIleRumahTahfidzRequest(payload));
         toast.success("Data berhasil diupdate...");

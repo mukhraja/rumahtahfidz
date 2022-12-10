@@ -15,6 +15,7 @@ import {
   TrashIcon,
   EyeIcon,
   PencilIcon,
+  ViewListIcon,
 } from "@heroicons/react/solid";
 import { Button, PageButton } from "./shared/Button";
 import { classNames } from "./shared/Utils";
@@ -178,6 +179,43 @@ export function ButtonLinkRumahTahfidz({ value }) {
   );
 }
 
+export function ButtonLinkListRumahTahfidz({ value }) {
+  const status = value ? value.toLowerCase() : "";
+  const { userProfile } = useSelector((state) => state.userState);
+
+  const dispatch = useDispatch();
+
+  const onDelete = async (id) => {
+    dispatch(doDeleteRumahTahfidzRequest(id));
+    toast.success("Data berhasil dihapus...");
+  };
+
+  return (
+    <div>
+      <div className=" flex">
+        <Link
+          to={"/datarumahtahfiz/detail/" + status}
+          className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+        >
+          <EyeIcon className="lg:w-5 sm:w-2" />
+        </Link>
+        <Link
+          to={"/datarumahtahfiz/edit/" + status}
+          className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        >
+          <PencilIcon className="lg:w-5 sm:w-2" />
+        </Link>
+        <button
+          onClick={() => onDelete(value)}
+          className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+        >
+          <TrashIcon className="lg:w-5 sm:w-2" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export function ButtonLinkMasterRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
@@ -194,6 +232,12 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
       {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
       userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ? (
         <div className=" flex">
+          <Link
+            to={"list/" + status}
+            className="px-3 sm:px-1 bg-violet-500 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <ViewListIcon className="lg:w-5 sm:w-2" />
+          </Link>
           <Link
             to={"detail/" + status}
             className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"

@@ -60,6 +60,7 @@ import Admin from "./views/pages/admin/Admin";
 import TambahAdmin from "./views/pages/admin/TambahAdmin";
 import EditAdmin from "./views/pages/admin/EditAdmin";
 import DetailAdmin from "./views/pages/admin/DetailAdmin";
+import Listrumahtahfidz from "./views/pages/mastertahfidz/Listrumahtahfidz";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -92,6 +93,10 @@ function App() {
           <Route
             path="datamasterrumahtahfiz/detail/:id"
             element={isLoggedIn ? <Detailmastertahfidz /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datamasterrumahtahfiz/list/:id"
+            element={isLoggedIn ? <Listrumahtahfidz /> : <Navigate to="/" />}
           />
         </Route>
 
