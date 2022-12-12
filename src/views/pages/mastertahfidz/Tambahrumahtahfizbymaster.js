@@ -10,14 +10,21 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 
-const Tambahrumahtahfiz = () => {
+const Tambahrumahtahfizbymaster = () => {
+  const { id } = useParams();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { userProfile } = useSelector((state) => state.userState);
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { masterpondokdata } = useSelector((state) => state.masterPondokState);
+
+  useEffect(() => {
+    dispatch(doGetMasterPondokRequest());
+  }, []);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama rumah tahfiz").required(
@@ -42,7 +49,7 @@ const Tambahrumahtahfiz = () => {
       address: "",
       telephone: "",
       chief: "",
-      masterpondokId: "",
+      masterpondokId: id,
       photo: undefined,
       logo: undefined,
     },
@@ -54,7 +61,7 @@ const Tambahrumahtahfiz = () => {
       payload.append("address", values.address);
       payload.append("telephone", values.telephone);
       payload.append("chief", values.chief);
-      payload.append("masterpondokId", userProfile.masterpondokId);
+      payload.append("masterpondokId", values.masterpondokId);
       payload.append("logo", values.logo);
       payload.append("photo", values.photo);
 
@@ -205,26 +212,27 @@ const Tambahrumahtahfiz = () => {
             ) : null}
           </div>
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
+            <h1 className="block lg:col-span-2 col-span-4">Cabang</h1>
             <select
-              name="pondokId"
-              id="pondokId"
-              value={formik.values.pondokId}
+              name="masterpondokId"
+              id="masterpondokId"
+              value={formik.values.masterpondokId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              autoComplete="pondokId"
+              autoComplete="masterpondokId"
               class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              disabled
             >
               <option value="" selected disabled hidden>
-                Pilih Rumah Tahfidz
+                Pilih Master Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
+              {masterpondokdata.map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
-            {formik.touched.pondokId && formik.errors.pondokId ? (
+            {formik.touched.masterpondokId && formik.errors.masterpondokId ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
-                {formik.errors.pondokId}
+                {formik.errors.masterpondokId}
               </span>
             ) : null}
           </div>
@@ -378,4 +386,4 @@ const Tambahrumahtahfiz = () => {
   );
 };
 
-export default Tambahrumahtahfiz;
+export default Tambahrumahtahfizbymaster;

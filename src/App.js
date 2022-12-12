@@ -61,6 +61,7 @@ import TambahAdmin from "./views/pages/admin/TambahAdmin";
 import EditAdmin from "./views/pages/admin/EditAdmin";
 import DetailAdmin from "./views/pages/admin/DetailAdmin";
 import Listrumahtahfidz from "./views/pages/mastertahfidz/Listrumahtahfidz";
+import Tambahrumahtahfizbymaster from "./views/pages/mastertahfidz/Tambahrumahtahfizbymaster";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -97,6 +98,12 @@ function App() {
           <Route
             path="datamasterrumahtahfiz/list/:id"
             element={isLoggedIn ? <Listrumahtahfidz /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datamasterrumahtahfiz/list/:id/tambah"
+            element={
+              isLoggedIn ? <Tambahrumahtahfizbymaster /> : <Navigate to="/" />
+            }
           />
         </Route>
 
