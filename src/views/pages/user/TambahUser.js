@@ -266,7 +266,9 @@ const TambahUser = () => {
                   Admin
                 </option>
               ) : (
-                roledata.map((e) => <option value={e.id}>{e.name}</option>)
+                roledata
+                  .filter((e) => e.id != "8b273d68-fe09-422d-a660-af3d8312f883")
+                  .map((e) => <option value={e.id}>{e.name}</option>)
               )}
             </select>
           </div>

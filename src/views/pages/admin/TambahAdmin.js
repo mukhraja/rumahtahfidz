@@ -91,7 +91,7 @@ const TambahAdmin = () => {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("email", values.email);
-        payload.append("password", values.address);
+        payload.append("password", values.password);
         payload.append("telephone", values.telephone);
         payload.append("address", values.address);
         payload.append("datebirth", values.datebirth);

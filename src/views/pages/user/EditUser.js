@@ -128,10 +128,7 @@ const EditUser = () => {
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Edit Pengguna
           </h1>
-          <img
-            src={photo}
-            className="rounded-full bg-white bg-cover w-20 h-20 shadow-md"
-          />
+          <img src={photo} className="rounded-full bg-cover w-20 h-20" />
         </div>
         <div className="m-4 bg-white p-4 rounded-md font-poppins">
           <div className="grid grid-cols-8 my-2 text-xs">
