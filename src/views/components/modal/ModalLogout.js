@@ -12,7 +12,7 @@ export default function ModalLogout({ onCancel, onDelete, datasaja }) {
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-30 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
@@ -76,7 +76,7 @@ export default function ModalLogout({ onCancel, onDelete, datasaja }) {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Apakah anda ingin keluar dari aplikasi ini ?
+                        Apakah anda ingin keluar dari aplikasi ?
                       </p>
                     </div>
                   </div>

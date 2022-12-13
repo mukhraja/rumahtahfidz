@@ -199,11 +199,22 @@ export function ButtonLinkListRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const dispatch = useDispatch();
 
   const onDelete = async (id) => {
     dispatch(doDeleteRumahTahfidzRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   return (
@@ -222,11 +233,15 @@ export function ButtonLinkListRumahTahfidz({ value }) {
           <PencilIcon className="lg:w-5 sm:w-2" />
         </Link>
         <button
-          onClick={() => onDelete(value)}
+          onClick={tampilkan}
           className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
         >
           <TrashIcon className="lg:w-5 sm:w-2" />
         </button>
+
+        {showModal && (
+          <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+        )}
       </div>
     </div>
   );

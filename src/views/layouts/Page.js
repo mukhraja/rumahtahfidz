@@ -675,9 +675,6 @@ export const Page = (props) => {
                     <LockOpenIcon className="w-5" />
                   </span>
                   <span className="ml-3 font-semibold">Logout</span>
-                  {showModal && (
-                    <ModalLogout onCancel={tutupkan} onDelete={onSignOut} />
-                  )}
                 </div>
               </li>
             </ul>
@@ -733,6 +730,7 @@ export const Page = (props) => {
             </div>
           </div>
         </header>
+        {showModal && <ModalLogout onCancel={tutupkan} onDelete={onSignOut} />}
         <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
           <Outlet />
         </div>
@@ -744,32 +742,6 @@ export const Page = (props) => {
           </div>
         </footer>
       </main>
-
-      <div
-        id="modal"
-        className="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4"
-      >
-        <div className="relative top-40 mx-auto shadow-lg rounded-md bg-white max-w-md">
-          <div className="text-center font-bold pt-5">
-            <span>Do you want to Quit ?</span>
-          </div>
-          <div className="flex justify-center py-5">
-            <div className="px-4 py-2 flex justify-end items-center space-x-4">
-              <a
-                href="{{ url('/logout') }}"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-              >
-                Yes
-              </a>
-            </div>
-            <div className="px-4 py-2 flex justify-end items-center space-x-4">
-              <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export default function Modal({ onCancel, onDelete, datasaja }) {
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-30 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
