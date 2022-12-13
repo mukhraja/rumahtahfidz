@@ -58,7 +58,7 @@ const EditAdmin = () => {
     initialValues: {
       name: userdata.length ? userdata[0].name : null,
       email: userdata.length ? userdata[0].email : null,
-      password: userdata.length ? userdata[0].password : null,
+      password: "",
       telephone: userdata.length ? userdata[0].telephone : null,
       datebirth: userdata.length ? userdata[0].datebirth : null,
       address: userdata.length ? userdata[0].address : null,
