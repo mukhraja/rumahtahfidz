@@ -18,7 +18,7 @@ const saga = createSagaMiddleWare();
 
 const store = createStore(
   persistedReducer,
-  // undefined,
+  undefined,
   composeWithDevTools(applyMiddleware(saga, logger))
 );
 

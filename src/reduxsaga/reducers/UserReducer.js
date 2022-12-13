@@ -1,3 +1,4 @@
+import storage from "redux-persist/lib/storage";
 import * as ActionType from "../constants/User";
 
 const INIT_STATE = {

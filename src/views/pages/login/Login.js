@@ -57,11 +57,8 @@ export default function Login() {
           className=" lg:w-96 w-72 bg-white shadow-lg sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
           style={{ backdropFilter: "blur(20px)" }}
         >
-          <div className="px-20 py-10 rounded-md">
+          <div className="px-20 py-32 rounded-md">
             {userProfile.isLoading ? <LoadingSpinner /> : ""}
-            <div className="w-full flex justify-center">
-              <img src={logo} className=" w-32 mb-8" />
-            </div>
             <form method="POST" className="text-xs">
               <h1 className="my-2">Email</h1>
               <input
