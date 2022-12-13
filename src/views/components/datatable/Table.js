@@ -40,6 +40,7 @@ import { doDeleteIqroGuruRequest } from "../../../reduxsaga/actions/IqroGuru";
 import { doDeleteAlquranGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
 import { doDeleteMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 import moment from "moment";
+import Modal from "../modal/Modal";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -133,6 +134,17 @@ export function tanggalcustom({ value }) {
 
 export function ButtonLinkRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
+
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const { userProfile } = useSelector((state) => state.userState);
 
   const dispatch = useDispatch();
@@ -140,6 +152,7 @@ export function ButtonLinkRumahTahfidz({ value }) {
   const onDelete = async (id) => {
     dispatch(doDeleteRumahTahfidzRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   return (
@@ -159,11 +172,14 @@ export function ButtonLinkRumahTahfidz({ value }) {
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
           <button
-            onClick={() => onDelete(value)}
+            onClick={tampilkan}
             className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
           >
             <TrashIcon className="lg:w-5 sm:w-2" />
           </button>
+          {showModal && (
+            <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+          )}
         </div>
       ) : (
         <div className="flex">
@@ -217,14 +233,26 @@ export function ButtonLinkListRumahTahfidz({ value }) {
 }
 
 export function ButtonLinkMasterRumahTahfidz({ value }) {
+  console.log(value);
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const dispatch = useDispatch();
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteMasterPondokRequest(id));
+  const onDelete = (e) => {
+    dispatch(doDeleteMasterPondokRequest(e));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   return (
@@ -251,11 +279,14 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
           <button
-            onClick={() => onDelete(value)}
+            onClick={tampilkan}
             className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
           >
             <TrashIcon className="lg:w-5 sm:w-2" />
           </button>
+          {showModal && (
+            <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+          )}
         </div>
       ) : (
         <div className="flex">
@@ -274,12 +305,23 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
 export function ButtonLinkSantri({ value }) {
   const status = value ? value.toLowerCase() : "";
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userState);
 
   const onDelete = async (id) => {
     dispatch(doDeleteSantriRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   return (
@@ -300,10 +342,13 @@ export function ButtonLinkSantri({ value }) {
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
           <button
-            onClick={() => onDelete(value)}
+            onClick={tampilkan}
             className="px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
           >
             <TrashIcon className="lg:w-5 sm:w-2" />
+            {showModal && (
+              <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+            )}
           </button>
         </div>
       ) : (
@@ -322,12 +367,23 @@ export function ButtonLinkSantri({ value }) {
 export function ButtonLinkGuru({ value }) {
   const status = value ? value.toLowerCase() : "";
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userState);
 
   const onDelete = async (id) => {
     dispatch(doDeleteGuruRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   return (
@@ -348,11 +404,14 @@ export function ButtonLinkGuru({ value }) {
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
           <button
-            onClick={() => onDelete(value)}
+            onClick={tampilkan}
             className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
           >
             <TrashIcon className="lg:w-5 sm:w-2" />
           </button>
+          {showModal && (
+            <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+          )}
         </div>
       ) : (
         <div className="flex">
@@ -371,12 +430,23 @@ export function ButtonLinkGuru({ value }) {
 export function ButtonLinkUser({ value }) {
   const status = value ? value.toLowerCase() : "";
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userState);
 
   const onDelete = async (id) => {
     dispatch(doDeleteUserRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   return (
@@ -394,11 +464,14 @@ export function ButtonLinkUser({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
+      {showModal && (
+        <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+      )}
     </div>
   );
 }
@@ -422,12 +495,20 @@ export function ButtonLinkIqroList({ value }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const onDelete = async (id) => {
     dispatch(doDeleteIqroSantriRequest(id));
     toast.success("Data berhasil dihapus...");
-    setTimeout(() => {
-      navigate("/dataiqrosantri", { state: { refresh: true } });
-    }, 3000);
+    setShowModal(false);
   };
 
   const status = value;
@@ -441,10 +522,13 @@ export function ButtonLinkIqroList({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
+        {showModal && (
+          <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+        )}
       </button>
     </div>
   );
@@ -453,9 +537,20 @@ export function ButtonLinkIqroList({ value }) {
 export function ButtonLinkSurahPendekList({ value }) {
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const onDelete = async (id) => {
     dispatch(doDeleteSurahPendekSantriRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   const status = value;
@@ -469,10 +564,13 @@ export function ButtonLinkSurahPendekList({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
+        {showModal && (
+          <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+        )}
       </button>
     </div>
   );
@@ -481,9 +579,20 @@ export function ButtonLinkSurahPendekList({ value }) {
 export function ButtonLinkAlquranList({ value }) {
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const onDelete = async (id) => {
     dispatch(doDeleteAlquranSantriRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   const status = value;
@@ -497,11 +606,14 @@ export function ButtonLinkAlquranList({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
+      {showModal && (
+        <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+      )}
     </div>
   );
 }
@@ -510,12 +622,19 @@ export function ButtonLinkIqroPengajarList({ value }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const onDelete = async (id) => {
     dispatch(doDeleteIqroGuruRequest(id));
-    toast.success("Data berhasil dihapus...");
-    setTimeout(() => {
-      navigate("/dataiqroguru");
-    }, 3000);
+    setShowModal(false);
   };
 
   const status = value;
@@ -529,11 +648,14 @@ export function ButtonLinkIqroPengajarList({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
+      {showModal && (
+        <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+      )}
     </div>
   );
 }
@@ -541,9 +663,20 @@ export function ButtonLinkIqroPengajarList({ value }) {
 export function ButtonLinkSurahPendekGuruList({ value }) {
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const onDelete = async (id) => {
     dispatch(doDeleteSurahPendekSantriRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   const status = value;
@@ -557,11 +690,14 @@ export function ButtonLinkSurahPendekGuruList({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
+      {showModal && (
+        <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+      )}
     </div>
   );
 }
@@ -569,9 +705,20 @@ export function ButtonLinkSurahPendekGuruList({ value }) {
 export function ButtonLinkAlquranGuruList({ value }) {
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
+
   const onDelete = async (id) => {
     dispatch(doDeleteAlquranGuruRequest(id));
     toast.success("Data berhasil dihapus...");
+    setShowModal(false);
   };
 
   const status = value;
@@ -585,11 +732,14 @@ export function ButtonLinkAlquranGuruList({ value }) {
         <PencilIcon className="lg:w-5 sm:w-2" />
       </Link>
       <button
-        onClick={() => onDelete(value)}
+        onClick={tampilkan}
         className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
       >
         <TrashIcon className="lg:w-5 sm:w-2" />
       </button>
+      {showModal && (
+        <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
+      )}
     </div>
   );
 }

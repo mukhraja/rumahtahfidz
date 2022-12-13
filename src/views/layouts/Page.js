@@ -32,6 +32,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { doSignoutRequest } from "../../reduxsaga/actions/User";
 import config from "../../reduxsaga/config/config";
+import Modal from "../components/modal/Modal";
+import ModalLogout from "../components/modal/ModalLogout";
 
 export const Page = (props) => {
   const [active, setActive] = useState(false);
@@ -39,8 +41,18 @@ export const Page = (props) => {
   const [laporan, setLaporan] = useState(false);
   const [subHafalan, setSubHafalan] = useState(false);
   const [subHafalana, setSubHafalana] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const tampilkan = () => {
+    setShowModal(!showModal);
+  };
+
+  const tutupkan = () => {
+    setShowModal(false);
+  };
 
   const { userProfile } = useSelector((state) => state.userState);
 
@@ -657,12 +669,15 @@ export const Page = (props) => {
               <li className="my-px">
                 <div
                   className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-red-700 cursor-pointer"
-                  onClick={onSignOut}
+                  onClick={tampilkan}
                 >
                   <span className="text-lg">
                     <LockOpenIcon className="w-5" />
                   </span>
                   <span className="ml-3 font-semibold">Logout</span>
+                  {showModal && (
+                    <ModalLogout onCancel={tutupkan} onDelete={onSignOut} />
+                  )}
                 </div>
               </li>
             </ul>
