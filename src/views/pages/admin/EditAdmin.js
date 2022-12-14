@@ -119,17 +119,18 @@ const EditAdmin = () => {
 
   return (
     <div className="">
-      <form method="PUT" action="#">
-        <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-          <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
-            Edit Pengguna
-          </h1>
-          <img
-            src={photo}
-            className="rounded-full bg-white bg-cover w-20 h-20 shadow-md"
-          />
-        </div>
-        <div className="m-4 bg-white p-4 rounded-md font-poppins">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
+          Edit Pengguna
+        </h1>
+        <img
+          src={photo}
+          className="rounded-full bg-white bg-cover w-20 h-20 shadow-md"
+        />
+      </div>
+
+      <div className="m-4 bg-white p-4 rounded-md font-poppins">
+        <form method="PUT" action="#">
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
             <input
@@ -322,28 +323,28 @@ const EditAdmin = () => {
               </div>
             </div>
           </div>
+        </form>
 
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
-          </div>
-
-          <div>
-            <button
-              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="submit"
-              onClick={formik.handleSubmit}
-            >
-              SIMPAN
-            </button>
-            <button
-              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() => navigate("/datauser")}
-            >
-              CANCEL
-            </button>
-          </div>
+        <div className="z-30">
+          <ToastContainer autoClose={2000} />
         </div>
-      </form>
+
+        <div>
+          <button
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
+            type="submit"
+            onClick={formik.handleSubmit}
+          >
+            SIMPAN
+          </button>
+          <button
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
+            onClick={() => navigate(-1)}
+          >
+            CANCEL
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

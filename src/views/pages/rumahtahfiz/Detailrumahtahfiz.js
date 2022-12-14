@@ -83,7 +83,7 @@ const Detailrumahtahfiz = () => {
               </button>
               <button
                 className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-                onClick={() => navigate("/datarumahtahfiz")}
+                onClick={() => navigate(-1)}
               >
                 Kembali
               </button>

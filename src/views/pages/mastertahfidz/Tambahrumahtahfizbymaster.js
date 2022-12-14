@@ -360,27 +360,28 @@ const Tambahrumahtahfizbymaster = () => {
               </div>
             </div>
           </div>
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
-          </div>
-
-          {/*  */}
-          <div>
-            <button
-              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="button"
-              onClick={formik.handleSubmit}
-            >
-              SIMPAN
-            </button>
-            <button
-              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() => navigate("/datarumahtahfiz")}
-            >
-              CANCEL
-            </button>
-          </div>
         </form>
+
+        <div className="z-30">
+          <ToastContainer autoClose={2000} />
+        </div>
+
+        {/*  */}
+        <div>
+          <button
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
+            type="button"
+            onClick={formik.handleSubmit}
+          >
+            SIMPAN
+          </button>
+          <button
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
+            onClick={() => navigate(-1)}
+          >
+            CANCEL
+          </button>
+        </div>
       </div>
     </div>
   );

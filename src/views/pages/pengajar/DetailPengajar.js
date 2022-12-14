@@ -80,7 +80,11 @@ const DetailPengajar = () => {
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Mulai Vakum</h1>
               <h1 className="block lg:col-span-2 col-span-4">
-                <Moment format="DD - MMMM - YYYY">{e.mulai_vakum}</Moment>
+                {e.mulai_vakum == null ? (
+                  ""
+                ) : (
+                  <Moment format="DD - MMMM - YYYY">{e.mulai_vakum}</Moment>
+                )}
               </h1>
             </div>
 

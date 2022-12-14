@@ -128,8 +128,12 @@ export function StatusPill({ value }) {
 }
 
 export function tanggalcustom({ value }) {
-  const tgl = moment(value).format("DD-MM-YYYY");
-  return <span className="text-gray-500">{tgl}</span>;
+  if (value != null) {
+    const tgl = moment(value).format("DD-MM-YYYY");
+    return <span className="text-gray-500">{tgl}</span>;
+  } else {
+    return <span className=" text-gray-500"></span>;
+  }
 }
 
 export function ButtonLinkRumahTahfidz({ value }) {

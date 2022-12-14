@@ -158,14 +158,15 @@ const Editrumahtahfiz = () => {
 
   return (
     <div className="">
-      <form method="POST" action="#">
-        <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-          <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
-            Edit Rumah Tahfidz
-          </h1>
-          <img src={previewLogo} className=" bg-cover w-20 h-20" />
-        </div>
-        <div className="m-4 bg-white p-4 rounded-md font-poppins">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
+        <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
+          Edit Rumah Tahfidz
+        </h1>
+        <img src={previewLogo} className=" bg-cover w-20 h-20" />
+      </div>
+
+      <div className="m-4 bg-white p-4 rounded-md font-poppins">
+        <form method="POST" action="#">
           <div className="grid grid-cols-8 my-2 text-xs">
             <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
             <input
@@ -372,24 +373,23 @@ const Editrumahtahfiz = () => {
           <div className="z-30">
             <ToastContainer autoClose={2000} />
           </div>
-
-          <div>
-            <button
-              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="submit"
-              onClick={formik.handleSubmit}
-            >
-              SIMPAN
-            </button>
-            <button
-              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() => navigate("/datarumahtahfiz")}
-            >
-              CANCEL
-            </button>
-          </div>
+        </form>
+        <div>
+          <button
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
+            type="submit"
+            onClick={formik.handleSubmit}
+          >
+            SIMPAN
+          </button>
+          <button
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
+            onClick={() => navigate(-1)}
+          >
+            CANCEL
+          </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

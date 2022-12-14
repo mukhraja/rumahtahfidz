@@ -12,7 +12,11 @@ import {
   doUpdateRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
 import config from "../../../reduxsaga/config/config";
-import { doGetMasterPondokByIdRequest } from "../../../reduxsaga/actions/Masterpondok";
+import {
+  doGetMasterPondokByIdRequest,
+  doUpdateMasterPondokRequest,
+  doUpdateNoFIleMasterPondokRequest,
+} from "../../../reduxsaga/actions/Masterpondok";
 
 const Editmastertahfidz = () => {
   const { id } = useParams();
@@ -114,7 +118,7 @@ const Editmastertahfidz = () => {
         payload.append("logo", values.logo);
         payload.append("photo", values.photo);
         payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
+        dispatch(doUpdateMasterPondokRequest(payload));
         toast.success("Data berhasil diupdate...");
         // setTimeout(() => {
         //   navigate("/datarumahtahfiz");
@@ -128,7 +132,7 @@ const Editmastertahfidz = () => {
         payload.append("chief", values.chief);
         payload.append("photo", values.photo);
         payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
+        dispatch(doUpdateMasterPondokRequest(payload));
         toast.success("Data berhasil diupdate...");
       } else if (uploadLogo === true) {
         let payload = new FormData();
@@ -139,7 +143,7 @@ const Editmastertahfidz = () => {
         payload.append("chief", values.chief);
         payload.append("logo", values.logo);
         payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
+        dispatch(doUpdateMasterPondokRequest(payload));
         toast.success("Data berhasil diupdate...");
       } else {
         const payload = {
@@ -150,7 +154,7 @@ const Editmastertahfidz = () => {
           telephone: values.telephone,
           chief: values.chief,
         };
-        dispatch(doUpdateNoFIleRumahTahfidzRequest(payload));
+        dispatch(doUpdateNoFIleMasterPondokRequest(payload));
         toast.success("Data berhasil diupdate...");
       }
     },

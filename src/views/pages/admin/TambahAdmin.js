@@ -350,7 +350,7 @@ const TambahAdmin = () => {
             <button
               className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
               onClick={() =>
-                navigate("/datauser", { state: { refresh: true } })
+                navigate("/dataadmin", { state: { refresh: true } })
               }
             >
               KEMBALI

@@ -81,23 +81,14 @@ const TambahSantri = () => {
       payload.append("name", values.name);
       payload.append("nis", values.nis);
       payload.append("tempat", values.tempat);
-      payload.append(
-        "datebirth",
-        moment(values.datebirth).format("YYYY-MM-DD")
-      );
+      payload.append("datebirth", values.datebirth);
       payload.append("gender", values.gender);
       payload.append("address", values.address);
       payload.append("ayah", values.ayah);
       payload.append("ibu", values.ibu);
       payload.append("telephone", values.telephone);
-      payload.append(
-        "mulai_masuk",
-        moment(values.mulai_masuk).format("YYYY/MM/DD")
-      );
-      payload.append(
-        "mulai_masuk",
-        moment(values.mulai_vakum).format("YYYY/MM/DD")
-      );
+      payload.append("mulai_masuk", values.mulai_masuk);
+      payload.append("mulai_masuk", values.mulai_vakum);
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);
 
@@ -105,9 +96,9 @@ const TambahSantri = () => {
 
       toast.success("Data berhasil ditambahkan...");
 
-      setTimeout(() => {
-        navigate("/datasantri", { state: { refresh: true } });
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/datasantri", { state: { refresh: true } });
+      // }, 3000);
     },
   });
 

@@ -65,9 +65,6 @@ const EditSantri = () => {
     mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
     ),
-    mulai_vakum: Yup.string("Pilih Tanggal Vakum").required(
-      "Pilih Tanggal Vakum"
-    ),
     pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
     photo: Yup.string("Masukkan nama ibu").required("Upload Photo"),
   });
@@ -135,9 +132,9 @@ const EditSantri = () => {
         };
         dispatch(doUpdateNoFIleSantriRequest(payload));
         toast.success("Data berhasil diupdate...");
-        setTimeout(() => {
-          navigate("/datasantri");
-        }, 3000);
+        // setTimeout(() => {
+        //   navigate("/datasantri");
+        // }, 3000);
       }
     },
   });

@@ -51,9 +51,6 @@ const TambahPengajar = () => {
     mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
     ),
-    mulai_vakum: Yup.string("Pilih Tanggal Vakum").required(
-      "Pilih Tanggal Vakum"
-    ),
     pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
     photo: Yup.string("Masukkan nama ibu").required("Upload Photo"),
   });
@@ -81,23 +78,14 @@ const TambahPengajar = () => {
       payload.append("name", values.name);
       payload.append("niu", values.niu);
       payload.append("tempat", values.tempat);
-      payload.append(
-        "datebirth",
-        moment(values.datebirth).format("YYYY-MM-DD")
-      );
+      payload.append("datebirth", values.datebirth);
       payload.append("gender", values.gender);
       payload.append("telephone", values.telephone);
       payload.append("address", values.address);
       payload.append("ayah", values.ayah);
       payload.append("ibu", values.ibu);
-      payload.append(
-        "mulai_masuk",
-        moment(values.mulai_masuk).format("YYYY-MM-DD")
-      );
-      payload.append(
-        "mulai_vakum",
-        moment(values.mulai_vakum).format("YYYY-MM-DD")
-      );
+      payload.append("mulai_masuk", values.mulai_masuk);
+      payload.append("mulai_vakum", values.mulai_vakum);
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);
 
