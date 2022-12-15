@@ -204,7 +204,7 @@ const Tambahrumahtahfiz = () => {
               </span>
             ) : null}
           </div>
-          <div className="grid grid-cols-8 my-2">
+          {/* <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
             <select
               name="pondokId"
@@ -227,7 +227,7 @@ const Tambahrumahtahfiz = () => {
                 {formik.errors.pondokId}
               </span>
             ) : null}
-          </div>
+          </div> */}
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Logo
