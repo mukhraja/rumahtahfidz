@@ -175,12 +175,16 @@ export function ButtonLinkRumahTahfidz({ value }) {
           >
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
-          <button
-            onClick={tampilkan}
-            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
-          >
-            <TrashIcon className="lg:w-5 sm:w-2" />
-          </button>
+          {status == "96f95aea-ef38-4623-82af-979c383bbb35" ? (
+            ""
+          ) : (
+            <button
+              onClick={tampilkan}
+              className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+            >
+              <TrashIcon className="lg:w-5 sm:w-2" />
+            </button>
+          )}
           {showModal && (
             <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
           )}
@@ -236,12 +240,17 @@ export function ButtonLinkListRumahTahfidz({ value }) {
         >
           <PencilIcon className="lg:w-5 sm:w-2" />
         </Link>
-        <button
-          onClick={tampilkan}
-          className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
-        >
-          <TrashIcon className="lg:w-5 sm:w-2" />
-        </button>
+
+        {status == "96f95aea-ef38-4623-82af-979c383bbb35" ? (
+          ""
+        ) : (
+          <button
+            onClick={tampilkan}
+            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <TrashIcon className="lg:w-5 sm:w-2" />
+          </button>
+        )}
 
         {showModal && (
           <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
@@ -252,7 +261,6 @@ export function ButtonLinkListRumahTahfidz({ value }) {
 }
 
 export function ButtonLinkMasterRumahTahfidz({ value }) {
-  console.log(value);
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
 
@@ -297,12 +305,16 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
           >
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
-          <button
-            onClick={tampilkan}
-            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
-          >
-            <TrashIcon className="lg:w-5 sm:w-2" />
-          </button>
+          {status == "96f95aea-ef38-4623-82af-979c383bbb01" ? (
+            ""
+          ) : (
+            <button
+              onClick={tampilkan}
+              className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+            >
+              <TrashIcon className="lg:w-5 sm:w-2" />
+            </button>
+          )}
           {showModal && (
             <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
           )}
