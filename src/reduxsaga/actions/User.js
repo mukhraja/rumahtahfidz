@@ -134,6 +134,22 @@ export const doCreateUserFailed = (payload) => ({
   payload,
 });
 
+// CREATE USER SANTRI
+export const doCreateUserSantriRequest = (payload) => ({
+  type: ActionType.CREATE_USERSANTRI_REQUEST,
+  payload,
+});
+
+export const doCreateUserSantriSucceed = (payload) => ({
+  type: ActionType.CREATE_USERSANTRI_SUCCEED,
+  payload,
+});
+
+export const doCreateUserSantriFailed = (payload) => ({
+  type: ActionType.CREATE_USERSANTRI_FAILED,
+  payload,
+});
+
 // CREATE NO FILE
 export const doCreateUserNoFileRequest = (payload) => ({
   type: ActionType.CREATE_USER_NOFILE_REQUEST,

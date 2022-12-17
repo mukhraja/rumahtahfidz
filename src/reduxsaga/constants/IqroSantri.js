@@ -32,6 +32,12 @@ export const GET_BY_MASTERTAHFIDZ_IQROSANTRI_SUCCEED =
 export const GET_BY_MASTERTAHFIDZ_IQROSANTRI_FAILED =
   "iqrosantri/getbyrumahtahfidz/failed";
 
+export const GET_BY_USERID_IQROSANTRI_REQUEST =
+  "iqrosantri/getbyuserid/request";
+export const GET_BY_USERID_IQROSANTRI_SUCCEED =
+  "iqrosantri/getbyuserid/succeed";
+export const GET_BY_USERID_IQROSANTRI_FAILED = "iqrosantri/getbyuserid/failed";
+
 export const UPDATE_IQROSANTRI_REQUEST = "iqrosantri/update/request";
 export const UPDATE_IQROSANTRI_SUCCEED = "iqrosantri/update/succeed";
 export const UPDATE_IQROSANTRI_FAILED = "iqrosantri/update/failed";

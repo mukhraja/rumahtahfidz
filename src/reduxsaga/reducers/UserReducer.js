@@ -199,7 +199,7 @@ const applyGetUserSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: payload.data,
+    userdata: [...payload.data],
   };
 };
 
@@ -207,7 +207,7 @@ const applyGetByAdminUserSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: payload.data,
+    userdata: [...payload.data],
   };
 };
 

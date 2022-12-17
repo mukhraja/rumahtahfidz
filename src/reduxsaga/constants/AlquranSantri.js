@@ -32,6 +32,13 @@ export const GET_BY_MASTERTAHFIDZ_ALQURANSANTRI_SUCCEED =
 export const GET_BY_MASTERTAHFIDZ_ALQURANSANTRI_FAILED =
   "alquransantri/getbymastertahfidz/failed";
 
+export const GET_BY_USERID_ALQURANSANTRI_REQUEST =
+  "alquransantri/getbyuserid/request";
+export const GET_BY_USERID_ALQURANSANTRI_SUCCEED =
+  "alquransantri/getbyuserid/succeed";
+export const GET_BY_USERID_ALQURANSANTRI_FAILED =
+  "alquransantri/getbyuserid/failed";
+
 export const UPDATE_ALQURANSANTRI_REQUEST = "alquransantri/update/request";
 export const UPDATE_ALQURANSANTRI_SUCCEED = "alquransantri/update/succeed";
 export const UPDATE_ALQURANSANTRI_FAILED = "alquransantri/update/failed";

@@ -31,6 +31,7 @@ import {
   handleGetByIdSantri,
   handleGetByMasterTahfidzSantri,
   handleGetByRumahTahfidzSantri,
+  handleGetByUserSantri,
   handleGetSantri,
   handleUpdateNoFileSantri,
   handleUpdateSantri,
@@ -51,6 +52,7 @@ import {
   handleGetByIdIqroSantri,
   handleGetByMasterTahfidzIqroSantri,
   handleGetByRumahTahfidzIqroSantri,
+  handleGetByUserIdIqroSantri,
   handleGetIqroAwalSantri,
   handleGetIqroSantri,
   handleUpdateIqroSantri,
@@ -61,6 +63,7 @@ import {
   handleGetByIdSurahPendekSantri,
   handleGetByMasterTahfidzSurahPendekSantri,
   handleGetByRumahTahfidzSurahPendekSantri,
+  handleGetByUserIdSurahPendekSantri,
   handleGetSurahPendekAwalSantri,
   handleGetSurahPendekSantri,
   handleUpdateSurahPendekSantri,
@@ -74,6 +77,7 @@ import {
   handleUpdateAlquranSantri,
   handleGetByRumahTahfidzAlquranSantri,
   handleGetByMasterTahfidzAlquranSantri,
+  handleGetByUserIdAlquranSantri,
 } from "./AlquranSaga";
 import {
   handleSignup,
@@ -212,6 +216,10 @@ function* watchAll() {
       ActionTypeSantri.GET_BY_MASTERTAHFIDZ_SANTRI_REQUEST,
       handleGetByMasterTahfidzSantri
     ),
+    takeEvery(
+      ActionTypeSantri.GET_BY_USER_SANTRI_REQUEST,
+      handleGetByUserSantri
+    ),
     takeEvery(ActionTypeSantri.CREATE_SANTRI_REQUEST, handleCreateSantri),
     takeEvery(ActionTypeSantri.UPDATE_SANTRI_REQUEST, handleUpdateSantri),
     takeEvery(
@@ -252,6 +260,10 @@ function* watchAll() {
       handleGetByMasterTahfidzIqroSantri
     ),
     takeEvery(
+      ActionTypeIqroSantri.GET_BY_USERID_IQROSANTRI_REQUEST,
+      handleGetByUserIdIqroSantri
+    ),
+    takeEvery(
       ActionTypeIqroSantri.GET_IQROSANTRIAWAL_REQUEST,
       handleGetIqroAwalSantri
     ),
@@ -285,6 +297,10 @@ function* watchAll() {
       handleGetByMasterTahfidzSurahPendekSantri
     ),
     takeEvery(
+      ActionTypeSurahPendekSantri.GET_BY_USERID_SURAHPENDEKSANTRI_REQUEST,
+      handleGetByUserIdSurahPendekSantri
+    ),
+    takeEvery(
       ActionTypeSurahPendekSantri.GET_SURAHPENDEKSANTRIAWAL_REQUEST,
       handleGetSurahPendekAwalSantri
     ),
@@ -312,6 +328,10 @@ function* watchAll() {
     takeEvery(
       ActionTypeAlquranSantri.GET_BY_RUMAHTAHFIDZ_ALQURANSANTRI_REQUEST,
       handleGetByRumahTahfidzAlquranSantri
+    ),
+    takeEvery(
+      ActionTypeAlquranSantri.GET_BY_USERID_ALQURANSANTRI_REQUEST,
+      handleGetByUserIdAlquranSantri
     ),
     takeEvery(
       ActionTypeAlquranSantri.GET_BY_MASTERTAHFIDZ_ALQURANSANTRI_REQUEST,

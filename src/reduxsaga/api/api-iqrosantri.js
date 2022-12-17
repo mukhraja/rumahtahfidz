@@ -79,6 +79,16 @@ const getiqromastertahfidz = async (payload) => {
   }
 };
 
+// GET IQRO BY user id
+const getiqrobyuserid = async (payload) => {
+  try {
+    const result = await axios.get(`${config.domain}/iqro/byuser/${payload}`);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // UPDATE
 const updateiqro = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -113,4 +123,5 @@ export default {
   deleteiqro,
   getiqrorumahtahfidz,
   getiqromastertahfidz,
+  getiqrobyuserid,
 };

@@ -40,6 +40,10 @@ export const CREATE_USER_REQUEST = "user/create/request";
 export const CREATE_USER_SUCCEED = "user/create/succeed";
 export const CREATE_USER_FAILED = "user/create/failed";
 
+export const CREATE_USERSANTRI_REQUEST = "user/createusersantri/request";
+export const CREATE_USERSANTRI_SUCCEED = "user/createusersantri/succeed";
+export const CREATE_USERSANTRI_FAILED = "user/createusersantri/failed";
+
 export const CREATE_USER_NOFILE_REQUEST = "user/createnofile/request";
 export const CREATE_USER_NOFILE_SUCCEED = "user/createnofile/succeed";
 export const CREATE_USER_NOFILE_FAILED = "user/createnofile/failed";

@@ -5,6 +5,7 @@ import {
   doGetSurahPendekAwalSantriRequest,
   doGetSurahPendekSantriByMasterTahfidzRequest,
   doGetSurahPendekSantriByRumahTahfidzRequest,
+  doGetSurahPendekSantriByUserIdRequest,
 } from "../../../reduxsaga/actions/SurahPendekSantri";
 import Table, {
   AvatarCell,
@@ -29,6 +30,8 @@ const SurahPendek = () => {
       dispatch(
         doGetSurahPendekSantriByMasterTahfidzRequest(userProfile.masterpondokId)
       );
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      dispatch(doGetSurahPendekSantriByUserIdRequest(userProfile.userId));
     } else {
       dispatch(
         doGetSurahPendekSantriByRumahTahfidzRequest(userProfile.pondokId)

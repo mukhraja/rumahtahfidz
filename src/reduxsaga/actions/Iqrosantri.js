@@ -79,6 +79,22 @@ export const doGetIqroSantriByMasterTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY USER ID
+export const doGetIqroSantriByUserIdRequest = (payload) => ({
+  type: ActionType.GET_BY_USERID_IQROSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetIqroSantriByUserIdSucced = (payload) => ({
+  type: ActionType.GET_BY_USERID_IQROSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetIqroSantriByUserIdFailed = (payload) => ({
+  type: ActionType.GET_BY_USERID_IQROSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateIqroSantriRequest = (payload) => ({
   type: ActionType.CREATE_IQROSANTRI_REQUEST,

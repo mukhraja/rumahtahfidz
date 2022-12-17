@@ -15,6 +15,9 @@ import {
   doGetSurahPendekSantriByMasterTahfidzSucceed,
   doGetSurahPendekSantriByRumahTahfidzFailed,
   doGetSurahPendekSantriByRumahTahfidzSucceed,
+  doGetSurahPendekSantriByUserIdFailed,
+  doGetSurahPendekSantriByUserIdRequest,
+  doGetSurahPendekSantriByUserIdSucceed,
   doGetSurahPendekSantriFailed,
   doGetSurahPendekSantriSucceed,
   doUpdateSurahPendekSantriFailed,
@@ -94,6 +97,22 @@ function* handleGetByMasterTahfidzSurahPendekSantri(action) {
   }
 }
 
+// GET BY SURAH PENDEK
+function* handleGetByUserIdSurahPendekSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(
+      apiSurahpendeksantri.getsurahpendekbyuserid,
+      payload
+    );
+    yield put(doGetSurahPendekSantriByUserIdSucceed(result));
+  } catch (error) {
+    yield put(doGetSurahPendekSantriByUserIdFailed(error));
+  }
+}
+
 // SANTRI
 function* handleCreateSurahPendekSantri(action) {
   console.log("sudah sampai di middleware");
@@ -144,4 +163,5 @@ export {
   handleUpdateSurahPendekSantri,
   handleGetByRumahTahfidzSurahPendekSantri,
   handleGetByMasterTahfidzSurahPendekSantri,
+  handleGetByUserIdSurahPendekSantri,
 };

@@ -50,3 +50,10 @@ export const GET_BY_MASTERTAHFIDZ_SURAHPENDEKSANTRI_SUCCEED =
   "surahpendeksantri/getbymastertahfidz/succeed";
 export const GET_BY_MASTERTAHFIDZ_SURAHPENDEKSANTRI_FAILED =
   "surahpendeksantri/getbymastertahfidz/failed";
+
+export const GET_BY_USERID_SURAHPENDEKSANTRI_REQUEST =
+  "surahpendeksantri/getbyuserid/request";
+export const GET_BY_USERID_SURAHPENDEKSANTRI_SUCCEED =
+  "surahpendeksantri/getbyuserid/succeed";
+export const GET_BY_USERID_SURAHPENDEKSANTRI_FAILED =
+  "surahpendeksantri/getbyuserid/failed";

@@ -63,6 +63,22 @@ export const doGetSantriByMasterTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY
+export const doGetSantriByUserIdRequest = (payload) => ({
+  type: ActionType.GET_BY_USER_SANTRI_REQUEST,
+  payload,
+});
+
+export const doGetSantriByUserIdSucceed = (payload) => ({
+  type: ActionType.GET_BY_USER_SANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetSantriByUserIdFailed = (payload) => ({
+  type: ActionType.GET_BY_USER_SANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateSantriRequest = (payload) => ({
   type: ActionType.CREATE_SANTRI_REQUEST,

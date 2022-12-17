@@ -22,6 +22,9 @@ import {
   doGetSantriByMasterTahfidzRequest,
   doGetSantriByMasterTahfidzSucceed,
   doGetSantriByMasterTahfidzFailed,
+  doGetSantriByUserIdRequest,
+  doGetSantriByUserIdSucceed,
+  doGetSantriByUserIdFailed,
 } from "../actions/Santri";
 import apiSantri from "../api/api-santri";
 
@@ -73,6 +76,19 @@ function* handleGetByMasterTahfidzSantri(action) {
     yield put(doGetSantriByMasterTahfidzSucceed(result));
   } catch (error) {
     yield put(doGetSantriByMasterTahfidzFailed(error));
+  }
+}
+
+// GET BY USER ID
+function* handleGetByUserSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiSantri.getsantribyuserid, payload);
+    yield put(doGetSantriByUserIdSucceed(result));
+  } catch (error) {
+    yield put(doGetSantriByUserIdFailed(error));
   }
 }
 
@@ -140,4 +156,5 @@ export {
   handleUpdateNoFileSantri,
   handleGetByRumahTahfidzSantri,
   handleGetByMasterTahfidzSantri,
+  handleGetByUserSantri,
 };

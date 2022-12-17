@@ -79,6 +79,22 @@ export const doGetAlquranSantriByMasterTahfidzFailed = (payload) => ({
   payload,
 });
 
+// GET BY USER ID
+export const doGetAlquranSantriByUserIdRequest = (payload) => ({
+  type: ActionType.GET_BY_USERID_ALQURANSANTRI_REQUEST,
+  payload,
+});
+
+export const doGetAlquranSantriByUserIdSucceed = (payload) => ({
+  type: ActionType.GET_BY_USERID_ALQURANSANTRI_SUCCEED,
+  payload,
+});
+
+export const doGetAlquranSantriByUserIdFailed = (payload) => ({
+  type: ActionType.GET_BY_USERID_ALQURANSANTRI_FAILED,
+  payload,
+});
+
 // CREATE
 export const doCreateAlquranSantriRequest = (payload) => ({
   type: ActionType.CREATE_ALQURANSANTRI_REQUEST,

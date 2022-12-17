@@ -73,6 +73,19 @@ function* handleGetByMasterTahfidzAlquranSantri(action) {
   }
 }
 
+// GET BY Alquran Santri
+function* handleGetByUserIdAlquranSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiAlquransantri.getalquranbyuserid, payload);
+    yield put(All.doGetAlquranSantriByUserIdSucceed(result));
+  } catch (error) {
+    yield put(All.doGetAlquranSantriByUserIdFailed(error));
+  }
+}
+
 // SANTRI
 function* handleCreateAlquranSantri(action) {
   console.log("sudah sampai di middleware");
@@ -123,4 +136,5 @@ export {
   handleUpdateAlquranSantri,
   handleGetByRumahTahfidzAlquranSantri,
   handleGetByMasterTahfidzAlquranSantri,
+  handleGetByUserIdAlquranSantri,
 };

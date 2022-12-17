@@ -16,6 +16,8 @@ import {
   doGetIqroSantriByMasterTahfidzSucceed,
   doGetIqroSantriByRumahTahfidzFailed,
   doGetIqroSantriByRumahTahfidzSucceed,
+  doGetIqroSantriByUserIdFailed,
+  doGetIqroSantriByUserIdSucced,
   doGetIqroSantriFailed,
   doGetIqroSantriSucceed,
   doUpdateIqroSantriFailed,
@@ -71,6 +73,19 @@ function* handleGetByRumahTahfidzIqroSantri(action) {
     yield put(doGetIqroSantriByRumahTahfidzSucceed(result));
   } catch (error) {
     yield put(doGetIqroSantriByRumahTahfidzFailed(error));
+  }
+}
+
+// GET BY USER ID
+function* handleGetByUserIdIqroSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiIqrosantri.getiqrobyuserid, payload);
+    yield put(doGetIqroSantriByUserIdSucced(result));
+  } catch (error) {
+    yield put(doGetIqroSantriByUserIdFailed(error));
   }
 }
 
@@ -137,4 +152,5 @@ export {
   handleUpdateIqroSantri,
   handleGetByRumahTahfidzIqroSantri,
   handleGetByMasterTahfidzIqroSantri,
+  handleGetByUserIdIqroSantri,
 };

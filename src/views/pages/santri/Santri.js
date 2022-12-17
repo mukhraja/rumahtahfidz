@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   doGetSantriByMasterTahfidzRequest,
   doGetSantriByRumahTahfidzRequest,
+  doGetSantriByUserIdRequest,
   doGetSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
 const Santri = () => {
@@ -24,6 +25,8 @@ const Santri = () => {
       dispatch(doGetSantriRequest());
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
       dispatch(doGetSantriByMasterTahfidzRequest(userProfile.masterpondokId));
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      dispatch(doGetSantriByUserIdRequest(userProfile.userId));
     } else {
       dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
     }

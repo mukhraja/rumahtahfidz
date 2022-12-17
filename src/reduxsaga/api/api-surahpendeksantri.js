@@ -83,6 +83,18 @@ const getsurahpendekmastertahfidz = async (payload) => {
   }
 };
 
+// GET BY SURAH PENDEK BY MASTER TAHFIDZ
+const getsurahpendekbyuserid = async (payload) => {
+  try {
+    const result = await axios.get(
+      `${config.domain}/surahpendek/byuser/${payload}`
+    );
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // UPDATE
 const updatesurahpendek = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -122,4 +134,5 @@ export default {
   deletesurahpendek,
   getsurahpendekrumahtahfidz,
   getsurahpendekmastertahfidz,
+  getsurahpendekbyuserid,
 };

@@ -5,6 +5,7 @@ import {
   doGetAlquranAwalSantriRequest,
   doGetAlquranSantriByMasterTahfidzRequest,
   doGetAlquranSantriByRumahTahfidzRequest,
+  doGetAlquranSantriByUserIdRequest,
 } from "../../../reduxsaga/actions/Alquransantri";
 import Table, {
   AvatarCell,
@@ -29,6 +30,8 @@ const Alquran = () => {
       dispatch(
         doGetAlquranSantriByMasterTahfidzRequest(userProfile.masterpondokId)
       );
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      dispatch(doGetAlquranSantriByUserIdRequest(userProfile.userId));
     } else {
       dispatch(
         dispatch(doGetAlquranSantriByRumahTahfidzRequest(userProfile.pondokId))

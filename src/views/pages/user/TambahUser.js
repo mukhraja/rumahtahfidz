@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import {
   doCreateSantriRequest,
+  doGetSantriByRumahTahfidzRequest,
   doGetSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
 import {
@@ -19,9 +20,29 @@ import {
   doCreateUserRequest,
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
+import { default as ReactSelect } from "react-select";
 import moment from "moment";
+import config from "../../../reduxsaga/config/config";
+import axios from "axios";
+import Select from "react-select";
+import { v4 } from "uuid";
 
 const TambahUser = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const nomorid = v4();
+
+  const { roledata } = useSelector((state) => state.roleState);
+  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
+
+  const [uploaded, setUploaded] = useState(false);
+  const [photo, setPhoto] = useState();
+  const [previewImg, setPreviewImg] = useState();
+  const [selected, setSelected] = useState();
+  const [dropdown, setDropdown] = useState([]);
+
   useEffect(() => {
     dispatch(doGetRoleRequest());
   }, []);
@@ -33,13 +54,6 @@ const TambahUser = () => {
       dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
     }
   }, []);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { roledata } = useSelector((state) => state.roleState);
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
-  const { userProfile } = useSelector((state) => state.userState);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -59,9 +73,10 @@ const TambahUser = () => {
     setPhoto(null);
   };
 
-  const [uploaded, setUploaded] = useState(false);
-  const [photo, setPhoto] = useState();
-  const [previewImg, setPreviewImg] = useState();
+  function handleSelect(data) {
+    console.log(data.map((e) => e.value));
+    setSelected(data);
+  }
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Enter Job Title").required("Title is required"),
@@ -95,6 +110,7 @@ const TambahUser = () => {
       roleId: "",
       photo: "",
       pondokId: "",
+      id: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -113,9 +129,26 @@ const TambahUser = () => {
         payload.append("gender", values.gender);
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
+        payload.append("id", nomorid);
         payload.append("photo", values.photo);
         dispatch(doCreateUserRequest(payload));
-        toast.success("Data berhasil ditambbahkan...");
+
+        selected.map((e) => {
+          console.log(e.value);
+          axios
+            .post(config.domain + "/usersantri/create", {
+              id: nomorid,
+              santri: e.value,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+
+        toast.success("Data berhasil ditambahkan...");
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -142,6 +175,16 @@ const TambahUser = () => {
       }
     },
   });
+
+  useEffect(() => {
+    axios
+      .get(
+        config.domain +
+          "/santri/byrumahtahfidz/dropdown/" +
+          formik.values.pondokId
+      )
+      .then((e) => setDropdown(e.data.data));
+  }, [formik.values.pondokId]);
 
   return (
     <div className="">
@@ -247,6 +290,32 @@ const TambahUser = () => {
               placeholder="Telepon"
             />
           </div>
+
+          <div className="grid grid-cols-8 my-2">
+            <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
+            <select
+              name="pondokId"
+              id="pondokId"
+              value={formik.values.pondokId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              autoComplete="pondokId"
+              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+            >
+              <option value="" selected disabled hidden>
+                Pilih Rumah Tahfidz
+              </option>
+              {rumahtahfidzdata.map((e) => (
+                <option value={e.id}>{e.name}</option>
+              ))}
+            </select>
+            {formik.touched.pondokId && formik.errors.pondokId ? (
+              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                {formik.errors.pondokId}
+              </span>
+            ) : null}
+          </div>
+
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Role</h1>
             <select
@@ -272,30 +341,20 @@ const TambahUser = () => {
               )}
             </select>
           </div>
+
           <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
-            <select
-              name="pondokId"
-              id="pondokId"
-              value={formik.values.pondokId}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              autoComplete="pondokId"
-              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-            >
-              <option value="" selected disabled hidden>
-                Pilih Rumah Tahfidz
-              </option>
-              {rumahtahfidzdata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
-            </select>
-            {formik.touched.pondokId && formik.errors.pondokId ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.pondokId}
-              </span>
-            ) : null}
+            <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
+            <Select
+              className="block lg:col-span-2 col-span-4"
+              onChange={handleSelect}
+              isSearchable={true}
+              options={dropdown}
+              value={selected}
+              placeholder="Pilih Santri"
+              isMulti
+            />
           </div>
+
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Photo

@@ -81,6 +81,18 @@ const getalquranmastertahfidz = async (payload) => {
   }
 };
 
+// GETBYUSERID
+const getalquranbyuserid = async (payload) => {
+  try {
+    const result = await axios.get(
+      `${config.domain}/alquran/byuser/${payload}`
+    );
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // UPDATE
 const updatealquran = async (payload) => {
   console.log("SAMPAI DISINI");
@@ -115,4 +127,5 @@ export default {
   deletealquran,
   getalquranrumahtahfidz,
   getalquranmastertahfidz,
+  getalquranbyuserid,
 };

@@ -7,6 +7,7 @@ import {
   doGetIqroAwalSantriRequest,
   doGetIqroSantriByMasterTahfidzRequest,
   doGetIqroSantriByRumahTahfidzRequest,
+  doGetIqroSantriByUserIdRequest,
   doGetIqroSantriRequest,
 } from "../../../reduxsaga/actions/Iqrosantri";
 import Table, {
@@ -103,6 +104,8 @@ const Iqro = () => {
       dispatch(
         doGetIqroSantriByMasterTahfidzRequest(userProfile.masterpondokId)
       );
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      dispatch(doGetIqroSantriByUserIdRequest(userProfile.userId));
     } else {
       dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId));
     }

@@ -28,6 +28,10 @@ export const GET_BY_MASTERTAHFIDZ_SANTRI_SUCCEED =
 export const GET_BY_MASTERTAHFIDZ_SANTRI_FAILED =
   "santri/getmastertahfidz/failed";
 
+export const GET_BY_USER_SANTRI_REQUEST = "santri/getbyusersantri/request";
+export const GET_BY_USER_SANTRI_SUCCEED = "santri/getbyusersantri/succeed";
+export const GET_BY_USER_SANTRI_FAILED = "santri/getbyusersantri/failed";
+
 export const UPDATE_SANTRI_REQUEST = "santri/update/request";
 export const UPDATE_SANTRI_SUCCEED = "santri/update/succeed";
 export const UPDATE_SANTRI_FAILED = "santri/update/failed";
