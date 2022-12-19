@@ -55,6 +55,18 @@ const DetailUser = () => {
               <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
             </div>
+            {e.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ? (
+              <div className="grid grid-cols-8 p-2 text-xs">
+                <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
+                <p className="lg:col-span-2 col-span-4">
+                  {e.Santris.map((e) => (
+                    <p className="py-1">{e.name}</p>
+                  ))}
+                </p>
+              </div>
+            ) : (
+              ""
+            )}
             <div className="py-4 font-poppins">
               <button
                 className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"

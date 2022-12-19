@@ -48,6 +48,13 @@ export const CREATE_USER_NOFILE_REQUEST = "user/createnofile/request";
 export const CREATE_USER_NOFILE_SUCCEED = "user/createnofile/succeed";
 export const CREATE_USER_NOFILE_FAILED = "user/createnofile/failed";
 
+export const CREATE_USERSANTRI_NOFILE_REQUEST =
+  "user/createusersantrinofile/request";
+export const CREATE_USERSANTRI_NOFILE_SUCCEED =
+  "user/createusersantrinofile/succeed";
+export const CREATE_USERSANTRI_NOFILE_FAILED =
+  "user/createusersantrinofile/failed";
+
 export const DELETE_USER_REQUEST = "user/delete/request";
 export const DELETE_USER_SUCCEED = "user/delete/succeed";
 export const DELETE_USER_FAILED = "user/delete/failed";
@@ -63,3 +70,10 @@ export const UPDATE_USER_FAILED = "user/update/failed";
 export const UPDATE_USER_NOFILE_REQUEST = "user/updatenofile/request";
 export const UPDATE_USER_NOFILE_SUCCEED = "user/updatenofile/succeed";
 export const UPDATE_USER_NOFILE_FAILED = "user/updatenofile/failed";
+
+export const UPDATE_USER_NOFILE_USERSANTRI_REQUEST =
+  "user/updatenofileusersantri/request";
+export const UPDATE_USER_NOFILE_USERSANTRI_SUCCEED =
+  "user/updatenofileusersantri/succeed";
+export const UPDATE_USER_NOFILE_USERSANTRI_FAILED =
+  "user/updatenofileusersantri/failed";

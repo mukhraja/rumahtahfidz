@@ -166,6 +166,22 @@ export const doCreateUserNoFileFailed = (payload) => ({
   payload,
 });
 
+// CREATE NO FILE
+export const doCreateUserSantriNoFileRequest = (payload) => ({
+  type: ActionType.CREATE_USERSANTRI_NOFILE_REQUEST,
+  payload,
+});
+
+export const doCreateUserSantriNoFileSucceed = (payload) => ({
+  type: ActionType.CREATE_USERSANTRI_NOFILE_SUCCEED,
+  payload,
+});
+
+export const doCreateUserSantriNoFileFailed = (payload) => ({
+  type: ActionType.CREATE_USERSANTRI_NOFILE_FAILED,
+  payload,
+});
+
 // DELETE
 export const doDeleteUserRequest = (payload) => ({
   type: ActionType.DELETE_USER_REQUEST,

@@ -8,7 +8,7 @@ import pengajar from "./pengajar.png";
 import rumahtahfidz from "./rumahtahfidz.png";
 import database from "./database.png";
 import user from "./user.png";
-
+import logoapp from "./logoapp.png";
 export {
   logo,
   gambardepan,
@@ -20,4 +20,5 @@ export {
   rumahtahfidz,
   database,
   user,
+  logoapp,
 };

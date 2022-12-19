@@ -37,6 +37,10 @@ import {
   doGetByAdminUserSucceed,
   doGetUserByMasterTahfidzSucceed,
   doGetUserByMasterTahfidzFailed,
+  doCreateUserSantriSucceed,
+  doCreateUserSantriFailed,
+  doCreateUserSantriNoFileSucceed,
+  doCreateUserSantriNoFileFailed,
 } from "../actions/User";
 import apiUser from "../api/api-user";
 
@@ -155,6 +159,19 @@ function* handleCreateUser(action) {
   }
 }
 
+// CREATE
+function* handleCreateUserSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiUser.createusersantri, payload);
+    yield put(doCreateUserSantriSucceed(result));
+  } catch (error) {
+    yield put(doCreateUserSantriFailed(error));
+  }
+}
+
 // CREATE NO FILE
 function* handleCreateNoFileUser(action) {
   console.log("sudah sampai di middleware");
@@ -165,6 +182,18 @@ function* handleCreateNoFileUser(action) {
     yield put(doCreateUserNoFileSucceed(result));
   } catch (error) {
     yield put(doCreateUserNoFileFailed(error));
+  }
+}
+
+function* handleCreateNoFileUserSantri(action) {
+  console.log("sudah sampai di middleware");
+  const { payload } = action;
+
+  try {
+    const result = yield call(apiUser.createNoFileusersantri, payload);
+    yield put(doCreateUserSantriNoFileSucceed(result));
+  } catch (error) {
+    yield put(doCreateUserSantriNoFileFailed(error));
   }
 }
 
@@ -224,4 +253,6 @@ export {
   handleGetByRumahTahfidzUser,
   handleGetAdmin,
   handleGetByMasterTahfidzUser,
+  handleCreateUserSantri,
+  handleCreateNoFileUserSantri,
 };

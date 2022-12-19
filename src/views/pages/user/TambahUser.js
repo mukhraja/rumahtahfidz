@@ -18,6 +18,8 @@ import {
 import {
   doCreateUserNoFileRequest,
   doCreateUserRequest,
+  doCreateUserSantriNoFileRequest,
+  doCreateUserSantriRequest,
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
 import { default as ReactSelect } from "react-select";
@@ -114,7 +116,50 @@ const TambahUser = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      if (uploaded === true) {
+      if (
+        uploaded === true &&
+        formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+      ) {
+        let payload = new FormData();
+        payload.append("name", values.name);
+        payload.append("email", values.email);
+        payload.append("password", values.password);
+        payload.append("telephone", values.telephone);
+        payload.append("address", values.address);
+        payload.append(
+          "datebirth",
+          moment(values.datebirth).format("YYYY-MM-DD")
+        );
+        payload.append("age", values.age);
+        payload.append("gender", values.gender);
+        payload.append("roleId", values.roleId);
+        payload.append("pondokId", values.pondokId);
+        payload.append("id", nomorid);
+        payload.append("photo", values.photo);
+        await dispatch(doCreateUserSantriRequest(payload));
+
+        selected.map((e) => {
+          console.log(e.value);
+          axios
+            .put(config.domain + "/santri/usersantri/" + e.value, {
+              userId: nomorid,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+
+        toast.success("Data berhasil ditambahkan...");
+        // setTimeout(() => {
+        //   navigate("/datsantri");
+        // }, 3000);
+      } else if (
+        uploaded === true &&
+        formik.values.roleId !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+      ) {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("email", values.email);
@@ -133,12 +178,32 @@ const TambahUser = () => {
         payload.append("photo", values.photo);
         dispatch(doCreateUserRequest(payload));
 
+        toast.success("Data berhasil ditambahkan...");
+      } else if (
+        uploaded !== true &&
+        formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+      ) {
+        const payload = {
+          id: nomorid,
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          telephone: values.telephone,
+          datebirth: moment(values.datebirth).format("YYYY-MM-DD"),
+          address: values.address,
+          age: values.age,
+          gender: values.gender,
+          roleId: values.roleId,
+          pondokId: values.pondokId,
+        };
+
+        await dispatch(doCreateUserSantriNoFileRequest(payload));
+
         selected.map((e) => {
           console.log(e.value);
           axios
-            .post(config.domain + "/usersantri/create", {
-              id: nomorid,
-              santri: e.value,
+            .put(config.domain + "/santri/usersantri/" + e.value, {
+              userId: nomorid,
             })
             .then(function (response) {
               console.log(response);
@@ -149,9 +214,6 @@ const TambahUser = () => {
         });
 
         toast.success("Data berhasil ditambahkan...");
-        // setTimeout(() => {
-        //   navigate("/datsantri");
-        // }, 3000);
       } else {
         const payload = {
           name: values.name,
@@ -166,7 +228,7 @@ const TambahUser = () => {
           pondokId: values.pondokId,
         };
 
-        dispatch(doCreateUserNoFileRequest(payload));
+        await dispatch(doCreateUserNoFileRequest(payload));
         toast.success("Data berhasil ditambahkan...");
 
         // setTimeout(() => {
@@ -342,18 +404,22 @@ const TambahUser = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
-            <Select
-              className="block lg:col-span-2 col-span-4"
-              onChange={handleSelect}
-              isSearchable={true}
-              options={dropdown}
-              value={selected}
-              placeholder="Pilih Santri"
-              isMulti
-            />
-          </div>
+          {formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ? (
+            <div className="grid grid-cols-8 my-2">
+              <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
+              <Select
+                className="block lg:col-span-2 col-span-4"
+                onChange={handleSelect}
+                isSearchable={true}
+                options={dropdown}
+                value={selected}
+                placeholder="Pilih Santri"
+                isMulti
+              />
+            </div>
+          ) : (
+            ""
+          )}
 
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">

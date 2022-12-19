@@ -98,11 +98,39 @@ const createuser = async (payload) => {
   }
 };
 
+// CREATE USER SANTRI
+const createusersantri = async (payload) => {
+  try {
+    const result = await axios.post(
+      `${config.domain}/user/usersantri`,
+      payload
+    );
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 const createNoFileuser = async (payload) => {
   console.log("SAMPAI DISINI");
   console.log(payload);
   try {
     const result = await axios.post(`${config.domain}/user/data`, payload);
+    console.log(result);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+const createNoFileusersantri = async (payload) => {
+  console.log("SAMPAI DISINI");
+  console.log(payload);
+  try {
+    const result = await axios.post(
+      `${config.domain}/user/data/usersantri`,
+      payload
+    );
     console.log(result);
     return result.data;
   } catch (error) {
@@ -161,4 +189,6 @@ export default {
   getuserrumahtahfidz,
   getusermastertahfidz,
   listadmin,
+  createusersantri,
+  createNoFileusersantri,
 };

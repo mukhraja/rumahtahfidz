@@ -93,6 +93,8 @@ import {
   handleGetByRumahTahfidzUser,
   handleGetAdmin,
   handleGetByMasterTahfidzUser,
+  handleCreateUserSantri,
+  handleCreateNoFileUserSantri,
 } from "./UserSaga";
 import {
   handleCreateRole,
@@ -369,9 +371,14 @@ function* watchAll() {
       handleGetByMasterTahfidzUser
     ),
     takeEvery(ActionTypeUser.CREATE_USER_REQUEST, handleCreateUser),
+    takeEvery(ActionTypeUser.CREATE_USERSANTRI_REQUEST, handleCreateUserSantri),
     takeEvery(
       ActionTypeUser.CREATE_USER_NOFILE_REQUEST,
       handleCreateNoFileUser
+    ),
+    takeEvery(
+      ActionTypeUser.CREATE_USERSANTRI_NOFILE_REQUEST,
+      handleCreateNoFileUserSantri
     ),
     takeEvery(ActionTypeUser.UPDATE_USER_REQUEST, handleUpdateUser),
     takeEvery(

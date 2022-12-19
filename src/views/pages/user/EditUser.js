@@ -13,7 +13,9 @@ import {
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import Select from "react-select";
 import moment from "moment";
+import axios from "axios";
 
 const EditUser = () => {
   const { id } = useParams();
@@ -24,6 +26,7 @@ const EditUser = () => {
   const { userdata } = useSelector((state) => state.userState);
   const { roledata } = useSelector((state) => state.roleState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -46,6 +49,9 @@ const EditUser = () => {
   const [uploaded, setUploaded] = useState(false);
   const [photo, setPhoto] = useState();
   const [previewImg, setPreviewImg] = useState();
+  const [selected, setSelected] = useState();
+  const [dropdown, setDropdown] = useState([]);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     const payload = { id };
@@ -73,7 +79,10 @@ const EditUser = () => {
       pondokId: userdata.length ? userdata[0].pondokId : null,
     },
     onSubmit: async (values) => {
-      if (uploaded === true) {
+      if (
+        uploaded === true &&
+        formik.values.roleId !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+      ) {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("email", values.email);
@@ -88,10 +97,107 @@ const EditUser = () => {
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateUserRequest(payload));
-        toast.success("Data berhasil ditambbahkan...");
+        toast.success("Data berhasil diperbaharui...");
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
+      } else if (
+        uploaded === true &&
+        formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+      ) {
+        let payload = new FormData();
+        payload.append("name", values.name);
+        payload.append("email", values.email);
+        payload.append("password", values.password);
+        payload.append("telephone", values.telephone);
+        payload.append("address", values.address);
+        payload.append("datebirth", values.datebirth);
+        payload.append("age", values.age);
+        payload.append("gender", values.gender);
+        payload.append("roleId", values.roleId);
+        payload.append("pondokId", values.pondokId);
+        payload.append("photo", values.photo);
+        payload.append("id", id);
+        await dispatch(doUpdateUserRequest(payload));
+
+        await list.map((e) => {
+          console.log(e.value);
+          axios
+            .put(config.domain + "/santri/usersantri/" + e.value, {
+              userId: null,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+
+        selected.map((e) => {
+          console.log(e.value);
+          axios
+            .put(config.domain + "/santri/usersantri/" + e.value, {
+              userId: id,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+
+        toast.success("Data berhasil diperbaharui...");
+      } else if (
+        uploaded !== true &&
+        formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+      ) {
+        const payload = {
+          id,
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          telephone: values.telephone,
+          datebirth: values.datebirth,
+          address: values.address,
+          age: values.age,
+          gender: values.gender,
+          roleId: values.roleId,
+          pondokId: values.pondokId,
+        };
+
+        dispatch(doUpdateNoFIleUserRequest(payload));
+
+        await list.map((e) => {
+          console.log(e.value);
+          axios
+            .put(config.domain + "/santri/usersantri/" + e.value, {
+              userId: null,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+
+        selected.map((e) => {
+          console.log(e.value);
+          axios
+            .put(config.domain + "/santri/usersantri/" + e.value, {
+              userId: id,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+
+        toast.success("Data berhasil diperbaharuu...");
       } else {
         const payload = {
           id,
@@ -108,7 +214,7 @@ const EditUser = () => {
         };
 
         dispatch(doUpdateNoFIleUserRequest(payload));
-        toast.success("Data berhasil diupdate...");
+        toast.success("Data berhasil diperbaharuu...");
         // setTimeout(() => {
         //   navigate("/datauser");
         // }, 3000);
@@ -121,6 +227,31 @@ const EditUser = () => {
     setPhoto(img);
   }, [userdata]);
 
+  useEffect(() => {
+    axios
+      .get(
+        config.domain +
+          "/santri/byrumahtahfidz/dropdown/" +
+          formik.values.pondokId
+      )
+      .then((e) => setDropdown(e.data.data));
+
+    setSelected([]);
+  }, [formik.values.pondokId]);
+
+  useEffect(() => {
+    axios
+      .get(config.domain + "/santri/byusersantri/" + userdata[0].id)
+      .then((e) => {
+        setSelected(e.data.data);
+        setList(e.data.data);
+      });
+  }, [userdata]);
+
+  function handleSelect(data) {
+    console.log(data.map((e) => e.value));
+    setSelected(data);
+  }
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
@@ -223,25 +354,7 @@ const EditUser = () => {
               onChange={formik.handleChange}
             />
           </div>
-          <div className="grid grid-cols-8 my-2 text-xs">
-            <h1 className="block lg:col-span-2 col-span-4">Role</h1>
-            <select
-              name="roleId"
-              id="roleId"
-              value={formik.values.roleId}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              autoComplete="roleId"
-              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-            >
-              <option value="" selected disabled hidden>
-                Pilih Role
-              </option>
-              {roledata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
-            </select>
-          </div>
+
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
             <select
@@ -266,6 +379,50 @@ const EditUser = () => {
               </span>
             ) : null}
           </div>
+
+          <div className="grid grid-cols-8 my-2 text-xs">
+            <h1 className="block lg:col-span-2 col-span-4">Role</h1>
+            <select
+              name="roleId"
+              id="roleId"
+              value={formik.values.roleId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              autoComplete="roleId"
+              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+            >
+              <option value="" selected disabled hidden>
+                Pilih Role
+              </option>
+              {userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883" ? (
+                <option value="8b273d68-fe09-422d-a660-af3d8312f883">
+                  Admin
+                </option>
+              ) : (
+                roledata
+                  .filter((e) => e.id != "8b273d68-fe09-422d-a660-af3d8312f883")
+                  .map((e) => <option value={e.id}>{e.name}</option>)
+              )}
+            </select>
+          </div>
+
+          {formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ? (
+            <div className="grid grid-cols-8 my-2">
+              <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
+              <Select
+                className="block lg:col-span-2 col-span-4"
+                onChange={handleSelect}
+                isSearchable={true}
+                options={dropdown}
+                value={selected}
+                placeholder="Pilih Santri"
+                isMulti
+              />
+            </div>
+          ) : (
+            ""
+          )}
+
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Photo

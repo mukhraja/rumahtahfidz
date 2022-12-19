@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { gambardepan, logo } from "../../../gambar";
+import { gambardepan, logo, logoapp } from "../../../gambar";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik, ErrorMessage } from "formik";
@@ -14,7 +14,7 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const { message, isLoggedIn } = useSelector((state) => state.userState);
-  const { userProfile } = useSelector((state) => state.userState);
+  const { userProfile, isLoading } = useSelector((state) => state.userState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -41,7 +41,6 @@ export default function Login() {
         email: values.email,
         password: values.password,
       };
-
       dispatch(doSigninRequest(payload));
     },
   });
@@ -58,7 +57,10 @@ export default function Login() {
           style={{ backdropFilter: "blur(20px)" }}
         >
           <div className="px-20 py-32 rounded-md">
-            {userProfile.isLoading ? <LoadingSpinner /> : ""}
+            {isLoading ? <LoadingSpinner /> : ""}
+            <div class="w-full flex justify-center">
+              <img src={logoapp} class=" w-32 mb-8" />
+            </div>
             <form method="POST" className="text-xs">
               <h1 className="my-2">Email</h1>
               <input

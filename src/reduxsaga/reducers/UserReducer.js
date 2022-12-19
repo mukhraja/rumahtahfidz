@@ -51,6 +51,7 @@ const UserReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         message: action.payload.message,
+        isLoading: false,
         isLoggedIn: false,
       };
     }
@@ -102,6 +103,14 @@ const UserReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.CREATE_USER_SUCCEED:
       return applyCreateUserSucceed(state, action);
+    // CREATE USERSANTRI
+    case ActionType.CREATE_USERSANTRI_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.CREATE_USERSANTRI_SUCCEED:
+      return applyCreateUserSantriSucceed(state, action);
     // CREATE NO FILE
     case ActionType.CREATE_USER_NOFILE_REQUEST:
       return {
@@ -110,6 +119,14 @@ const UserReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.CREATE_USER_NOFILE_SUCCEED:
       return applyCreateUserNofileSucceed(state, action);
+    // CREATE NO FILE
+    case ActionType.CREATE_USERSANTRI_NOFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionType.CREATE_USERSANTRI_NOFILE_SUCCEED:
+      return applyCreateUserSantriNofileSucceed(state, action);
     // Update
     case ActionType.UPDATE_USER_REQUEST:
       return {
@@ -187,7 +204,24 @@ const applyCreateUserSucceed = (state, action) => {
     userdata: [...payload.data],
   };
 };
+
+const applyCreateUserSantriSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
+  };
+};
+
 const applyCreateUserNofileSucceed = (state, action) => {
+  const { payload } = action;
+  return {
+    ...state,
+    userdata: [...payload.data],
+  };
+};
+
+const applyCreateUserSantriNofileSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
