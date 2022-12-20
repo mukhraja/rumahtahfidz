@@ -205,16 +205,24 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-xs font-light">
-                  {rumahtahfidzdata.map((e, i) => (
-                    <tr>
-                      <td className="border border-gray-200 border-x-0 px-4 py-3">
-                        {e.name}
-                      </td>
-                      <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                        {e.Santris.length} Santri
-                      </td>
-                    </tr>
-                  ))}
+                  {rumahtahfidzdata
+                    .sort((a, b) =>
+                      a.Santris.length < b.Santris.length
+                        ? 1
+                        : a.Santris.length > b.Santris.length
+                        ? -1
+                        : 0
+                    )
+                    .map((e, i) => (
+                      <tr>
+                        <td className="border border-gray-200 border-x-0 px-4 py-3">
+                          {e.name}
+                        </td>
+                        <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                          {e.Santris.length} Santri
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -245,16 +253,24 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-xs font-light">
-                  {masterpondokdata.map((e, i) => (
-                    <tr>
-                      <td className="border border-gray-200 border-x-0 px-4 py-3">
-                        {e.name}
-                      </td>
-                      <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                        {e.Pondoks.length} Cabang
-                      </td>
-                    </tr>
-                  ))}
+                  {masterpondokdata
+                    .sort((a, b) =>
+                      a.Pondoks.length < b.Pondoks.length
+                        ? 1
+                        : a.Pondoks.length > b.Pondoks.length
+                        ? -1
+                        : 0
+                    )
+                    .map((e, i) => (
+                      <tr>
+                        <td className="border border-gray-200 border-x-0 px-4 py-3">
+                          {e.name}
+                        </td>
+                        <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                          {e.Pondoks.length} Cabang
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
