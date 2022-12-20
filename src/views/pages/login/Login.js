@@ -58,9 +58,9 @@ export default function Login() {
         >
           <div className="px-20 py-32 rounded-md">
             {isLoading ? <LoadingSpinner /> : ""}
-            <div class="w-full flex justify-center">
+            {/* <div class="w-full flex justify-center">
               <img src={logoapp} class=" w-32 mb-8" />
-            </div>
+            </div> */}
             <form method="POST" className="text-xs">
               <h1 className="my-2">Email</h1>
               <input
