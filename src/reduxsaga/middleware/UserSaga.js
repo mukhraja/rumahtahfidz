@@ -56,12 +56,13 @@ function* handleSignup(action) {
 
 function* handleSignin(action) {
   const { payload } = action;
-  console.log(payload);
   try {
     const result = yield call(apiUser.signin, payload);
     if (Object.keys(result.data.profile).length === 0) {
       yield put(
-        doShowAuthMessage({ message: "user or password not match, try again" })
+        doShowAuthMessage({
+          message: "user or password not match, try again",
+        })
       );
     } else {
       localStorage.setItem("token", result.data.token);

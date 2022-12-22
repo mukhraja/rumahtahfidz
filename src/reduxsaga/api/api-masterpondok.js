@@ -13,13 +13,10 @@ const list = async () => {
 };
 
 // CREATE
-const createmasterpondok = async (payload) => {
-  console.log("SAMPAI DISINI");
-  console.log(payload);
+const createmasterpondok = async (data) => {
   try {
-    const result = await axios.post(`${config.domain}/masterpondok`, payload);
-    console.log(result);
-    return result.data;
+    const result = await axios.post(`${config.domain}/masterpondok`, data);
+    return result;
   } catch (error) {
     return error;
   }
@@ -57,16 +54,12 @@ const getbymasterpondok = async (payload) => {
 
 // UPDATE
 const updatemasterpondok = async (payload) => {
-  console.log("SAMPAI DISINI");
-  console.log(payload.formdata);
   const id = payload.get("id");
-  console.log(id);
   try {
     const result = await axios.put(
       `${config.domain}/masterpondok/${id}`,
       payload
     );
-    console.log(result);
     return result;
   } catch (error) {
     return error;

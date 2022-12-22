@@ -33,13 +33,21 @@ const MasterPondokReducer = (state = INIT_STATE, action) => {
     case ActionType.GET_BY_MASTERPONDOK_SUCCEED:
       return applyGetByRumahTahfizSucceed(state, action);
     // CREATE
-    case ActionType.CREATE_MASTERPONDOK_REQUEST:
+    case ActionType.CREATE_MASTERPONDOK_REQUEST: {
       return {
         ...state,
         isLoading: true,
       };
-    case ActionType.CREATE_MASTERPONDOK_SUCCEED:
+    }
+    case ActionType.CREATE_MASTERPONDOK_SUCCEED: {
       return applyCreateMasterPondokSucceed(state, action);
+    }
+    case ActionType.CREATE_MASTERPONDOK_FAILED: {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
     // Update
     case ActionType.UPDATE_MASTERPONDOK_REQUEST:
       return {
@@ -74,7 +82,9 @@ const applyCreateMasterPondokSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    masterpondokdata: [...payload.data],
+    masterpondokdata: [...state.masterpondokdata, { ...payload.data }],
+    // masterpondokdata: [...payload.data],
+    isLoading: false,
   };
 };
 

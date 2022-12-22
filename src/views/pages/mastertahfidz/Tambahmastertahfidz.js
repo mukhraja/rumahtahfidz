@@ -16,6 +16,8 @@ const Tambahmastertahfidz = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { isLoading } = useSelector((state) => state.masterPondokState);
+
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama rumah tahfiz").required(
       "Masukkan nama rumah tahfiz"
@@ -55,8 +57,6 @@ const Tambahmastertahfidz = () => {
 
       dispatch(doCreateMasterPondokRequest(payload));
 
-      toast.success("Data berhasil ditambahkan...");
-
       // setTimeout(() => {
       //   navigate("/datarumahtahfiz", { state: { refresh: true } });
       // }, 3000);
@@ -68,6 +68,13 @@ const Tambahmastertahfidz = () => {
 
   const [previewLogo, setPreviewLogo] = useState();
   const [uploadLogo, setUploadLogo] = useState(false);
+
+  const toastId = React.useRef(null);
+
+  const notify = () => (toastId.current = toast("Hello", { autoClose: false }));
+
+  const update = () =>
+    toast.update(toastId.current, { type: toast.TYPE.INFO, autoClose: 5000 });
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -326,7 +333,7 @@ const Tambahmastertahfidz = () => {
         </form>
 
         <div className="z-30">
-          <ToastContainer autoClose={2000} />
+          <ToastContainer />
         </div>
 
         {/*  */}
@@ -340,9 +347,9 @@ const Tambahmastertahfidz = () => {
           </button>
           <button
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-            onClick={() => navigate("/datamasterrumahtahfiz")}
+            onClick={() => navigate(-1)}
           >
-            CANCEL
+            Kembali
           </button>
         </div>
       </div>

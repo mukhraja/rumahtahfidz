@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import {
   doGetMasterPondokSucceed,
@@ -57,14 +58,18 @@ function* handleGetByMasterPondok(action) {
 
 // CREATE
 function* handleCreateMasterPondok(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-
   try {
     const result = yield call(apiMasterpondok.createmasterpondok, payload);
-    yield put(doCreateMasterPondokSucceed(result));
+    yield put(doCreateMasterPondokSucceed(result.data));
+    yield call(toast, "Data berhasil ditambahkan", {
+      type: toast.TYPE.SUCCESS,
+    });
   } catch (error) {
     yield put(doCreateMasterPondokFailed(error));
+    yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
@@ -86,13 +91,24 @@ function* handleDeleteMasterPondok(action) {
 function* handleUpdateMasterPondok(action) {
   console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiMasterpondok.updatemasterpondok, payload);
-    yield put(doUpdateMasterPondokSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, result.response.data.data, {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateMasterPondokSucceed(payload));
+      yield call(toast, "Data berhasil diedit", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateMasterPondokFailed(error));
+    yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
@@ -107,9 +123,22 @@ function* handleUpdateNoFileMasterPondok(action) {
       apiMasterpondok.updatemasterpondokNoFile,
       payload
     );
-    yield put(doUpdateNoFIleMasterPondokSucceed(payload));
+
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, result.response.data.data, {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateNoFIleMasterPondokSucceed(payload));
+      yield call(toast, "Data berhasil diedit", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateNoFIleMasterPondokFailed(error));
+    yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 

@@ -20,8 +20,8 @@ export const GET_USER_REQUEST = "user/get/request";
 export const GET_USER_FAILED = "user/get/failed";
 
 // GET BY RUMAH TAHFIDZ
-export const GET_BY_RUMAHTAHFIDZ_USER_REQUEST = "user/getrumahtahfidz/succeed";
-export const GET_BY_RUMAHTAHFIDZ_USER_SUCCEED = "user/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_USER_REQUEST = "user/getrumahtahfidz/request";
+export const GET_BY_RUMAHTAHFIDZ_USER_SUCCEED = "user/getrumahtahfidz/succed";
 export const GET_BY_RUMAHTAHFIDZ_USER_FAILED = "user/getrumahtahfidz/failed";
 
 // GET BY MASTER TAHFIDZ

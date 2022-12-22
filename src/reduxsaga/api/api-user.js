@@ -13,7 +13,6 @@ const signup = async (data) => {
 const signin = async (data) => {
   try {
     const result = await axios.post(`${config.domain}/user/login`, data);
-    console.log(result);
     return result;
   } catch (error) {
     return error;
