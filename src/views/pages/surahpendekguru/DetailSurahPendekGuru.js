@@ -148,11 +148,19 @@ const DetailSurahPendekGuru = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        <Table
-          columns={Display}
-          data={surahpendekgurudata}
-          url="/datasurahpendekguru/tambah"
-        />
+        {surahpendekgurudata < 1 ? (
+          <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
+            <h1 className=" text-sm font-poppins font-medium italic">
+              Belum ada Hafalan
+            </h1>
+          </div>
+        ) : (
+          <Table
+            columns={Display}
+            data={surahpendekgurudata}
+            url="/datasurahpendekguru/tambah"
+          />
+        )}
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

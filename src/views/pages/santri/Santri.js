@@ -14,10 +14,11 @@ import {
   doGetSantriByUserIdRequest,
   doGetSantriRequest,
 } from "../../../reduxsaga/actions/Santri";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 const Santri = () => {
   const dispatch = useDispatch();
 
-  const { santridata } = useSelector((state) => state.santriState);
+  const { isLoading, santridata } = useSelector((state) => state.santriState);
   const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
@@ -84,6 +85,7 @@ const Santri = () => {
 
   return (
     <div className="">
+      {isLoading ? <LoadingSpinnerLogin /> : ""}
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Santri

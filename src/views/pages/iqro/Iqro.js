@@ -1,27 +1,24 @@
-import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroAwalSantriRequest,
   doGetIqroSantriByMasterTahfidzRequest,
   doGetIqroSantriByRumahTahfidzRequest,
   doGetIqroSantriByUserIdRequest,
-  doGetIqroSantriRequest,
 } from "../../../reduxsaga/actions/Iqrosantri";
 import Table, {
-  AvatarCell,
-  ButtonLink,
   ButtonLinkIqro,
   SelectColumnFilter,
-  StatusPill,
 } from "../../components/datatable/Table.js";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const Iqro = () => {
   const dispatch = useDispatch();
 
-  const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+  const { isLoading, iqrosantridata } = useSelector(
+    (state) => state.iqroSantriState
+  );
   const { userProfile } = useSelector((state) => state.userState);
 
   const [Display, setDisplay] = useState([]);
@@ -114,6 +111,7 @@ const Iqro = () => {
   // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
     <div className="">
+      {isLoading ? <LoadingSpinnerLogin /> : ""}
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data IQRO
@@ -121,7 +119,15 @@ const Iqro = () => {
         <img src={bacaiqro} className="h-20" />
       </div>
       <div className="mt-6 px-4">
-        <Table columns={Display} data={iqrosantridata} url="tambah" />
+        {iqrosantridata < 1 ? (
+          <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
+            <h1 className=" text-sm font-poppins font-medium italic">
+              Belum ada Hafalan
+            </h1>
+          </div>
+        ) : (
+          <Table columns={Display} data={iqrosantridata} url="tambah" />
+        )}
       </div>
     </div>
   );

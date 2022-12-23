@@ -82,6 +82,7 @@ const applyCreateSurahPendekGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -90,6 +91,7 @@ const applyGetSurahPendekGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -98,6 +100,7 @@ const applyGetSurahPendekByRumahTahfizGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: [...payload.data],
+    isLoading: false,
   };
 };
 const applyGetSurahPendekByMasterTahfizGuruSucceed = (state, action) => {
@@ -105,6 +108,7 @@ const applyGetSurahPendekByMasterTahfizGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -113,6 +117,7 @@ const applyGetSurahPendekAwalGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -121,6 +126,7 @@ const applyGetByIdSurahPendekGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -129,6 +135,7 @@ const applyUpdateSurahPendekGuruSucceed = (state, action) => {
   return {
     ...state,
     surahpendekgurudata: [...payload.data],
+    isLoading: false,
   };
 };
 

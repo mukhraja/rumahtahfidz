@@ -82,6 +82,7 @@ const applyCreateGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -90,6 +91,7 @@ const applyGetIqroGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -98,6 +100,7 @@ const applyGetIqroGuruByRumahTahfizGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -106,6 +109,7 @@ const applyGetIqroGuruByMasterTahfizGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -114,6 +118,7 @@ const applyGetIqroAwalGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -122,6 +127,7 @@ const applyGetByIdIqroGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -130,6 +136,7 @@ const applyUpdateIqroGuruSucceed = (state, action) => {
   return {
     ...state,
     iqrogurudata: [...payload.data],
+    isLoading: false,
   };
 };
 

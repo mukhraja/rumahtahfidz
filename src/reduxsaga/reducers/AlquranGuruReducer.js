@@ -82,6 +82,7 @@ const applyCreateGuruSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -90,6 +91,7 @@ const applyGetAlquranGuruSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -98,6 +100,7 @@ const applyGetAlquranByRumahTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -106,6 +109,7 @@ const applyGetAlquranByMasterTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -114,6 +118,7 @@ const applyGetAlquranAwalGuruSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -122,6 +127,7 @@ const applyGetByIdAlquranGuruSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -130,6 +136,7 @@ const applyUpdateAlquranGuruSucceed = (state, action) => {
   return {
     ...state,
     alqurangurudata: [...payload.data],
+    isLoading: false,
   };
 };
 

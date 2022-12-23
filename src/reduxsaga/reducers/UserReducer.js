@@ -202,6 +202,7 @@ const applyCreateUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...state.userdata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -210,6 +211,7 @@ const applyCreateUserSantriSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...state.userdata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -218,6 +220,7 @@ const applyCreateUserNofileSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...state.userdata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -226,6 +229,7 @@ const applyCreateUserSantriNofileSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...state.userdata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -234,6 +238,7 @@ const applyGetUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -242,6 +247,7 @@ const applyGetByAdminUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -250,6 +256,7 @@ const applyGetByIdUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -258,6 +265,7 @@ const applyGetByRumahTahfizUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -266,6 +274,7 @@ const applyGetByMasterTahfizUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -274,6 +283,7 @@ const applyUpdateUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -282,6 +292,7 @@ const applyUpdateNoFileUserSucceed = (state, action) => {
   return {
     ...state,
     userdata: [payload],
+    isLoading: false,
   };
 };
 

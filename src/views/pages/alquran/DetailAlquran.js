@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { bacaiqro } from "../../../gambar";
 import { doGetAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
@@ -144,11 +144,19 @@ const DetailAlquran = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        <Table
-          columns={Display}
-          data={alquransantridata}
-          url="/dataalquransantri/tambah"
-        />
+        {alquransantridata < 1 ? (
+          <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
+            <h1 className=" text-sm font-poppins font-medium italic">
+              Belum ada Hafalan
+            </h1>
+          </div>
+        ) : (
+          <Table
+            columns={Display}
+            data={alquransantridata}
+            url="/dataalquransantri/tambah"
+          />
+        )}
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

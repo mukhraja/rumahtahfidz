@@ -81,6 +81,7 @@ const applyGetGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -89,6 +90,7 @@ const applyCreateGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [...state.gurudata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -97,6 +99,7 @@ const applyGetByIdGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -105,6 +108,7 @@ const applyGetByRumahTahfizGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -113,6 +117,7 @@ const applyGetByMasterTahfizGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -121,6 +126,7 @@ const applyUpdateGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [{ id: payload.get("id") }],
+    isLoading: false,
   };
 };
 
@@ -129,13 +135,13 @@ const applyUpdateNoFileGuruSucceed = (state, action) => {
   return {
     ...state,
     gurudata: [payload],
+    isLoading: false,
   };
 };
 
 const applyDeleteGuruSucceed = (state, action) => {
   const { payload } = action;
   const Guru = state.gurudata.filter((el) => el.id !== payload);
-  console.log(Guru);
   return {
     ...state,
     gurudata: [...Guru],

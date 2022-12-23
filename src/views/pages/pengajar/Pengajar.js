@@ -16,11 +16,12 @@ import Table, {
   tanggalcustom,
 } from "../../components/datatable/Table.js";
 import Moment from "react-moment";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const Pengajar = () => {
   const dispatch = useDispatch();
 
-  const { gurudata } = useSelector((state) => state.guruState);
+  const { isLoading, gurudata } = useSelector((state) => state.guruState);
   const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
@@ -88,6 +89,7 @@ const Pengajar = () => {
   // const data = React.useMemo(() => gurudata, [gurudata]);
   return (
     <div>
+      {isLoading ? <LoadingSpinnerLogin /> : ""}
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Pengajar

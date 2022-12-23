@@ -2,24 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../gambar";
 import Table, {
-  ButtonLinkSantri,
   ButtonLinkUser,
   SelectColumnFilter,
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  doGetByAdminUserRequest,
-  doGetUserByRumahTahfidzRequest,
-  doGetUserRequest,
-} from "../../../reduxsaga/actions/User";
+import { doGetByAdminUserRequest } from "../../../reduxsaga/actions/User";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 const Admin = () => {
   const dispatch = useDispatch();
 
-  const { userdata } = useSelector((state) => state.userState);
-  const { userProfile } = useSelector((state) => state.userState);
-
-  const [dataadmin, setDataadmin] = useState([]);
+  const { isLoading, userdata } = useSelector((state) => state.userState);
 
   useEffect(() => {
     dispatch(doGetByAdminUserRequest());
@@ -74,6 +67,7 @@ const Admin = () => {
 
   return (
     <div className="">
+      {isLoading ? <LoadingSpinnerLogin /> : ""}
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Administrator

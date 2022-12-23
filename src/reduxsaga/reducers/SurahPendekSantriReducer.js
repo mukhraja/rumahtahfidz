@@ -90,6 +90,7 @@ const applyCreateSurahPendekSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -98,6 +99,7 @@ const applyGetSurahPendekSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -106,6 +108,7 @@ const applyGetSurahPendekAwalSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -114,6 +117,7 @@ const applyGetSurahPendekByRumahTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -122,6 +126,7 @@ const applyGetSurahPendekByMasterTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -130,6 +135,7 @@ const applyGetSurahPendekByUserIdSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -138,6 +144,7 @@ const applyGetByIdSurahPendekSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -146,6 +153,7 @@ const applyUpdateSurahPendekSantriSucceed = (state, action) => {
   return {
     ...state,
     surahpendeksantridata: [...payload.data],
+    isLoading: false,
   };
 };
 

@@ -90,6 +90,7 @@ const applyCreateSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [...state.santridata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -98,6 +99,7 @@ const applyGetSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -106,6 +108,7 @@ const applyGetByIdSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -114,6 +117,7 @@ const applyGetByRumahTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -122,6 +126,7 @@ const applyGetByMasterTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -130,6 +135,7 @@ const applyGetByUserSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -138,6 +144,7 @@ const applyUpdateSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [{ id: payload.get("id") }],
+    isLoading: false,
   };
 };
 
@@ -146,6 +153,7 @@ const applyUpdateNoFileSantriSucceed = (state, action) => {
   return {
     ...state,
     santridata: [payload],
+    isLoading: false,
   };
 };
 

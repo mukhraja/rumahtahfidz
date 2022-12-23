@@ -90,6 +90,7 @@ const applyCreateSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -98,6 +99,7 @@ const applyGetAlquranSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -106,6 +108,7 @@ const applyGetAlquranByRumahTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -114,6 +117,7 @@ const applyGetAlquranByMasterTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -122,6 +126,7 @@ const applyGetAlquranAwalSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -130,6 +135,7 @@ const applyGetByIdAlquranSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -138,6 +144,7 @@ const applyGetAlquranByUserIdSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -146,6 +153,7 @@ const applyUpdateAlquranSantriSucceed = (state, action) => {
   return {
     ...state,
     alquransantridata: [...payload.data],
+    isLoading: false,
   };
 };
 

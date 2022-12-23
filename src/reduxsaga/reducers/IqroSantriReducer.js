@@ -90,6 +90,7 @@ const applyCreateSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -98,6 +99,7 @@ const applyGetIqroSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -106,6 +108,7 @@ const applyGetIqroSantriByRumahTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -114,6 +117,7 @@ const applyGetIqroSantriByMasterTahfizSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -122,6 +126,7 @@ const applyGetIqroSantriByUserIdSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -130,6 +135,7 @@ const applyGetIqroAwalSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -138,6 +144,7 @@ const applyGetByIdIqroSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -146,6 +153,7 @@ const applyUpdateIqroSantriSucceed = (state, action) => {
   return {
     ...state,
     iqrosantridata: [...payload.data],
+    isLoading: false,
   };
 };
 

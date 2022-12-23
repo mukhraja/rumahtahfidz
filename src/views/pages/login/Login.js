@@ -6,6 +6,7 @@ import { useFormik, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../../../reduxsaga/actions/User";
 import LoadingSpinner from "../../components/spinner/LoadingSpinner";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -56,8 +57,8 @@ export default function Login() {
           className=" lg:w-96 w-72 bg-white shadow-lg sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
           style={{ backdropFilter: "blur(20px)" }}
         >
+          {isLoading ? <LoadingSpinnerLogin /> : ""}
           <div className="px-20 py-32 rounded-md">
-            {isLoading ? <LoadingSpinner /> : ""}
             {/* <div class="w-full flex justify-center">
               <img src={logoapp} class=" w-32 mb-8" />
             </div> */}

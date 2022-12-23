@@ -13,10 +13,11 @@ import {
   doGetUserByRumahTahfidzRequest,
   doGetUserRequest,
 } from "../../../reduxsaga/actions/User";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 const User = () => {
   const dispatch = useDispatch();
 
-  const { userdata } = useSelector((state) => state.userState);
+  const { isLoading, userdata } = useSelector((state) => state.userState);
   const { userProfile } = useSelector((state) => state.userState);
 
   // const [dataadmin, setDataadmin] = useState([]);
@@ -84,6 +85,7 @@ const User = () => {
 
   return (
     <div className="">
+      {isLoading ? <LoadingSpinnerLogin /> : ""}
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Pengguna

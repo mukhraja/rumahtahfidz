@@ -43,6 +43,7 @@ import { Link } from "react-router-dom";
 import { doGetSurahPendekGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
 import { doGetAlquranGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/Alquranguru";
 import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,9 @@ const Dashboard = () => {
   const { gurudata } = useSelector((state) => state.guruState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { userProfile } = useSelector((state) => state.userState);
-  const { masterpondokdata } = useSelector((state) => state.masterPondokState);
+  const { isLoading, masterpondokdata } = useSelector(
+    (state) => state.masterPondokState
+  );
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
@@ -93,6 +96,7 @@ const Dashboard = () => {
 
   return (
     <div className=" font-poppins">
+      {isLoading ? <LoadingSpinnerLogin /> : ""}
       <div className="sm:flex-none lg:flex justify-center mx-2">
         <div className="my-4 lg:ml-4 lg:mr-2 shadow-md rounded-lg lg:h-28 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static md:top-0 lg:relative lg:top-5">

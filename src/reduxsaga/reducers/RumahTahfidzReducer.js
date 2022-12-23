@@ -82,7 +82,8 @@ const applyCreateRumahTahfidzSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    rumahtahfidzdata: [...state.rumahtahfidzdata, { ...payload.data } ],
+    rumahtahfidzdata: [...state.rumahtahfidzdata, { ...payload.data }],
+    isLoading: false,
   };
 };
 
@@ -91,6 +92,7 @@ const applyGetRumahTahfidzSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -99,6 +101,7 @@ const applyGetByIdRumahTahfidzSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -107,6 +110,7 @@ const applyGetByRumahTahfizSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -115,6 +119,7 @@ const applyGetByPondokIdRumahTahfizSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -123,6 +128,7 @@ const applyUpdateRumahTahfidzSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: [{ id: payload.get("id") }],
+    isLoading: false,
   };
 };
 
@@ -131,6 +137,7 @@ const applyUpdateNoFileRumahTahfidzSucceed = (state, action) => {
   return {
     ...state,
     rumahtahfidzdata: [payload],
+    isLoading: false,
   };
 };
 

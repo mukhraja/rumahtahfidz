@@ -93,6 +93,7 @@ const applyGetMasterPondokSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: payload.data,
+    isLoading: false,
   };
 };
 
@@ -101,6 +102,7 @@ const applyGetByIdMasterPondokSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: [payload.data],
+    isLoading: false,
   };
 };
 
@@ -109,6 +111,7 @@ const applyGetByRumahTahfizSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: [...payload.data],
+    isLoading: false,
   };
 };
 
@@ -117,6 +120,7 @@ const applyUpdateMasterPondokSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: [{ id: payload.get("id") }],
+    isLoading: false,
   };
 };
 
@@ -125,6 +129,7 @@ const applyUpdateNoFileMasterPondokSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: [payload],
+    isLoading: false,
   };
 };
 
