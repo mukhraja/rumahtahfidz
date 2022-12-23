@@ -60,8 +60,6 @@ const Tambahrumahtahfiz = () => {
 
       dispatch(doCreateRumahTahfidzRequest(payload));
 
-      toast.success("Data berhasil ditambahkan...");
-
       // setTimeout(() => {
       //   navigate("/datarumahtahfiz", { state: { refresh: true } });
       // }, 3000);
@@ -370,7 +368,7 @@ const Tambahrumahtahfiz = () => {
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
             onClick={() => navigate(-1)}
           >
-            CANCEL
+            KEMBALI
           </button>
         </div>
       </div>

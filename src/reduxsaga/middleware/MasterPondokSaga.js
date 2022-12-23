@@ -61,10 +61,16 @@ function* handleCreateMasterPondok(action) {
   const { payload } = action;
   try {
     const result = yield call(apiMasterpondok.createmasterpondok, payload);
-    yield put(doCreateMasterPondokSucceed(result.data));
-    yield call(toast, "Data berhasil ditambahkan", {
-      type: toast.TYPE.SUCCESS,
-    });
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateMasterPondokSucceed(result.data));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateMasterPondokFailed(error));
     yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
@@ -82,8 +88,14 @@ function* handleDeleteMasterPondok(action) {
   try {
     const result = yield call(apiMasterpondok.deletemasterpondok, payload);
     yield put(doDeleteMasterPondokSucceed(payload));
+    yield call(toast, "Data berhasil dihapus", {
+      type: toast.TYPE.SUCCESS,
+    });
   } catch (error) {
     yield put(doDeleteMasterPondokFailed(error));
+    yield call(toast, "Pastikan Data Yang dipilih benar", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 

@@ -201,7 +201,7 @@ const applyCreateUserSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: [...payload.data],
+    userdata: [...state.userdata, { ...payload.data }],
   };
 };
 
@@ -209,7 +209,7 @@ const applyCreateUserSantriSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: [...payload.data],
+    userdata: [...state.userdata, { ...payload.data }],
   };
 };
 
@@ -217,7 +217,7 @@ const applyCreateUserNofileSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: [...payload.data],
+    userdata: [...state.userdata, { ...payload.data }],
   };
 };
 
@@ -225,7 +225,7 @@ const applyCreateUserSantriNofileSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: [...payload.data],
+    userdata: [...state.userdata, { ...payload.data }],
   };
 };
 

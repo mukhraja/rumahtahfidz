@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import {
   doUpdateNoFIleRumahTahfidzFailed,
@@ -99,9 +100,21 @@ function* handleCreateSantri(action) {
 
   try {
     const result = yield call(apiSantri.createsantri, payload);
-    yield put(doCreateSantriSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan NIS Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateSantriSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateSantriFailed(error));
+    yield call(toast, "Pastikan NIS Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
@@ -113,9 +126,21 @@ function* handleDeleteSantri(action) {
 
   try {
     const result = yield call(apiSantri.deletesantri, payload);
-    yield put(doDeleteSantriSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Mohon Periksa Kembali", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doDeleteSantriSucceed(payload));
+      yield call(toast, "Data berhasil dihapus", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doDeleteSantriFailed(error));
+    yield call(toast, "Mohon Periksa Kembali", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
@@ -127,23 +152,44 @@ function* handleUpdateSantri(action) {
 
   try {
     const result = yield call(apiSantri.updateSantri, payload);
-    yield put(doUpdateSantriSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan NIS Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateSantriSucceed(payload));
+      yield call(toast, "Data berhasil diperbaharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateSantriFailed(error));
+    yield call(toast, "Pastikan NIS Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE NO FILE
 function* handleUpdateNoFileSantri(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
-
   try {
     const result = yield call(apiSantri.updateSantriNoFile, payload);
-    yield put(doUpdateNoFIleSantriSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan NIS Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateNoFIleSantriSucceed(payload));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateNoFIleSantriFailed(error));
+    yield call(toast, "Pastikan NIS Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 

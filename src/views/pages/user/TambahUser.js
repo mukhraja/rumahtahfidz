@@ -151,8 +151,6 @@ const TambahUser = () => {
               console.log(error);
             });
         });
-
-        toast.success("Data berhasil ditambahkan...");
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -177,8 +175,6 @@ const TambahUser = () => {
         payload.append("id", nomorid);
         payload.append("photo", values.photo);
         dispatch(doCreateUserRequest(payload));
-
-        toast.success("Data berhasil ditambahkan...");
       } else if (
         uploaded !== true &&
         formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
@@ -212,8 +208,6 @@ const TambahUser = () => {
               console.log(error);
             });
         });
-
-        toast.success("Data berhasil ditambahkan...");
       } else {
         const payload = {
           name: values.name,
@@ -229,7 +223,6 @@ const TambahUser = () => {
         };
 
         await dispatch(doCreateUserNoFileRequest(payload));
-        toast.success("Data berhasil ditambahkan...");
 
         // setTimeout(() => {
         //   navigate("/datauser", { state: { refresh: true } });
@@ -478,30 +471,28 @@ const TambahUser = () => {
               </div>
             </div>
           </div>
-
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
-          </div>
-
-          {/*  */}
-          <div>
-            <button
-              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="button"
-              onClick={formik.handleSubmit}
-            >
-              SIMPAN
-            </button>
-            <button
-              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() =>
-                navigate("/datauser", { state: { refresh: true } })
-              }
-            >
-              CANCEL
-            </button>
-          </div>
         </form>
+
+        <div className="z-30">
+          <ToastContainer autoClose={2000} />
+        </div>
+
+        {/*  */}
+        <div>
+          <button
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
+            type="button"
+            onClick={formik.handleSubmit}
+          >
+            SIMPAN
+          </button>
+          <button
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
+            onClick={() => navigate("/datauser", { state: { refresh: true } })}
+          >
+            KEMBALI
+          </button>
+        </div>
       </div>
     </div>
   );

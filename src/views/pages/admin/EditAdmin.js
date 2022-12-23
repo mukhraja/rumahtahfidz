@@ -84,7 +84,6 @@ const EditAdmin = () => {
         payload.append("roleId", values.roleId);
         payload.append("photo", values.photo);
         dispatch(doUpdateUserRequest(payload));
-        toast.success("Data berhasil ditambbahkan...");
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -104,7 +103,6 @@ const EditAdmin = () => {
         };
 
         dispatch(doUpdateNoFIleUserRequest(payload));
-        toast.success("Data berhasil diupdate...");
         // setTimeout(() => {
         //   navigate("/datauser");
         // }, 3000);

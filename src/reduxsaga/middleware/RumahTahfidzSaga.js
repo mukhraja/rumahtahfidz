@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import {
   doGetRumahTahfidzSucceed,
@@ -22,8 +23,6 @@ import apiRumahtahfidz from "../api/api-rumahtahfidz";
 
 // GET
 function* handleGetRumahTahfdiz() {
-  console.log("sudah sampai di middleware");
-
   try {
     const result = yield call(apiRumahtahfidz.list);
     yield put(doGetRumahTahfidzSucceed(result));
@@ -34,7 +33,6 @@ function* handleGetRumahTahfdiz() {
 
 // GET BY ID
 function* handleGetByIdRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
@@ -47,7 +45,6 @@ function* handleGetByIdRumahTahfdiz(action) {
 
 // GET BY RUMAHTAHFIDZ
 function* handleGetByRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
@@ -60,7 +57,6 @@ function* handleGetByRumahTahfdiz(action) {
 
 // GET BY PONDOKID RUMAHTAHFIDZ
 function* handleGetByPondokIdRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
@@ -76,56 +72,95 @@ function* handleGetByPondokIdRumahTahfdiz(action) {
 
 // CREATE
 function* handleCreateRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
     const result = yield call(apiRumahtahfidz.createrumah, payload);
-    yield put(doCreateRumahTahfidzSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateRumahTahfidzSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateRumahTahfidzFailed(error));
+    yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // HAPUS
 function* handleDeleteRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
-
   try {
     const result = yield call(apiRumahtahfidz.deleterumah, payload);
-    yield put(doDeleteRumahTahfidzSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan data yang dihapus", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doDeleteRumahTahfidzSucceed(payload));
+      yield call(toast, "Data berhasil dihapus", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doDeleteRumahTahfidzFailed(error));
+    yield call(toast, "Pastikan data yang dihapus", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE
 function* handleUpdateRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
-
   try {
     const result = yield call(apiRumahtahfidz.updaterumah, payload);
-    yield put(doUpdateRumahTahfidzSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateRumahTahfidzSucceed(payload));
+      yield call(toast, "Data berhasil diperbaharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateRumahTahfidzFailed(error));
+    yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE NO FILE
 function* handleUpdateNoFileRumahTahfdiz(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiRumahtahfidz.updaterumahNoFile, payload);
-    yield put(doUpdateNoFIleRumahTahfidzSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateNoFIleRumahTahfidzSucceed(payload));
+      yield call(toast, "Data berhasil diperharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateNoFIleRumahTahfidzFailed(error));
+    yield call(toast, "Pastikan Nama dan NIT Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 

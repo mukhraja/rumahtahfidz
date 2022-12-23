@@ -155,7 +155,6 @@ export function ButtonLinkRumahTahfidz({ value }) {
 
   const onDelete = async (id) => {
     dispatch(doDeleteRumahTahfidzRequest(id));
-    toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
 
@@ -221,7 +220,6 @@ export function ButtonLinkListRumahTahfidz({ value }) {
 
   const onDelete = async (id) => {
     dispatch(doDeleteRumahTahfidzRequest(id));
-    toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
 
@@ -278,7 +276,6 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
 
   const onDelete = (e) => {
     dispatch(doDeleteMasterPondokRequest(e));
-    toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
 
@@ -351,7 +348,6 @@ export function ButtonLinkSantri({ value }) {
 
   const onDelete = async (id) => {
     dispatch(doDeleteSantriRequest(id));
-    toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
 
@@ -413,7 +409,6 @@ export function ButtonLinkGuru({ value }) {
 
   const onDelete = async (id) => {
     dispatch(doDeleteGuruRequest(id));
-    toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
 
@@ -476,7 +471,6 @@ export function ButtonLinkUser({ value }) {
 
   const onDelete = async (id) => {
     dispatch(doDeleteUserRequest(id));
-    toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
 

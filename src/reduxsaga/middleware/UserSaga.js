@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import storage from "redux-persist/lib/storage";
 import {
   all,
@@ -149,27 +150,49 @@ function* handleGetByMasterTahfidzUser(action) {
 
 // CREATE
 function* handleCreateUser(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
     const result = yield call(apiUser.createuser, payload);
-    yield put(doCreateUserSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Email Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateUserSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateUserFailed(error));
+    yield call(toast, "Pastikan Email Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // CREATE
 function* handleCreateUserSantri(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
     const result = yield call(apiUser.createusersantri, payload);
-    yield put(doCreateUserSantriSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Email Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateUserSantriSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateUserSantriFailed(error));
+    yield call(toast, "Pastikan Email Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
@@ -180,9 +203,21 @@ function* handleCreateNoFileUser(action) {
 
   try {
     const result = yield call(apiUser.createNoFileuser, payload);
-    yield put(doCreateUserNoFileSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Email Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateUserNoFileSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateUserNoFileFailed(error));
+    yield call(toast, "Pastikan Email Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
@@ -192,51 +227,93 @@ function* handleCreateNoFileUserSantri(action) {
 
   try {
     const result = yield call(apiUser.createNoFileusersantri, payload);
-    yield put(doCreateUserSantriNoFileSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Email Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateUserSantriNoFileSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateUserSantriNoFileFailed(error));
+    yield call(toast, "Pastikan Email Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // HAPUS
 function* handleDeleteUser(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiUser.deleteuser, payload);
-    yield put(doDeleteUserSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Data Benar", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doDeleteUserSucceed(payload));
+      yield call(toast, "Data berhasil dihapus", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doDeleteUserFailed(error));
+    yield call(toast, "Pastikan Data Benar", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE
 function* handleUpdateUser(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiUser.updateuser, payload);
-    yield put(doUpdateUserSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Email Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateUserSucceed(payload));
+      yield call(toast, "Data berhasil diperbaharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateUserFailed(error));
+    yield call(toast, "Pastikan Email Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE NO FILE
 function* handleUpdateNoFileUser(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiUser.updateuserNoFile, payload);
-    yield put(doUpdateNoFIleUserSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan Email Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateNoFIleUserSucceed(payload));
+      yield call(toast, "Data berhasil diperbaharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateNoFIleUserFailed(error));
+    yield call(toast, "Pastikan Email Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 

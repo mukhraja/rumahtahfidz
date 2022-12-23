@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import {
   doGetGuruSucceed,
@@ -75,51 +76,94 @@ function* handleCreateGuru(action) {
 
   try {
     const result = yield call(apiGuru.createguru, payload);
-    yield put(doCreateGuruSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan NIS Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doCreateGuruSucceed(result));
+      yield call(toast, "Data berhasil ditambahkan", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doCreateGuruFailed(error));
+    yield call(toast, "Pastikan NIS Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // HAPUS
 function* handleDeleteGuru(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiGuru.deleteguru, payload);
-    yield put(doDeleteGuruSucceed(payload));
+
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan data benar", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doDeleteGuruSucceed(payload));
+      yield call(toast, "Data berhasil dihapus", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doDeleteGuruFailed(error));
+    yield call(toast, "Pastikan data benar", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE
 function* handleUpdateGuru(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiGuru.updateguru, payload);
-    yield put(doUpdateGuruSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan NIS Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateGuruSucceed(payload));
+      yield call(toast, "Data berhasil diperbaharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateGuruFailed(error));
+    yield call(toast, "Pastikan NIS Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 
 // UPDATE NO FILE
 function* handleUpdateNoFileGuru(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
-  console.log(payload);
 
   try {
     const result = yield call(apiGuru.updateguruNoFile, payload);
-    yield put(doUpdateNoFIleGuruSucceed(payload));
+    if (result.code === "ERR_BAD_REQUEST") {
+      yield call(toast, "Pastikan NIS Tidak Sama", {
+        type: toast.TYPE.ERROR,
+      });
+    } else {
+      yield put(doUpdateNoFIleGuruSucceed(payload));
+      yield call(toast, "Data berhasil diperbaharui", {
+        type: toast.TYPE.SUCCESS,
+      });
+    }
   } catch (error) {
     yield put(doUpdateNoFIleGuruFailed(error));
+    yield call(toast, "Pastikan NIS Tidak Sama", {
+      type: toast.TYPE.ERROR,
+    });
   }
 }
 

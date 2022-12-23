@@ -89,7 +89,7 @@ const applyCreateSantriSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    santridata: [...payload.data],
+    santridata: [...state.santridata, { ...payload.data }],
   };
 };
 

@@ -82,7 +82,7 @@ const applyCreateRumahTahfidzSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    rumahtahfidzdata: [...payload.data],
+    rumahtahfidzdata: [...state.rumahtahfidzdata, { ...payload.data } ],
   };
 };
 

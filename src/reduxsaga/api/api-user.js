@@ -86,12 +86,9 @@ const getusermastertahfidz = async (payload) => {
 
 // CREATE
 const createuser = async (payload) => {
-  console.log("SAMPAI DISINI");
-  console.log(payload);
   try {
     const result = await axios.post(`${config.domain}/user`, payload);
-    console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }
@@ -104,34 +101,29 @@ const createusersantri = async (payload) => {
       `${config.domain}/user/usersantri`,
       payload
     );
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }
 };
 
 const createNoFileuser = async (payload) => {
-  console.log("SAMPAI DISINI");
-  console.log(payload);
   try {
     const result = await axios.post(`${config.domain}/user/data`, payload);
     console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }
 };
 
 const createNoFileusersantri = async (payload) => {
-  console.log("SAMPAI DISINI");
-  console.log(payload);
   try {
     const result = await axios.post(
       `${config.domain}/user/data/usersantri`,
       payload
     );
-    console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }

@@ -115,7 +115,6 @@ const Editrumahtahfiz = () => {
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateRumahTahfidzRequest(payload));
-        toast.success("Data berhasil diupdate...");
         // setTimeout(() => {
         //   navigate("/datarumahtahfiz");
         // }, 3000);
@@ -129,7 +128,6 @@ const Editrumahtahfiz = () => {
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateRumahTahfidzRequest(payload));
-        toast.success("Data berhasil diupdate...");
       } else if (uploadLogo === true) {
         let payload = new FormData();
         payload.append("name", values.name);
@@ -140,7 +138,6 @@ const Editrumahtahfiz = () => {
         payload.append("logo", values.logo);
         payload.append("id", id);
         dispatch(doUpdateRumahTahfidzRequest(payload));
-        toast.success("Data berhasil diupdate...");
       } else {
         const payload = {
           id,
@@ -151,7 +148,6 @@ const Editrumahtahfiz = () => {
           chief: values.chief,
         };
         dispatch(doUpdateNoFIleRumahTahfidzRequest(payload));
-        toast.success("Data berhasil diupdate...");
       }
     },
   });
@@ -386,7 +382,7 @@ const Editrumahtahfiz = () => {
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
             onClick={() => navigate(-1)}
           >
-            CANCEL
+            KEMBALI
           </button>
         </div>
       </div>

@@ -81,10 +81,12 @@ const DetailIqro = () => {
         {
           Header: "Selesai",
           accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
         {
           Header: "Update",
           accessor: "updatedAt",
+          Cell: tanggalcustom,
         },
       ]);
     } else if (
@@ -141,10 +143,12 @@ const DetailIqro = () => {
         {
           Header: "Selesai",
           accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
         {
           Header: "Update",
           accessor: "updatedAt",
+          Cell: tanggalcustom,
         },
       ]);
     }

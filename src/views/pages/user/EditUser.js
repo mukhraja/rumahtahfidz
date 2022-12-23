@@ -97,7 +97,7 @@ const EditUser = () => {
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateUserRequest(payload));
-        toast.success("Data berhasil diperbaharui...");
+
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -147,8 +147,6 @@ const EditUser = () => {
               console.log(error);
             });
         });
-
-        toast.success("Data berhasil diperbaharui...");
       } else if (
         uploaded !== true &&
         formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
@@ -196,8 +194,6 @@ const EditUser = () => {
               console.log(error);
             });
         });
-
-        toast.success("Data berhasil diperbaharuu...");
       } else {
         const payload = {
           id,
@@ -214,7 +210,6 @@ const EditUser = () => {
         };
 
         dispatch(doUpdateNoFIleUserRequest(payload));
-        toast.success("Data berhasil diperbaharuu...");
         // setTimeout(() => {
         //   navigate("/datauser");
         // }, 3000);

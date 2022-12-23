@@ -101,7 +101,6 @@ const TambahAdmin = () => {
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
         dispatch(doCreateUserRequest(payload));
-        toast.success("Data berhasil ditambbahkan...");
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -120,7 +119,6 @@ const TambahAdmin = () => {
         };
 
         dispatch(doCreateUserNoFileRequest(payload));
-        toast.success("Data berhasil ditambahkan...");
 
         // setTimeout(() => {
         //   navigate("/datauser", { state: { refresh: true } });
@@ -333,30 +331,28 @@ const TambahAdmin = () => {
               </div>
             </div>
           </div>
-
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
-          </div>
-
-          {/*  */}
-          <div>
-            <button
-              className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-              type="button"
-              onClick={formik.handleSubmit}
-            >
-              SIMPAN
-            </button>
-            <button
-              className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-              onClick={() =>
-                navigate("/dataadmin", { state: { refresh: true } })
-              }
-            >
-              KEMBALI
-            </button>
-          </div>
         </form>
+
+        <div className="z-30">
+          <ToastContainer autoClose={2000} />
+        </div>
+
+        {/*  */}
+        <div>
+          <button
+            className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
+            type="button"
+            onClick={formik.handleSubmit}
+          >
+            SIMPAN
+          </button>
+          <button
+            className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
+            onClick={() => navigate(-1, { state: { refresh: true } })}
+          >
+            KEMBALI
+          </button>
+        </div>
       </div>
     </div>
   );

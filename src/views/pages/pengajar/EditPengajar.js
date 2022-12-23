@@ -110,7 +110,6 @@ const EditPengajar = () => {
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateGuruRequest(payload));
-        toast.success("Data berhasil diupdate Form...");
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -131,7 +130,6 @@ const EditPengajar = () => {
           pondokId: values.pondokId,
         };
         dispatch(doUpdateNoFIleGuruRequest(payload));
-        toast.success("Data berhasil diupdate...");
         // setTimeout(() => {
         //   navigate("/datasantri");
         // }, 3000);

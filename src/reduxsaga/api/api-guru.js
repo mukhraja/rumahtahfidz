@@ -55,12 +55,9 @@ const getgurumastertahfidz = async (payload) => {
 
 // CREATE
 const createguru = async (payload) => {
-  console.log("SAMPAI di create");
-  console.log(payload.get("name"));
   try {
     const result = await axios.post(`${config.domain}/guru`, payload);
-    console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }

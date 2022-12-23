@@ -91,8 +91,6 @@ const TambahPengajar = () => {
 
       dispatch(doCreateGuruRequest(payload));
 
-      toast.success("Data berhasil ditambahkan...");
-
       // setTimeout(() => {
       //   navigate("/datapengajar", { state: { refresh: true } });
       // }, 3000);

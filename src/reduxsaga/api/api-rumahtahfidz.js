@@ -5,7 +5,6 @@ import config from "../config/config";
 const list = async () => {
   try {
     const result = await axios.get(`${config.domain}/pondok`);
-    console.log(result);
     return result.data;
   } catch (error) {
     return error;
@@ -15,11 +14,9 @@ const list = async () => {
 // CREATE
 const createrumah = async (payload) => {
   console.log("SAMPAI DISINI");
-  console.log(payload);
   try {
     const result = await axios.post(`${config.domain}/pondok`, payload);
-    console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }
@@ -41,7 +38,6 @@ const getrumahid = async (payload) => {
 // GETBYRUMAHTAHFIDZ
 const getbyrumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
-  console.log(payload);
   try {
     const result = await axios.get(
       `${config.domain}/pondok/byrumahtahfidz/${payload}`
@@ -56,7 +52,6 @@ const getbyrumahtahfidz = async (payload) => {
 // GETBYPONDOKIDRUMAHTAHFIDZ
 const getbypondokidrumahtahfidz = async (payload) => {
   console.log("SAMPAI DISINI");
-  console.log(payload);
   try {
     const result = await axios.get(
       `${config.domain}/pondok/byrumahtahfidzid/${payload}`
@@ -76,7 +71,6 @@ const updaterumah = async (payload) => {
   console.log(id);
   try {
     const result = await axios.put(`${config.domain}/pondok/${id}`, payload);
-    console.log(result);
     return result;
   } catch (error) {
     return error;

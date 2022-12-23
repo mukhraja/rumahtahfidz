@@ -88,7 +88,7 @@ const applyCreateGuruSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    gurudata: [...payload.data],
+    gurudata: [...state.gurudata, { ...payload.data }],
   };
 };
 

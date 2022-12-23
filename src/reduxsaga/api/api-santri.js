@@ -70,12 +70,10 @@ const getsantribyuserid = async (payload) => {
 
 // CREATE
 const createsantri = async (payload) => {
-  console.log("SAMPAI DISINI");
   console.log(payload);
   try {
     const result = await axios.post(`${config.domain}/santri`, payload);
-    console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     return error;
   }
