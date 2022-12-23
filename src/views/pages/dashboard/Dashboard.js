@@ -102,7 +102,9 @@ const Dashboard = () => {
                   <img src={santri} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Santri</h1>
-                <h2 className="font-medium">{santridata.length}</h2>
+                <h2 className="font-medium">
+                  {santridata && santridata.length}
+                </h2>
               </div>
             </Link>
             <Link to="/dataalquransantri">
@@ -111,7 +113,9 @@ const Dashboard = () => {
                   <img src={hafalquran} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Hafal Qur'an</h1>
-                <h2 className="font-medium">{alquransantridata.length}</h2>
+                <h2 className="font-medium">
+                  {alquransantridata && alquransantridata.length}
+                </h2>
               </div>
             </Link>
             <Link to="/dataiqrosantri">
@@ -120,7 +124,9 @@ const Dashboard = () => {
                   <img src={bacaiqro} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Baca Iqro</h1>
-                <h2 className="font-medium">{iqrosantridata.length}</h2>
+                <h2 className="font-medium">
+                  {iqrosantridata && iqrosantridata.length}
+                </h2>
               </div>
             </Link>
             <Link to="/datasurahpendeksantri">
@@ -129,7 +135,9 @@ const Dashboard = () => {
                   <img src={bacajuz} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Baca Juz 30</h1>
-                <h2 className="font-medium">{surahpendeksantridata.length}</h2>
+                <h2 className="font-medium">
+                  {surahpendeksantridata && surahpendeksantridata.length}
+                </h2>
               </div>
             </Link>
           </div>
@@ -142,7 +150,7 @@ const Dashboard = () => {
                   <img src={pengajar} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Pengajar</h1>
-                <h2 className="font-medium">{gurudata.length}</h2>
+                <h2 className="font-medium">{gurudata && gurudata.length}</h2>
               </div>
             </Link>
             <Link
@@ -158,7 +166,9 @@ const Dashboard = () => {
                   <img src={rumahtahfidz} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Rumah Tahfidz</h1>
-                <h2 className="font-medium">{rumahtahfidzdata.length}</h2>
+                <h2 className="font-medium">
+                  {rumahtahfidzdata && rumahtahfidzdata.length}
+                </h2>
               </div>
             </Link>
             <Link
@@ -174,7 +184,9 @@ const Dashboard = () => {
                   <img src={rumahtahfidz} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Master Tahfidz</h1>
-                <h2 className="font-medium">{masterpondokdata.length}</h2>
+                <h2 className="font-medium">
+                  {masterpondokdata && masterpondokdata.length}
+                </h2>
               </div>
             </Link>
           </div>
@@ -205,24 +217,25 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-xs font-light">
-                  {rumahtahfidzdata
-                    .sort((a, b) =>
-                      a.Santris.length < b.Santris.length
-                        ? 1
-                        : a.Santris.length > b.Santris.length
-                        ? -1
-                        : 0
-                    )
-                    .map((e, i) => (
-                      <tr>
-                        <td className="border border-gray-200 border-x-0 px-4 py-3">
-                          {e.name}
-                        </td>
-                        <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                          {e.Santris.length} Santri
-                        </td>
-                      </tr>
-                    ))}
+                  {rumahtahfidzdata &&
+                    rumahtahfidzdata
+                      .sort((a, b) =>
+                        a.Santris.length < b.Santris.length
+                          ? 1
+                          : a.Santris.length > b.Santris.length
+                          ? -1
+                          : 0
+                      )
+                      .map((e, i) => (
+                        <tr>
+                          <td className="border border-gray-200 border-x-0 px-4 py-3">
+                            {e.name}
+                          </td>
+                          <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                            {e.Santris.length} Santri
+                          </td>
+                        </tr>
+                      ))}
                 </tbody>
               </table>
             </div>
@@ -253,24 +266,25 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-xs font-light">
-                  {masterpondokdata
-                    .sort((a, b) =>
-                      a.Pondoks.length < b.Pondoks.length
-                        ? 1
-                        : a.Pondoks.length > b.Pondoks.length
-                        ? -1
-                        : 0
-                    )
-                    .map((e, i) => (
-                      <tr>
-                        <td className="border border-gray-200 border-x-0 px-4 py-3">
-                          {e.name}
-                        </td>
-                        <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                          {e.Pondoks.length} Cabang
-                        </td>
-                      </tr>
-                    ))}
+                  {masterpondokdata &&
+                    masterpondokdata
+                      .sort((a, b) =>
+                        a.Pondoks.length < b.Pondoks.length
+                          ? 1
+                          : a.Pondoks.length > b.Pondoks.length
+                          ? -1
+                          : 0
+                      )
+                      .map((e, i) => (
+                        <tr>
+                          <td className="border border-gray-200 border-x-0 px-4 py-3">
+                            {e.name}
+                          </td>
+                          <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                            {e.Pondoks.length} Cabang
+                          </td>
+                        </tr>
+                      ))}
                 </tbody>
               </table>
             </div>

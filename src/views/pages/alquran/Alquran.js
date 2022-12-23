@@ -67,6 +67,10 @@ const Alquran = () => {
           filter: "includes",
         },
         {
+          Header: "Juz",
+          accessor: "juz",
+        },
+        {
           Header: "Ayat",
           accessor: "ayat",
         },
@@ -97,6 +101,10 @@ const Alquran = () => {
         accessor: "surah",
         Filter: SelectColumnFilter, // new
         filter: "includes",
+      },
+      {
+        Header: "Juz",
+        accessor: "juz",
       },
       {
         Header: "Ayat",

@@ -77,7 +77,7 @@ const Tambahiqro = () => {
   const { userProfile } = useSelector((state) => state.userState);
 
   const iqro = ["IQRO 1", "IQRO 2", "IQRO 3", "IQRO 4", "IQRO 5", "IQRO 6"];
-  const keterangan = ["mengulang", "belum lancar", "selesai"];
+  const keterangan = ["mengulang", "belum lancar", "lanjut", "selesai"];
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">

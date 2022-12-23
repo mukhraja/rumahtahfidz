@@ -33,6 +33,7 @@ const EditAlquranSantri = () => {
   }, []);
 
   const validationSchema = Yup.object().shape({
+    juz: Yup.string("Masukkan Juz Alquran").required("Masukkan Juz Alquran"),
     surah: Yup.string("Masukkan Surah Alquran").required(
       "Masukkan Surah Alquran"
     ),
@@ -54,6 +55,7 @@ const EditAlquranSantri = () => {
       namesantri: alquransantridata.length
         ? alquransantridata[0].Santri.name
         : null,
+      juz: alquransantridata.length ? alquransantridata[0].juz : null,
       surah: alquransantridata.length ? alquransantridata[0].surah : null,
       ayat: alquransantridata.length ? alquransantridata[0].ayat : null,
       halaman: alquransantridata.length ? alquransantridata[0].halaman : null,
@@ -69,6 +71,7 @@ const EditAlquranSantri = () => {
     onSubmit: async (values) => {
       const payload = {
         id,
+        juz: values.juz,
         surah: values.surah,
         ayat: values.ayat,
         halaman: values.halaman,
@@ -105,6 +108,23 @@ const EditAlquranSantri = () => {
             value={formik.values.namesantri}
             disabled
           />
+        </div>
+        <div className="grid grid-cols-8 my-2">
+          <h1 className="block lg:col-span-2 col-span-4">Juz</h1>
+          <input
+            className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+            placeholder="Juz Ke ..."
+            name="juz"
+            id="juz"
+            value={formik.values.juz}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.juz && formik.errors.juz ? (
+            <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              {formik.errors.juz}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block lg:col-span-2 col-span-4">Surah</h1>

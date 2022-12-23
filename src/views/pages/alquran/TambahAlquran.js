@@ -18,7 +18,6 @@ const TambahAlquran = () => {
   const navigate = useNavigate();
 
   const [select, setSelect] = useState();
-  console.log(select);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
@@ -34,6 +33,7 @@ const TambahAlquran = () => {
   };
 
   const validationSchema = Yup.object().shape({
+    juz: Yup.string("Masukkan Juz Alquran").required("Masukkan Juz Alquran"),
     surah: Yup.string("Masukkan Surah Alquran").required(
       "Masukkan Surah Alquran"
     ),
@@ -49,6 +49,7 @@ const TambahAlquran = () => {
 
   const formik = useFormik({
     initialValues: {
+      juz: "",
       surah: "",
       ayat: "",
       halaman: "",
@@ -59,6 +60,7 @@ const TambahAlquran = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const payload = {
+        juz: values.juz,
         surah: values.surah,
         ayat: values.ayat,
         halaman: values.halaman,
@@ -81,7 +83,7 @@ const TambahAlquran = () => {
   const { santridata } = useSelector((state) => state.santriState);
   const { userProfile } = useSelector((state) => state.userState);
 
-  const keterangan = ["mengulang", "belum lancar", "selesai"];
+  const keterangan = ["mengulang", "belum lancar", "lanjut", "selesai"];
 
   return (
     <div className="">
@@ -133,6 +135,23 @@ const TambahAlquran = () => {
           {formik.touched.santriId && formik.errors.santriId ? (
             <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
               {formik.errors.santriId}
+            </span>
+          ) : null}
+        </div>
+        <div className="grid grid-cols-8 my-2">
+          <h1 className="block lg:col-span-2 col-span-4">Juz</h1>
+          <input
+            className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+            placeholder="Juz Ke ..."
+            name="juz"
+            id="juz"
+            value={formik.values.juz}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.juz && formik.errors.juz ? (
+            <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              {formik.errors.juz}
             </span>
           ) : null}
         </div>

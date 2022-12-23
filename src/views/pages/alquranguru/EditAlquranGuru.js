@@ -24,7 +24,6 @@ const EditAlquranGuru = () => {
   const navigate = useNavigate();
 
   const [select, setSelect] = useState();
-  console.log(select);
 
   const { alqurangurudata } = useSelector((state) => state.alquranGuruState);
 
@@ -34,6 +33,7 @@ const EditAlquranGuru = () => {
   }, []);
 
   const validationSchema = Yup.object().shape({
+    juz: Yup.string("Masukkan Juz Alquran").required("Masukkan Juz Alquran"),
     surah: Yup.string("Masukkan Surah Alquran").required(
       "Masukkan Surah Alquran"
     ),
@@ -50,6 +50,7 @@ const EditAlquranGuru = () => {
     enableReinitialize: true,
     initialValues: {
       namaguru: alqurangurudata.length ? alqurangurudata[0].Guru.name : null,
+      juz: alqurangurudata.length ? alqurangurudata[0].juz : null,
       surah: alqurangurudata.length ? alqurangurudata[0].surah : null,
       ayat: alqurangurudata.length ? alqurangurudata[0].ayat : null,
       halaman: alqurangurudata.length ? alqurangurudata[0].halaman : null,
@@ -63,6 +64,7 @@ const EditAlquranGuru = () => {
     onSubmit: async (values) => {
       const payload = {
         id,
+        juz: values.juz,
         surah: values.surah,
         ayat: values.ayat,
         halaman: values.halaman,
@@ -101,6 +103,23 @@ const EditAlquranGuru = () => {
             value={formik.values.namaguru}
             disabled
           />
+        </div>
+        <div className="grid grid-cols-8 my-2">
+          <h1 className="block lg:col-span-2 col-span-4">Juz</h1>
+          <input
+            className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+            placeholder="Juz Ke ..."
+            name="juz"
+            id="juz"
+            value={formik.values.juz}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.juz && formik.errors.juz ? (
+            <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+              {formik.errors.juz}
+            </span>
+          ) : null}
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block lg:col-span-2 col-span-4">Surah</h1>

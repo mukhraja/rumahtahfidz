@@ -46,6 +46,10 @@ const AlquranGuru = () => {
           accessor: "surah",
         },
         {
+          Header: "Juz",
+          accessor: "juz",
+        },
+        {
           Header: "Detail",
           accessor: "guruId",
           Cell: ButtonLinkIqro,
@@ -62,6 +66,10 @@ const AlquranGuru = () => {
           accessor: "surah",
           Filter: SelectColumnFilter, // new
           filter: "includes",
+        },
+        {
+          Header: "Juz",
+          accessor: "juz",
         },
         {
           Header: "Ayat",
@@ -83,39 +91,6 @@ const AlquranGuru = () => {
       ]);
     }
   }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "namaguru",
-      },
-      {
-        Header: "Surah",
-        accessor: "surah",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Ayat",
-        accessor: "ayat",
-      },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
-      {
-        Header: "Keterangan",
-        accessor: "ket",
-      },
-      {
-        Header: "Detail",
-        accessor: "guruId",
-        Cell: ButtonLinkIqro,
-      },
-    ],
-    []
-  );
 
   // const data = React.useMemo(() => alqurangurudata, [alqurangurudata]);
   return (
