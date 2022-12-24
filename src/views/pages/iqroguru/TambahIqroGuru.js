@@ -78,7 +78,7 @@ const TambahIqroGuru = () => {
   const { gurudata } = useSelector((state) => state.guruState);
   const { userProfile } = useSelector((state) => state.userState);
 
-  const iqro = [1, 2, 3, 4, 5, 6];
+  const iqro = ["IQRO 1", "IQRO 2", "IQRO 3", "IQRO 4", "IQRO 5", "IQRO 6"];
   const keterangan = ["mengulang", "belum lancar", "lanjut", "selesai"];
   return (
     <div className="">
@@ -119,7 +119,7 @@ const TambahIqroGuru = () => {
             class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
           >
             <option value="" selected disabled hidden>
-              Pilih Santri
+              Pilih Ustadz/ah
             </option>
             {gurudata
               .filter((e) => e.PondokId === select)

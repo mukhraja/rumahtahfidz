@@ -77,7 +77,8 @@ const EditIqroSantri = () => {
     },
   });
 
-  const keterangan = ["mengulang", "belum lancar", "selesai"];
+  const iqro = ["IQRO 1", "IQRO 2", "IQRO 3", "IQRO 4", "IQRO 5", "IQRO 6"];
+  const keterangan = ["mengulang", "belum lancar", "lanjut", "selesai"];
 
   return (
     <div className="">
@@ -101,15 +102,22 @@ const EditIqroSantri = () => {
         </div>
         <div className="grid grid-cols-8 my-2">
           <h1 className="block lg:col-span-2 col-span-4">Iqro</h1>
-          <input
-            className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-            placeholder="Iqro Ke ..."
+          <select
             name="name"
             id="name"
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-          />
+            autoComplete="name"
+            class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+          >
+            <option value="" selected disabled hidden>
+              Pilih Iqro
+            </option>
+            {iqro.map((e) => (
+              <option value={e}>{e}</option>
+            ))}
+          </select>
           {formik.touched.name && formik.errors.name ? (
             <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
               {formik.errors.name}

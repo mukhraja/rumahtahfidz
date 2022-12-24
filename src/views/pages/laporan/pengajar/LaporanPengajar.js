@@ -330,7 +330,10 @@ const LaporanPengajar = () => {
                           <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Alqurangurus.map((e, i, array) => {
-                                if (e.juz == hafal && e.ket == "selesai") {
+                                if (
+                                  "Juz " + e.juz == hafal &&
+                                  e.ket == "selesai"
+                                ) {
                                   // return <CheckCircleIcon className="h-6" />;
                                   return "selesai";
                                 } else {

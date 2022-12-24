@@ -502,7 +502,7 @@ export const Page = (props) => {
                     onClick={getsubHafalana}
                   >
                     <FolderOpenIcon className="w-5 mr-2" />
-                    <h1>Ustadzah</h1>
+                    <h1>Ustadz/ah</h1>
                   </li>
                   {subHafalana ? (
                     <ul className="font-semibold relative left-5">

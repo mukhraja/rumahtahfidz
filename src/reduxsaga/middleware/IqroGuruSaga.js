@@ -76,7 +76,7 @@ function* handleGetByMasterTahfidzIqroGuru(action) {
   const { payload } = action;
 
   try {
-    const result = yield call(apiIqroguru.getiqrorumahtahfidz, payload);
+    const result = yield call(apiIqroguru.getiqromastertahfidz, payload);
     yield put(doGetIqroGuruByMasterTahfidzSucceed(result));
   } catch (error) {
     yield put(doGetIqroGuruByMasterTahfidzFailed(error));
