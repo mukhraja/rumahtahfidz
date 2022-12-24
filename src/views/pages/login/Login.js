@@ -62,7 +62,7 @@ export default function Login() {
             {/* <div class="w-full flex justify-center">
               <img src={logoapp} class=" w-32 mb-8" />
             </div> */}
-            <form method="POST" className="text-xs">
+            <form onSubmit={formik.handleSubmit} className="text-xs">
               <h1 className="my-2">Email</h1>
               <input
                 id="email"
@@ -101,8 +101,7 @@ export default function Login() {
               ) : null}
               <button
                 className=" bg-green-600 p-2  my-2 rounded-md shadow-sm text-white w-full hover:bg-green-700"
-                onClick={formik.handleSubmit}
-                type="button"
+                type="submit"
               >
                 Login
               </button>
