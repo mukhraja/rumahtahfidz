@@ -111,7 +111,7 @@ export const Page = (props) => {
             <div className="inline-flex">
               <img
                 className=" w-28"
-                src={config.urlImageUser + "/" + userProfile.logotahfidz}
+                src={config.urlImage + "/" + userProfile.logotahfidz}
                 alt="logo.jpg"
               />
             </div>
@@ -716,7 +716,7 @@ export const Page = (props) => {
               <a className="flex flex-row items-center">
                 <img
                   className=" w-12"
-                  src={config.urlImageUser + "/" + userProfile.photo}
+                  src={config.urlImage + "/" + userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
