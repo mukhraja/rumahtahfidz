@@ -25,7 +25,11 @@ import apiRumahtahfidz from "../api/api-rumahtahfidz";
 function* handleGetRumahTahfdiz() {
   try {
     const result = yield call(apiRumahtahfidz.list);
-    yield put(doGetRumahTahfidzSucceed(result));
+    if (result.code === "ERR_NETWORK") {
+      yield put(doGetRumahTahfidzFailed());
+    } else {
+      yield put(doGetRumahTahfidzSucceed(result));
+    }
   } catch (error) {
     yield put(doGetRumahTahfidzFailed(error));
   }
@@ -37,7 +41,11 @@ function* handleGetByIdRumahTahfdiz(action) {
 
   try {
     const result = yield call(apiRumahtahfidz.getrumahid, payload);
-    yield put(doGetRumahTahfidzByIdSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      localStorage.clear();
+    } else {
+      yield put(doGetRumahTahfidzByIdSucceed(result));
+    }
   } catch (error) {
     yield put(doGetRumahTahfidzByIdFailed(error));
   }
@@ -49,7 +57,11 @@ function* handleGetByRumahTahfdiz(action) {
 
   try {
     const result = yield call(apiRumahtahfidz.getbyrumahtahfidz, payload);
-    yield put(doGetByRumahTahfidzSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      localStorage.clear();
+    } else {
+      yield put(doGetByRumahTahfidzSucceed(result));
+    }
   } catch (error) {
     yield put(doGetByRumahTahfidzFailed(error));
   }
@@ -64,7 +76,11 @@ function* handleGetByPondokIdRumahTahfdiz(action) {
       apiRumahtahfidz.getbypondokidrumahtahfidz,
       payload
     );
-    yield put(doGetByPondokIdRumahTahfidzSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      localStorage.clear();
+    } else {
+      yield put(doGetByPondokIdRumahTahfidzSucceed(result));
+    }
   } catch (error) {
     yield put(doGetByPondokIdRumahTahfidzFailed(error));
   }

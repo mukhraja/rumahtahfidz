@@ -20,11 +20,13 @@ import apiMasterpondok from "../api/api-masterpondok";
 
 // GET
 function* handleGetMasterPondok() {
-  console.log("sudah sampai di middleware");
-
   try {
     const result = yield call(apiMasterpondok.list);
-    yield put(doGetMasterPondokSucceed(result));
+    if (result.code === "ERR_NETWORK") {
+      yield put(doGetMasterPondokFailed());
+    } else {
+      yield put(doGetMasterPondokSucceed(result));
+    }
   } catch (error) {
     yield put(doGetMasterPondokFailed(error));
   }
@@ -32,12 +34,15 @@ function* handleGetMasterPondok() {
 
 // GET BY ID
 function* handleGetByIdMasterPondok(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
     const result = yield call(apiMasterpondok.getmasterpondokid, payload);
-    yield put(doGetMasterPondokByIdSucceed(result));
+    if (result.code === "ERR_BAD_REQUEST") {
+      localStorage.clear();
+    } else {
+      yield put(doGetMasterPondokByIdSucceed(result));
+    }
   } catch (error) {
     yield put(doGetMasterPondokByIdFailed(error));
   }
@@ -45,11 +50,10 @@ function* handleGetByIdMasterPondok(action) {
 
 // GET BY Master Pondok
 function* handleGetByMasterPondok(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
-    const result = yield call(apiMasterpondok.getbymasterpondoks, payload);
+    const result = yield call(apiMasterpondok.getbymasterpondok, payload);
     yield put(doGetByMasterPondokSucceed(result));
   } catch (error) {
     yield put(doGetByMasterPondokFailed(error));
@@ -81,7 +85,6 @@ function* handleCreateMasterPondok(action) {
 
 // HAPUS
 function* handleDeleteMasterPondok(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
   console.log(payload);
 
@@ -101,7 +104,6 @@ function* handleDeleteMasterPondok(action) {
 
 // UPDATE
 function* handleUpdateMasterPondok(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
 
   try {
@@ -126,7 +128,6 @@ function* handleUpdateMasterPondok(action) {
 
 // UPDATE NO FILE
 function* handleUpdateNoFileMasterPondok(action) {
-  console.log("sudah sampai di middleware");
   const { payload } = action;
   console.log(payload);
 

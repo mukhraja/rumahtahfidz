@@ -44,6 +44,8 @@ import { doGetSurahPendekGuruByRumahTahfidzRequest } from "../../../reduxsaga/ac
 import { doGetAlquranGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/Alquranguru";
 import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import { ToastContainer } from "react-toastify";
+import LoadingSpinnerAwal from "../../components/spinner/LoadingSprinnerAwal";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -58,7 +60,7 @@ const Dashboard = () => {
   const { gurudata } = useSelector((state) => state.guruState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { userProfile } = useSelector((state) => state.userState);
-  const { isLoading, masterpondokdata } = useSelector(
+  const { isLoading, isKoneksi, masterpondokdata } = useSelector(
     (state) => state.masterPondokState
   );
 
@@ -83,6 +85,7 @@ const Dashboard = () => {
         doGetAlquranSantriByMasterTahfidzRequest(userProfile.masterpondokId)
       );
       dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      dispatch(doGetMasterPondokRequest());
     } else {
       dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
       dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId));
@@ -91,12 +94,14 @@ const Dashboard = () => {
         doGetSurahPendekSantriByRumahTahfidzRequest(userProfile.pondokId)
       );
       dispatch(doGetAlquranSantriByRumahTahfidzRequest(userProfile.pondokId));
+      dispatch(doGetMasterPondokRequest());
     }
   }, []);
 
   return (
     <div className=" font-poppins">
       {isLoading ? <LoadingSpinnerLogin /> : ""}
+      {isKoneksi ? <LoadingSpinnerAwal /> : ""}
       <div className="sm:flex-none lg:flex justify-center mx-2">
         <div className="my-4 lg:ml-4 lg:mr-2 shadow-md rounded-lg lg:h-28 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static md:top-0 lg:relative lg:top-5">
@@ -148,7 +153,14 @@ const Dashboard = () => {
         </div>
         <div className="my-4 lg:ml-2 lg:mr-4 shadow-md rounded-lg lg:h-28 sm:w-full lg:w-1/2 bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static sm:top-0 lg:relative lg:top-5">
-            <Link to="/datapengajar">
+            <Link
+              to="/datapengajar"
+              className={`${
+                userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
+                  ? " pointer-events-none"
+                  : ""
+              }`}
+            >
               <div className="shadow-md p-2 lg:px-1 py-4 text-center rounded-lg w-32 items-center bg-white sm:m-2 lg:m-0">
                 <div className="flex justify-center pb-5">
                   <img src={pengajar} className="h-10" />
@@ -161,7 +173,7 @@ const Dashboard = () => {
               to="/datarumahtahfiz"
               className={`${
                 userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
-                  ? "hidden"
+                  ? ""
                   : ""
               }`}
             >
@@ -295,6 +307,9 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+      <div className="z-30">
+        <ToastContainer autoClose={2000} />
+      </div>
     </div>
   );
 };

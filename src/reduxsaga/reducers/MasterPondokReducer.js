@@ -16,6 +16,12 @@ const MasterPondokReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_MASTERPONDOK_SUCCEED:
       return applyGetMasterPondokSucceed(state, action);
+    case ActionType.GET_MASTERPONDOK_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        isKoneksi: true,
+      };
     // GETBYID
     case ActionType.GET_BY_ID_MASTERPONDOK_REQUEST:
       return {
@@ -93,6 +99,7 @@ const applyGetMasterPondokSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: payload.data,
+    isKoneksi: false,
     isLoading: false,
   };
 };
@@ -102,6 +109,7 @@ const applyGetByIdMasterPondokSucceed = (state, action) => {
   return {
     ...state,
     masterpondokdata: [payload.data],
+    isKoneksi: false,
     isLoading: false,
   };
 };

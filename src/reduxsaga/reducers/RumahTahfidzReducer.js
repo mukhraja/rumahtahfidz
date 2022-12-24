@@ -16,6 +16,11 @@ const RumahTahfidzReducer = (state = INIT_STATE, action) => {
       };
     case ActionType.GET_RUMAHTAHFIDZ_SUCCEED:
       return applyGetRumahTahfidzSucceed(state, action);
+    case ActionType.GET_RUMAHTAHFIDZ_FAILED:
+      return {
+        ...state,
+        isLoading: true,
+      };
     // GETBYID
     case ActionType.GET_BY_ID_RUMAHTAHFIDZ_REQUEST:
       return {

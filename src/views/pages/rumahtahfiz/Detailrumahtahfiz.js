@@ -11,7 +11,7 @@ const Detailrumahtahfiz = () => {
   const navigate = useNavigate();
 
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
-  console.log(rumahtahfidzdata);
+  const { userProfile } = useSelector((state) => state.userState);
 
   useEffect(() => {
     const payload = { id };
@@ -75,12 +75,17 @@ const Detailrumahtahfiz = () => {
               </div>
             </div>
             <div className="py-4 font-poppins">
-              <button
-                className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
-                onClick={() => navigate("/datarumahtahfiz/edit/" + id)}
-              >
-                Edit
-              </button>
+              {userProfile.role !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" &&
+              userProfile.role !== "1b864518-299d-469c-b270-4d4b9d5b120f" ? (
+                <button
+                  className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
+                  onClick={() => navigate("/datarumahtahfiz/edit/" + id)}
+                >
+                  Edit
+                </button>
+              ) : (
+                ""
+              )}
               <button
                 className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
                 onClick={() => navigate(-1)}
