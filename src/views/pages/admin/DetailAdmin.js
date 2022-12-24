@@ -27,7 +27,7 @@ const DetailAdmin = () => {
               Data {e.name}
             </h1>
             <img
-              src={config.urlImage + "/" + e.photo}
+              src={config.urlImageUser + "/" + e.photo}
               className="h-20 rounded-full"
             />
           </div>

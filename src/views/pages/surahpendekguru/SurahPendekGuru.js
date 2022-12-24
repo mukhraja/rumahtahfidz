@@ -8,6 +8,7 @@ import {
 } from "../../../reduxsaga/actions/SurahPendekGuru";
 import Table, {
   ButtonLinkIqro,
+  perkecilnama,
   SelectColumnFilter,
 } from "../../components/datatable/Table.js";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
@@ -52,6 +53,7 @@ const SurahPendekGuru = () => {
         {
           Header: "Nama",
           accessor: "namaguru",
+          Cell: perkecilnama,
         },
         {
           Header: "Surah Pendek",
@@ -82,6 +84,7 @@ const SurahPendekGuru = () => {
       {
         Header: "Nama",
         accessor: "namaguru",
+        Cell: perkecilnama,
       },
       {
         Header: "Surah Pendek",

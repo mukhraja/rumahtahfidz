@@ -27,7 +27,7 @@ const InfoUser = () => {
               Data {e.name}
             </h1>
             <img
-              src={config.urlImage + "/" + e.photo}
+              src={config.urlImageUser + "/" + e.photo}
               className="h-20 rounded-full"
             />
           </div>
@@ -61,12 +61,6 @@ const InfoUser = () => {
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
-            </div>
-            <div className="grid grid-cols-8 p-2 text-xs">
-              <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
-              <h1 className="block lg:col-span-2 col-span-4">
-                {e.Pondok.name}
-              </h1>
             </div>
             <div className="py-4 font-poppins">
               {userProfile.role !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" &&

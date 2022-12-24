@@ -9,6 +9,7 @@ import {
 } from "../../../reduxsaga/actions/Iqrosantri";
 import Table, {
   ButtonLinkIqro,
+  perkecilnama,
   SelectColumnFilter,
 } from "../../components/datatable/Table.js";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
@@ -41,6 +42,7 @@ const Iqro = () => {
         {
           Header: "Nama",
           accessor: "namasantri",
+          Cell: perkecilnama,
         },
         {
           Header: "Iqro",

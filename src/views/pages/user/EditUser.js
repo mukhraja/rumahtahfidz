@@ -218,7 +218,7 @@ const EditUser = () => {
   });
 
   useEffect(() => {
-    let img = config.urlImage + "/" + formik.values.photo;
+    let img = config.urlImageUser + "/" + formik.values.photo;
     setPhoto(img);
   }, [userdata]);
 

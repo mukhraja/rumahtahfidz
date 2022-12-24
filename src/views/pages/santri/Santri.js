@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { santri } from "../../../gambar";
 import Table, {
   ButtonLinkSantri,
+  perkecilnama,
   SelectColumnFilter,
   tanggalcustom,
 } from "../../components/datatable/Table.js";
@@ -53,6 +54,7 @@ const Santri = () => {
         {
           Header: "Nama",
           accessor: "name",
+          Cell: perkecilnama,
         },
         {
           Header: "NIS",

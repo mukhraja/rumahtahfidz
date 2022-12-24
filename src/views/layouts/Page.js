@@ -111,7 +111,7 @@ export const Page = (props) => {
             <div className="inline-flex">
               <img
                 className=" w-28"
-                src={config.urlImage + "/" + userProfile.logotahfidz}
+                src={config.urlImageUser + "/" + userProfile.logotahfidz}
                 alt="logo.jpg"
               />
             </div>
@@ -716,7 +716,7 @@ export const Page = (props) => {
               <a className="flex flex-row items-center">
                 <img
                   className=" w-12"
-                  src={config.urlImage + "/" + userProfile.photo}
+                  src={config.urlImageUser + "/" + userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
@@ -731,7 +731,7 @@ export const Page = (props) => {
           </div>
         </header>
         {showModal && <ModalLogout onCancel={tutupkan} onDelete={onSignOut} />}
-        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
+        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden min-w-fit">
           <Outlet />
         </div>
         <footer className="footer px-4 py-6">

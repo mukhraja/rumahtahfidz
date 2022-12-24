@@ -4,6 +4,8 @@ import { user } from "../../../gambar";
 import Table, {
   ButtonLinkSantri,
   ButtonLinkUser,
+  perkecilemail,
+  perkecilnama,
   SelectColumnFilter,
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
@@ -51,10 +53,12 @@ const User = () => {
           {
             Header: "Nama",
             accessor: "name",
+            Cell: perkecilnama,
           },
           {
             Header: "Email",
             accessor: "email",
+            Cell: perkecilemail,
           },
           {
             Header: "Telephone",

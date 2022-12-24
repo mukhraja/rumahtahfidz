@@ -10,6 +10,7 @@ import Table, {
   AvatarCell,
   ButtonLink,
   ButtonLinkIqro,
+  perkecilnama,
   SelectColumnFilter,
   StatusPill,
 } from "../../components/datatable/Table.js";
@@ -63,6 +64,7 @@ const AlquranGuru = () => {
         {
           Header: "Nama",
           accessor: "namaguru",
+          Cell: perkecilnama,
         },
         {
           Header: "Surah",

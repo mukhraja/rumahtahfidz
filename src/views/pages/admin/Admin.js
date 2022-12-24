@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../gambar";
 import Table, {
   ButtonLinkUser,
+  perkecilemail,
+  perkecilnama,
   SelectColumnFilter,
 } from "../../components/datatable/Table.js";
 import { ToastContainer } from "react-toastify";
@@ -39,10 +41,12 @@ const Admin = () => {
           {
             Header: "Nama",
             accessor: "name",
+            Cell: perkecilnama,
           },
           {
             Header: "Email",
             accessor: "email",
+            Cell: perkecilemail,
           },
           {
             Header: "Telephone",

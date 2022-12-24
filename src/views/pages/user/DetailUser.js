@@ -26,7 +26,7 @@ const DetailUser = () => {
             <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
               Data {e.name}
             </h1>
-            <img src={config.urlImage + "/" + e.photo} className="h-20" />
+            <img src={config.urlImageUser + "/" + e.photo} className="h-20" />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">

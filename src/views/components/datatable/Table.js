@@ -136,6 +136,14 @@ export function tanggalcustom({ value }) {
   }
 }
 
+export function perkecilemail({ value }) {
+  return <h1 className=" truncate w-36">{value}</h1>;
+}
+
+export function perkecilnama({ value }) {
+  return <h1 className=" truncate w-40">{value}</h1>;
+}
+
 export function ButtonLinkRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
 

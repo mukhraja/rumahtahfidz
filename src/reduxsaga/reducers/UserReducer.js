@@ -282,7 +282,7 @@ const applyUpdateUserSucceed = (state, action) => {
   const { payload } = action;
   return {
     ...state,
-    userdata: [...payload.data],
+    santridata: [{ id: payload.get("id") }],
     isLoading: false,
   };
 };

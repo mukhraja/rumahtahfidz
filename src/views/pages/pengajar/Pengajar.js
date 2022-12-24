@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Table, {
   AvatarCell,
   ButtonLinkGuru,
+  perkecilnama,
   SelectColumnFilter,
   StatusPill,
   tanggalcustom,
@@ -56,6 +57,7 @@ const Pengajar = () => {
         {
           Header: "Nama",
           accessor: "name",
+          Cell: perkecilnama,
         },
         {
           Header: "NIU",
