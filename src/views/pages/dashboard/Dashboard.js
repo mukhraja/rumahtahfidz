@@ -172,8 +172,8 @@ const Dashboard = () => {
             <Link
               to="/datarumahtahfiz"
               className={`${
-                userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
-                  ? ""
+                userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883"
+                  ? "hidden"
                   : ""
               }`}
             >
