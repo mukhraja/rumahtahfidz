@@ -716,7 +716,7 @@ export const Page = (props) => {
               <a className="flex flex-row items-center">
                 <img
                   className=" w-12"
-                  src={config.urlImage + "/" + userProfile.photo}
+                  src={config.urlImageUser + "/" + userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">
                   <span className="truncate w-20 font-semibold tracking-wide leading-none font-poppins">
