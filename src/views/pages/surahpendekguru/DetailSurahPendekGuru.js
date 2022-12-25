@@ -50,8 +50,17 @@ const DetailSurahPendekGuru = () => {
           accessor: "name",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
+        },
+        {
+          Header: "Ket",
+          accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
         {
           Header: "Detail",
@@ -73,12 +82,17 @@ const DetailSurahPendekGuru = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
-          Header: "Keterangan",
+          Header: "Ket",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
       ]);
     } else if (
@@ -101,8 +115,8 @@ const DetailSurahPendekGuru = () => {
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
           Cell: tanggalcustom,
         },
         {

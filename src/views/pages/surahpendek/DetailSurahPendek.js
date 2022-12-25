@@ -47,6 +47,19 @@ const DetailSurahPendek = () => {
           accessor: "name",
         },
         {
+          Header: "Hal",
+          accessor: "halaman",
+        },
+        {
+          Header: "Ket",
+          accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
+        },
+        {
           Header: "Detail",
           accessor: "id",
           Cell: ButtonLinkSurahPendekList,
@@ -66,12 +79,17 @@ const DetailSurahPendek = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
-          Header: "Keterangan",
+          Header: "Ket",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
       ]);
     } else if (
@@ -94,8 +112,8 @@ const DetailSurahPendek = () => {
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
           Cell: tanggalcustom,
         },
         {
@@ -119,6 +137,11 @@ const DetailSurahPendek = () => {
         {
           Header: "Keterangan",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
       ]);
     }

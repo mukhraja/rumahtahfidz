@@ -34,11 +34,6 @@ const DetailIqro = () => {
 
   const [Display, setDisplay] = useState([]);
 
-  console.log(
-    window.innerWidth <= 500 === true &&
-      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
-  );
-
   useEffect(() => {
     if (
       (window.innerWidth <= 500 &&
@@ -50,6 +45,14 @@ const DetailIqro = () => {
         {
           Header: "Iqro",
           accessor: "name",
+        },
+        {
+          Header: "Hal",
+          accessor: "halaman",
+        },
+        {
+          Header: "Ket",
+          accessor: "ket",
         },
         {
           Header: "Detail",
@@ -71,21 +74,16 @@ const DetailIqro = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
-          Header: "Keterangan",
+          Header: "Ket",
           accessor: "ket",
         },
         {
           Header: "Selesai",
           accessor: "tgl_selesai",
-          Cell: tanggalcustom,
-        },
-        {
-          Header: "Update",
-          accessor: "updatedAt",
           Cell: tanggalcustom,
         },
       ]);

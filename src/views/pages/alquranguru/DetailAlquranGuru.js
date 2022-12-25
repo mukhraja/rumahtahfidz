@@ -51,6 +51,19 @@ const DetailAlquranGuru = () => {
           accessor: "surah",
         },
         {
+          Header: "Hal",
+          accessor: "halaman",
+        },
+        {
+          Header: "Ket",
+          accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
+        },
+        {
           Header: "Detail",
           accessor: "id",
           Cell: ButtonLinkAlquranGuruList,
@@ -74,16 +87,16 @@ const DetailAlquranGuru = () => {
           accessor: "ayat",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
-          Header: "Keterangan",
+          Header: "Ket",
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
           Cell: tanggalcustom,
         },
       ]);

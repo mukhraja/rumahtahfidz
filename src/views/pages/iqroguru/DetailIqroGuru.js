@@ -56,7 +56,7 @@ const DetailIqroGuru = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
@@ -79,12 +79,17 @@ const DetailIqroGuru = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
-          Header: "Keterangan",
+          Header: "Ket",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
       ]);
     } else if (
@@ -107,8 +112,8 @@ const DetailIqroGuru = () => {
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
           Cell: tanggalcustom,
         },
         {
@@ -134,8 +139,8 @@ const DetailIqroGuru = () => {
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
         },
       ]);
     }

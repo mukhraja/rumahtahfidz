@@ -47,6 +47,19 @@ const DetailAlquran = () => {
           accessor: "surah",
         },
         {
+          Header: "Hal",
+          accessor: "halaman",
+        },
+        {
+          Header: "Ket",
+          accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
+        },
+        {
           Header: "Detail",
           accessor: "id",
           Cell: ButtonLinkAlquranList,
@@ -66,12 +79,17 @@ const DetailAlquran = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
+          Header: "Hal",
           accessor: "halaman",
         },
         {
-          Header: "Keterangan",
+          Header: "Ket",
           accessor: "ket",
+        },
+        {
+          Header: "Selesai",
+          accessor: "tgl_selesai",
+          Cell: tanggalcustom,
         },
       ]);
     } else if (
