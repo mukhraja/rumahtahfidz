@@ -715,7 +715,7 @@ export const Page = (props) => {
             <div className="flex ml-auto">
               <a className="flex flex-row items-center">
                 <img
-                  className=" w-12"
+                  className=" w-12 rounded-lg"
                   src={config.urlImageUser + "/" + userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">

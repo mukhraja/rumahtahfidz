@@ -32,7 +32,17 @@ const Detailrumahtahfiz = () => {
             />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">
-            <div className="flex justify-between">
+            <div className="flex-none md:flex flex-row-reverse justify-between">
+              <div className="w-full md:w-1/2 my-2 justify-center flex">
+                <img
+                  src={
+                    e.photo == ""
+                      ? rumahtahfidz
+                      : config.urlImage + "/" + e.photo
+                  }
+                  className="w-1/2 object-fit h-full rounded-md"
+                />
+              </div>
               <div className="w-full">
                 <div className="grid grid-cols-8 p-2 text-xs">
                   <h1 className="block col-span-4">Nama</h1>
@@ -62,16 +72,6 @@ const Detailrumahtahfiz = () => {
                   <h1 className="block col-span-4">Jumlah Santri</h1>
                   <h1 className="block col-span-4">{e.Santris.length}</h1>
                 </div>
-              </div>
-              <div className="w-1/2 justify-center flex">
-                <img
-                  src={
-                    e.photo == ""
-                      ? rumahtahfidz
-                      : config.urlImage + "/" + e.photo
-                  }
-                  className="w-1/2 object-fit h-full shadow-lg rounded-md"
-                />
               </div>
             </div>
             <div className="py-4 font-poppins">
