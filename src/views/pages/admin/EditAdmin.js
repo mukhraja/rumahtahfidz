@@ -128,7 +128,7 @@ const EditAdmin = () => {
           Edit Pengguna
         </h1>
         <img
-          src={config.urlImage + "/" + formik.values.photo}
+          src={config.urlImageUser + "/" + formik.values.photo}
           className="rounded-full bg-white bg-cover w-20 h-20 shadow-md"
         />
       </div>
