@@ -26,10 +26,7 @@ const Detailrumahtahfiz = () => {
             <h1 className="text-white font-semibold lg:text-2xl text-lg font-poppins">
               Data {e.name}
             </h1>
-            <img
-              src={e.logo == "" ? rumahtahfidz : config.urlImage + "/" + e.logo}
-              className="h-20"
-            />
+            <img src={rumahtahfidz} className="h-20" />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">
             <div className="flex-none md:flex flex-row-reverse justify-between">
@@ -75,7 +72,7 @@ const Detailrumahtahfiz = () => {
               </div>
             </div>
             <div className="py-4 font-poppins">
-              {userProfile.role !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" &&
+              {/* {userProfile.role !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" &&
               userProfile.role !== "1b864518-299d-469c-b270-4d4b9d5b120f" ? (
                 <button
                   className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
@@ -85,7 +82,7 @@ const Detailrumahtahfiz = () => {
                 </button>
               ) : (
                 ""
-              )}
+              )} */}
               <button
                 className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
                 onClick={() => navigate(-1)}

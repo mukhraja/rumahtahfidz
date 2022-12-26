@@ -30,10 +30,10 @@ const Editrumahtahfiz = () => {
   const [uploaded, setUploaded] = useState(false);
   const [photo, setPhoto] = useState();
 
-  useEffect(() => {
-    let img = config.urlImage + "/" + formik.values.logo;
-    setPreviewLogo(img);
-  }, [rumahtahfidzdata]);
+  // useEffect(() => {
+  //   let img = config.urlImage + "/" + formik.values.logo;
+  //   setPreviewLogo(img);
+  // }, [rumahtahfidzdata]);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -53,29 +53,29 @@ const Editrumahtahfiz = () => {
     setPhoto(null);
   };
 
-  const [previewLogo, setPreviewLogo] = useState();
-  const [uploadLogo, setUploadLogo] = useState(false);
+  // const [previewLogo, setPreviewLogo] = useState();
+  // const [uploadLogo, setUploadLogo] = useState(false);
 
-  const uploadOnLogo = (name) => (event) => {
-    let reader = new FileReader();
-    let file = event.target.files[0];
+  // const uploadOnLogo = (name) => (event) => {
+  //   let reader = new FileReader();
+  //   let file = event.target.files[0];
 
-    reader.onload = () => {
-      formik.setFieldValue("logo", file);
-      setPreviewLogo(reader.result);
-    };
-    reader.readAsDataURL(file);
-    setUploadLogo(true);
-  };
+  //   reader.onload = () => {
+  //     formik.setFieldValue("logo", file);
+  //     setPreviewLogo(reader.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  //   setUploadLogo(true);
+  // };
 
-  const onClearLogo = (event) => {
-    event.preventDefault();
-    setUploadLogo(false);
-    setPreviewLogo(null);
-  };
+  // const onClearLogo = (event) => {
+  //   event.preventDefault();
+  //   setUploadLogo(false);
+  //   setPreviewLogo(null);
+  // };
 
-  console.log("upload logo" + uploadLogo);
-  console.log("upload saja " + uploaded);
+  // console.log("upload logo" + uploadLogo);
+  // console.log("upload saja " + uploaded);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama rumah tahfiz").required(
@@ -99,46 +99,49 @@ const Editrumahtahfiz = () => {
       address: rumahtahfidzdata.length ? rumahtahfidzdata[0].address : null,
       telephone: rumahtahfidzdata.length ? rumahtahfidzdata[0].telephone : null,
       chief: rumahtahfidzdata.length ? rumahtahfidzdata[0].chief : null,
-      logo: rumahtahfidzdata.length ? rumahtahfidzdata[0].logo : undefined,
+      // logo: rumahtahfidzdata.length ? rumahtahfidzdata[0].logo : undefined,
       photo: rumahtahfidzdata.length ? rumahtahfidzdata[0].photo : undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      if (uploaded === true && uploadLogo === true) {
+      // if (uploaded === true && uploadLogo === true) {
+      //   let payload = new FormData();
+      //   payload.append("name", values.name);
+      //   payload.append("nit", values.nit);
+      //   payload.append("address", values.address);
+      //   payload.append("telephone", values.telephone);
+      //   payload.append("chief", values.chief);
+      //   payload.append("logo", values.logo);
+      //   payload.append("photo", values.photo);
+      //   payload.append("id", id);
+      //   dispatch(doUpdateRumahTahfidzRequest(payload));
+      //   // setTimeout(() => {
+      //   //   navigate("/datarumahtahfiz");
+      //   // }, 3000);
+      // } else
+      if (uploaded === true) {
         let payload = new FormData();
         payload.append("name", values.name);
         payload.append("nit", values.nit);
         payload.append("address", values.address);
         payload.append("telephone", values.telephone);
         payload.append("chief", values.chief);
-        payload.append("logo", values.logo);
         payload.append("photo", values.photo);
         payload.append("id", id);
         dispatch(doUpdateRumahTahfidzRequest(payload));
-        // setTimeout(() => {
-        //   navigate("/datarumahtahfiz");
-        // }, 3000);
-      } else if (uploaded === true) {
-        let payload = new FormData();
-        payload.append("name", values.name);
-        payload.append("nit", values.nit);
-        payload.append("address", values.address);
-        payload.append("telephone", values.telephone);
-        payload.append("chief", values.chief);
-        payload.append("photo", values.photo);
-        payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
-      } else if (uploadLogo === true) {
-        let payload = new FormData();
-        payload.append("name", values.name);
-        payload.append("nit", values.nit);
-        payload.append("address", values.address);
-        payload.append("telephone", values.telephone);
-        payload.append("chief", values.chief);
-        payload.append("logo", values.logo);
-        payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
-      } else {
+      }
+      // else if (uploadLogo === true) {
+      //   let payload = new FormData();
+      //   payload.append("name", values.name);
+      //   payload.append("nit", values.nit);
+      //   payload.append("address", values.address);
+      //   payload.append("telephone", values.telephone);
+      //   payload.append("chief", values.chief);
+      //   payload.append("logo", values.logo);
+      //   payload.append("id", id);
+      //   dispatch(doUpdateRumahTahfidzRequest(payload));
+      // }
+      else {
         const payload = {
           id,
           name: values.name,
@@ -158,7 +161,7 @@ const Editrumahtahfiz = () => {
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Rumah Tahfidz
         </h1>
-        <img src={previewLogo} className=" bg-cover w-20 h-20" />
+        <img src={rumahtahfidz} className=" bg-cover h-20" />
       </div>
 
       <div className="m-4 bg-white p-4 rounded-md font-poppins">
@@ -246,7 +249,7 @@ const Editrumahtahfiz = () => {
             ) : null}
           </div>
 
-          <div class="col-span-4 row-span-2 py-2">
+          {/* <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Logo
             </label>
@@ -307,7 +310,7 @@ const Editrumahtahfiz = () => {
                 ) : null}
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div class="col-span-4 row-span-2 py-2">
             <label className="block font-medium text-gray-700 text-xs">

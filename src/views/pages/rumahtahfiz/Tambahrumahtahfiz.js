@@ -44,7 +44,7 @@ const Tambahrumahtahfiz = () => {
       chief: "",
       masterpondokId: "",
       photo: undefined,
-      logo: undefined,
+      // logo: undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -55,7 +55,7 @@ const Tambahrumahtahfiz = () => {
       payload.append("telephone", values.telephone);
       payload.append("chief", values.chief);
       payload.append("masterpondokId", userProfile.masterpondokId);
-      payload.append("logo", values.logo);
+      // payload.append("logo", values.logo);
       payload.append("photo", values.photo);
 
       dispatch(doCreateRumahTahfidzRequest(payload));
@@ -69,8 +69,8 @@ const Tambahrumahtahfiz = () => {
   const [previewImg, setPreviewImg] = useState();
   const [uploaded, setUploaded] = useState(false);
 
-  const [previewLogo, setPreviewLogo] = useState();
-  const [uploadLogo, setUploadLogo] = useState(false);
+  // const [previewLogo, setPreviewLogo] = useState();
+  // const [uploadLogo, setUploadLogo] = useState(false);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -90,23 +90,23 @@ const Tambahrumahtahfiz = () => {
     setPreviewImg(null);
   };
 
-  const uploadOnLogo = (name) => (event) => {
-    let reader = new FileReader();
-    let file = event.target.files[0];
+  // const uploadOnLogo = (name) => (event) => {
+  //   let reader = new FileReader();
+  //   let file = event.target.files[0];
 
-    reader.onload = () => {
-      formik.setFieldValue("logo", file);
-      setPreviewLogo(reader.result);
-    };
-    reader.readAsDataURL(file);
-    setUploadLogo(true);
-  };
+  //   reader.onload = () => {
+  //     formik.setFieldValue("logo", file);
+  //     setPreviewLogo(reader.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  //   setUploadLogo(true);
+  // };
 
-  const onClearLogo = (event) => {
-    event.preventDefault();
-    setUploadLogo(false);
-    setPreviewLogo(null);
-  };
+  // const onClearLogo = (event) => {
+  //   event.preventDefault();
+  //   setUploadLogo(false);
+  //   setPreviewLogo(null);
+  // };
 
   return (
     <div className="">
@@ -226,7 +226,7 @@ const Tambahrumahtahfiz = () => {
               </span>
             ) : null}
           </div> */}
-          <div class="col-span-4 row-span-2 py-2">
+          {/* <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Logo
             </label>
@@ -287,7 +287,7 @@ const Tambahrumahtahfiz = () => {
                 ) : null}
               </div>
             </div>
-          </div>
+          </div> */}
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Photo

@@ -324,14 +324,26 @@ const TambahUser = () => {
             </div>
             <div className="grid grid-cols-8 my-2">
               <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
-              <input
-                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-                value={formik.values.gender}
-                onChange={formik.handleChange}
+              <select
                 name="gender"
                 id="gender"
-                placeholder="Jenis Kelamin"
-              />
+                value={formik.values.gender}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                autoComplete="gender"
+                class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              >
+                <option value="" selected disabled hidden>
+                  Pilih Jenis Kelamin
+                </option>
+                <option value="Pria">Pria</option>
+                <option value="Wanita">Wanita</option>
+              </select>
+              {formik.touched.gender && formik.errors.gender ? (
+                <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
+                  {formik.errors.gender}
+                </span>
+              ) : null}
             </div>
           </div>
           <div className="grid grid-cols-8 my-2">
