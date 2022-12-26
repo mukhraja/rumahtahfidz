@@ -13,6 +13,7 @@ import {
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
+import moment from "moment";
 
 const EditAdmin = () => {
   const { id } = useParams();
@@ -60,18 +61,20 @@ const EditAdmin = () => {
       email: userdata.length ? userdata[0].email : null,
       password: "",
       telephone: userdata.length ? userdata[0].telephone : null,
-      datebirth: userdata.length ? userdata[0].datebirth : null,
+      datebirth: userdata.length
+        ? moment(userdata[0].datebirth).format("YYYY-MM-DD")
+        : null,
       address: userdata.length ? userdata[0].address : null,
       age: userdata.length ? userdata[0].age : null,
       gender: userdata.length ? userdata[0].gender : null,
       parent: userdata.length ? userdata[0].parent : null,
       roleId: userdata.length ? userdata[0].roleId : null,
       photo: userdata.length ? userdata[0].photo : null,
+      pondokId: userdata.length ? userdata[0].pondokId : null,
     },
     onSubmit: async (values) => {
       if (uploaded === true) {
         let payload = new FormData();
-        payload.append("id", id);
         payload.append("name", values.name);
         payload.append("email", values.email);
         payload.append("password", values.password);
@@ -82,7 +85,9 @@ const EditAdmin = () => {
         payload.append("gender", values.gender);
         payload.append("parent", values.parent);
         payload.append("roleId", values.roleId);
+        payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
+        payload.append("id", id);
         dispatch(doUpdateUserRequest(payload));
         // setTimeout(() => {
         //   navigate("/datsantri");
@@ -100,6 +105,7 @@ const EditAdmin = () => {
           gender: values.gender,
           parent: values.parent,
           roleId: values.roleId,
+          pondokId: values.pondokId,
         };
 
         dispatch(doUpdateNoFIleUserRequest(payload));
