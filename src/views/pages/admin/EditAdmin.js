@@ -25,6 +25,16 @@ const EditAdmin = () => {
   const { roledata } = useSelector((state) => state.roleState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
+  useEffect(() => {
+    const payload = { id };
+    dispatch(doGetUserByIdRequest(payload));
+  }, []);
+
+  useEffect(() => {
+    dispatch(doGetRoleRequest());
+    dispatch(doGetRumahTahfidzRequest());
+  }, []);
+
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
     let file = event.target.files[0];
@@ -47,13 +57,6 @@ const EditAdmin = () => {
   const [photo, setPhoto] = useState();
   const [previewImg, setPreviewImg] = useState();
 
-  useEffect(() => {
-    const payload = { id };
-    dispatch(doGetUserByIdRequest(payload));
-    dispatch(doGetRoleRequest());
-    dispatch(doGetRumahTahfidzRequest());
-  }, []);
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -67,10 +70,9 @@ const EditAdmin = () => {
       address: userdata.length ? userdata[0].address : null,
       age: userdata.length ? userdata[0].age : null,
       gender: userdata.length ? userdata[0].gender : null,
-      parent: userdata.length ? userdata[0].parent : null,
       roleId: userdata.length ? userdata[0].roleId : null,
-      photo: userdata.length ? userdata[0].photo : null,
       pondokId: userdata.length ? userdata[0].pondokId : null,
+      photo: userdata.length ? userdata[0].photo : null,
     },
     onSubmit: async (values) => {
       if (uploaded === true) {
