@@ -83,7 +83,6 @@ const EditAdmin = () => {
         payload.append("datebirth", values.datebirth);
         payload.append("age", values.age);
         payload.append("gender", values.gender);
-        payload.append("parent", values.parent);
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
@@ -103,7 +102,6 @@ const EditAdmin = () => {
           address: values.address,
           age: values.age,
           gender: values.gender,
-          parent: values.parent,
           roleId: values.roleId,
           pondokId: values.pondokId,
         };
