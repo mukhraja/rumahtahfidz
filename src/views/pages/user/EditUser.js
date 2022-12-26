@@ -253,7 +253,10 @@ const EditUser = () => {
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Pengguna
         </h1>
-        <img src={photo} className="rounded-full bg-cover w-20 h-20" />
+        <img
+          src={config.urlImageUser + "/" + formik.values.photo}
+          className="rounded-full bg-cover w-20 h-20"
+        />
       </div>
       <div className="m-4 bg-white p-4 rounded-md font-poppins">
         <form method="PUT" action="#">
