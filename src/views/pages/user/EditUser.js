@@ -134,7 +134,7 @@ const EditUser = () => {
             });
         });
 
-        selected.map((e) => {
+        await selected.map((e) => {
           console.log(e.value);
           axios
             .put(config.domain + "/santri/usersantri/" + e.value, {
@@ -181,7 +181,7 @@ const EditUser = () => {
             });
         });
 
-        selected.map((e) => {
+        await selected.map((e) => {
           console.log(e.value);
           axios
             .put(config.domain + "/santri/usersantri/" + e.value, {
@@ -247,6 +247,11 @@ const EditUser = () => {
     console.log(data.map((e) => e.value));
     setSelected(data);
   }
+
+  console.log("ini data select", selected);
+
+  console.log("ini data list", list);
+
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
