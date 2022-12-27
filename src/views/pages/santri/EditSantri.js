@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -143,7 +143,7 @@ const EditSantri = () => {
   useEffect(() => {
     let img = config.urlImage + "/" + formik.values.photo;
     setPhoto(img);
-  }, [santridata]);
+  }, []);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -454,12 +454,13 @@ const EditSantri = () => {
           >
             SIMPAN
           </button>
-          <button
+          <Link
+            to={-1}
             className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
-            onClick={() => navigate(-1)}
+            // onClick={() => navigate(-1, { replace: true })}
           >
             KEMBALI
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -147,7 +147,7 @@ const DetailPengajar = () => {
               </button>
             </div>
             <div className="py-4 font-poppins">
-              {userProfile.role !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" &&
+              {/* {userProfile.role !== "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" &&
               userProfile.role !== "1b864518-299d-469c-b270-4d4b9d5b120f" ? (
                 <button
                   className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
@@ -157,7 +157,7 @@ const DetailPengajar = () => {
                 </button>
               ) : (
                 ""
-              )}
+              )} */}
               <button
                 className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
                 onClick={() => navigate("/datapengajar")}

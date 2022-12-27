@@ -59,12 +59,12 @@ const DetailAdmin = () => {
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
             </div>
             <div className="py-4 font-poppins">
-              <button
+              {/* <button
                 className="py-1 px-2 bg-mamasingle rounded-md text-white shadow-sm text-xs"
                 onClick={() => navigate("/datauser/edit/" + id)}
               >
                 Edit
-              </button>
+              </button> */}
               <button
                 className="py-1 px-2 bg-red-400 rounded-md text-white shadow-sm ml-2 text-xs"
                 onClick={() => navigate("/dataadmin")}
