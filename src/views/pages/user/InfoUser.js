@@ -51,7 +51,7 @@ const InfoUser = () => {
               </h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-              <h1 className="block lg:col-span-2 col-span-4">Gender</h1>
+              <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.gender}</h1>
             </div>
             <div className="grid grid-cols-8 p-2 text-xs ">

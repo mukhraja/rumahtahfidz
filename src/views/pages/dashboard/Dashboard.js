@@ -155,11 +155,11 @@ const Dashboard = () => {
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static sm:top-0 lg:relative lg:top-5">
             <Link
               to="/datapengajar"
-              className={`${
-                userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
-                  ? " pointer-events-none"
-                  : ""
-              }`}
+              // className={`${
+              //   userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
+              //     ? " pointer-events-none"
+              //     : ""
+              // }`}
             >
               <div className="shadow-md p-2 lg:px-1 py-4 text-center rounded-lg w-32 items-center bg-white sm:m-2 lg:m-0">
                 <div className="flex justify-center pb-5">

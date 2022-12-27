@@ -189,6 +189,26 @@ export const Page = (props) => {
                     <span className="ml-3 font-semibold">Santri</span>
                   </Link>
                   <Link
+                    to="datapengajar"
+                    className={
+                      pathname === "/datapengajar"
+                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                    }
+                    onClick={
+                      Display === true
+                        ? () => {
+                            setMenu(true);
+                          }
+                        : ""
+                    }
+                  >
+                    <span className="text-lg text-gray-700">
+                      <FolderOpenIcon className="w-5" />
+                    </span>
+                    <span className="ml-3 font-semibold">Ustadz/ah</span>
+                  </Link>
+                  <Link
                     to="dataiqrosantri"
                     className={
                       pathname === "/dataiqrosantri"

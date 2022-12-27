@@ -124,8 +124,8 @@ const DetailAlquranGuru = () => {
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
           Cell: tanggalcustom,
         },
         {
@@ -155,8 +155,8 @@ const DetailAlquranGuru = () => {
           accessor: "ket",
         },
         {
-          Header: "Update",
-          accessor: "updatedAt",
+          Header: "Selesai",
+          accessor: "tgl_selesai",
           Cell: tanggalcustom,
         },
       ]);
