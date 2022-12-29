@@ -89,7 +89,7 @@ const DetailPengajar = () => {
               </h1>
             </div>
 
-            <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+            {/* <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">
                 No. Rumah Tahfidz
               </h1>
@@ -100,7 +100,7 @@ const DetailPengajar = () => {
               <h1 className="block lg:col-span-2 col-span-4">
                 {e.Pondok.name}
               </h1>
-            </div>
+            </div> */}
             <div className="grid grid-cols-8 p-2 text-xs my-4">
               <h1 className="block lg:col-span-2 col-span-4">Hafalan :</h1>
             </div>
