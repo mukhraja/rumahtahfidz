@@ -41,9 +41,7 @@ const TambahSantri = () => {
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
-    gender: Yup.string("Masukkan jenis kelamin").required(
-      "Masukkan nomor jenis kelamin"
-    ),
+    gender: Yup.string("Pilih jenis kelamin").required("Pilih jenis kelamin"),
     ayah: Yup.string("Masukkan nama ayah").required("Masukkan nama ayah"),
     ibu: Yup.string("Masukkan nama ibu").required("Masukkan nama ibu"),
     telephone: Yup.string("Masukkan nomor telephone").required(
@@ -52,7 +50,7 @@ const TambahSantri = () => {
     mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
     ),
-    mulai_masuk: Yup.string("Pilih Tanggal VAkum").required(
+    mulai_masuk: Yup.string("Pilih Tanggal Vakum").required(
       "Pilih Tanggal Vakum"
     ),
     pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),

@@ -81,7 +81,7 @@ const TambahUser = () => {
   }
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string("Enter Job Title").required("Title is required"),
+    name: Yup.string("Masukkan nama").required("Masukkan nama"),
     // address: Yup.string("Please enter Primary Skill").required(
     //   "Primary Skill is required"
     // ),

@@ -53,9 +53,7 @@ const EditPengajar = () => {
     datebirth: Yup.string("Masukkan tanggal lahir").required(
       "Masukkan tanggal lahir"
     ),
-    gender: Yup.string("Masukkan jenis kelamin").required(
-      "Masukkan nomor jenis kelamin"
-    ),
+    gender: Yup.string("Pilih jenis kelamin").required("Pilih jenis kelamin"),
     telephone: Yup.string("Masukkan nomor telephone").required(
       "Masukkan nomor telephone"
     ),
