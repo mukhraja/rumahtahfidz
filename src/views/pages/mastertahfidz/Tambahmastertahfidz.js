@@ -27,11 +27,11 @@ const Tambahmastertahfidz = () => {
     ),
     address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
     telephone: Yup.string("Masukkan telephone").required("Masukkan telephone"),
-    chief: Yup.string("Masukkan nomor telephone").required(
-      "Masukkan nomor telephone"
+    chief: Yup.string("Masukkan nama kepala tahfidz").required(
+      "Masukkan nama kepala tahfidz"
     ),
     photo: Yup.string("Masukkan photo").required("Masukkan photo"),
-    photo: Yup.string("Masukkan logo").required("Masukkan logo"),
+    logo: Yup.string("Masukkan logo").required("Masukkan logo"),
   });
 
   const formik = useFormik({

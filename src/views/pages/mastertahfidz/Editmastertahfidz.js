@@ -87,8 +87,8 @@ const Editmastertahfidz = () => {
     ),
     address: Yup.string("Masukkan alamat").required("Masukkan alamat"),
     telephone: Yup.string("Masukkan telephone").required("Masukkan telephone"),
-    chief: Yup.string("Masukkan nomor telephone").required(
-      "Masukkan nomor telephone"
+    chief: Yup.string("Masukkan nama kepala tahfidz").required(
+      "Masukkan nama kepala tahfidz"
     ),
   });
 
