@@ -77,7 +77,7 @@ function* handleCreateGuru(action) {
   try {
     const result = yield call(apiGuru.createguru, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan NIS Tidak Sama", {
+      yield call(toast, "Pastikan NIU Tidak Sama", {
         type: toast.TYPE.ERROR,
       });
     } else {
@@ -88,7 +88,7 @@ function* handleCreateGuru(action) {
     }
   } catch (error) {
     yield put(doCreateGuruFailed(error));
-    yield call(toast, "Pastikan NIS Tidak Sama", {
+    yield call(toast, "Pastikan NIU Tidak Sama", {
       type: toast.TYPE.ERROR,
     });
   }
@@ -126,7 +126,7 @@ function* handleUpdateGuru(action) {
   try {
     const result = yield call(apiGuru.updateguru, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan NIS Tidak Sama", {
+      yield call(toast, "Pastikan NIU Tidak Sama", {
         type: toast.TYPE.ERROR,
       });
     } else {
@@ -137,7 +137,7 @@ function* handleUpdateGuru(action) {
     }
   } catch (error) {
     yield put(doUpdateGuruFailed(error));
-    yield call(toast, "Pastikan NIS Tidak Sama", {
+    yield call(toast, "Pastikan NIU Tidak Sama", {
       type: toast.TYPE.ERROR,
     });
   }
@@ -150,7 +150,7 @@ function* handleUpdateNoFileGuru(action) {
   try {
     const result = yield call(apiGuru.updateguruNoFile, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan NIS Tidak Sama", {
+      yield call(toast, "Pastikan NIU Tidak Sama", {
         type: toast.TYPE.ERROR,
       });
     } else {
@@ -161,7 +161,7 @@ function* handleUpdateNoFileGuru(action) {
     }
   } catch (error) {
     yield put(doUpdateNoFIleGuruFailed(error));
-    yield call(toast, "Pastikan NIS Tidak Sama", {
+    yield call(toast, "Pastikan NIU Tidak Sama", {
       type: toast.TYPE.ERROR,
     });
   }
