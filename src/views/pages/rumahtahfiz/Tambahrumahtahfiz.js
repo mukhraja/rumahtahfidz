@@ -32,7 +32,9 @@ const Tambahrumahtahfiz = () => {
       "Masukkan nomor telephone"
     ),
     photo: Yup.string("Masukkan photo").required("Masukkan photo"),
-    chief: Yup.string("Masukkan logo").required("Masukkan logo"),
+    chief: Yup.string("Masukkan nama kepala tahfidz").required(
+      "Masukkan nama kepala tahfidz"
+    ),
   });
 
   const formik = useFormik({
