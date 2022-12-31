@@ -51,15 +51,18 @@ const DetailPengajar = () => {
             </div>
             <div className="grid grid-cols-8 p-2 text-xs">
               <h1 className="block lg:col-span-2 col-span-4">Tanggal Lahir</h1>
-              <h1 className="block lg:col-span-1 col-span-1">
-                {gurudata[0].tempat}
-              </h1>
-              <h1 className="block lg:col-span-1 col-span-1">/</h1>
-              <h1 className="block lg:col-span-2 col-span-2">
+              <h1 className="block lg:col-span-2 col-span-4">
+                {gurudata[0].tempat} /{" "}
                 <Moment format="DD - MMMM - YYYY">
                   {gurudata[0].datebirth}
                 </Moment>
               </h1>
+              {/* <h1 className="block lg:col-span-1 col-span-1">/</h1> */}
+              {/* <h1 className="block lg:col-span-2 col-span-2">
+                <Moment format="DD - MMMM - YYYY">
+                  {gurudata[0].datebirth}
+                </Moment>
+              </h1> */}
             </div>
             <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
               <h1 className="block lg:col-span-2 col-span-4">Jenis Kelamin</h1>
