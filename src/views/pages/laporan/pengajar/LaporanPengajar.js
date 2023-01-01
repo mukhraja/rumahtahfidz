@@ -203,6 +203,12 @@ const LaporanPengajar = () => {
     "Juz 30",
   ];
 
+  const [dataguru, setDataguru] = useState([]);
+
+  useEffect(() => {
+    setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
+  }, []);
+
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
@@ -285,7 +291,7 @@ const LaporanPengajar = () => {
               </thead>
               <tbody className="">
                 {gurudata &&
-                  gurudata
+                  dataguru
                     .filter((el) => {
                       if (select === "") {
                         return el;
