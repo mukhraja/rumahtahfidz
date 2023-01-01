@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HomeIcon } from "@heroicons/react/outline";
 import {
   bacaiqro,
@@ -98,6 +98,19 @@ const Dashboard = () => {
     }
   }, []);
 
+  const [datasan, setDatasan] = useState([]);
+  const [dataguru, setDataguru] = useState([]);
+
+  useEffect(() => {
+    setDatasan(santridata.filter((e) => e.mulai_vakum === null));
+    setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
+  }, []);
+
+  // useEffect(() => {
+  //   setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
+  // }, []);
+
+  console.log("ini datasan ", datasan);
   return (
     <div className=" font-poppins">
       {isLoading ? <LoadingSpinnerLogin /> : ""}
@@ -111,9 +124,7 @@ const Dashboard = () => {
                   <img src={santri} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Santri</h1>
-                <h2 className="font-medium">
-                  {santridata && santridata.length}
-                </h2>
+                <h2 className="font-medium">{santridata && datasan.length}</h2>
               </div>
             </Link>
             <Link to="/dataalquransantri">
@@ -166,7 +177,7 @@ const Dashboard = () => {
                   <img src={pengajar} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Pengajar</h1>
-                <h2 className="font-medium">{gurudata && gurudata.length}</h2>
+                <h2 className="font-medium">{gurudata && dataguru.length}</h2>
               </div>
             </Link>
             <Link
