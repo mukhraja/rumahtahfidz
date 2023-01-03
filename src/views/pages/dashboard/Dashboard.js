@@ -106,11 +106,6 @@ const Dashboard = () => {
     setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
   }, [santridata, gurudata]);
 
-  // useEffect(() => {
-  //   setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
-  // }, []);
-
-  console.log("ini datasan ", datasan);
   return (
     <div className=" font-poppins">
       {isLoading ? <LoadingSpinnerLogin /> : ""}

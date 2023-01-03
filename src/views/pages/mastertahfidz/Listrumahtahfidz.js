@@ -7,6 +7,7 @@ import { doGetByRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahf
 import Table, {
   ButtonLinkListRumahTahfidz,
   ButtonLinkRumahTahfidz,
+  Jumlahorang,
   jumlahorang,
 } from "../../components/datatable/Table";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
@@ -63,13 +64,13 @@ const Listrumahtahfidz = () => {
         },
         {
           Header: "Ustadz/ah",
-          accessor: "Gurus.length",
-          Cell: jumlahorang,
+          accessor: "Gurus",
+          Cell: Jumlahorang,
         },
         {
           Header: "Santri",
-          accessor: "Santris.length",
-          Cell: jumlahorang,
+          accessor: "Santris",
+          Cell: Jumlahorang,
         },
         {
           Header: "Detail",

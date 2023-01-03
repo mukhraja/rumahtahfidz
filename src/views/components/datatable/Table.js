@@ -144,8 +144,10 @@ export function perkecilnama({ value }) {
   return <h1 className=" truncate w-40">{value}</h1>;
 }
 
-export function jumlahorang({ value }) {
-  return <h1 className="text-gray-500">{value} Orang</h1>;
+export function Jumlahorang({ value }) {
+  const result = value.filter((e) => e.mulai_vakum == null);
+
+  return <h1 className="text-gray-500">{result.length} Orang</h1>;
 }
 
 export function ButtonLinkRumahTahfidz({ value }) {

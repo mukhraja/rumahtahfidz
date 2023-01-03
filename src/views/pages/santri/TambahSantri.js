@@ -50,9 +50,6 @@ const TambahSantri = () => {
     mulai_masuk: Yup.string("Pilih Tanggal Masuk").required(
       "Pilih Tanggal Masuk"
     ),
-    mulai_masuk: Yup.string("Pilih Tanggal Vakum").required(
-      "Pilih Tanggal Vakum"
-    ),
     pondokId: Yup.string("Pilih Pondok ID").required("Pilih Pondok ID"),
     photo: Yup.string("Masukkan nama ibu").required("Upload Photo"),
   });
