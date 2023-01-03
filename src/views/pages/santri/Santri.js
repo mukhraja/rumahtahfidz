@@ -94,7 +94,7 @@ const Santri = () => {
         </h1>
         <img src={santri} className="h-20" />
       </div>
-      <div className="mt-6 px-4">
+      <div className="mt-6 px-4 text-gray-500">
         <Table columns={Display} data={santridata} url="tambah" />
       </div>
       <div className="z-30">

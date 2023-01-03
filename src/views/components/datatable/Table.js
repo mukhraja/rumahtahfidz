@@ -144,6 +144,10 @@ export function perkecilnama({ value }) {
   return <h1 className=" truncate w-40">{value}</h1>;
 }
 
+export function jumlahorang({ value }) {
+  return <h1 className="text-gray-500">{value} Orang</h1>;
+}
+
 export function ButtonLinkRumahTahfidz({ value }) {
   const status = value ? value.toLowerCase() : "";
 

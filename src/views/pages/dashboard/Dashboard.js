@@ -104,7 +104,7 @@ const Dashboard = () => {
   useEffect(() => {
     setDatasan(santridata.filter((e) => e.mulai_vakum === null));
     setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
-  }, []);
+  }, [santridata, gurudata]);
 
   // useEffect(() => {
   //   setDataguru(gurudata.filter((e) => e.mulai_vakum === null));

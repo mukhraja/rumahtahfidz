@@ -98,7 +98,7 @@ const Pengajar = () => {
         </h1>
         <img src={pengajar} className="h-20" />
       </div>
-      <div className="mt-6 px-4">
+      <div className="mt-6 px-4 text-gray-500">
         <Table columns={Display} data={gurudata} url="tambah" />
       </div>
       <div className="z-30">
