@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { rumahtahfidz } from "../../../gambar";
 import Table, {
   ButtonLinkRumahTahfidz,
+  Jumlahorang,
 } from "../../components/datatable/Table.js";
 import {
   doGetRumahTahfidzRequest,
@@ -51,6 +52,26 @@ const Rumahtahfiz = () => {
           Cell: ButtonLinkRumahTahfidz,
         },
       ]);
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      setDisplay([
+        {
+          Header: "Nama",
+          accessor: "name",
+        },
+        {
+          Header: "NIT",
+          accessor: "nit",
+        },
+        {
+          Header: "Kepala Tahfiz",
+          accessor: "chief",
+        },
+        {
+          Header: "Detail",
+          accessor: "id",
+          Cell: ButtonLinkRumahTahfidz,
+        },
+      ]);
     } else
       setDisplay([
         {
@@ -64,6 +85,16 @@ const Rumahtahfiz = () => {
         {
           Header: "Kepala Tahfiz",
           accessor: "chief",
+        },
+        {
+          Header: "Ustadz/ah",
+          accessor: "Gurus",
+          Cell: Jumlahorang,
+        },
+        {
+          Header: "Santri",
+          accessor: "Santris",
+          Cell: Jumlahorang,
         },
         {
           Header: "Detail",
