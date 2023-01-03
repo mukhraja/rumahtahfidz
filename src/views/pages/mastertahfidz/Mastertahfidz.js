@@ -5,6 +5,8 @@ import { rumahtahfidz } from "../../../gambar";
 import Table, {
   ButtonLinkMasterRumahTahfidz,
   ButtonLinkRumahTahfidz,
+  JumlahCabang,
+  Jumlahorang,
 } from "../../components/datatable/Table.js";
 import {
   doGetRumahTahfidzRequest,
@@ -58,6 +60,11 @@ const Mastertahfidz = () => {
         {
           Header: "Kepala Tahfiz",
           accessor: "chief",
+        },
+        {
+          Header: "Cabang",
+          accessor: "Pondoks",
+          Cell: JumlahCabang,
         },
         {
           Header: "Detail",

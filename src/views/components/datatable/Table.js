@@ -144,6 +144,14 @@ export function perkecilnama({ value }) {
   return <h1 className=" truncate w-40">{value}</h1>;
 }
 
+export function JumlahCabang({ value }) {
+  return (
+    <h1 className=" text-white py-2 text-center bg-fuchsia-400 rounded-md shadow-md w-10 mr-2">
+      {value.length}
+    </h1>
+  );
+}
+
 export function Jumlahorang({ value }) {
   const result = value.filter((e) => e.mulai_vakum == null);
   const resultvakum = value.filter((e) => e.mulai_vakum != null);
