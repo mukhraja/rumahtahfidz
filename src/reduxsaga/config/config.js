@@ -1,8 +1,8 @@
 const config = {
-  domain: "https://backend.pondoktahfidzquran.my.id/newbackend/v1/api",
-  urlImage: "https://backend.pondoktahfidzquran.my.id/newbackend/v1/api/gambar",
+  domain: "https://new.pondoktahfidzquran.my.id/newbackend/v1/api",
+  urlImage: "https://new.pondoktahfidzquran.my.id/newbackend/v1/api/gambar",
   urlImageUser:
-    "https://backend.pondoktahfidzquran.my.id/newbackend/v1/api/gambar/userdata",
+    "https://new.pondoktahfidzquran.my.id/newbackend/v1/api/gambar/userdata",
   // domain: "http://localhost:3000/newbackend/v1/api",
   // urlImage: "http://localhost:3000/newbackend/v1/api/gambar",
   // urlImageUser: "http://localhost:3000/newbackend/v1/api/gambar/userdata",

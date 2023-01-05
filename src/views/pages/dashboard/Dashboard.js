@@ -100,11 +100,25 @@ const Dashboard = () => {
 
   const [datasan, setDatasan] = useState([]);
   const [dataguru, setDataguru] = useState([]);
+  const [dataiqro, setDataiqro] = useState([]);
+  const [datasurahpendek, setDatasurahpendek] = useState([]);
+  const [dataalquran, setDataalquran] = useState([]);
 
   useEffect(() => {
     setDatasan(santridata.filter((e) => e.mulai_vakum === null));
     setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
-  }, [santridata, gurudata]);
+    setDataiqro(iqrosantridata.filter((e) => e.mulai_vakum === null));
+    setDatasurahpendek(
+      surahpendeksantridata.filter((e) => e.mulai_vakum === null)
+    );
+    setDataalquran(alquransantridata.filter((e) => e.mulai_vakum === null));
+  }, [
+    santridata,
+    gurudata,
+    iqrosantridata,
+    surahpendeksantridata,
+    alquransantridata,
+  ]);
 
   return (
     <div className=" font-poppins">
@@ -129,7 +143,7 @@ const Dashboard = () => {
                 </div>
                 <h1 className=" font-medium">Hafal Qur'an</h1>
                 <h2 className="font-medium">
-                  {alquransantridata && alquransantridata.length}
+                  {alquransantridata && dataalquran.length}
                 </h2>
               </div>
             </Link>
@@ -140,7 +154,7 @@ const Dashboard = () => {
                 </div>
                 <h1 className=" font-medium">Baca Iqro</h1>
                 <h2 className="font-medium">
-                  {iqrosantridata && iqrosantridata.length}
+                  {iqrosantridata && dataiqro.length}
                 </h2>
               </div>
             </Link>
@@ -151,7 +165,7 @@ const Dashboard = () => {
                 </div>
                 <h1 className=" font-medium">Baca Juz 30</h1>
                 <h2 className="font-medium">
-                  {surahpendeksantridata && surahpendeksantridata.length}
+                  {surahpendeksantridata && datasurahpendek.length}
                 </h2>
               </div>
             </Link>
