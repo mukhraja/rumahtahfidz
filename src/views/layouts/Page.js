@@ -630,7 +630,7 @@ export const Page = (props) => {
                   </li>
                 </ul>
               ) : null}
-              <li
+              {/* <li
                 className={`my-px  ${
                   userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f883" &&
                   userProfile.role !== "8b273d68-fe09-422d-a660-af3d8312f884"
@@ -658,7 +658,7 @@ export const Page = (props) => {
                   </span>
                   <span className="ml-3 font-semibold">Database</span>
                 </Link>
-              </li>
+              </li> */}
               <li className="my-px">
                 <span className="flex font-medium text-sm text-gray-700 px-4 my-4 uppercase">
                   Account
