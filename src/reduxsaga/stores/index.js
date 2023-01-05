@@ -13,13 +13,18 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const logger = createLogger();
+// const logger = createLogger();
 const saga = createSagaMiddleWare();
 
 const store = createStore(
   persistedReducer,
   undefined,
-  composeWithDevTools(applyMiddleware(saga, logger))
+  composeWithDevTools(
+    applyMiddleware(
+      saga
+      // ,logger
+    )
+  )
 );
 
 let persistor = persistStore(store);
