@@ -224,8 +224,8 @@ const LaporanSantri = () => {
 
   return (
     <div className="">
-      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
-        <h1 className="text-white font-semibold text-2xl font-poppins">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400 lg:text-sm text-xs">
+        <h1 className="text-white font-semibold text-2xl font-poppins py-1">
           Laporan Data Santri
         </h1>
         <img src={santri} className="h-20" />
@@ -264,13 +264,13 @@ const LaporanSantri = () => {
           }}
         >
           <div className=" overflow-auto h-80">
-            <table className=" font-poppins" ref={tableRef}>
+            <table className=" font-poppins lg:text-sm text-xs" ref={tableRef}>
               <thead className="border-b bg-gray-50 sticky top-0 z-10">
                 <tr>
                   <th
                     scope="col"
                     rowSpan="2"
-                    className="sticky left-0 bg-gray-50 text-sm font-medium text-gray-900 px-8 border-r py-4 text-left"
+                    className="sticky left-0 bg-gray-50 text-xs lg:text-sm font-medium text-gray-900 lg:px-8 px-2 border-r py-4 text-left"
                   >
                     Nama
                   </th>
@@ -316,7 +316,7 @@ const LaporanSantri = () => {
                     })
                     .map((e) => (
                       <tr className=" border-b">
-                        <td className="sticky left-0 bg-gray-50  text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                        <td className="sticky left-0 bg-gray-50  text-xs lg:text-sm text-gray-900 font-light lg:px-8 px-2 truncate block w-32 lg:w-full border-r py-4 whitespace-nowrap">
                           {e.name}
                         </td>
                         {hafalsantriiqro.map((hafal) => (
