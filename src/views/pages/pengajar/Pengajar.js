@@ -37,7 +37,21 @@ const Pengajar = () => {
 
   const [Display, setDisplay] = useState([]);
 
-  console.log(gurudata);
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      gurudata.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [gurudata]);
 
   useEffect(() => {
     if (window.innerWidth <= 500) {
@@ -86,7 +100,7 @@ const Pengajar = () => {
         },
       ]);
     }
-  }, []);
+  }, [gurudata]);
 
   // const data = React.useMemo(() => gurudata, [gurudata]);
   return (
@@ -99,7 +113,7 @@ const Pengajar = () => {
         <img src={pengajar} className="h-20" />
       </div>
       <div className="mt-6 px-4 text-gray-500">
-        <Table columns={Display} data={gurudata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

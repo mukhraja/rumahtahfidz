@@ -12,6 +12,7 @@ import Table, {
   SelectColumnFilter,
 } from "../../components/datatable/Table.js";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import IqroGuru from "../iqroguru/IqroGuru";
 
 const SurahPendekGuru = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,22 @@ const SurahPendekGuru = () => {
       dispatch(doGetSurahPendekGuruByRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
+
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      surahpendekgurudata.sort(function (a, b) {
+        if (a.namaguru < b.namaguru) {
+          return -1;
+        }
+        if (a.namaguru > b.namaguru) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [surahpendekgurudata]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -77,7 +94,7 @@ const SurahPendekGuru = () => {
         },
       ]);
     }
-  }, []);
+  }, [surahpendekgurudata]);
 
   const columns = React.useMemo(
     () => [
@@ -128,7 +145,7 @@ const SurahPendekGuru = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={surahpendekgurudata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
         {/* )} */}
       </div>
     </div>

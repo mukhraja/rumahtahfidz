@@ -207,7 +207,19 @@ const LaporanSantri = () => {
   const [datasan, setDatasan] = useState([]);
 
   useEffect(() => {
-    setDatasan(santridata.filter((e) => e.mulai_vakum === null));
+    setDatasan(
+      santridata
+        .sort(function (a, b) {
+          if (a.name < b.name) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        })
+        .filter((e) => e.mulai_vakum === null)
+    );
   }, []);
 
   return (
@@ -251,9 +263,9 @@ const LaporanSantri = () => {
             width: window.innerWidth / 1.4,
           }}
         >
-          <div className=" overflow-auto">
+          <div className=" overflow-auto h-80">
             <table className=" font-poppins" ref={tableRef}>
-              <thead className="border-b bg-gray-50">
+              <thead className="border-b bg-gray-50 sticky top-0">
                 <tr>
                   <th
                     scope="col"

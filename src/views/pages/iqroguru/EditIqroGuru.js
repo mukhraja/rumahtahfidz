@@ -118,9 +118,19 @@ const EditIqroGuru = () => {
             <option value="" selected disabled hidden>
               Pilih Iqro
             </option>
-            {iqro.map((e) => (
-              <option value={e}>{e}</option>
-            ))}
+            {iqro
+              .sort(function (a, b) {
+                if (a.name < b.name) {
+                  return -1;
+                }
+                if (a.name > b.name) {
+                  return 1;
+                }
+                return 0;
+              })
+              .map((e) => (
+                <option value={e}>{e}</option>
+              ))}
           </select>
         </div>
         <div className="grid grid-cols-8 my-2">

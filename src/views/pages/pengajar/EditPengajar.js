@@ -371,9 +371,19 @@ const EditPengajar = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
+              {rumahtahfidzdata
+                .sort(function (a, b) {
+                  if (a.name < b.name) {
+                    return -1;
+                  }
+                  if (a.name > b.name) {
+                    return 1;
+                  }
+                  return 0;
+                })
+                .map((e) => (
+                  <option value={e.id}>{e.name}</option>
+                ))}
               {console.log(formik.values.pondokId)}
             </select>
             {formik.touched.pondokId && formik.errors.pondokId ? (

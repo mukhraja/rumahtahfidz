@@ -35,6 +35,22 @@ const IqroGuru = () => {
     }
   }, []);
 
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      iqrogurudata.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [iqrogurudata]);
+
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
@@ -97,7 +113,7 @@ const IqroGuru = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={iqrogurudata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
         {/* )} */}
       </div>
     </div>

@@ -41,6 +41,22 @@ const SurahPendek = () => {
     }
   }, []);
 
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      surahpendeksantridata.sort(function (a, b) {
+        if (a.namasantri < b.namasantri) {
+          return -1;
+        }
+        if (a.namasantri > b.namasantri) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [surahpendeksantridata]);
+
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
@@ -85,7 +101,7 @@ const SurahPendek = () => {
         },
       ]);
     }
-  }, []);
+  }, [surahpendeksantridata]);
 
   const columns = React.useMemo(
     () => [
@@ -134,7 +150,7 @@ const SurahPendek = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={surahpendeksantridata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
         {/* )} */}
       </div>
     </div>

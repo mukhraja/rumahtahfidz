@@ -371,9 +371,19 @@ const EditSantri = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
+              {rumahtahfidzdata
+                .sort(function (a, b) {
+                  if (a.name < b.name) {
+                    return -1;
+                  }
+                  if (a.name > b.name) {
+                    return 1;
+                  }
+                  return 0;
+                })
+                .map((e) => (
+                  <option value={e.id}>{e.name}</option>
+                ))}
             </select>
             {formik.touched.pondokId && formik.errors.pondokId ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">

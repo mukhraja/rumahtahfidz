@@ -27,7 +27,11 @@ const Rumahtahfiz = () => {
   const { masterpondokdata } = useSelector((state) => state.masterPondokState);
   const { userProfile } = useSelector((state) => state.userState);
 
-  const [data, setData] = useState([]);
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(rumahtahfidzdata);
+  }, [rumahtahfidzdata]);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
@@ -72,7 +76,7 @@ const Rumahtahfiz = () => {
           Cell: ButtonLinkRumahTahfidz,
         },
       ]);
-    } else
+    } else if (rumahtahfidzdata.length > 2) {
       setDisplay([
         {
           Header: "Nama",
@@ -102,7 +106,8 @@ const Rumahtahfiz = () => {
           Cell: ButtonLinkRumahTahfidz,
         },
       ]);
-  }, []);
+    }
+  }, [rumahtahfidzdata]);
 
   return (
     <div className="mx-4">
@@ -114,7 +119,7 @@ const Rumahtahfiz = () => {
         <img src={rumahtahfidz} className="h-20" />
       </div>
       <div className="mt-6">
-        <Table columns={Display} data={rumahtahfidzdata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
       </div>
       <div className="z-30">
         <ToastContainer autoClose={2000} />

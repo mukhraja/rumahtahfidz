@@ -20,9 +20,40 @@ const Iqro = () => {
   const { isLoading, iqrosantridata } = useSelector(
     (state) => state.iqroSantriState
   );
+
   const { userProfile } = useSelector((state) => state.userState);
 
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      dispatch(doGetIqroAwalSantriRequest());
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+      dispatch(
+        doGetIqroSantriByMasterTahfidzRequest(userProfile.masterpondokId)
+      );
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      dispatch(doGetIqroSantriByUserIdRequest(userProfile.userId));
+    } else {
+      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId));
+    }
+  }, []);
+
   const [Display, setDisplay] = useState([]);
+
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      iqrosantridata.sort(function (a, b) {
+        if (a.namasantri < b.namasantri) {
+          return -1;
+        }
+        if (a.namasantri > b.namasantri) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [iqrosantridata]);
 
   useEffect(() => {
     if (window.innerWidth <= 500) {
@@ -59,56 +90,18 @@ const Iqro = () => {
           accessor: "ket",
         },
         {
+          Header: "Pondok",
+          accessor: "pondokName",
+          Filter: SelectColumnFilter,
+        },
+        {
           Header: "Detail",
           accessor: "santriId",
           Cell: ButtonLinkIqro,
         },
       ]);
     }
-  }, []);
-
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Nama",
-        accessor: "namasantri",
-      },
-      {
-        Header: "Iqro",
-        accessor: "name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
-      {
-        Header: "Keterangan",
-        accessor: "ket",
-      },
-      {
-        Header: "Detail",
-        accessor: "guruId",
-        Cell: ButtonLinkIqro,
-      },
-    ],
-    []
-  );
-
-  useEffect(() => {
-    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetIqroAwalSantriRequest());
-    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(
-        doGetIqroSantriByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
-    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
-      dispatch(doGetIqroSantriByUserIdRequest(userProfile.userId));
-    } else {
-      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId));
-    }
-  }, []);
+  }, [iqrosantridata]);
 
   // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
@@ -128,7 +121,7 @@ const Iqro = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={iqrosantridata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
         {/* )} */}
       </div>
     </div>

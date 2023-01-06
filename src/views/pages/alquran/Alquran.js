@@ -25,6 +25,22 @@ const Alquran = () => {
   );
   const { isLoading, userProfile } = useSelector((state) => state.userState);
 
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      alquransantridata.sort(function (a, b) {
+        if (a.namasantri < b.namasantri) {
+          return -1;
+        }
+        if (a.namasantri > b.namasantri) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [alquransantridata]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
       dispatch(doGetAlquranAwalSantriRequest());
@@ -92,7 +108,7 @@ const Alquran = () => {
         },
       ]);
     }
-  }, []);
+  }, [alquransantridata]);
   const columns = React.useMemo(
     () => [
       {
@@ -147,7 +163,7 @@ const Alquran = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={alquransantridata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
         {/* )} */}
       </div>
     </div>

@@ -36,6 +36,22 @@ const AlquranGuru = () => {
     }
   }, []);
 
+  const [databaru, setDatabaru] = useState([]);
+
+  useEffect(() => {
+    setDatabaru(
+      alqurangurudata.sort(function (a, b) {
+        if (a.namaguru < b.namaguru) {
+          return -1;
+        }
+        if (a.namaguru > b.namaguru) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+  }, [alqurangurudata]);
+
   const [Display, setDisplay] = useState([]);
 
   useEffect(() => {
@@ -95,7 +111,7 @@ const AlquranGuru = () => {
         },
       ]);
     }
-  }, []);
+  }, [alqurangurudata]);
 
   // const data = React.useMemo(() => alqurangurudata, [alqurangurudata]);
   return (
@@ -115,7 +131,7 @@ const AlquranGuru = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={alqurangurudata} url="tambah" />
+        <Table columns={Display} data={databaru} url="tambah" />
         {/* )} */}
       </div>
     </div>

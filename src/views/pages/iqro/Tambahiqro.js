@@ -100,9 +100,19 @@ const Tambahiqro = () => {
             <option value="" selected disabled hidden>
               Pilih Rumah Tahfidz
             </option>
-            {rumahtahfidzdata.map((e) => (
-              <option value={e.id}>{e.name}</option>
-            ))}
+            {rumahtahfidzdata
+              .sort(function (a, b) {
+                if (a.name < b.name) {
+                  return -1;
+                }
+                if (a.name > b.name) {
+                  return 1;
+                }
+                return 0;
+              })
+              .map((e) => (
+                <option value={e.id}>{e.name}</option>
+              ))}
           </select>
         </div>
         <div className="grid grid-cols-8 my-2">
@@ -121,6 +131,15 @@ const Tambahiqro = () => {
             </option>
             {santridata
               .filter((e) => e.pondokId === select)
+              .sort(function (a, b) {
+                if (a.name < b.name) {
+                  return -1;
+                }
+                if (a.name > b.name) {
+                  return 1;
+                }
+                return 0;
+              })
               .map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}

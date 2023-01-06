@@ -206,8 +206,20 @@ const LaporanPengajar = () => {
   const [dataguru, setDataguru] = useState([]);
 
   useEffect(() => {
-    setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
-  }, []);
+    setDataguru(
+      gurudata
+        .sort(function (a, b) {
+          if (a.name < b.name) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        })
+        .filter((e) => e.mulai_vakum === null)
+    );
+  }, [gurudata]);
 
   return (
     <div className="">
@@ -248,9 +260,9 @@ const LaporanPengajar = () => {
             width: window.innerWidth / 1.4,
           }}
         >
-          <div className=" overflow-auto">
+          <div className=" overflow-auto h-80">
             <table className=" font-poppins" ref={tableRef}>
-              <thead className="border-b bg-gray-50">
+              <thead className="border-b bg-gray-50 sticky top-0">
                 <tr>
                   <th
                     scope="col"

@@ -145,9 +145,13 @@ export function perkecilnama({ value }) {
 }
 
 export function JumlahCabang({ value }) {
+  const { isLoading, masterpondokdata } = useSelector(
+    (state) => state.masterPondokState
+  );
+
   return (
-    <h1 className=" text-white py-2 text-center bg-fuchsia-400 rounded-md shadow-md w-10 mr-2">
-      {value.length}
+    <h1 className=" py-0 lg:py-1 w-5 lg:w-8 text-white text-center bg-fuchsia-400 rounded-md shadow-md mr-2 text-xs lg:text-sm">
+      {masterpondokdata && value.length}
     </h1>
   );
 }
@@ -158,9 +162,9 @@ export function Jumlahorang({ value }) {
 
   return (
     <div className="flex">
-      <div className="group cursor-pointer relative text-white py-2 text-center bg-fuchsia-400 rounded-md shadow-md w-10 mr-2">
+      <div className="group cursor-pointer relative text-white py-1 lg:py-2 w-5 lg:w-10 text-center bg-fuchsia-400 rounded-md shadow-md   mr-2">
         {result.length}
-        <div class="opacity-0 w-24 bg-black text-white text-center text-xs rounded-lg py-2 absolute z-10 group-hover:opacity-100 bottom-full -left-2/3 px-3 pointer-events-none">
+        <div class="opacity-0 py-1 lg:py-2 w-12 lg:w-24 bg-black text-white text-center text-xs rounded-lg absolute z-10 group-hover:opacity-100 bottom-full -left-2/3 pointer-events-none">
           Aktif
           <svg
             class="absolute text-black h-4 w-full left-0 top-full"
@@ -178,9 +182,9 @@ export function Jumlahorang({ value }) {
       {/* <h1 className=" text-white py-2 text-center bg-gray-400 rounded-md shadow-md w-10">
         {resultvakum.length}
       </h1> */}
-      <div className="group cursor-pointer relative text-white py-2 text-center bg-gray-400 rounded-md shadow-md w-10 mr-2">
+      <div className="group cursor-pointer relative text-white py-1 lg:py-2 w-5 lg:w-10 text-center bg-gray-400 rounded-md shadow-md mr-2">
         {resultvakum.length}
-        <div class="opacity-0 w-24 bg-black text-center text-xs rounded-lg py-2 absolute z-10 group-hover:opacity-100 bottom-full -left-2/3 px-3 pointer-events-none">
+        <div class="opacity-0 py-1 lg:py-2 w-12 lg:w-24 bg-black text-center text-xs rounded-lg absolute z-10 group-hover:opacity-100 bottom-full -left-2/3 pointer-events-none">
           Vakum
           <svg
             class="absolute text-black h-4 w-full left-0 top-full"
