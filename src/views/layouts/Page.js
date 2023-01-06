@@ -581,17 +581,15 @@ export const Page = (props) => {
                   ) : null}
                 </ul>
               ) : null}
-              {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
-              userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
-                <li className="my-px" onClick={laporkan}>
-                  <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
-                    <span className="text-lg text-gray-700">
-                      <FolderIcon className="w-5" />
-                    </span>
-                    <span className="ml-3 font-semibold">Laporan</span>
-                  </a>
-                </li>
-              ) : null}
+              <li className="my-px" onClick={laporkan}>
+                <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
+                  <span className="text-lg text-gray-700">
+                    <FolderIcon className="w-5" />
+                  </span>
+                  <span className="ml-3 font-semibold">Laporan</span>
+                </a>
+              </li>
+
               {laporan ? (
                 <ul className="font-semibold relative left-10">
                   <li

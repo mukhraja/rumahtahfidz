@@ -27,12 +27,6 @@ const Rumahtahfiz = () => {
   const { masterpondokdata } = useSelector((state) => state.masterPondokState);
   const { userProfile } = useSelector((state) => state.userState);
 
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(rumahtahfidzdata);
-  }, [rumahtahfidzdata]);
-
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
       dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
@@ -40,6 +34,14 @@ const Rumahtahfiz = () => {
       dispatch(doGetByPondokIdRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
+
+  const [databaru, setDatabaru] = useState([]);
+
+  console.log("databaru", databaru);
+
+  useEffect(() => {
+    setDatabaru(rumahtahfidzdata);
+  }, [rumahtahfidzdata]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -56,7 +58,10 @@ const Rumahtahfiz = () => {
           Cell: ButtonLinkRumahTahfidz,
         },
       ]);
-    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+    } else if (
+      userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ||
+      userProfile.role == "1b864518-299d-469c-b270-4d4b9d5b120f"
+    ) {
       setDisplay([
         {
           Header: "Nama",
@@ -107,7 +112,7 @@ const Rumahtahfiz = () => {
         },
       ]);
     }
-  }, [rumahtahfidzdata]);
+  }, []);
 
   return (
     <div className="mx-4">

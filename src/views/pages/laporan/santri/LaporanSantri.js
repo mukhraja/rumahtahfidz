@@ -5,8 +5,10 @@ import { santri } from "../../../../gambar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  doGetSantriByIdRequest,
   doGetSantriByMasterTahfidzRequest,
   doGetSantriByRumahTahfidzRequest,
+  doGetSantriByUserIdRequest,
   doGetSantriRequest,
 } from "../../../../reduxsaga/actions/Santri";
 import {
@@ -33,6 +35,10 @@ const LaporanSantri = () => {
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
       dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
       dispatch(doGetSantriByMasterTahfidzRequest(userProfile.masterpondokId));
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      dispatch(doGetSantriByUserIdRequest(userProfile.userId));
+    } else {
+      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
     }
   }, []);
 
