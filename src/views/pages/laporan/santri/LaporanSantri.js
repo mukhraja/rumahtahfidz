@@ -224,7 +224,7 @@ const LaporanSantri = () => {
 
   return (
     <div className="">
-      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400 lg:text-sm text-xs">
+      <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400 lg:text-xa text-xa">
         <h1 className="text-white font-semibold text-2xl font-poppins py-1">
           Laporan Data Santri
         </h1>
@@ -233,14 +233,14 @@ const LaporanSantri = () => {
       <div className="mt-4 p-4 mx-4 bg-white rounded-lg shadow-lg">
         <div className=" font-poppins py-2 flex">
           <div className=" flex">
-            <h1 className="md:py-2">Pilih Tahfidz</h1>
+            <h1 className="md:py-2 lg:text-xs sm:text-xa">Pilih Tahfidz</h1>
             <select
               name="pondokId"
               id="pondokId"
               value={select}
               onChange={handleChange}
               autoComplete="pondokId"
-              class="border rounded-md block col-span-2 pl-2 py-1 placeholder:text-xs mx-2"
+              class="border rounded-md block col-span-2 pl-2 lg:py-1 placeholder:text-xa mx-2 lg:text-xs text-xa"
             >
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
@@ -264,41 +264,41 @@ const LaporanSantri = () => {
           }}
         >
           <div className=" overflow-auto h-80">
-            <table className=" font-poppins lg:text-sm text-xs" ref={tableRef}>
+            <table className=" font-poppins lg:text-xa text-xa" ref={tableRef}>
               <thead className="border-b bg-gray-50 sticky top-0 z-10">
                 <tr>
                   <th
                     scope="col"
                     rowSpan="2"
-                    className="sticky left-0 bg-gray-50 text-xs lg:text-sm font-medium text-gray-900 lg:px-8 px-2 border-r py-4 text-left"
+                    className="sticky left-0 bg-gray-50 text-xa lg:text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-left"
                   >
                     Nama
                   </th>
                   <th
                     scope="col"
                     colSpan="6"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center"
+                    className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3  border-r py-4 text-center"
                   >
                     IQRO
                   </th>
                   <th
                     scope="col"
                     colSpan="37"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center"
+                    className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3  border-r py-4 text-center"
                   >
                     Surah Pendek
                   </th>
                   <th
                     scope="col"
                     colSpan="30"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center"
+                    className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3  border-r py-4 text-center"
                   >
                     Alquran
                   </th>
                 </tr>
                 <tr>
                   {hafalsantri.map((e) => (
-                    <td className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center">
+                    <td className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-center">
                       {e}
                     </td>
                   ))}
@@ -316,11 +316,11 @@ const LaporanSantri = () => {
                     })
                     .map((e) => (
                       <tr className=" border-b">
-                        <td className="sticky left-0 bg-gray-50  text-xs lg:text-sm text-gray-900 font-light lg:px-8 px-2 truncate block w-32 lg:w-full border-r py-4 whitespace-nowrap">
+                        <td className="sticky left-0 bg-gray-50  text-xa lg:text-xa text-gray-900 font-light lg:px-3 px-2 truncate block w-32 lg:w-full border-r py-4 whitespace-nowrap">
                           {e.name}
                         </td>
                         {hafalsantriiqro.map((hafal) => (
-                          <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Iqrosantris.map((e, i, array) => {
                                 if (e.name == hafal && e.ket == "selesai") {
@@ -334,7 +334,7 @@ const LaporanSantri = () => {
                           </td>
                         ))}
                         {hafalsantrisurahpendek.map((hafal) => (
-                          <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Surahpendeksantris.map((e, i, array) => {
                                 if (e.name == hafal && e.ket == "selesai") {
@@ -348,7 +348,7 @@ const LaporanSantri = () => {
                           </td>
                         ))}
                         {hafalsantrialquran.map((hafal) => (
-                          <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Alquransantris.map((e, i, array) => {
                                 if (

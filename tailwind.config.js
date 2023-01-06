@@ -20,6 +20,9 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
+      fontSize: {
+        xa: "0.4rem",
+      },
       colors: {
         mamamuda: "#F2F9F1",
         mamasingle: "#8BC34A",

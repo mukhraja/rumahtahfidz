@@ -231,14 +231,14 @@ const LaporanPengajar = () => {
       </div>
       <div className="mt-4 p-4 mx-4 bg-white rounded-lg shadow-lg">
         <div className=" font-poppins py-2 flex flex-wrap">
-          <h1 className="md:py-2">Pilih Tahfidz</h1>
+          <h1 className="md:py-2 lg:text-xs sm:text-xa">Pilih Tahfidz</h1>
           <select
             name="pondokId"
             id="pondokId"
             value={select}
             onChange={handleChange}
             autoComplete="pondokId"
-            class="border rounded-md pl-2 py-1 placeholder:text-xs lg:mx-2 my-1 text-xs"
+            class="border rounded-md block col-span-2 pl-2 lg:py-1 placeholder:text-xa mx-2 lg:text-xs text-xa"
           >
             <option value="" selected disabled hidden>
               Pilih Rumah Tahfidz
@@ -249,7 +249,7 @@ const LaporanPengajar = () => {
             ))}
           </select>
           <button
-            className=" bg-blue-400 lg:px-4 px-6 py-2 rounded-md shadow-md text-white lg:mx-2"
+            className=" bg-blue-400 px-4 rounded-md shadow-md text-white lg:mx-2"
             onClick={onDownload}
           >
             Cetak
@@ -267,35 +267,35 @@ const LaporanPengajar = () => {
                   <th
                     scope="col"
                     rowSpan="2"
-                    className="sticky left-0 bg-gray-50  text-sm font-medium text-gray-900 px-8 border-r py-4 text-left"
+                    className="sticky left-0 bg-gray-50  lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-left"
                   >
                     Nama
                   </th>
                   <th
                     scope="col"
                     colSpan="6"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center"
+                    className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-center"
                   >
                     IQRO
                   </th>
                   <th
                     scope="col"
                     colSpan="37"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center"
+                    className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-center"
                   >
                     Surah Pendek
                   </th>
                   <th
                     scope="col"
                     colSpan="30"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center"
+                    className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-center"
                   >
                     Alquran
                   </th>
                 </tr>
                 <tr>
                   {hafalsantri.map((e) => (
-                    <td className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-center">
+                    <td className="lg:text-xa text-xa font-medium text-gray-900 lg:px-3 px-3 border-r py-4 text-center">
                       {e}
                     </td>
                   ))}
@@ -313,11 +313,11 @@ const LaporanPengajar = () => {
                     })
                     .map((e) => (
                       <tr className=" border-b">
-                        <td className=" sticky left-0 bg-gray-50  text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                        <td className=" sticky left-0 bg-gray-50  lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
                           {e.name}
                         </td>
                         {hafalsantriiqro.map((hafal) => (
-                          <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <td className="lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Iqrogurus.map((e, i, array) => {
                                 if (e.name == hafal && e.ket == "selesai") {
@@ -331,7 +331,7 @@ const LaporanPengajar = () => {
                           </td>
                         ))}
                         {hafalsantrisurahpendek.map((hafal) => (
-                          <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <td className="lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Surahpendekgurus.map((e, i, array) => {
                                 if (e.name == hafal && e.ket == "selesai") {
@@ -345,7 +345,7 @@ const LaporanPengajar = () => {
                           </td>
                         ))}
                         {hafalsantrialquran.map((hafal) => (
-                          <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                          <td className="lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
                             <div className=" flex justify-center">
                               {e.Alqurangurus.map((e, i, array) => {
                                 if (
