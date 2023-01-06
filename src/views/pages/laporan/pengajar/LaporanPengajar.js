@@ -262,12 +262,12 @@ const LaporanPengajar = () => {
         >
           <div className=" overflow-auto h-80">
             <table className=" font-poppins" ref={tableRef}>
-              <thead className="border-b bg-gray-50 sticky top-0">
+              <thead className="border-b bg-gray-50 sticky top-0 z-10">
                 <tr>
                   <th
                     scope="col"
                     rowSpan="2"
-                    className="text-sm font-medium text-gray-900 px-8 border-r py-4 text-left"
+                    className="sticky left-0 bg-gray-50  text-sm font-medium text-gray-900 px-8 border-r py-4 text-left"
                   >
                     Nama
                   </th>
@@ -313,7 +313,7 @@ const LaporanPengajar = () => {
                     })
                     .map((e) => (
                       <tr className=" border-b">
-                        <td className="text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
+                        <td className=" sticky left-0 bg-gray-50  text-sm text-gray-900 font-light px-8 border-r py-4 whitespace-nowrap">
                           {e.name}
                         </td>
                         {hafalsantriiqro.map((hafal) => (
