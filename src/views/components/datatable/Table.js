@@ -41,6 +41,7 @@ import { doDeleteAlquranGuruRequest } from "../../../reduxsaga/actions/Alqurangu
 import { doDeleteMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 import moment from "moment";
 import Modal from "../modal/Modal";
+import { doDeleteSurahPendekGuruRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -763,7 +764,7 @@ export function ButtonLinkSurahPendekGuruList({ value }) {
   };
 
   const onDelete = async (id) => {
-    dispatch(doDeleteSurahPendekSantriRequest(id));
+    dispatch(doDeleteSurahPendekGuruRequest(id));
     toast.success("Data berhasil dihapus...");
     setShowModal(false);
   };
