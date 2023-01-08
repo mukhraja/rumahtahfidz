@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import RedirectPage from "./views/components/redirectpage/RedirectPage";
 import { Page } from "./views/layouts/Page";
 import {
@@ -28,7 +29,6 @@ import DetailAlquran from "./views/pages/alquran/DetailAlquran";
 import EditAlquranSantri from "./views/pages/alquran/EditAlquran";
 import TambahAlquran from "./views/pages/alquran/TambahAlquran";
 import LaporanSantri from "./views/pages/laporan/santri/LaporanSantri";
-import { useSelector } from "react-redux";
 import User from "./views/pages/user/User";
 import Database from "./views/pages/database/Database";
 import DetailUser from "./views/pages/user/DetailUser";
@@ -62,9 +62,18 @@ import EditAdmin from "./views/pages/admin/EditAdmin";
 import DetailAdmin from "./views/pages/admin/DetailAdmin";
 import Listrumahtahfidz from "./views/pages/mastertahfidz/Listrumahtahfidz";
 import Tambahrumahtahfizbymaster from "./views/pages/mastertahfidz/Tambahrumahtahfizbymaster";
+import AuthVerify from "./reduxsaga/config/AuthVerify";
+import { useCallback } from "react";
+import { doSignoutRequest } from "./reduxsaga/actions/User";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
+
+  const dispatch = useDispatch();
+
+  const logOut = useCallback(() => {
+    dispatch(doSignoutRequest());
+  }, [dispatch]);
 
   return (
     <div>
@@ -323,6 +332,7 @@ function App() {
           />
         </Route>
       </Routes>
+      <AuthVerify logOut={logOut} />
     </div>
   );
 }
