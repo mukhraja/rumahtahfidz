@@ -51,6 +51,10 @@ const DetailAlquranGuru = () => {
           accessor: "surah",
         },
         {
+          Header: "Juz",
+          accessor: "juz",
+        },
+        {
           Header: "Hal",
           accessor: "halaman",
         },
@@ -83,6 +87,10 @@ const DetailAlquranGuru = () => {
           filter: "includes",
         },
         {
+          Header: "Juz",
+          accessor: "juz",
+        },
+        {
           Header: "Ayat",
           accessor: "ayat",
         },
@@ -110,6 +118,10 @@ const DetailAlquranGuru = () => {
           accessor: "surah",
           Filter: SelectColumnFilter, // new
           filter: "includes",
+        },
+        {
+          Header: "Juz",
+          accessor: "juz",
         },
         {
           Header: "Ayat",
@@ -141,6 +153,10 @@ const DetailAlquranGuru = () => {
           accessor: "surah",
           Filter: SelectColumnFilter, // new
           filter: "includes",
+        },
+        {
+          Header: "Juz",
+          accessor: "juz",
         },
         {
           Header: "Ayat",
