@@ -81,7 +81,7 @@ const Rumahtahfiz = () => {
           Cell: ButtonLinkRumahTahfidz,
         },
       ]);
-    } else if (rumahtahfidzdata.length > 2) {
+    } else {
       setDisplay([
         {
           Header: "Nama",
