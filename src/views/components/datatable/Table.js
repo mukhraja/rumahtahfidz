@@ -20,13 +20,12 @@ import {
 import { Button, PageButton } from "./shared/Button";
 import { classNames } from "./shared/Utils";
 import { SortIcon, SortUpIcon, SortDownIcon } from "./shared/Icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import moment from "moment";
 import Modal from "../modal/Modal";
 import toast from "react-hot-toast";
-import axios from "axios";
-import config from "../../../reduxsaga/config/config";
 import Alert from "../../../utils/Alert";
 import ApiSantri from "../../../api/ApiSantri";
 
@@ -920,6 +919,7 @@ export function AvatarCell({ value, column, row }) {
 }
 
 function Table({ columns, data, url }) {
+  const { pathname } = useLocation();
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -975,12 +975,14 @@ function Table({ columns, data, url }) {
         )}
         {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
         userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
-          <Link
-            to={url}
-            className=" bg-mamasingle lg:px-4 px-2 py-1 rounded-md text-white"
-          >
-            Tambah
-          </Link>
+          pathname.substring(0, 27) == "/datamasterrumahtahfiz/list" ? null : (
+            <Link
+              to={url}
+              className=" bg-mamasingle lg:px-4 px-2 py-1 rounded-md text-white"
+            >
+              Tambah
+            </Link>
+          )
         ) : null}
       </div>
       {/* table */}
