@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { hafalquran } from "../../../gambar";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
@@ -17,6 +15,12 @@ import {
   doGetAlquranGuruByIdRequest,
   doUpdateAlquranGuruRequest,
 } from "../../../reduxsaga/actions/Alquranguru";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import moment from "moment";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast } from "react-hot-toast";
 
 const EditAlquranGuru = () => {
   const { id } = useParams();
@@ -26,10 +30,19 @@ const EditAlquranGuru = () => {
   const [select, setSelect] = useState();
 
   const { alqurangurudata } = useSelector((state) => state.alquranGuruState);
+  const [alquran, setAlquran] = useState([]);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetAlquranGuruByIdRequest(payload));
+    const fetchalquran = async () => {
+      try {
+        const data = await ApiSantri.getData("/alquranguru/getid/" + id);
+
+        setAlquran(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchalquran();
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -49,16 +62,16 @@ const EditAlquranGuru = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      namaguru: alqurangurudata.length ? alqurangurudata[0].Guru.name : null,
-      juz: alqurangurudata.length ? alqurangurudata[0].juz : null,
-      surah: alqurangurudata.length ? alqurangurudata[0].surah : null,
-      ayat: alqurangurudata.length ? alqurangurudata[0].ayat : null,
-      halaman: alqurangurudata.length ? alqurangurudata[0].halaman : null,
-      tgl_selesai: alqurangurudata.length
-        ? alqurangurudata[0].tgl_selesai
+      namaguru: alquran.length ? alquran[0].namaguru : null,
+      juz: alquran.length ? alquran[0].juz : null,
+      surah: alquran.length ? alquran[0].surah : null,
+      ayat: alquran.length ? alquran[0].ayat : null,
+      halaman: alquran.length ? alquran[0].halaman : null,
+      tgl_selesai: alquran.length
+        ? moment(alquran[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      ket: alqurangurudata.length ? alqurangurudata[0].ket : null,
-      guruId: alqurangurudata.length ? alqurangurudata[0].Guru.id : null,
+      ket: alquran.length ? alquran[0].ket : null,
+      guruId: alquran.length ? alquran[0].id : null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -72,10 +85,18 @@ const EditAlquranGuru = () => {
         ket: values.ket,
       };
 
-      dispatch(doUpdateAlquranGuruRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
-
+      const updatealquran = async () => {
+        const loadingToast = Alert.loading("Sedang diperbaharui...");
+        try {
+          await ApiSantri.postData("/alquranguru/update/" + id, payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil diperbaharui !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      updatealquran();
       // setTimeout(() => {
       //   navigate("/dataalquranguru", { state: { refresh: true } });
       // }, 3000);
@@ -229,9 +250,6 @@ const EditAlquranGuru = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

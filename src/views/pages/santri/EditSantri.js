@@ -2,45 +2,60 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { rumahtahfidz } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
-import {
-  doGetByRumahTahfidzRequest,
-  doGetRumahTahfidzByIdRequest,
-  doGetRumahTahfidzRequest,
-  doUpdateNoFIleRumahTahfidzRequest,
-  doUpdateRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
 import config from "../../../reduxsaga/config/config";
-import {
-  doGetSantriByIdRequest,
-  doUpdateNoFIleSantriRequest,
-  doUpdateSantriRequest,
-} from "../../../reduxsaga/actions/Santri";
 import moment from "moment";
-
+import axios from "axios";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 const EditSantri = () => {
   const { id } = useParams();
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { santridata } = useSelector((state) => state.santriState);
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
-
-  useEffect(() => {
-    const payload = { id };
-    dispatch(doGetSantriByIdRequest(payload));
-  }, []);
+  const [listsantris, setListsantris] = useState([]);
+  const [listpondok, setListpondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     } else {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     }
+  }, []);
+
+  useEffect(() => {
+    const fetchlistsantri = async () => {
+      try {
+        const data = await ApiSantri.getData("/santri/getbyid/" + id);
+        setListsantris(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchlistsantri();
   }, []);
   const { userProfile } = useSelector((state) => state.userState);
 
@@ -70,25 +85,25 @@ const EditSantri = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: santridata.length ? santridata[0].name : null,
-      nis: santridata.length ? santridata[0].nis : null,
-      tempat: santridata.length ? santridata[0].tempat : null,
-      datebirth: santridata.length
-        ? moment(santridata[0].datebirth).format("YYYY-MM-DD")
+      name: listsantris.length ? listsantris[0].name : null,
+      nis: listsantris.length ? listsantris[0].nis : null,
+      tempat: listsantris.length ? listsantris[0].tempat : null,
+      datebirth: listsantris.length
+        ? moment(listsantris[0].datebirth).format("YYYY-MM-DD")
         : null,
-      address: santridata.length ? santridata[0].address : null,
-      gender: santridata.length ? santridata[0].gender : null,
-      ayah: santridata.length ? santridata[0].ayah : null,
-      ibu: santridata.length ? santridata[0].ibu : null,
-      telephone: santridata.length ? santridata[0].telephone : null,
-      mulai_masuk: santridata.length
-        ? moment(santridata[0].mulai_masuk).format("YYYY-MM-DD")
+      address: listsantris.length ? listsantris[0].address : null,
+      gender: listsantris.length ? listsantris[0].gender : null,
+      ayah: listsantris.length ? listsantris[0].ayah : null,
+      ibu: listsantris.length ? listsantris[0].ibu : null,
+      telephone: listsantris.length ? listsantris[0].telephone : null,
+      mulai_masuk: listsantris.length
+        ? moment(listsantris[0].mulai_masuk).format("YYYY-MM-DD")
         : null,
-      mulai_vakum: santridata.length
-        ? moment(santridata[0].mulai_vakum).format("YYYY-MM-DD")
+      mulai_vakum: listsantris.length
+        ? moment(listsantris[0].mulai_vakum).format("YYYY-MM-DD")
         : null,
-      pondokId: santridata.length ? santridata[0].pondokId : null,
-      photo: santridata.length ? santridata[0].photo : undefined,
+      pondokId: listsantris.length ? listsantris[0].pondok_id : null,
+      photo: listsantris.length ? listsantris[0].photo : undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -108,10 +123,19 @@ const EditSantri = () => {
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
         payload.append("id", id);
-        dispatch(doUpdateSantriRequest(payload));
-        // setTimeout(() => {
-        //   navigate("/datsantri");
-        // }, 3000);
+
+        const updatesantri = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+          try {
+            await ApiSantri.postData("/santri/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updatesantri();
       } else {
         const payload = {
           id,
@@ -120,6 +144,7 @@ const EditSantri = () => {
           tempat: values.tempat,
           datebirth: values.datebirth,
           gender: values.gender,
+          telephone: values.telephone,
           address: values.address,
           ayah: values.ayah,
           ibu: values.ibu,
@@ -127,10 +152,19 @@ const EditSantri = () => {
           mulai_vakum: values.mulai_vakum,
           pondokId: values.pondokId,
         };
-        dispatch(doUpdateNoFIleSantriRequest(payload));
-        // setTimeout(() => {
-        //   navigate("/datasantri");
-        // }, 3000);
+
+        const updatesantri = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+          try {
+            await ApiSantri.postData("/santri/updatenofile/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updatesantri();
       }
     },
   });
@@ -162,6 +196,7 @@ const EditSantri = () => {
   };
   return (
     <div className="">
+      {Loading == true ? <LoadingSpinnerLogin /> : ""}
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Santri {formik.values.name}
@@ -371,7 +406,7 @@ const EditSantri = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata
+              {listpondok
                 .sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1;
@@ -451,7 +486,7 @@ const EditSantri = () => {
           </div>
         </form>
         <div className="z-30">
-          <ToastContainer autoClose={2000} />
+          <Toaster />
         </div>
 
         <div>

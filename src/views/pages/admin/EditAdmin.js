@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { user } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import config from "../../../reduxsaga/config/config";
 import {
   doGetUserByIdRequest,
@@ -14,6 +12,11 @@ import {
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 import moment from "moment";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
 
 const EditAdmin = () => {
   const { id } = useParams();
@@ -25,14 +28,49 @@ const EditAdmin = () => {
   const { roledata } = useSelector((state) => state.roleState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
-  useEffect(() => {
-    const payload = { id };
-    dispatch(doGetUserByIdRequest(payload));
-  }, []);
+  const [detailadmin, setDetailadmin] = useState([]);
+  const [listrole, setListrole] = useState([]);
+  const [listpondok, setListpondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(doGetRoleRequest());
-    dispatch(doGetRumahTahfidzRequest());
+    const fetchdetailadmin = async () => {
+      try {
+        const data = await ApiSantri.getData("/user/" + id);
+        setLoading(false);
+        setDetailadmin(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchdetailadmin();
+
+    const fetchlistrole = async () => {
+      setLoading(true);
+      try {
+        const data = await ApiSantri.getData("/role/getroles");
+        setLoading(false);
+        setListrole(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchlistrole();
+
+    const fetchlistpondok = async () => {
+      setLoading(true);
+      try {
+        const data = await ApiSantri.getData("/pondok/getall");
+        setLoading(false);
+        setListpondok(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchlistpondok();
   }, []);
 
   const uploadOnChange = (name) => (event) => {
@@ -60,19 +98,19 @@ const EditAdmin = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: userdata.length ? userdata[0].name : null,
-      email: userdata.length ? userdata[0].email : null,
+      name: detailadmin.length ? detailadmin[0].name : null,
+      email: detailadmin.length ? detailadmin[0].email : null,
       password: "",
-      telephone: userdata.length ? userdata[0].telephone : null,
-      datebirth: userdata.length
-        ? moment(userdata[0].datebirth).format("YYYY-MM-DD")
+      telephone: detailadmin.length ? detailadmin[0].telephone : null,
+      datebirth: detailadmin.length
+        ? moment(detailadmin[0].datebirth).format("YYYY-MM-DD")
         : null,
-      address: userdata.length ? userdata[0].address : null,
-      age: userdata.length ? userdata[0].age : null,
-      gender: userdata.length ? userdata[0].gender : null,
-      roleId: userdata.length ? userdata[0].roleId : null,
-      pondokId: userdata.length ? userdata[0].pondokId : null,
-      photo: userdata.length ? userdata[0].photo : null,
+      address: detailadmin.length ? detailadmin[0].address : null,
+      age: detailadmin.length ? detailadmin[0].age : null,
+      gender: detailadmin.length ? detailadmin[0].gender : null,
+      roleId: detailadmin.length ? detailadmin[0].role_id : null,
+      pondokId: detailadmin.length ? detailadmin[0].pondok_id : null,
+      photo: detailadmin.length ? detailadmin[0].photo : null,
     },
     onSubmit: async (values) => {
       if (uploaded === true) {
@@ -88,14 +126,24 @@ const EditAdmin = () => {
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
-        payload.append("id", id);
-        dispatch(doUpdateUserRequest(payload));
+
+        const updateuser = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+          try {
+            await ApiSantri.postData("/user/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updateuser();
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
       } else {
         const payload = {
-          id,
           name: values.name,
           email: values.email,
           password: values.password,
@@ -108,7 +156,18 @@ const EditAdmin = () => {
           pondokId: values.pondokId,
         };
 
-        dispatch(doUpdateNoFIleUserRequest(payload));
+        const updateuser = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+          try {
+            await ApiSantri.postData("/user/updatenofile/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updateuser();
         // setTimeout(() => {
         //   navigate("/datauser");
         // }, 3000);
@@ -123,6 +182,8 @@ const EditAdmin = () => {
 
   return (
     <div className="">
+      {Loading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Pengguna
@@ -272,7 +333,7 @@ const EditAdmin = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
+              {listpondok.map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
@@ -340,10 +401,6 @@ const EditAdmin = () => {
             </div>
           </div>
         </form>
-
-        <div className="z-30">
-          <ToastContainer autoClose={2000} />
-        </div>
 
         <div>
           <button

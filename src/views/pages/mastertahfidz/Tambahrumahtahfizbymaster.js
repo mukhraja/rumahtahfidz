@@ -12,6 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import { Toaster } from "react-hot-toast";
 
 const Tambahrumahtahfizbymaster = () => {
   const { id } = useParams();
@@ -19,11 +22,27 @@ const Tambahrumahtahfizbymaster = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userProfile } = useSelector((state) => state.userState);
-  const { masterpondokdata } = useSelector((state) => state.masterPondokState);
+  // const { userProfile } = useSelector((state) => state.userState);
+  // const { masterpondokdata } = useSelector((state) => state.masterPondokState);
+
+  // useEffect(() => {
+  //   dispatch(doGetMasterPondokRequest());
+  // }, []);
+
+  const [detailpondok, setDetailpondok] = useState([]);
+
+  console.log(id);
+
+  console.log("ini detail", detailpondok);
 
   useEffect(() => {
-    dispatch(doGetMasterPondokRequest());
+    async function fetchdetailmasterpondok() {
+      await axios
+        .get(config.domain + "/masterpondok/getbyid/?masterpondokId=" + id)
+        .then((e) => setDetailpondok(e.data.data));
+    }
+
+    fetchdetailmasterpondok();
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -39,7 +58,7 @@ const Tambahrumahtahfizbymaster = () => {
       "Masukkan nama kepala tahfidz"
     ),
     photo: Yup.string("Masukkan photo").required("Masukkan photo"),
-    logo: Yup.string("Masukkan logo").required("Masukkan logo"),
+    // logo: Yup.string("Masukkan logo").required("Masukkan logo"),
   });
 
   const formik = useFormik({
@@ -51,7 +70,7 @@ const Tambahrumahtahfizbymaster = () => {
       chief: "",
       masterpondokId: id,
       photo: undefined,
-      logo: undefined,
+      // logo: undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -62,10 +81,17 @@ const Tambahrumahtahfizbymaster = () => {
       payload.append("telephone", values.telephone);
       payload.append("chief", values.chief);
       payload.append("masterpondokId", values.masterpondokId);
-      payload.append("logo", values.logo);
+      // payload.append("logo", values.logo);
       payload.append("photo", values.photo);
 
-      dispatch(doCreateRumahTahfidzRequest(payload));
+      await axios
+        .post(config.domain + "/pondok/insert", payload, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((e) => console.log(e))
+        .catch((err) => err);
 
       // setTimeout(() => {
       //   navigate("/datarumahtahfiz", { state: { refresh: true } });
@@ -97,26 +123,27 @@ const Tambahrumahtahfizbymaster = () => {
     setPreviewImg(null);
   };
 
-  const uploadOnLogo = (name) => (event) => {
-    let reader = new FileReader();
-    let file = event.target.files[0];
+  // const uploadOnLogo = (name) => (event) => {
+  //   let reader = new FileReader();
+  //   let file = event.target.files[0];
 
-    reader.onload = () => {
-      formik.setFieldValue("logo", file);
-      setPreviewLogo(reader.result);
-    };
-    reader.readAsDataURL(file);
-    setUploadLogo(true);
-  };
+  //   reader.onload = () => {
+  //     formik.setFieldValue("logo", file);
+  //     setPreviewLogo(reader.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  //   setUploadLogo(true);
+  // };
 
-  const onClearLogo = (event) => {
-    event.preventDefault();
-    setUploadLogo(false);
-    setPreviewLogo(null);
-  };
+  // const onClearLogo = (event) => {
+  //   event.preventDefault();
+  //   setUploadLogo(false);
+  //   setPreviewLogo(null);
+  // };
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Rumah Tahfidz
@@ -211,30 +238,24 @@ const Tambahrumahtahfizbymaster = () => {
           </div>
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Cabang</h1>
-            <select
-              name="masterpondokId"
-              id="masterpondokId"
-              value={formik.values.masterpondokId}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              autoComplete="masterpondokId"
-              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-              disabled
-            >
-              <option value="" selected disabled hidden>
-                Pilih Master Tahfidz
-              </option>
-              {masterpondokdata.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
-            </select>
+            {detailpondok.map((e) => (
+              <input
+                className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+                value={e.name}
+                onChange={formik.handleChange}
+                name="masterpondokId"
+                id="masterpondokId"
+                placeholder=""
+                disabled
+              />
+            ))}
             {formik.touched.masterpondokId && formik.errors.masterpondokId ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-xs text-red-600 w-full ml-3">
                 {formik.errors.masterpondokId}
               </span>
             ) : null}
           </div>
-          <div class="col-span-4 row-span-2 py-2">
+          {/* <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Logo
             </label>
@@ -295,7 +316,7 @@ const Tambahrumahtahfizbymaster = () => {
                 ) : null}
               </div>
             </div>
-          </div>
+          </div> */}
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Photo

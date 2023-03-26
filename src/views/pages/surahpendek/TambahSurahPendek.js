@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Combobox } from "@headlessui/react";
 import * as Yup from "yup";
 import { bacajuz } from "../../../gambar";
@@ -15,21 +13,86 @@ import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 import { doCreateIqroSantriRequest } from "../../../reduxsaga/actions/Iqrosantri";
 import { doCreateSurahPendekSantriRequest } from "../../../reduxsaga/actions/SurahPendekSantri";
 import { CheckIcon } from "@heroicons/react/outline";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast, Toaster } from "react-hot-toast";
 
 const TambahSurahPendek = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [select, setSelect] = useState();
-  console.log(select);
+  const [listpondok, setListpondok] = useState([]);
+  const [listsantris, setSantris] = useState([]);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData("/santri/getAll");
+          setSantris(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistsantri();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/santri/getByMasterPondokId/" + userProfile.masterpondokId
+          );
+          setSantris(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistsantri();
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      // dispatch(doGetSantriByUserIdRequest(userProfile.userId));
+    } else {
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/santri/getByPondokId/" + userProfile.pondokId
+          );
+          setSantris(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistsantri();
     }
-    dispatch(doGetSantriRequest());
+  }, []);
+
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    } else {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -61,9 +124,18 @@ const TambahSurahPendek = () => {
         santriId: values.santriId,
       };
 
-      dispatch(doCreateSurahPendekSantriRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const tambahsurahpendek = async () => {
+        const loadingToast = Alert.loading("Sedang menambahkan...");
+        try {
+          await ApiSantri.postData("/surahpendeksantri/insert", payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil ditambahkan !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      tambahsurahpendek();
 
       // setTimeout(() => {
       //   navigate("/datasurahpendeksantri", { state: { refresh: true } });
@@ -78,7 +150,7 @@ const TambahSurahPendek = () => {
   const juzamma = [
     "An Naba’",
     "An Nazi’at",
-    "Abasa'",
+    "Abasa’",
     "At Takwir",
     "Al Infithar",
     "Al Muthaffifin",
@@ -118,6 +190,7 @@ const TambahSurahPendek = () => {
   const keterangan = ["mengulang", "belum lancar", "lanjut", "selesai"];
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Hafalan Surah Pendek
@@ -138,7 +211,7 @@ const TambahSurahPendek = () => {
             <option value="" selected disabled hidden>
               Pilih Rumah Tahfidz
             </option>
-            {rumahtahfidzdata
+            {listpondok
               .sort(function (a, b) {
                 if (a.name < b.name) {
                   return -1;
@@ -167,8 +240,8 @@ const TambahSurahPendek = () => {
             <option value="" selected disabled hidden>
               Pilih Santri
             </option>
-            {santridata
-              .filter((e) => e.pondokId === select)
+            {listsantris
+              .filter((e) => e.pondok_id === select)
               .sort(function (a, b) {
                 if (a.name < b.name) {
                   return -1;
@@ -269,9 +342,6 @@ const TambahSurahPendek = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

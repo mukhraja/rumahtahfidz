@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
 import {
@@ -14,6 +12,11 @@ import { doGetSantriRequest } from "../../../reduxsaga/actions/Santri";
 import { doCreateIqroSantriRequest } from "../../../reduxsaga/actions/Iqrosantri";
 import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
 import { doCreateIqroGuruRequest } from "../../../reduxsaga/actions/IqroGuru";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
 
 const TambahIqroGuru = () => {
   const dispatch = useDispatch();
@@ -22,13 +25,104 @@ const TambahIqroGuru = () => {
   const [select, setSelect] = useState();
   console.log(select);
 
+  const [listpondok, setListpondok] = useState([]);
+
+  const [listguru, setListGurus] = useState([]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData("/guru/getAll");
+          setListGurus(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistguru();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getByMasterPondokId/" + userProfile.masterpondokId
+          );
+          setListGurus(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistguru();
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      // dispatch(doGetSantriByUserIdRequest(userProfile.userId));
+    } else {
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getByPondokId/" + userProfile.pondokId
+          );
+          setListGurus(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistguru();
     }
-    dispatch(doGetGuruRequest());
+  }, []);
+
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    } else {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    } else {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -64,9 +158,18 @@ const TambahIqroGuru = () => {
         guruId: values.guruId,
       };
 
-      dispatch(doCreateIqroGuruRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const tambahiqro = async () => {
+        const loadingToast = Alert.loading("Sedang menambahkan...");
+        try {
+          await ApiSantri.postData("/iqroguru/insert", payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil ditambahkan !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      tambahiqro();
 
       // setTimeout(() => {
       //   navigate("/dataiqroguru", { state: { refresh: true } });
@@ -82,6 +185,7 @@ const TambahIqroGuru = () => {
   const keterangan = ["mengulang", "belum lancar", "lanjut", "selesai"];
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Hafalan Iqro
@@ -102,7 +206,7 @@ const TambahIqroGuru = () => {
             <option value="" selected disabled hidden>
               Pilih Rumah Tahfidz
             </option>
-            {rumahtahfidzdata.map((e) => (
+            {listpondok.map((e) => (
               <option value={e.id}>{e.name}</option>
             ))}
           </select>
@@ -121,8 +225,8 @@ const TambahIqroGuru = () => {
             <option value="" selected disabled hidden>
               Pilih Ustadz/ah
             </option>
-            {gurudata
-              .filter((e) => e.PondokId === select)
+            {listguru
+              .filter((e) => e.pondok_id === select)
               .sort(function (a, b) {
                 if (a.name < b.name) {
                   return -1;
@@ -239,9 +343,6 @@ const TambahIqroGuru = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

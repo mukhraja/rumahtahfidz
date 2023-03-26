@@ -13,6 +13,10 @@ import {
   doGetGuruByRumahTahfidzRequest,
   doGetGuruRequest,
 } from "../../../../reduxsaga/actions/Guru";
+import axios from "axios";
+import config from "../../../../reduxsaga/config/config";
+import ApiSantri from "../../../../api/ApiSantri";
+import Alert from "../../../../utils/Alert";
 const LaporanPengajar = () => {
   const tableRef = useRef(null);
 
@@ -26,13 +30,88 @@ const LaporanPengajar = () => {
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [pondok, setPondok] = useState([]);
+  const [guru, setGuru] = useState([]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
-      dispatch(doGetGuruRequest());
+      const fetchpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchpondok();
+
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/laporan/laporanguru/?userId=&pondokId=${select}&masterpondokId=`
+          );
+
+          setGuru(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistguru();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
-      dispatch(doGetGuruByMasterTahfidzRequest(userProfile.masterpondokId));
+      const fetchpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchpondok();
+
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/laporan/laporanguru/?pondokId=${select}&masterpondokId=${userProfile.masterpondokId}`
+          );
+
+          setGuru(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistguru();
+    } else {
+      const fetchpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchpondok();
+
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/laporan/laporanguru/?pondokId=${select}&masterpondokId=${userProfile.masterpondokId}`
+          );
+
+          setGuru(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistguru();
     }
   }, []);
 
@@ -203,24 +282,6 @@ const LaporanPengajar = () => {
     "Juz 30",
   ];
 
-  const [dataguru, setDataguru] = useState([]);
-
-  useEffect(() => {
-    setDataguru(
-      gurudata
-        .sort(function (a, b) {
-          if (a.name < b.name) {
-            return -1;
-          }
-          if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        })
-        .filter((e) => e.mulai_vakum === null)
-    );
-  }, [gurudata]);
-
   return (
     <div className="">
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
@@ -244,7 +305,7 @@ const LaporanPengajar = () => {
               Pilih Rumah Tahfidz
             </option>
             <option value="">All</option>
-            {rumahtahfidzdata.map((e) => (
+            {pondok.map((e) => (
               <option value={e.id}>{e.name}</option>
             ))}
           </select>
@@ -302,67 +363,271 @@ const LaporanPengajar = () => {
                 </tr>
               </thead>
               <tbody className="">
-                {gurudata &&
-                  dataguru
-                    .filter((el) => {
-                      if (select === "") {
-                        return el;
-                      } else if (el.PondokId.includes(select)) {
-                        return el;
-                      }
-                    })
-                    .map((e) => (
-                      <tr className=" border-b">
-                        <td className=" sticky left-0 bg-gray-50  lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
+                {guru.map((hafal, index) => (
+                  <tr className=" border-b">
+                    {/* <td className="sticky left-0 bg-gray-50  text-xa lg:text-xa text-gray-900 font-light lg:px-3 px-2 truncate block w-32 lg:w-full border-r py-4 whitespace-nowrap">
                           {e.name}
-                        </td>
-                        {hafalsantriiqro.map((hafal) => (
-                          <td className="lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
-                            <div className=" flex justify-center">
-                              {e.Iqrogurus.map((e, i, array) => {
-                                if (e.name == hafal && e.ket == "selesai") {
-                                  // return <CheckCircleIcon className="h-6" />;
-                                  return "selesai";
-                                } else {
-                                  return null;
-                                }
-                              })}
-                            </div>
-                          </td>
-                        ))}
-                        {hafalsantrisurahpendek.map((hafal) => (
-                          <td className="lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
-                            <div className=" flex justify-center">
-                              {e.Surahpendekgurus.map((e, i, array) => {
-                                if (e.name == hafal && e.ket == "selesai") {
-                                  // return <CheckCircleIcon className="h-6" />;
-                                  return "selesai";
-                                } else {
-                                  return null;
-                                }
-                              })}
-                            </div>
-                          </td>
-                        ))}
-                        {hafalsantrialquran.map((hafal) => (
-                          <td className="lg:text-xa text-xa text-gray-900 font-light lg:px-3 px-3 border-r py-4 whitespace-nowrap">
-                            <div className=" flex justify-center">
-                              {e.Alqurangurus.map((e, i, array) => {
-                                if (
-                                  "Juz " + e.juz == hafal &&
-                                  e.ket == "selesai"
-                                ) {
-                                  // return <CheckCircleIcon className="h-6" />;
-                                  return "selesai";
-                                } else {
-                                  return null;
-                                }
-                              })}
-                            </div>
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
+                        </td> */}
+                    <td className="sticky left-0 bg-gray-50 lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.name}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.iqro1}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.iqro2}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.iqro3}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.iqro4}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.iqro5}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.iqro6}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.annaba}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.annaziat}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.abasa}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.attakwir}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alinfithar}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.almutafifin}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alinsyiqaq}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alburuj}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.aththariq}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alakla}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alghasyiah}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.s}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.albalad}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.asysyams}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.allail}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.adduha}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.asysyarh}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.attin}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alalaq}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alqadr}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.albayyinah}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.azzalzalah}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alaadiyah}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alqariah}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.attakatsur}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alashr}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alhumazah}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alfiil}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.quraisy}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.almaun}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alkautsar}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alkafirun}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.annashr}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.allahab}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">
+                        {hafal.alikhlash}
+                      </div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.alfalaq}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.annas}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus1}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus2}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus3}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus4}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus5}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus6}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus7}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus8}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus9}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus10}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus11}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus12}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus13}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus14}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus15}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus16}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus17}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus18}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus19}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus20}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus21}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus22}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus23}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus24}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus25}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus26}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus27}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus28}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus29}</div>
+                    </td>
+                    <td className="lg:text-xa text-gray-900 font-light lg:px-3 text-xa border-r py-4 whitespace-nowrap">
+                      <div className="flex justify-center">{hafal.jus30}</div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

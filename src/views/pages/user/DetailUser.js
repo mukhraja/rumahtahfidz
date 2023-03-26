@@ -5,6 +5,11 @@ import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import { doGetUserByIdRequest } from "../../../reduxsaga/actions/User";
 import config from "../../../reduxsaga/config/config";
 import Moment from "react-moment";
+import axios from "axios";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import { Toaster } from "react-hot-toast";
 
 const DetailUser = () => {
   const { id } = useParams();
@@ -12,15 +17,40 @@ const DetailUser = () => {
   const navigate = useNavigate();
 
   const { userdata } = useSelector((state) => state.userState);
+  const [user, setUser] = useState([]);
+  const [santri, setListSantri] = useState([]);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetUserByIdRequest(payload));
+    const fetchuser = async () => {
+      try {
+        const data = await ApiSantri.getData("/user/" + id);
+        setUser(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchuser();
+
+    const fetchlistsantri = async () => {
+      setLoading(true);
+      try {
+        const data = await ApiSantri.getData("/santri/getByUserId/" + id);
+        setListSantri(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchlistsantri();
   }, []);
 
   return (
     <div className="">
-      {userdata.map((e) => (
+      {Loading == true ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
+      {user.map((e) => (
         <div>
           <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
             <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
@@ -55,12 +85,12 @@ const DetailUser = () => {
               <h1 className="block lg:col-span-2 col-span-4">Telepon</h1>
               <h1 className="block lg:col-span-2 col-span-4">{e.telephone}</h1>
             </div>
-            {e.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ? (
+            {e.role_id === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ? (
               <div className="grid grid-cols-8 p-2 text-xs">
                 <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
                 <p className="lg:col-span-2 col-span-4">
-                  {e.Santris.map((e) => (
-                    <p className="py-1">{e.name}</p>
+                  {santri.map((e) => (
+                    <p className="py-1">{e.label}</p>
                   ))}
                 </p>
               </div>

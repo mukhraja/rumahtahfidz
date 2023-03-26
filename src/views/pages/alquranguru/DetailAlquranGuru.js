@@ -1,8 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import ApiSantri from "../../../api/ApiSantri";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetAlquranGuruByIdRequest,
@@ -12,6 +13,7 @@ import { doGetAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransan
 import { doGetGuruByIdRequest } from "../../../reduxsaga/actions/Guru";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   ButtonLinkAlquranGuruList,
   ButtonLinkAlquranList,
@@ -30,11 +32,57 @@ const DetailAlquranGuru = () => {
   const { alqurangurudata } = useSelector((state) => state.alquranGuruState);
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [alquran, setListAlquran] = useState([]);
+
+  const [listguru, setListguru] = useState([]);
+
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetGuruByIdRequest(payload));
-    dispatch(doGetAlquranGuruRequest(payload));
-  }, []);
+    const fetchalquran = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/alquranguru/getlisthafalan/" + id
+        );
+
+        setListAlquran(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchalquran();
+
+    const fetchdetailguru = async () => {
+      try {
+        const data = await ApiSantri.getData("/guru/getbyid/" + id);
+
+        setListguru(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchdetailguru();
+  }, [refresh]);
+
+  // useEffect(() => {
+  //   async function fetchListAlquran() {
+  //     await axios
+  //       .get(config.domain + "/alquranguru/getlisthafalan/" + id)
+  //       .then((e) => setListAlquran(e.data.data));
+  //   }
+  //   fetchListAlquran();
+  //   async function fetchdetailguru() {
+  //     await axios
+  //       .get(config.domain + "/guru/getbyid/" + id)
+  //       .then((e) => setListguru(e.data.data));
+  //   }
+
+  //   fetchdetailguru();
+  // }, []);
 
   const [Display, setDisplay] = useState([]);
 
@@ -70,7 +118,12 @@ const DetailAlquranGuru = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkAlquranGuruList,
+          Cell: (props) => (
+            <ButtonLinkAlquranGuruList
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else if (
@@ -143,7 +196,12 @@ const DetailAlquranGuru = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkAlquranGuruList,
+          Cell: (props) => (
+            <ButtonLinkAlquranGuruList
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else {
@@ -182,7 +240,8 @@ const DetailAlquranGuru = () => {
   // const data = React.useMemo(() => alqurangurudata, [alqurangurudata]);
   return (
     <div className="">
-      {gurudata.map((e) => (
+      <Toaster />
+      {listguru.map((e) => (
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Data Hafalan Alquran {e.name}
@@ -191,7 +250,7 @@ const DetailAlquranGuru = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        {alqurangurudata < 1 ? (
+        {alquran < 1 ? (
           <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
             <h1 className=" text-sm font-poppins font-medium italic">
               Belum ada Hafalan
@@ -200,13 +259,10 @@ const DetailAlquranGuru = () => {
         ) : (
           <Table
             columns={Display}
-            data={alqurangurudata}
+            data={alquran}
             url="/dataalquranguru/tambah"
           />
         )}
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

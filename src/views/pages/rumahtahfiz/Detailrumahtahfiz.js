@@ -1,26 +1,43 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import ApiSantri from "../../../api/ApiSantri";
 import { rumahtahfidz } from "../../../gambar";
 import { doGetRumahTahfidzByIdRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const Detailrumahtahfiz = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
-  const { userProfile } = useSelector((state) => state.userState);
+  const [pondok, setListpondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetRumahTahfidzByIdRequest(payload));
+    const fetchlistpondok = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/pondok/getlistbyid/?pondokId=" + id
+        );
+        setLoading(false);
+        setListpondok(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchlistpondok();
   }, []);
 
   return (
     <div className="">
-      {rumahtahfidzdata.map((e) => (
+      {Loading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
+      {pondok.map((e) => (
         <div>
           <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
             <h1 className="text-white font-semibold lg:text-2xl text-lg font-poppins">
@@ -62,12 +79,28 @@ const Detailrumahtahfiz = () => {
                   <h1 className="block col-span-4">{e.chief}</h1>
                 </div>
                 <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
-                  <h1 className="block col-span-4">Jumlah Ustadz/ah</h1>
-                  <h1 className="block col-span-4">{e.Gurus.length}</h1>
+                  <h1 className="block col-span-4">Ustadz/ah Aktif</h1>
+                  <h1 className="block col-span-4">
+                    {e.total_guru_aktif} Orang
+                  </h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs ">
+                  <h1 className="block col-span-4">Ustadz/ah Vakum</h1>
+                  <h1 className="block col-span-4">
+                    {e.total_guru_vakum} Orang
+                  </h1>
+                </div>
+                <div className="grid grid-cols-8 p-2 text-xs bg-gray-200">
+                  <h1 className="block col-span-4">Santri Aktif</h1>
+                  <h1 className="block col-span-4">
+                    {e.total_santri_aktif} Orang
+                  </h1>
                 </div>
                 <div className="grid grid-cols-8 p-2 text-xs">
-                  <h1 className="block col-span-4">Jumlah Santri</h1>
-                  <h1 className="block col-span-4">{e.Santris.length}</h1>
+                  <h1 className="block col-span-4">Santri Vakum</h1>
+                  <h1 className="block col-span-4">
+                    {e.total_santri_vakum} Orang
+                  </h1>
                 </div>
               </div>
             </div>

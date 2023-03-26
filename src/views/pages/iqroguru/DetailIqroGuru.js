@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -33,10 +34,24 @@ const DetailIqroGuru = () => {
   const { iqrogurudata } = useSelector((state) => state.iqroGuruState);
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [listiqro, setListIqro] = useState([]);
+  const [listguru, setListguru] = useState([]);
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetGuruByIdRequest(payload));
-    dispatch(doGetIqroGuruRequest(payload));
+    async function fetchlistiqro() {
+      await axios
+        .get(config.domain + "/iqroguru/getlisthafalan/" + id)
+        .then((e) => setListIqro(e.data.data));
+    }
+    fetchlistiqro();
+
+    async function fetchdetailguru() {
+      await axios
+        .get(config.domain + "/guru/getbyid/" + id)
+        .then((e) => setListguru(e.data.data));
+    }
+
+    fetchdetailguru();
   }, []);
 
   const [Display, setDisplay] = useState([]);
@@ -149,7 +164,7 @@ const DetailIqroGuru = () => {
 
   return (
     <div className="">
-      {gurudata.map((e) => (
+      {listguru.map((e) => (
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Data Hafalan IQRO {e.name}
@@ -165,11 +180,7 @@ const DetailIqroGuru = () => {
             </h1>
           </div>
         ) : (
-          <Table
-            columns={Display}
-            data={iqrogurudata}
-            url="/dataalquranguru/tambah"
-          />
+          <Table columns={Display} data={listiqro} url="/dataiqroguru/tambah" />
         )}
       </div>
       <div className="z-30">

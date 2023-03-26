@@ -62,20 +62,17 @@ function* handleSignin(action) {
     if (Object.keys(result.data.profile).length === 0) {
       yield put(
         doShowAuthMessage({
-          message: "user or password not match, try again",
+          message: "User dan Password tidak ditemukan !!!",
         })
       );
     } else {
-      yield call(toast, "Berhasil Login", {
-        type: toast.TYPE.SUCCESS,
-      });
       localStorage.setItem("token", result.data.token);
       yield put(doSigninSucceed(result.data));
     }
     //localStorage.setItem('@profile', JSON.stringify(result.data.profile));
   } catch (error) {
     yield put(
-      doShowAuthMessage({ message: "user or password not match, try again" })
+      doShowAuthMessage({ message: "User dan Password tidak ditemukan !!!" })
     );
   }
 }
@@ -158,20 +155,11 @@ function* handleCreateUser(action) {
   try {
     const result = yield call(apiUser.createuser, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Email Tidak Sama", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doCreateUserSucceed(result));
-      yield call(toast, "Data berhasil ditambahkan", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doCreateUserFailed(error));
-    yield call(toast, "Pastikan Email Tidak Sama", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 
@@ -182,20 +170,11 @@ function* handleCreateUserSantri(action) {
   try {
     const result = yield call(apiUser.createusersantri, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Email Tidak Sama", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doCreateUserSantriSucceed(result));
-      yield call(toast, "Data berhasil ditambahkan", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doCreateUserSantriFailed(error));
-    yield call(toast, "Pastikan Email Tidak Sama", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 
@@ -207,20 +186,11 @@ function* handleCreateNoFileUser(action) {
   try {
     const result = yield call(apiUser.createNoFileuser, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Email Tidak Sama", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doCreateUserNoFileSucceed(result));
-      yield call(toast, "Data berhasil ditambahkan", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doCreateUserNoFileFailed(error));
-    yield call(toast, "Pastikan Email Tidak Sama", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 
@@ -231,20 +201,11 @@ function* handleCreateNoFileUserSantri(action) {
   try {
     const result = yield call(apiUser.createNoFileusersantri, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Email Tidak Sama", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doCreateUserSantriNoFileSucceed(result));
-      yield call(toast, "Data berhasil ditambahkan", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doCreateUserSantriNoFileFailed(error));
-    yield call(toast, "Pastikan Email Tidak Sama", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 
@@ -255,20 +216,11 @@ function* handleDeleteUser(action) {
   try {
     const result = yield call(apiUser.deleteuser, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Data Benar", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doDeleteUserSucceed(payload));
-      yield call(toast, "Data berhasil dihapus", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doDeleteUserFailed(error));
-    yield call(toast, "Pastikan Data Benar", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 
@@ -279,20 +231,11 @@ function* handleUpdateUser(action) {
   try {
     const result = yield call(apiUser.updateuser, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Email Tidak Sama", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doUpdateUserSucceed(payload));
-      yield call(toast, "Data berhasil diperbaharui", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doUpdateUserFailed(error));
-    yield call(toast, "Pastikan Email Tidak Sama", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 
@@ -303,20 +246,11 @@ function* handleUpdateNoFileUser(action) {
   try {
     const result = yield call(apiUser.updateuserNoFile, payload);
     if (result.code === "ERR_BAD_REQUEST") {
-      yield call(toast, "Pastikan Email Tidak Sama", {
-        type: toast.TYPE.ERROR,
-      });
     } else {
       yield put(doUpdateNoFIleUserSucceed(payload));
-      yield call(toast, "Data berhasil diperbaharui", {
-        type: toast.TYPE.SUCCESS,
-      });
     }
   } catch (error) {
     yield put(doUpdateNoFIleUserFailed(error));
-    yield call(toast, "Pastikan Email Tidak Sama", {
-      type: toast.TYPE.ERROR,
-    });
   }
 }
 

@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -16,11 +15,25 @@ import {
   doCreateUserRequest,
 } from "../../../reduxsaga/actions/User";
 import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast, Toaster } from "react-hot-toast";
 
 const TambahAdmin = () => {
+  const [listpondok, setListpondok] = useState([]);
+
   useEffect(() => {
-    dispatch(doGetRumahTahfidzRequest());
-    dispatch(doGetRoleRequest());
+    const fetchlistpondok = async () => {
+      try {
+        const data = await ApiSantri.getData("/pondok/getall");
+        setListpondok(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchlistpondok();
   }, []);
 
   const dispatch = useDispatch();
@@ -100,7 +113,20 @@ const TambahAdmin = () => {
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
-        dispatch(doCreateUserRequest(payload));
+
+        const tambahadmin = async () => {
+          const loadingToast = Alert.loading("Sedang menambahkan...");
+          try {
+            await ApiSantri.postData("/user/createuserfile", payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil ditambahkan !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        tambahadmin();
+
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -118,7 +144,18 @@ const TambahAdmin = () => {
           pondokId: values.pondokId,
         };
 
-        dispatch(doCreateUserNoFileRequest(payload));
+        const tambahadmin = async () => {
+          const loadingToast = Alert.loading("Sedang menambahkan...");
+          try {
+            await ApiSantri.postData("/user/createuser", payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil ditambahkan !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        tambahadmin();
 
         // setTimeout(() => {
         //   navigate("/datauser", { state: { refresh: true } });
@@ -129,6 +166,7 @@ const TambahAdmin = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Pengguna
@@ -276,7 +314,7 @@ const TambahAdmin = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
+              {listpondok.map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
@@ -344,10 +382,6 @@ const TambahAdmin = () => {
             </div>
           </div>
         </form>
-
-        <div className="z-30">
-          <ToastContainer autoClose={2000} />
-        </div>
 
         {/*  */}
         <div>

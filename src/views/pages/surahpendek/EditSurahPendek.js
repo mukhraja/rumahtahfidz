@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
@@ -18,6 +16,11 @@ import {
   doUpdateSurahPendekSantriRequest,
 } from "../../../reduxsaga/actions/SurahPendekSantri";
 import moment from "moment";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
 
 const EditSurahPendekSantri = () => {
   const { id } = useParams();
@@ -31,9 +34,19 @@ const EditSurahPendekSantri = () => {
     (state) => state.surahPendekSantriState
   );
 
+  const [surahpendek, setSurahPendek] = useState([]);
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetSurahPendekSantriByIdRequest(payload));
+    const fetchsurahpendek = async () => {
+      try {
+        const data = await ApiSantri.getData("/surahpendeksantri/getid/" + id);
+
+        setSurahPendek(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchsurahpendek();
   }, []);
 
   const handleChange = (e) => {
@@ -50,30 +63,34 @@ const EditSurahPendekSantri = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      namesantri: surahpendeksantridata.length
-        ? surahpendeksantridata[0].Santri.name
+      namesantri: surahpendek.length ? surahpendek[0].namasantri : null,
+      name: surahpendek.length ? surahpendek[0].name : null,
+      tgl_selesai: surahpendek.length
+        ? moment(surahpendek[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      name: surahpendeksantridata.length ? surahpendeksantridata[0].name : null,
-      tgl_selesai: surahpendeksantridata.length
-        ? moment(surahpendeksantridata[0].tgl_selesai).format("YYYY-MM-DD")
-        : null,
-      ket: surahpendeksantridata.length ? surahpendeksantridata[0].ket : null,
-      santriId: surahpendeksantridata.length
-        ? surahpendeksantridata[0].Santri.id
-        : null,
+      ket: surahpendek.length ? surahpendek[0].ket : null,
+      santriId: surahpendek.length ? surahpendek[0].santri_id : null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const payload = {
-        id,
         name: values.name,
         tgl_selesai: values.tgl_selesai,
         ket: values.ket,
       };
 
-      dispatch(doUpdateSurahPendekSantriRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const updatesurahpendek = async () => {
+        const loadingToast = Alert.loading("Sedang diperbaharui...");
+        try {
+          await ApiSantri.postData("/surahpendeksantri/update/" + id, payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil diperbaharui !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      updatesurahpendek();
 
       // setTimeout(() => {
       //   navigate("/datasurahpendeksantri", { state: { refresh: true } });
@@ -84,7 +101,7 @@ const EditSurahPendekSantri = () => {
   const juzamma = [
     "An Naba’",
     "An Nazi’at",
-    "Abasa'",
+    "Abasa’",
     "At Takwir",
     "Al Infithar",
     "Al Muthaffifin",
@@ -125,6 +142,7 @@ const EditSurahPendekSantri = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Hafalan Surah Pendek
@@ -220,9 +238,6 @@ const EditSurahPendekSantri = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

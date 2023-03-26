@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
@@ -19,6 +17,11 @@ import {
   doUpdateIqroGuruRequest,
 } from "../../../reduxsaga/actions/IqroGuru";
 import moment from "moment";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import { toast, Toaster } from "react-hot-toast";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
 
 const EditIqroGuru = () => {
   const { id } = useParams();
@@ -29,10 +32,15 @@ const EditIqroGuru = () => {
   console.log(select);
 
   const { iqrogurudata } = useSelector((state) => state.iqroGuruState);
+  const [iqroid, setIqro] = useState([]);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetIqroGuruByIdRequest(payload));
+    async function fetchiqroid() {
+      await axios
+        .get(config.domain + "/iqroguru/getid/" + id)
+        .then((e) => setIqro(e.data.data));
+    }
+    fetchiqroid();
   }, []);
 
   const handleChange = (e) => {
@@ -51,14 +59,14 @@ const EditIqroGuru = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      nameguru: iqrogurudata.length ? iqrogurudata[0].Guru.name : null,
-      name: iqrogurudata.length ? iqrogurudata[0].name : null,
-      halaman: iqrogurudata.length ? iqrogurudata[0].halaman : null,
-      tgl_selesai: iqrogurudata.length
-        ? moment(iqrogurudata[0].tgl_selesai).format("YYYY-MM-DD")
+      nameguru: iqroid.length ? iqroid[0].namaguru : null,
+      name: iqroid.length ? iqroid[0].name : null,
+      halaman: iqroid.length ? iqroid[0].halaman : null,
+      tgl_selesai: iqroid.length
+        ? moment(iqroid[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      ket: iqrogurudata.length ? iqrogurudata[0].ket : null,
-      guruId: iqrogurudata.length ? iqrogurudata[0].Guru.id : null,
+      ket: iqroid.length ? iqroid[0].ket : null,
+      guruId: iqroid.length ? iqroid[0].id : null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -70,9 +78,18 @@ const EditIqroGuru = () => {
         ket: values.ket,
       };
 
-      dispatch(doUpdateIqroGuruRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const updateiqro = async () => {
+        const loadingToast = Alert.loading("Sedang diperbaharui...");
+        try {
+          await ApiSantri.postData("/iqroguru/update/" + id, payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil diperbaharui !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      updateiqro();
 
       // setTimeout(() => {
       //   navigate("/dataiqroguru", { state: { refresh: true } });
@@ -86,6 +103,7 @@ const EditIqroGuru = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Hafalan Iqro
@@ -206,9 +224,6 @@ const EditIqroGuru = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

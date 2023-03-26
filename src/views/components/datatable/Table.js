@@ -21,27 +21,14 @@ import { Button, PageButton } from "./shared/Button";
 import { classNames } from "./shared/Utils";
 import { SortIcon, SortUpIcon, SortDownIcon } from "./shared/Icons";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  doGetRumahTahfidzRequest,
-  doDeleteRumahTahfidzRequest,
-} from "../../../../src/reduxsaga/actions/RumahTahfidz";
-import { doDeleteSantriRequest } from "../../../reduxsaga/actions/Santri";
-import { doDeleteIqroSantriRequest } from "../../../reduxsaga/actions/Iqrosantri";
-import {
-  doDeleteSurahPendekSantriRequest,
-  doDeleteSurahPendekSantriSucceed,
-} from "../../../reduxsaga/actions/SurahPendekSantri";
-import { doDeleteAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
-import { doDeleteUserRequest } from "../../../reduxsaga/actions/User";
-import { doDeleteGuruRequest } from "../../../reduxsaga/actions/Guru";
-import { doDeleteIqroGuruRequest } from "../../../reduxsaga/actions/IqroGuru";
-import { doDeleteAlquranGuruRequest } from "../../../reduxsaga/actions/Alquranguru";
-import { doDeleteMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 import moment from "moment";
 import Modal from "../modal/Modal";
-import { doDeleteSurahPendekGuruRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
+import toast from "react-hot-toast";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -129,11 +116,11 @@ export function StatusPill({ value }) {
 }
 
 export function tanggalcustom({ value }) {
-  if (value != null) {
+  if (value == "0000-00-00 00:00:00" || value == null) {
+    return <span className=" text-gray-500"> - </span>;
+  } else {
     const tgl = moment(value).format("DD-MM-YYYY");
     return <span className="text-gray-500">{tgl}</span>;
-  } else {
-    return <span className=" text-gray-500"></span>;
   }
 }
 
@@ -146,62 +133,22 @@ export function perkecilnama({ value }) {
 }
 
 export function JumlahCabang({ value }) {
-  const { isLoading, masterpondokdata } = useSelector(
-    (state) => state.masterPondokState
-  );
-
   return (
     <h1 className=" py-0 lg:py-1 w-5 lg:w-8 text-white text-center bg-fuchsia-400 rounded-md shadow-md mr-2 text-xs lg:text-sm">
-      {masterpondokdata && value.length}
+      {value}
     </h1>
   );
 }
 
 export function Jumlahorang({ value }) {
-  const result = value.filter((e) => e.mulai_vakum == null);
-  const resultvakum = value.filter((e) => e.mulai_vakum != null);
-
   return (
-    <div className="flex">
-      <div className="group cursor-pointer relative text-white py-1 lg:py-2 w-5 lg:w-10 text-center bg-fuchsia-400 rounded-md shadow-md   mr-2">
-        {result.length}
-        <div class="opacity-0 py-1 lg:py-2 w-12 lg:w-24 bg-black text-white text-center text-xs rounded-lg absolute z-10 group-hover:opacity-100 bottom-full -left-2/3 pointer-events-none">
-          Aktif
-          <svg
-            class="absolute text-black h-4 w-full left-0 top-full"
-            x="0px"
-            y="0px"
-            viewBox="0 0 255 255"
-          >
-            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
-          </svg>
-        </div>
-      </div>
-      {/* <h1 className=" text-white py-2 text-center bg-fuchsia-400 rounded-md shadow-md w-10 mr-2">
-        {result.length}
-      </h1> */}
-      {/* <h1 className=" text-white py-2 text-center bg-gray-400 rounded-md shadow-md w-10">
-        {resultvakum.length}
-      </h1> */}
-      <div className="group cursor-pointer relative text-white py-1 lg:py-2 w-5 lg:w-10 text-center bg-gray-400 rounded-md shadow-md mr-2">
-        {resultvakum.length}
-        <div class="opacity-0 py-1 lg:py-2 w-12 lg:w-24 bg-black text-center text-xs rounded-lg absolute z-10 group-hover:opacity-100 bottom-full -left-2/3 pointer-events-none">
-          Vakum
-          <svg
-            class="absolute text-black h-4 w-full left-0 top-full"
-            x="0px"
-            y="0px"
-            viewBox="0 0 255 255"
-          >
-            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
-          </svg>
-        </div>
-      </div>
+    <div className="group cursor-pointer relative text-white py-1 lg:py-2 w-5 lg:w-10 text-center bg-fuchsia-400 rounded-md shadow-md mr-2">
+      {value}
     </div>
   );
 }
 
-export function ButtonLinkRumahTahfidz({ value }) {
+export function ButtonLinkRumahTahfidz({ value, onRefresh }) {
   const status = value ? value.toLowerCase() : "";
 
   const [showModal, setShowModal] = useState(false);
@@ -216,11 +163,20 @@ export function ButtonLinkRumahTahfidz({ value }) {
 
   const { userProfile } = useSelector((state) => state.userState);
 
-  const dispatch = useDispatch();
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteRumahTahfidzRequest(id));
-    setShowModal(false);
+    try {
+      await ApiSantri.postData("/pondok/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   return (
@@ -267,7 +223,7 @@ export function ButtonLinkRumahTahfidz({ value }) {
   );
 }
 
-export function ButtonLinkListRumahTahfidz({ value }) {
+export function ButtonLinkListRumahTahfidz({ value, onRefresh }) {
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
 
@@ -281,13 +237,21 @@ export function ButtonLinkListRumahTahfidz({ value }) {
     setShowModal(false);
   };
 
-  const dispatch = useDispatch();
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteRumahTahfidzRequest(id));
-    setShowModal(false);
+    try {
+      await ApiSantri.postData("/pondok/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
-
   return (
     <div>
       <div className=" flex">
@@ -323,7 +287,7 @@ export function ButtonLinkListRumahTahfidz({ value }) {
   );
 }
 
-export function ButtonLinkMasterRumahTahfidz({ value }) {
+export function ButtonLinkMasterRumahTahfidz({ value, onRefresh }) {
   const status = value ? value.toLowerCase() : "";
   const { userProfile } = useSelector((state) => state.userState);
 
@@ -337,11 +301,20 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
     setShowModal(false);
   };
 
-  const dispatch = useDispatch();
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
 
-  const onDelete = (e) => {
-    dispatch(doDeleteMasterPondokRequest(e));
-    setShowModal(false);
+    try {
+      await ApiSantri.postData("/masterpondok/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   return (
@@ -395,7 +368,7 @@ export function ButtonLinkMasterRumahTahfidz({ value }) {
   );
 }
 
-export function ButtonLinkSantri({ value }) {
+export function ButtonLinkSantri({ value, onRefresh }) {
   const status = value ? value.toLowerCase() : "";
 
   const [showModal, setShowModal] = useState(false);
@@ -408,12 +381,22 @@ export function ButtonLinkSantri({ value }) {
     setShowModal(false);
   };
 
-  const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userState);
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteSantriRequest(id));
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/santri/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   return (
@@ -456,7 +439,7 @@ export function ButtonLinkSantri({ value }) {
     </div>
   );
 }
-export function ButtonLinkGuru({ value }) {
+export function ButtonLinkGuru({ value, onRefresh }) {
   const status = value ? value.toLowerCase() : "";
 
   const [showModal, setShowModal] = useState(false);
@@ -469,12 +452,22 @@ export function ButtonLinkGuru({ value }) {
     setShowModal(false);
   };
 
-  const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userState);
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteGuruRequest(id));
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/guru/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   return (
@@ -518,7 +511,7 @@ export function ButtonLinkGuru({ value }) {
   );
 }
 
-export function ButtonLinkUser({ value }) {
+export function ButtonLinkUser({ value, onRefresh }) {
   const status = value ? value.toLowerCase() : "";
 
   const [showModal, setShowModal] = useState(false);
@@ -534,9 +527,20 @@ export function ButtonLinkUser({ value }) {
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.userState);
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteUserRequest(id));
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/user/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   return (
@@ -581,7 +585,7 @@ export function ButtonLinkIqro({ value }) {
   );
 }
 
-export function ButtonLinkIqroList({ value }) {
+export function ButtonLinkIqroList({ value, onRefresh }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -595,10 +599,20 @@ export function ButtonLinkIqroList({ value }) {
     setShowModal(false);
   };
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteIqroSantriRequest(id));
-    toast.success("Data berhasil dihapus...");
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/iqrosantri/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   const status = value;
@@ -624,7 +638,7 @@ export function ButtonLinkIqroList({ value }) {
   );
 }
 
-export function ButtonLinkSurahPendekList({ value }) {
+export function ButtonLinkSurahPendekList({ value, onRefresh }) {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
@@ -637,10 +651,20 @@ export function ButtonLinkSurahPendekList({ value }) {
     setShowModal(false);
   };
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteSurahPendekSantriRequest(id));
-    toast.success("Data berhasil dihapus...");
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/surahpendeksantri/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   const status = value;
@@ -666,7 +690,7 @@ export function ButtonLinkSurahPendekList({ value }) {
   );
 }
 
-export function ButtonLinkAlquranList({ value }) {
+export function ButtonLinkAlquranList({ value, onRefresh }) {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
@@ -679,10 +703,20 @@ export function ButtonLinkAlquranList({ value }) {
     setShowModal(false);
   };
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteAlquranSantriRequest(id));
-    toast.success("Data berhasil dihapus...");
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/alquransantri/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   const status = value;
@@ -708,7 +742,7 @@ export function ButtonLinkAlquranList({ value }) {
   );
 }
 
-export function ButtonLinkIqroPengajarList({ value }) {
+export function ButtonLinkIqroPengajarList({ value, onRefresh }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -722,9 +756,20 @@ export function ButtonLinkIqroPengajarList({ value }) {
     setShowModal(false);
   };
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteIqroGuruRequest(id));
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/iqroguru/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   const status = value;
@@ -750,7 +795,7 @@ export function ButtonLinkIqroPengajarList({ value }) {
   );
 }
 
-export function ButtonLinkSurahPendekGuruList({ value }) {
+export function ButtonLinkSurahPendekGuruList({ value, onRefresh }) {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
@@ -763,10 +808,20 @@ export function ButtonLinkSurahPendekGuruList({ value }) {
     setShowModal(false);
   };
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteSurahPendekGuruRequest(id));
-    toast.success("Data berhasil dihapus...");
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/surahpendekguru/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   const status = value;
@@ -792,7 +847,7 @@ export function ButtonLinkSurahPendekGuruList({ value }) {
   );
 }
 
-export function ButtonLinkAlquranGuruList({ value }) {
+export function ButtonLinkAlquranGuruList({ value, onRefresh }) {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
@@ -805,10 +860,20 @@ export function ButtonLinkAlquranGuruList({ value }) {
     setShowModal(false);
   };
 
-  const onDelete = async (id) => {
-    dispatch(doDeleteAlquranGuruRequest(id));
-    toast.success("Data berhasil dihapus...");
-    setShowModal(false);
+  const onDelete = async (data) => {
+    const loadingToast = Alert.loading("Sedang menghapus...");
+
+    try {
+      await ApiSantri.postData("/alquranguru/delete/" + data);
+      toast.dismiss(loadingToast);
+      Alert.success("Data berhasil dihapus !");
+      tutupkan();
+      onRefresh();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      tutupkan();
+      Alert.error("Periksa koneksi jaringan !!!");
+    }
   };
 
   const status = value;
@@ -892,7 +957,7 @@ function Table({ columns, data, url }) {
 
   // Render the UI for your table
   return (
-    <>
+    <div className="">
       <div className="sm:flex sm:gap-x-2 font-poppins justify-between">
         <GlobalFilter
           preGlobalFilteredRows={preGlobalFilteredRows}
@@ -919,14 +984,11 @@ function Table({ columns, data, url }) {
         ) : null}
       </div>
       {/* table */}
-      <div className="mt-4 flex flex-col">
-        <div className="-my-2 overflow-x-auto">
-          <div className="py-2 align-middle inline-block min-w-full">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table
-                {...getTableProps()}
-                className="min-w-full divide-y divide-gray-200"
-              >
+      <div className="relative">
+        <div className="absolute w-full">
+          <div className="py-2 mt-4">
+            <div className="shadow overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-w-20 scrollbar-thumb-rounded-md border-b border-gray-200 sm:rounded-lg pb-2">
+              <table {...getTableProps()} className="table-auto w-full">
                 <thead className="bg-gray-50 font-poppins">
                   {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -992,91 +1054,98 @@ function Table({ columns, data, url }) {
                 </tbody>
               </table>
             </div>
+            {/* Pagination */}
+            <div className="relative py-3 flex items-center justify-between font-poppins">
+              <div className="flex-1 flex justify-between sm:hidden">
+                <Button
+                  onClick={() => previousPage()}
+                  disabled={!canPreviousPage}
+                >
+                  Previous
+                </Button>
+                <Button onClick={() => nextPage()} disabled={!canNextPage}>
+                  Next
+                </Button>
+              </div>
+              <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div className="flex gap-x-2 items-baseline">
+                  <span className="lg:text-sm text-xs text-gray-700">
+                    Page{" "}
+                    <span className="font-medium">{state.pageIndex + 1}</span>{" "}
+                    of <span className="font-medium">{pageOptions.length}</span>
+                  </span>
+                  <label>
+                    <span className="sr-only">Items Per Page</span>
+                    <select
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-1 px-2 mr-2"
+                      value={state.pageSize}
+                      onChange={(e) => {
+                        setPageSize(Number(e.target.value));
+                      }}
+                    >
+                      {[5, 10, 20].map((pageSize) => (
+                        <option key={pageSize} value={pageSize}>
+                          Show {pageSize}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                <div>
+                  <nav
+                    className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                    aria-label="Pagination"
+                  >
+                    <PageButton
+                      className="rounded-l-md"
+                      onClick={() => gotoPage(0)}
+                      disabled={!canPreviousPage}
+                    >
+                      <span className="sr-only">First</span>
+                      <ChevronDoubleLeftIcon
+                        className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </PageButton>
+                    <PageButton
+                      onClick={() => previousPage()}
+                      disabled={!canPreviousPage}
+                    >
+                      <span className="sr-only">Previous</span>
+                      <ChevronLeftIcon
+                        className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </PageButton>
+                    <PageButton
+                      onClick={() => nextPage()}
+                      disabled={!canNextPage}
+                    >
+                      <span className="sr-only">Next</span>
+                      <ChevronRightIcon
+                        className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </PageButton>
+                    <PageButton
+                      className="rounded-r-md"
+                      onClick={() => gotoPage(pageCount - 1)}
+                      disabled={!canNextPage}
+                    >
+                      <span className="sr-only">Last</span>
+                      <ChevronDoubleRightIcon
+                        className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </PageButton>
+                  </nav>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      {/* Pagination */}
-      <div className="py-3 flex items-center justify-between font-poppins">
-        <div className="flex-1 flex justify-between sm:hidden">
-          <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
-            Previous
-          </Button>
-          <Button onClick={() => nextPage()} disabled={!canNextPage}>
-            Next
-          </Button>
-        </div>
-        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-          <div className="flex gap-x-2 items-baseline">
-            <span className="lg:text-sm text-xs text-gray-700">
-              Page <span className="font-medium">{state.pageIndex + 1}</span> of{" "}
-              <span className="font-medium">{pageOptions.length}</span>
-            </span>
-            <label>
-              <span className="sr-only">Items Per Page</span>
-              <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-1 px-2 mr-2"
-                value={state.pageSize}
-                onChange={(e) => {
-                  setPageSize(Number(e.target.value));
-                }}
-              >
-                {[5, 10, 20].map((pageSize) => (
-                  <option key={pageSize} value={pageSize}>
-                    Show {pageSize}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div>
-            <nav
-              className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-              aria-label="Pagination"
-            >
-              <PageButton
-                className="rounded-l-md"
-                onClick={() => gotoPage(0)}
-                disabled={!canPreviousPage}
-              >
-                <span className="sr-only">First</span>
-                <ChevronDoubleLeftIcon
-                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
-                  aria-hidden="true"
-                />
-              </PageButton>
-              <PageButton
-                onClick={() => previousPage()}
-                disabled={!canPreviousPage}
-              >
-                <span className="sr-only">Previous</span>
-                <ChevronLeftIcon
-                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
-                  aria-hidden="true"
-                />
-              </PageButton>
-              <PageButton onClick={() => nextPage()} disabled={!canNextPage}>
-                <span className="sr-only">Next</span>
-                <ChevronRightIcon
-                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
-                  aria-hidden="true"
-                />
-              </PageButton>
-              <PageButton
-                className="rounded-r-md"
-                onClick={() => gotoPage(pageCount - 1)}
-                disabled={!canNextPage}
-              >
-                <span className="sr-only">Last</span>
-                <ChevronDoubleRightIcon
-                  className="lg:h-5 lg:w-5 h-2 w-2 text-gray-400"
-                  aria-hidden="true"
-                />
-              </PageButton>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

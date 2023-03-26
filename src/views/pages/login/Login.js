@@ -25,10 +25,10 @@ export default function Login() {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Must be a valid email")
+      .email("Masukkan Email dengan benar")
       .max(255)
-      .required("Email is required"),
-    password: Yup.string().min(5).required("Password is required"),
+      .required("Email Harus diisi"),
+    password: Yup.string().min(5).required("Password Harus diisi"),
   });
 
   const formik = useFormik({
@@ -109,6 +109,9 @@ export default function Login() {
             {message ? (
               <h1 className="my-2 text-sm text-red-600">{message}</h1>
             ) : null}
+          </div>
+          <div className="text-center pb-2 font-mono">
+            <h1 className="text-xs font-extralight">rumahtahfizapp@v1.0.0</h1>
           </div>
         </div>
       </div>

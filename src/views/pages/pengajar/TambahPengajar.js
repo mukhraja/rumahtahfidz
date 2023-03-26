@@ -2,30 +2,48 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pengajar } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import {
-  doGetByRumahTahfidzRequest,
-  doGetRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
-import { doCreateGuruRequest } from "../../../reduxsaga/actions/Guru";
-import moment from "moment";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast, Toaster } from "react-hot-toast";
 
 const TambahPengajar = () => {
+  const [listpondok, setListpondok] = useState([]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     } else {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     }
   }, []);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { userProfile } = useSelector((state) => state.userState);
 
   const validationSchema = Yup.object().shape({
@@ -84,14 +102,21 @@ const TambahPengajar = () => {
       payload.append("ibu", values.ibu);
       payload.append("mulai_masuk", values.mulai_masuk);
       payload.append("mulai_vakum", values.mulai_vakum);
-      payload.append("pondokId", values.pondokId);
+      payload.append("pondok_id", values.pondokId);
       payload.append("photo", values.photo);
 
-      dispatch(doCreateGuruRequest(payload));
-
-      // setTimeout(() => {
-      //   navigate("/datapengajar", { state: { refresh: true } });
-      // }, 3000);
+      const tambahsantri = async () => {
+        const loadingToast = Alert.loading("Sedang menambahkan...");
+        try {
+          await ApiSantri.postData("/guru/insert", payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil ditambahkan !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      tambahsantri();
     },
   });
 
@@ -118,6 +143,7 @@ const TambahPengajar = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-lg font-poppins">
           Tambah Pengajar
@@ -330,7 +356,7 @@ const TambahPengajar = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata
+              {listpondok
                 .sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1;
@@ -412,9 +438,6 @@ const TambahPengajar = () => {
                 ) : null}
               </div>
             </div>
-          </div>
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
           </div>
 
           {/*  */}

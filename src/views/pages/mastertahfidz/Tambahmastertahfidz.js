@@ -6,11 +6,14 @@ import {
   doCreateRumahTahfidzRequest,
   doGetRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/RumahTahfidz";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { doCreateMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast, Toaster } from "react-hot-toast";
 
 const Tambahmastertahfidz = () => {
   const dispatch = useDispatch();
@@ -55,7 +58,19 @@ const Tambahmastertahfidz = () => {
       payload.append("logo", values.logo);
       payload.append("photo", values.photo);
 
-      dispatch(doCreateMasterPondokRequest(payload));
+      const tambahpondok = async () => {
+        const loadingToast = Alert.loading("Sedang menambahkan...");
+
+        try {
+          await ApiSantri.postData("/masterpondok/insert", payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil ditambahkan !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      tambahpondok();
 
       // setTimeout(() => {
       //   navigate("/datarumahtahfiz", { state: { refresh: true } });
@@ -68,13 +83,6 @@ const Tambahmastertahfidz = () => {
 
   const [previewLogo, setPreviewLogo] = useState();
   const [uploadLogo, setUploadLogo] = useState(false);
-
-  const toastId = React.useRef(null);
-
-  const notify = () => (toastId.current = toast("Hello", { autoClose: false }));
-
-  const update = () =>
-    toast.update(toastId.current, { type: toast.TYPE.INFO, autoClose: 5000 });
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -114,6 +122,7 @@ const Tambahmastertahfidz = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Master Tahfidz
@@ -331,11 +340,6 @@ const Tambahmastertahfidz = () => {
             </div>
           </div>
         </form>
-
-        <div className="z-30">
-          <ToastContainer />
-        </div>
-
         {/*  */}
         <div>
           <button

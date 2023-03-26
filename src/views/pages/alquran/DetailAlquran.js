@@ -1,12 +1,16 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ApiSantri from "../../../api/ApiSantri";
 import { bacaiqro } from "../../../gambar";
 import { doGetAlquranSantriRequest } from "../../../reduxsaga/actions/Alquransantri";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   ButtonLinkAlquranList,
   ButtonLinkIqro,
@@ -26,11 +30,40 @@ const DetailAlquran = () => {
   );
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [alquran, setListAlquran] = useState([]);
+
+  const [listsantris, setListsantris] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetSantriByIdRequest(payload));
-    dispatch(doGetAlquranSantriRequest(payload));
-  }, []);
+    const fetchalquran = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/alquransantri/getlisthafalan/" + id
+        );
+
+        setListAlquran(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchalquran();
+
+    const fetchdetailsantri = async () => {
+      try {
+        const data = await ApiSantri.getData("/santri/getbyid/" + id);
+
+        setListsantris(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchdetailsantri();
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -66,7 +99,12 @@ const DetailAlquran = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkAlquranList,
+          Cell: (props) => (
+            <ButtonLinkAlquranList
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else if (
@@ -130,7 +168,12 @@ const DetailAlquran = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkAlquranList,
+          Cell: (props) => (
+            <ButtonLinkAlquranList
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else {
@@ -165,7 +208,8 @@ const DetailAlquran = () => {
   // const data = React.useMemo(() => alquransantridata, [alquransantridata]);
   return (
     <div className="">
-      {santridata.map((e) => (
+      <Toaster />
+      {listsantris.map((e) => (
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Data Hafalan Alquran {e.name}
@@ -174,7 +218,7 @@ const DetailAlquran = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        {alquransantridata < 1 ? (
+        {alquran < 1 ? (
           <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
             <h1 className=" text-sm font-poppins font-medium italic">
               Belum ada Hafalan
@@ -183,13 +227,10 @@ const DetailAlquran = () => {
         ) : (
           <Table
             columns={Display}
-            data={alquransantridata}
+            data={alquran}
             url="/dataalquransantri/tambah"
           />
         )}
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

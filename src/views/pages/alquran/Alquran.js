@@ -1,5 +1,8 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import ApiSantri from "../../../api/ApiSantri";
 import { hafalquran } from "../../../gambar";
 import {
   doGetAlquranAwalSantriRequest,
@@ -7,6 +10,8 @@ import {
   doGetAlquranSantriByRumahTahfidzRequest,
   doGetAlquranSantriByUserIdRequest,
 } from "../../../reduxsaga/actions/Alquransantri";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -25,35 +30,65 @@ const Alquran = () => {
   );
   const { isLoading, userProfile } = useSelector((state) => state.userState);
 
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(
-      alquransantridata.sort(function (a, b) {
-        if (a.namasantri < b.namasantri) {
-          return -1;
-        }
-        if (a.namasantri > b.namasantri) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  }, [alquransantridata]);
+  const [alquran, setAlquran] = useState([]);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetAlquranAwalSantriRequest());
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/alquransantri/getlistawal/?pondokId=&masterpondokId=&userId="
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(
-        doGetAlquranSantriByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/alquransantri/getlistawal/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId +
+              "&userId="
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
-      dispatch(doGetAlquranSantriByUserIdRequest(userProfile.userId));
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/usersantri/hafalanalquransantri/" + userProfile.userId
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     } else {
-      dispatch(
-        dispatch(doGetAlquranSantriByRumahTahfidzRequest(userProfile.pondokId))
-      );
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/alquransantri/getlistawal/?pondokId= " +
+              userProfile.pondokId +
+              "&masterpondokId=&userId="
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     }
   }, []);
 
@@ -68,7 +103,7 @@ const Alquran = () => {
         },
         {
           Header: "Detail",
-          accessor: "santriId",
+          accessor: "id",
           Cell: ButtonLinkIqro,
         },
       ]);
@@ -103,12 +138,12 @@ const Alquran = () => {
         },
         {
           Header: "Detail",
-          accessor: "santriId",
+          accessor: "id",
           Cell: ButtonLinkIqro,
         },
       ]);
     }
-  }, [alquransantridata]);
+  }, []);
   const columns = React.useMemo(
     () => [
       {
@@ -139,7 +174,7 @@ const Alquran = () => {
       },
       {
         Header: "Detail",
-        accessor: "santriId",
+        accessor: "santri_id",
         Cell: ButtonLinkIqro,
       },
     ],
@@ -149,6 +184,7 @@ const Alquran = () => {
   return (
     <div className="">
       {isLoading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Hafalan Qur'an
@@ -163,7 +199,7 @@ const Alquran = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={databaru} url="tambah" />
+        <Table columns={Display} data={alquran} url="tambah" />
         {/* )} */}
       </div>
     </div>

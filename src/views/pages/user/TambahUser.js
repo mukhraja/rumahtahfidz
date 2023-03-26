@@ -2,32 +2,16 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import {
-  doCreateSantriRequest,
-  doGetSantriByRumahTahfidzRequest,
-  doGetSantriRequest,
-} from "../../../reduxsaga/actions/Santri";
-import {
-  doGetByRumahTahfidzRequest,
-  doGetRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
-import {
-  doCreateUserNoFileRequest,
-  doCreateUserRequest,
-  doCreateUserSantriNoFileRequest,
-  doCreateUserSantriRequest,
-} from "../../../reduxsaga/actions/User";
-import { doGetRoleRequest } from "../../../reduxsaga/actions/Role";
-import { default as ReactSelect } from "react-select";
 import moment from "moment";
 import config from "../../../reduxsaga/config/config";
 import axios from "axios";
 import Select from "react-select";
 import { v4 } from "uuid";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast, Toaster } from "react-hot-toast";
 
 const TambahUser = () => {
   const dispatch = useDispatch();
@@ -35,26 +19,53 @@ const TambahUser = () => {
 
   const nomorid = v4();
 
-  const { roledata } = useSelector((state) => state.roleState);
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
   const { userProfile } = useSelector((state) => state.userState);
 
   const [uploaded, setUploaded] = useState(false);
   const [photo, setPhoto] = useState();
   const [previewImg, setPreviewImg] = useState();
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState([]);
   const [dropdown, setDropdown] = useState([]);
-
-  useEffect(() => {
-    dispatch(doGetRoleRequest());
-  }, []);
+  const [pondok, setPondok] = useState([]);
+  const [role, setRole] = useState([]);
+  const [result, setResult] = useState();
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     } else {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     }
+
+    const fetchroleall = async () => {
+      try {
+        const data = await ApiSantri.getData("/role/getroles");
+        setRole(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchroleall();
   }, []);
 
   const uploadOnChange = (name) => (event) => {
@@ -76,10 +87,11 @@ const TambahUser = () => {
   };
 
   function handleSelect(data) {
-    console.log(data.map((e) => e.value));
+    // console.log(data.map((e) => e.label));
     setSelected(data);
   }
 
+  console.log("ini selected", selected);
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama").required("Masukkan nama"),
     // address: Yup.string("Please enter Primary Skill").required(
@@ -136,21 +148,34 @@ const TambahUser = () => {
         payload.append("pondokId", values.pondokId);
         payload.append("id", nomorid);
         payload.append("photo", values.photo);
-        await dispatch(doCreateUserSantriRequest(payload));
 
-        selected.map((e) => {
-          console.log(e.value);
-          axios
-            .put(config.domain + "/santri/usersantri/" + e.value, {
-              userId: nomorid,
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
+        const tambahuser = async () => {
+          const loadingToast = Alert.loading("Sedang menambahkan...");
+          try {
+            const data = await ApiSantri.postData(
+              "/user/createusersantri",
+              payload
+            );
+
+            setResult(data);
+
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil ditambahkan !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        tambahuser();
+
+        if (result == "success") {
+          selected.map((e) => {
+            ApiSantri.postData("/usersantri/create", {
+              user_id: nomorid,
+              santri_id: e.value,
             });
-        });
+          });
+        }
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -174,7 +199,19 @@ const TambahUser = () => {
         payload.append("pondokId", values.pondokId);
         payload.append("id", nomorid);
         payload.append("photo", values.photo);
-        dispatch(doCreateUserRequest(payload));
+
+        const tambahuser = async () => {
+          const loadingToast = Alert.loading("Sedang menambahkan...");
+          try {
+            await ApiSantri.postData("/user/createuserfile", payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil ditambahkan !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        tambahuser();
       } else if (
         uploaded !== true &&
         formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
@@ -193,21 +230,31 @@ const TambahUser = () => {
           pondokId: values.pondokId,
         };
 
-        await dispatch(doCreateUserSantriNoFileRequest(payload));
+        const tambahuser = async () => {
+          const loadingToast = Alert.loading("Sedang menambahkan...");
+          try {
+            const data = await ApiSantri.postData(
+              "/user/createusersantrinofile",
+              payload
+            );
+            setResult(data);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil ditambahkan !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        tambahuser();
 
-        selected.map((e) => {
-          console.log(e.value);
-          axios
-            .put(config.domain + "/santri/usersantri/" + e.value, {
-              userId: nomorid,
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
+        if (result == "success") {
+          selected.map((e) => {
+            ApiSantri.postData("/usersantri/create", {
+              user_id: nomorid,
+              santri_id: e.value,
             });
-        });
+          });
+        }
       } else {
         const payload = {
           name: values.name,
@@ -222,7 +269,18 @@ const TambahUser = () => {
           pondokId: values.pondokId,
         };
 
-        await dispatch(doCreateUserNoFileRequest(payload));
+        const tambahuser = async () => {
+          const loadingToast = Alert.loading("Sedang menambahkan...");
+          try {
+            await ApiSantri.postData("/user/createuser", payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil ditambahkan !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        tambahuser();
 
         // setTimeout(() => {
         //   navigate("/datauser", { state: { refresh: true } });
@@ -232,17 +290,22 @@ const TambahUser = () => {
   });
 
   useEffect(() => {
-    axios
-      .get(
-        config.domain +
-          "/santri/byrumahtahfidz/dropdown/" +
-          formik.values.pondokId
-      )
-      .then((e) => setDropdown(e.data.data));
+    const fetchlistpondok = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/santri/getdropdownId/" + formik.values.pondokId
+        );
+        setDropdown(data);
+      } catch (error) {
+        console.log("Belum di pilih");
+      }
+    };
+    fetchlistpondok();
   }, [formik.values.pondokId]);
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Tambah Pengguna
@@ -372,7 +435,7 @@ const TambahUser = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
+              {pondok.map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
@@ -402,7 +465,7 @@ const TambahUser = () => {
                   Admin
                 </option>
               ) : (
-                roledata
+                role
                   .filter((e) => e.id != "8b273d68-fe09-422d-a660-af3d8312f883")
                   .map((e) => <option value={e.id}>{e.name}</option>)
               )}
@@ -484,10 +547,6 @@ const TambahUser = () => {
             </div>
           </div>
         </form>
-
-        <div className="z-30">
-          <ToastContainer autoClose={2000} />
-        </div>
 
         {/*  */}
         <div>

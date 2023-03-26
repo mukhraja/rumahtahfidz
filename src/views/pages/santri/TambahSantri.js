@@ -2,34 +2,49 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { santri } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import {
-  doCreateSantriRequest,
-  doGetSantriRequest,
-} from "../../../reduxsaga/actions/Santri";
-import {
-  doGetByRumahTahfidzRequest,
-  doGetRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
-import moment from "moment";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import toast, { Toaster } from "react-hot-toast";
 
 const TambahSantri = () => {
-  useEffect(() => {
-    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
-    } else {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
-    }
-  }, []);
   const { userProfile } = useSelector((state) => state.userState);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [listpondok, setListpondok] = useState([]);
 
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    } else {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    }
+  }, []);
+
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     name: Yup.string("Masukkan nama santri").required("Masukkan nama santri"),
@@ -87,11 +102,19 @@ const TambahSantri = () => {
       payload.append("pondokId", values.pondokId);
       payload.append("photo", values.photo);
 
-      dispatch(doCreateSantriRequest(payload));
-
-      // setTimeout(() => {
-      //   navigate("/datasantri", { state: { refresh: true } });
-      // }, 3000);
+      const tambahsantri = async () => {
+        const loadingToast = Alert.loading("Sedang menambahkan...");
+        try {
+          await ApiSantri.postData("/santri/insert", payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil ditambahkan !");
+        } catch (error) {
+          console.log(error);
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      tambahsantri();
     },
   });
 
@@ -325,7 +348,7 @@ const TambahSantri = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata
+              {listpondok
                 .sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1;
@@ -410,7 +433,7 @@ const TambahSantri = () => {
           </div>
         </form>
         <div className="z-30">
-          <ToastContainer autoClose={2000} />
+          <Toaster />
         </div>
 
         {/*  */}

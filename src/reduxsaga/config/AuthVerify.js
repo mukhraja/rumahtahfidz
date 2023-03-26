@@ -16,12 +16,8 @@ const AuthVerify = (props) => {
   useEffect(() => {
     const user = localStorage.getItem("token");
 
-    console.log(user);
-
     if (user) {
       const decodedJwt = jwtDecode(user);
-
-      console.log("hasil decode JWT", decodedJwt);
 
       if (decodedJwt.exp * 1000 < Date.now()) {
         props.logOut();

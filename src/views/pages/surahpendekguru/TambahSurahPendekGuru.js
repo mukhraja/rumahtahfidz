@@ -17,6 +17,10 @@ import { doCreateSurahPendekSantriRequest } from "../../../reduxsaga/actions/Sur
 import { CheckIcon } from "@heroicons/react/outline";
 import { doGetGuruRequest } from "../../../reduxsaga/actions/Guru";
 import { doCreateSurahPendekGuruRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
 
 const TambahSurahPendekGuru = () => {
   const dispatch = useDispatch();
@@ -25,13 +29,76 @@ const TambahSurahPendekGuru = () => {
   const [select, setSelect] = useState();
   console.log(select);
 
+  const [listpondok, setListpondok] = useState([]);
+
+  const [listguru, setListGurus] = useState([]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData("/guru/getAll");
+          setListGurus(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistguru();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getByMasterPondokId/" + userProfile.masterpondokId
+          );
+          setListGurus(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistguru();
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      // dispatch(doGetSantriByUserIdRequest(userProfile.userId));
+    } else {
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getByPondokId/" + userProfile.pondokId
+          );
+          setListGurus(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistguru();
     }
-    dispatch(doGetGuruRequest());
+  }, []);
+
+  useEffect(() => {
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    } else {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -63,9 +130,18 @@ const TambahSurahPendekGuru = () => {
         guruId: values.guruId,
       };
 
-      dispatch(doCreateSurahPendekGuruRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const tambahsurahpendek = async () => {
+        const loadingToast = Alert.loading("Sedang menambahkan...");
+        try {
+          await ApiSantri.postData("/surahpendekguru/insert", payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil ditambahkan !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      tambahsurahpendek();
 
       // setTimeout(() => {
       //   navigate("/datasurahpendekguru", { state: { refresh: true } });
@@ -80,7 +156,7 @@ const TambahSurahPendekGuru = () => {
   const juzamma = [
     "An Naba’",
     "An Nazi’at",
-    "Abasa'",
+    "Abasa’",
     "At Takwir",
     "Al Infithar",
     "Al Muthaffifin",
@@ -140,7 +216,7 @@ const TambahSurahPendekGuru = () => {
             <option value="" selected disabled hidden>
               Pilih Rumah Tahfidz
             </option>
-            {rumahtahfidzdata
+            {listpondok
               .sort(function (a, b) {
                 if (a.name < b.name) {
                   return -1;
@@ -169,8 +245,8 @@ const TambahSurahPendekGuru = () => {
             <option value="" selected disabled hidden>
               Pilih Guru
             </option>
-            {gurudata
-              .filter((e) => e.pondokId === select)
+            {listguru
+              .filter((e) => e.pondok_id === select)
               .sort(function (a, b) {
                 if (a.name < b.name) {
                   return -1;

@@ -4,27 +4,30 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-  doGetRumahTahfidzByIdRequest,
-  doUpdateNoFIleRumahTahfidzRequest,
-  doUpdateRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
-import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
 
 const Editrumahtahfiz = () => {
   const { id } = useParams();
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
-  const { userProfile } = useSelector((state) => state.userState);
+  const [detailpondok, setDetailpondok] = useState([]);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetRumahTahfidzByIdRequest(payload));
+    const fetchlistpondok = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/pondok/getlistbyid/?pondokId=" + id
+        );
+        setDetailpondok(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchlistpondok();
   }, []);
 
   const [uploaded, setUploaded] = useState(false);
@@ -94,13 +97,13 @@ const Editrumahtahfiz = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: rumahtahfidzdata.length ? rumahtahfidzdata[0].name : null,
-      nit: rumahtahfidzdata.length ? rumahtahfidzdata[0].nit : null,
-      address: rumahtahfidzdata.length ? rumahtahfidzdata[0].address : null,
-      telephone: rumahtahfidzdata.length ? rumahtahfidzdata[0].telephone : null,
-      chief: rumahtahfidzdata.length ? rumahtahfidzdata[0].chief : null,
-      // logo: rumahtahfidzdata.length ? rumahtahfidzdata[0].logo : undefined,
-      photo: rumahtahfidzdata.length ? rumahtahfidzdata[0].photo : undefined,
+      name: detailpondok.length ? detailpondok[0].name : null,
+      nit: detailpondok.length ? detailpondok[0].nit : null,
+      address: detailpondok.length ? detailpondok[0].address : null,
+      telephone: detailpondok.length ? detailpondok[0].telephone : null,
+      chief: detailpondok.length ? detailpondok[0].chief : null,
+      // logo: detailpondok.length ? detailpondok[0].logo : undefined,
+      photo: detailpondok.length ? detailpondok[0].photo : undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -128,20 +131,20 @@ const Editrumahtahfiz = () => {
         payload.append("chief", values.chief);
         payload.append("photo", values.photo);
         payload.append("id", id);
-        dispatch(doUpdateRumahTahfidzRequest(payload));
-      }
-      // else if (uploadLogo === true) {
-      //   let payload = new FormData();
-      //   payload.append("name", values.name);
-      //   payload.append("nit", values.nit);
-      //   payload.append("address", values.address);
-      //   payload.append("telephone", values.telephone);
-      //   payload.append("chief", values.chief);
-      //   payload.append("logo", values.logo);
-      //   payload.append("id", id);
-      //   dispatch(doUpdateRumahTahfidzRequest(payload));
-      // }
-      else {
+
+        const updaterumahtahfidz = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+          try {
+            await ApiSantri.postData("/pondok/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updaterumahtahfidz();
+      } else {
         const payload = {
           id,
           name: values.name,
@@ -150,13 +153,27 @@ const Editrumahtahfiz = () => {
           telephone: values.telephone,
           chief: values.chief,
         };
-        dispatch(doUpdateNoFIleRumahTahfidzRequest(payload));
+
+        const updaterumahtahfidz = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+
+          try {
+            await ApiSantri.postData("/pondok/updatenofile/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updaterumahtahfidz();
       }
     },
   });
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Rumah Tahfidz
@@ -368,9 +385,6 @@ const Editrumahtahfiz = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
           </div>
         </form>
         <div>

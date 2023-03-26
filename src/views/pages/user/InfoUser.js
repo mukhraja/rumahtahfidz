@@ -1,10 +1,15 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import ApiSantri from "../../../api/ApiSantri";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import { doGetUserByIdRequest } from "../../../reduxsaga/actions/User";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const InfoUser = () => {
   const { id } = useParams();
@@ -13,14 +18,27 @@ const InfoUser = () => {
 
   const { userdata, userProfile } = useSelector((state) => state.userState);
 
+  const [user, setUser] = useState([]);
+  const [Loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetUserByIdRequest(payload));
+    const fetchuser = async () => {
+      try {
+        const data = await ApiSantri.getData("/user/" + id);
+        setUser(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchuser();
   }, []);
 
   return (
     <div className="">
-      {userdata.map((e) => (
+      {Loading == true ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
+      {user.map((e) => (
         <div>
           <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
             <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">

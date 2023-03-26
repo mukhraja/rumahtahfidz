@@ -1,11 +1,16 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import ApiSantri from "../../../api/ApiSantri";
 import { bacajuz } from "../../../gambar";
 import {
   doGetSurahPendekAwalGuruRequest,
   doGetSurahPendekGuruByMasterTahfidzRequest,
   doGetSurahPendekGuruByRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/SurahPendekGuru";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   ButtonLinkIqro,
   perkecilnama,
@@ -22,33 +27,67 @@ const SurahPendekGuru = () => {
   );
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [surahpendek, setSurahPendek] = useState([]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetSurahPendekAwalGuruRequest());
+      const fetchsurahpendek = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/surahpendekguru/getlistawal/?pondokId=&masterpondokId=&userId="
+          );
+
+          setSurahPendek(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchsurahpendek();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(
-        doGetSurahPendekGuruByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
+      const fetchsurahpendek = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/surahpendekguru/getlistawal/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId +
+              "&userId="
+          );
+
+          setSurahPendek(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchsurahpendek();
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      const fetchsurahpendek = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/usersantri/hafalansurahpendekguru/" + userProfile.userId
+          );
+
+          setSurahPendek(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchsurahpendek();
     } else {
-      dispatch(doGetSurahPendekGuruByRumahTahfidzRequest(userProfile.pondokId));
+      const fetchsurahpendek = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/surahpendekguru/getlistawal/?pondokId= " +
+              userProfile.pondokId +
+              "&masterpondokId=&userId="
+          );
+
+          setSurahPendek(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchsurahpendek();
     }
   }, []);
-
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(
-      surahpendekgurudata.sort(function (a, b) {
-        if (a.namaguru < b.namaguru) {
-          return -1;
-        }
-        if (a.namaguru > b.namaguru) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  }, [surahpendekgurudata]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -61,7 +100,7 @@ const SurahPendekGuru = () => {
         },
         {
           Header: "Detail",
-          accessor: "guruId",
+          accessor: "id",
           Cell: ButtonLinkIqro,
         },
       ]);
@@ -83,13 +122,13 @@ const SurahPendekGuru = () => {
         },
         {
           Header: "Pondok",
-          accessor: "namapondok",
+          accessor: "pondokname",
           Filter: SelectColumnFilter, // new
           filter: "includes",
         },
         {
           Header: "Detail",
-          accessor: "guruId",
+          accessor: "id",
           Cell: ButtonLinkIqro,
         },
       ]);
@@ -105,7 +144,7 @@ const SurahPendekGuru = () => {
       },
       {
         Header: "Surah Pendek",
-        accessor: "name",
+        accessor: "surah",
       },
 
       {
@@ -114,13 +153,13 @@ const SurahPendekGuru = () => {
       },
       {
         Header: "Pondok",
-        accessor: "namapondok",
+        accessor: "pondokName",
         Filter: SelectColumnFilter, // new
         filter: "includes",
       },
       {
         Header: "Detail",
-        accessor: "guruId",
+        accessor: "id",
         Cell: ButtonLinkIqro,
       },
     ],
@@ -130,7 +169,7 @@ const SurahPendekGuru = () => {
   // const data = React.useMemo(() => surahpendekgurudata, [surahpendekgurudata]);
   return (
     <div className="">
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold text-2xl font-poppins">
           Data Surah Pendek Guru
@@ -145,7 +184,7 @@ const SurahPendekGuru = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={databaru} url="tambah" />
+        <Table columns={Display} data={surahpendek} url="tambah" />
         {/* )} */}
       </div>
     </div>

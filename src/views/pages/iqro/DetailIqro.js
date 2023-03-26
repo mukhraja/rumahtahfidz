@@ -1,9 +1,12 @@
+import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useMemo, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ApiSantri from "../../../api/ApiSantri";
 import { bacaiqro } from "../../../gambar";
 import {
   doGetIqroSantriByIdRequest,
@@ -11,6 +14,7 @@ import {
 } from "../../../reduxsaga/actions/Iqrosantri";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   ButtonLinkIqro,
   ButtonLinkIqroList,
@@ -25,12 +29,39 @@ const DetailIqro = () => {
   const { santridata } = useSelector((state) => state.santriState);
   const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
   const { userProfile } = useSelector((state) => state.userState);
+  const [listiqro, setListIqro] = useState([]);
+  const [listsantris, setListsantris] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetSantriByIdRequest(payload));
-    dispatch(doGetIqroSantriRequest(payload));
-  }, []);
+    const fetchiqro = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/iqrosantri/getlisthafalan/" + id
+        );
+
+        setListIqro(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchiqro();
+
+    const fetchdetailsantri = async () => {
+      try {
+        const data = await ApiSantri.getData("/santri/getbyid/" + id);
+
+        setListsantris(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchdetailsantri();
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -57,7 +88,9 @@ const DetailIqro = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkIqroList,
+          Cell: (props) => (
+            <ButtonLinkIqroList value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     } else if (
@@ -113,13 +146,15 @@ const DetailIqro = () => {
         },
         {
           Header: "Update",
-          accessor: "updatedAt",
+          accessor: "updated_at",
           Cell: tanggalcustom,
         },
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkIqroList,
+          Cell: (props) => (
+            <ButtonLinkIqroList value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     } else {
@@ -145,55 +180,34 @@ const DetailIqro = () => {
         },
         {
           Header: "Update",
-          accessor: "updatedAt",
+          accessor: "updated_at",
           Cell: tanggalcustom,
         },
       ]);
     }
   }, []);
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Iqro",
-        accessor: "name",
-        Filter: SelectColumnFilter, // new
-        filter: "includes",
-      },
-      {
-        Header: "Halaman",
-        accessor: "halaman",
-      },
-      {
-        Header: "Keterangan",
-        accessor: "ket",
-      },
-      {
-        Header: "Update",
-        accessor: "updatedAt",
-      },
-      {
-        Header: "Detail",
-        accessor: "id",
-        Cell: ButtonLinkIqroList,
-      },
-    ],
-    []
-  );
-
-  // const data = React.useMemo(() => iqrosantridata, [iqrosantridata]);
   return (
     <div className="">
-      {santridata.map((e) => (
+      <Toaster />
+      {listsantris.map((e) => (
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
-            Data Hafalan IQRO {e.name}
+            Data Hafalan IQRO{" "}
+            {listiqro.length > 2 ? listiqro[0].nama_santri : null}
           </h1>
-          <img src={config.urlImage + "/" + e.photo} className="h-20" />
+          <img
+            src={
+              config.urlImage + "/" + listiqro.length > 2
+                ? listiqro[0].photo
+                : null
+            }
+            className="h-20"
+          />
         </div>
       ))}
       <div className="mt-6 px-4">
-        {iqrosantridata < 1 ? (
+        {listiqro < 1 ? (
           <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
             <h1 className=" text-sm font-poppins font-medium italic">
               Belum ada Hafalan
@@ -202,7 +216,7 @@ const DetailIqro = () => {
         ) : (
           <Table
             columns={Display}
-            data={iqrosantridata}
+            data={listiqro}
             url="/dataiqrosantri/tambah"
           />
         )}

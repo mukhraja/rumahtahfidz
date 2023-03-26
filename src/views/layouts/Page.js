@@ -34,6 +34,7 @@ import { doSignoutRequest } from "../../reduxsaga/actions/User";
 import config from "../../reduxsaga/config/config";
 import Modal from "../components/modal/Modal";
 import ModalLogout from "../components/modal/ModalLogout";
+import { Toaster } from "react-hot-toast";
 
 export const Page = (props) => {
   const [active, setActive] = useState(false);
@@ -759,6 +760,7 @@ export const Page = (props) => {
             </p>
           </div>
         </footer>
+        <Toaster />
       </main>
     </div>
   );

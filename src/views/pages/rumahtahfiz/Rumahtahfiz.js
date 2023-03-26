@@ -6,42 +6,56 @@ import Table, {
   ButtonLinkRumahTahfidz,
   Jumlahorang,
 } from "../../components/datatable/Table.js";
-import {
-  doGetRumahTahfidzRequest,
-  doDeleteRumahTahfidzRequest,
-  doGetRumahTahfidzByIdRequest,
-  doGetByRumahTahfidzRequest,
-  doGetByPondokIdRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { Toaster } from "react-hot-toast";
 
 const Rumahtahfiz = () => {
-  const dispatch = useDispatch();
-
-  const { isLoading, rumahtahfidzdata } = useSelector(
-    (state) => state.rumahTahfidzState
-  );
-  const { masterpondokdata } = useSelector((state) => state.masterPondokState);
   const { userProfile } = useSelector((state) => state.userState);
+  const [pondok, setPondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
 
   useEffect(() => {
-    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setLoading(false);
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+
+      fetchlistpondok();
     } else {
-      dispatch(doGetByPondokIdRumahTahfidzRequest(userProfile.pondokId));
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setLoading(false);
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+
+      fetchlistpondok();
     }
-  }, []);
-
-  const [databaru, setDatabaru] = useState([]);
-
-  console.log("databaru", databaru);
-
-  useEffect(() => {
-    setDatabaru(rumahtahfidzdata);
-  }, [rumahtahfidzdata]);
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -55,7 +69,12 @@ const Rumahtahfiz = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkRumahTahfidz,
+          Cell: (props) => (
+            <ButtonLinkRumahTahfidz
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else if (
@@ -78,10 +97,15 @@ const Rumahtahfiz = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkRumahTahfidz,
+          Cell: (props) => (
+            <ButtonLinkRumahTahfidz
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
-    } else if (rumahtahfidzdata.length > 2) {
+    } else {
       setDisplay([
         {
           Header: "Nama",
@@ -97,18 +121,23 @@ const Rumahtahfiz = () => {
         },
         {
           Header: "Ustadz/ah",
-          accessor: "Gurus",
+          accessor: "total_guru_aktif",
           Cell: Jumlahorang,
         },
         {
           Header: "Santri",
-          accessor: "Santris",
+          accessor: "total_santri_aktif",
           Cell: Jumlahorang,
         },
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkRumahTahfidz,
+          Cell: (props) => (
+            <ButtonLinkRumahTahfidz
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     }
@@ -116,7 +145,8 @@ const Rumahtahfiz = () => {
 
   return (
     <div className="mx-4">
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
+      {Loading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-lg font-poppins">
           Data Rumah Tahfidz
@@ -124,10 +154,7 @@ const Rumahtahfiz = () => {
         <img src={rumahtahfidz} className="h-20" />
       </div>
       <div className="mt-6">
-        <Table columns={Display} data={databaru} url="tambah" />
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
+        <Table columns={Display} data={pondok} url="tambah" />
       </div>
     </div>
   );

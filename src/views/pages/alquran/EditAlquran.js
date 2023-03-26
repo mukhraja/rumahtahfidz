@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { hafalquran } from "../../../gambar";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
@@ -14,6 +12,11 @@ import {
   doUpdateAlquranSantriRequest,
 } from "../../../reduxsaga/actions/Alquransantri";
 import moment from "moment";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
 
 const EditAlquranSantri = () => {
   const { id } = useParams();
@@ -21,15 +24,24 @@ const EditAlquranSantri = () => {
   const navigate = useNavigate();
 
   const [select, setSelect] = useState();
-  console.log(select);
 
   const { alquransantridata } = useSelector(
     (state) => state.alquranSantriState
   );
 
+  const [alquran, setAlquran] = useState([]);
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetAlquranSantriByIdRequest(payload));
+    const fetchalquran = async () => {
+      try {
+        const data = await ApiSantri.getData("/alquransantri/getid/" + id);
+
+        setAlquran(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchalquran();
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -52,20 +64,16 @@ const EditAlquranSantri = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      namesantri: alquransantridata.length
-        ? alquransantridata[0].Santri.name
+      namesantri: alquran.length ? alquran[0].namasantri : null,
+      juz: alquran.length ? alquran[0].juz : null,
+      surah: alquran.length ? alquran[0].surah : null,
+      ayat: alquran.length ? alquran[0].ayat : null,
+      halaman: alquran.length ? alquran[0].halaman : null,
+      tgl_selesai: alquran.length
+        ? moment(alquran[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      juz: alquransantridata.length ? alquransantridata[0].juz : null,
-      surah: alquransantridata.length ? alquransantridata[0].surah : null,
-      ayat: alquransantridata.length ? alquransantridata[0].ayat : null,
-      halaman: alquransantridata.length ? alquransantridata[0].halaman : null,
-      tgl_selesai: alquransantridata.length
-        ? moment(alquransantridata[0].tgl_selesai).format("YYYY-MM-DD")
-        : null,
-      ket: alquransantridata.length ? alquransantridata[0].ket : null,
-      santriId: alquransantridata.length
-        ? alquransantridata[0].Santri.id
-        : null,
+      ket: alquran.length ? alquran[0].ket : null,
+      santriId: alquran.length ? alquran[0].id : null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -79,9 +87,18 @@ const EditAlquranSantri = () => {
         ket: values.ket,
       };
 
-      dispatch(doUpdateAlquranSantriRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const updatealquran = async () => {
+        const loadingToast = Alert.loading("Sedang diperbaharui...");
+        try {
+          await ApiSantri.postData("/alquransantri/update/" + id, payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil diperbaharui !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      updatealquran();
 
       // setTimeout(() => {
       //   navigate("/dataalquransantri", { state: { refresh: true } });
@@ -91,6 +108,7 @@ const EditAlquranSantri = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Hafalan Al - Qur'an
@@ -233,9 +251,6 @@ const EditAlquranSantri = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

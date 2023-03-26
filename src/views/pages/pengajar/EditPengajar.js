@@ -3,43 +3,62 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../../reduxsaga/config/config";
 import * as Yup from "yup";
-import {
-  doGetGuruByIdRequest,
-  doUpdateNoFIleGuruRequest,
-  doUpdateGuruRequest,
-} from "../../../reduxsaga/actions/Guru";
-import {
-  doGetByRumahTahfidzRequest,
-  doGetRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
 import moment from "moment";
+import axios from "axios";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
 
 const EditPengajar = () => {
   const { id } = useParams();
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [listpondok, setListpondok] = useState([]);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetRumahTahfidzRequest());
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     } else {
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setListpondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     }
   }, []);
-  const { userProfile } = useSelector((state) => state.userState);
 
-  const { gurudata } = useSelector((state) => state.guruState);
-  const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
+  const { userProfile } = useSelector((state) => state.userState);
+  const [listguru, setListGuru] = useState([]);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetGuruByIdRequest(payload));
-    // dispatch(doGetRumahTahfidzRequest());
+    const fetchdetailguru = async () => {
+      try {
+        const data = await ApiSantri.getData("/guru/getbyid/" + id);
+        setListGuru(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchdetailguru();
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -69,25 +88,25 @@ const EditPengajar = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: gurudata.length ? gurudata[0].name : null,
-      niu: gurudata.length ? gurudata[0].niu : null,
-      tempat: gurudata.length ? gurudata[0].tempat : null,
-      datebirth: gurudata.length
-        ? moment(gurudata[0].datebirth).format("YYYY-MM-DD")
+      name: listguru.length ? listguru[0].name : null,
+      niu: listguru.length ? listguru[0].niu : null,
+      tempat: listguru.length ? listguru[0].tempat : null,
+      datebirth: listguru.length
+        ? moment(listguru[0].datebirth).format("YYYY-MM-DD")
         : null,
-      gender: gurudata.length ? gurudata[0].gender : null,
-      telephone: gurudata.length ? gurudata[0].telephone : null,
-      address: gurudata.length ? gurudata[0].address : null,
-      ayah: gurudata.length ? gurudata[0].ayah : null,
-      ibu: gurudata.length ? gurudata[0].ibu : null,
-      mulai_masuk: gurudata.length
-        ? moment(gurudata[0].mulai_masuk).format("YYYY-MM-DD")
+      gender: listguru.length ? listguru[0].gender : null,
+      telephone: listguru.length ? listguru[0].telephone : null,
+      address: listguru.length ? listguru[0].address : null,
+      ayah: listguru.length ? listguru[0].ayah : null,
+      ibu: listguru.length ? listguru[0].ibu : null,
+      mulai_masuk: listguru.length
+        ? moment(listguru[0].mulai_masuk).format("YYYY-MM-DD")
         : null,
-      mulai_vakum: gurudata.length
-        ? moment(gurudata[0].mulai_vakum).format("YYYY-MM-DD")
+      mulai_vakum: listguru.length
+        ? moment(listguru[0].mulai_vakum).format("YYYY-MM-DD")
         : null,
-      pondokId: gurudata.length ? gurudata[0].pondokId : null,
-      photo: gurudata.length ? gurudata[0].photo : undefined,
+      pondokId: listguru.length ? listguru[0].pondok_id : null,
+      photo: listguru.length ? listguru[0].photo : undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -104,10 +123,23 @@ const EditPengajar = () => {
         payload.append("ibu", values.ibu);
         payload.append("mulai_masuk", values.mulai_masuk);
         payload.append("mulai_vakum", values.mulai_vakum);
-        payload.append("pondokId", values.pondokId);
+        payload.append("pondok_id", values.pondokId);
         payload.append("photo", values.photo);
         payload.append("id", id);
-        dispatch(doUpdateGuruRequest(payload));
+
+        const updategurus = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+          try {
+            await ApiSantri.postData("/guru/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updategurus();
+
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
@@ -127,7 +159,20 @@ const EditPengajar = () => {
           mulai_vakum: values.mulai_vakum,
           pondokId: values.pondokId,
         };
-        dispatch(doUpdateNoFIleGuruRequest(payload));
+
+        const updategurus = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+
+          try {
+            await ApiSantri.postData("/guru/updatenofile/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updategurus();
         // setTimeout(() => {
         //   navigate("/datasantri");
         // }, 3000);
@@ -141,7 +186,7 @@ const EditPengajar = () => {
   useEffect(() => {
     let img = config.urlImage + "/" + formik.values.photo;
     setPhoto(img);
-  }, [gurudata]);
+  }, [listguru]);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -162,6 +207,7 @@ const EditPengajar = () => {
   };
   return (
     <div className="">
+      <Toaster />
       <form method="POST" action="#">
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
@@ -371,7 +417,7 @@ const EditPengajar = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata
+              {listpondok
                 .sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1;
@@ -448,9 +494,6 @@ const EditPengajar = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="z-30">
-            <ToastContainer autoClose={2000} />
           </div>
 
           <div>

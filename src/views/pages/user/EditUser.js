@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { user } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../../reduxsaga/config/config";
 import {
@@ -16,6 +15,10 @@ import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfid
 import Select from "react-select";
 import moment from "moment";
 import axios from "axios";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const EditUser = () => {
   const { id } = useParams();
@@ -52,31 +55,82 @@ const EditUser = () => {
   const [selected, setSelected] = useState();
   const [dropdown, setDropdown] = useState([]);
   const [list, setList] = useState([]);
+  const [user, setUser] = useState([]);
+  const [role, setRole] = useState([]);
+  const [pondok, setPondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
+  const [result, setResult] = useState();
+
+  console.log("ini bentuk list :", list);
+
+  console.log("ini selected : ", selected);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetUserByIdRequest(payload));
-    dispatch(doGetRoleRequest());
-    dispatch(doGetRumahTahfidzRequest());
+    const fetchuser = async () => {
+      try {
+        const data = await ApiSantri.getData("/user/" + id);
+        setUser(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchuser();
+
+    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId="
+          );
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    } else {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
+          );
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+    }
+
+    const fetchroleall = async () => {
+      try {
+        const data = await ApiSantri.getData("/role/getroles");
+        setRole(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchroleall();
   }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: userdata.length ? userdata[0].name : null,
-      email: userdata.length ? userdata[0].email : null,
+      name: user.length ? user[0].name : null,
+      email: user.length ? user[0].email : null,
       password: "",
-      telephone: userdata.length ? userdata[0].telephone : null,
-      datebirth: userdata.length
-        ? moment(userdata[0].datebirth).format("YYYY-MM-DD")
+      telephone: user.length ? user[0].telephone : null,
+      datebirth: user.length
+        ? moment(user[0].datebirth).format("YYYY-MM-DD")
         : null,
-      address: userdata.length ? userdata[0].address : null,
-      age: userdata.length ? userdata[0].age : null,
-      gender: userdata.length ? userdata[0].gender : null,
-      parent: userdata.length ? userdata[0].parent : null,
-      roleId: userdata.length ? userdata[0].roleId : null,
-      photo: userdata.length ? userdata[0].photo : null,
-      pondokId: userdata.length ? userdata[0].pondokId : null,
+      address: user.length ? user[0].address : null,
+      age: user.length ? user[0].age : null,
+      gender: user.length ? user[0].gender : null,
+      parent: user.length ? user[0].parent : null,
+      roleId: user.length ? user[0].role_id : null,
+      photo: user.length ? user[0].photo : null,
+      pondokId: user.length ? user[0].pondok_id : null,
     },
     onSubmit: async (values) => {
       if (
@@ -95,15 +149,33 @@ const EditUser = () => {
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
-        payload.append("id", id);
-        dispatch(doUpdateUserRequest(payload));
+
+        const updateuser = async () => {
+          const loadingToast = Alert.loading("Sedang memperbaharui...");
+          try {
+            const data = await ApiSantri.postData(
+              "/user/update/" + id,
+              payload
+            );
+
+            setResult(data);
+
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diperbaharui !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updateuser();
 
         // setTimeout(() => {
         //   navigate("/datsantri");
         // }, 3000);
       } else if (
         uploaded === true &&
-        formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+        (formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5" ||
+          user[0].role_id === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5")
       ) {
         let payload = new FormData();
         payload.append("name", values.name);
@@ -117,42 +189,52 @@ const EditUser = () => {
         payload.append("roleId", values.roleId);
         payload.append("pondokId", values.pondokId);
         payload.append("photo", values.photo);
-        payload.append("id", id);
-        await dispatch(doUpdateUserRequest(payload));
 
-        await list.map((e) => {
-          console.log(e.value);
-          axios
-            .put(config.domain + "/santri/usersantri/" + e.value, {
-              userId: null,
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
+        const updateuser = async () => {
+          const loadingToast = Alert.loading("Sedang memperbaharui...");
+          try {
+            const data = await ApiSantri.postData(
+              "/user/update/" + id,
+              payload
+            );
+
+            setResult(data);
+
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diperbaharui !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updateuser();
+
+        list.map((e) => {
+          const deletesantri = async () => {
+            await ApiSantri.postData("/usersantri/delete", {
+              user_id: id,
+              santri_id: e.value,
             });
+          };
+          deletesantri();
         });
 
-        await selected.map((e) => {
-          console.log(e.value);
-          axios
-            .put(config.domain + "/santri/usersantri/" + e.value, {
-              userId: id,
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
+        selected.map((e) => {
+          const buatsantri = async () => {
+            await ApiSantri.postData("/usersantri/create", {
+              user_id: id,
+              santri_id: e.value,
             });
+          };
+          buatsantri();
         });
       } else if (
-        uploaded !== true &&
-        formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+        (uploaded !== true &&
+          formik.values.roleId === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") ||
+        (uploaded !== true &&
+          user[0].role_id === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5")
       ) {
         const payload = {
-          id,
           name: values.name,
           email: values.email,
           password: values.password,
@@ -165,38 +247,50 @@ const EditUser = () => {
           pondokId: values.pondokId,
         };
 
-        dispatch(doUpdateNoFIleUserRequest(payload));
+        const updateuser = async () => {
+          const loadingToast = Alert.loading("Sedang memperbaharui...");
+          try {
+            const data = await ApiSantri.postData(
+              "/user/updatenofile/" + id,
+              payload
+            );
 
-        await list.map((e) => {
-          console.log(e.value);
-          axios
-            .put(config.domain + "/santri/usersantri/" + e.value, {
-              userId: null,
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
+            console.log("ini hasil data", data);
+
+            setResult(data);
+
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diperbaharui !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updateuser();
+
+        list.map((e) => {
+          console.log("delete", e);
+          const deletesantri = async () => {
+            await ApiSantri.postData("/usersantri/delete", {
+              user_id: id,
+              santri_id: e.value,
             });
+          };
+          deletesantri();
         });
 
-        await selected.map((e) => {
-          console.log(e.value);
-          axios
-            .put(config.domain + "/santri/usersantri/" + e.value, {
-              userId: id,
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
+        selected.map((e) => {
+          console.log("create", e);
+          const buatsantri = async () => {
+            await ApiSantri.postData("/usersantri/create", {
+              user_id: id,
+              santri_id: e.value,
             });
+          };
+          buatsantri();
         });
       } else {
         const payload = {
-          id,
           name: values.name,
           email: values.email,
           password: values.password,
@@ -209,7 +303,25 @@ const EditUser = () => {
           pondokId: values.pondokId,
         };
 
-        dispatch(doUpdateNoFIleUserRequest(payload));
+        console.log("salah arah");
+        const updateuser = async () => {
+          const loadingToast = Alert.loading("Sedang memperbaharui...");
+          try {
+            const data = await ApiSantri.postData(
+              "/user/updatenofile/" + id,
+              payload
+            );
+
+            setResult(data);
+
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diperbaharui !");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updateuser();
         // setTimeout(() => {
         //   navigate("/datauser");
         // }, 3000);
@@ -223,37 +335,42 @@ const EditUser = () => {
   }, [userdata]);
 
   useEffect(() => {
-    axios
-      .get(
-        config.domain +
-          "/santri/byrumahtahfidz/dropdown/" +
-          formik.values.pondokId
-      )
-      .then((e) => setDropdown(e.data.data));
+    const fetchlistusersantris = async () => {
+      const data = await ApiSantri.getData(
+        config.domain + "/santri/getByUserId/" + id
+      );
 
-    setSelected([]);
-  }, [formik.values.pondokId]);
+      console.log("datanya", data);
+      // setDropdown(e.data.data);
+      setSelected(data);
+      setList(data);
+    };
+    fetchlistusersantris();
+  }, []);
 
   useEffect(() => {
-    axios
-      .get(config.domain + "/santri/byusersantri/" + userdata[0].id)
-      .then((e) => {
-        setSelected(e.data.data);
-        setList(e.data.data);
-      });
-  }, [userdata]);
+    const fetchlistpondok = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/santri/getdropdownId/" + formik.values.pondokId
+        );
+        setDropdown(data);
+      } catch (error) {
+        console.log("Belum di pilih");
+      }
+    };
+    fetchlistpondok();
+  }, [formik.values.pondokId]);
 
   function handleSelect(data) {
     console.log(data.map((e) => e.value));
     setSelected(data);
   }
 
-  console.log("ini data select", selected);
-
-  console.log("ini data list", list);
-
   return (
     <div className="">
+      {Loading == true ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Pengguna
@@ -384,7 +501,7 @@ const EditUser = () => {
               <option value="" selected disabled hidden>
                 Pilih Rumah Tahfidz
               </option>
-              {rumahtahfidzdata.map((e) => (
+              {pondok.map((e) => (
                 <option value={e.id}>{e.name}</option>
               ))}
             </select>
@@ -414,7 +531,7 @@ const EditUser = () => {
                   Admin
                 </option>
               ) : (
-                roledata
+                role
                   .filter((e) => e.id != "8b273d68-fe09-422d-a660-af3d8312f883")
                   .map((e) => <option value={e.id}>{e.name}</option>)
               )}
@@ -496,10 +613,6 @@ const EditUser = () => {
             </div>
           </div>
         </form>
-
-        <div className="z-30">
-          <ToastContainer autoClose={2000} />
-        </div>
 
         <div>
           <button

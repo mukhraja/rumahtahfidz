@@ -2,9 +2,7 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { bacaiqro } from "../../../gambar";
 import { doGetRumahTahfidzRequest } from "../../../reduxsaga/actions/RumahTahfidz";
@@ -14,6 +12,11 @@ import {
   doGetIqroSantriByIdRequest,
   doUpdateIqroSantriRequest,
 } from "../../../reduxsaga/actions/Iqrosantri";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { toast, Toaster } from "react-hot-toast";
 
 const EditIqroSantri = () => {
   const { id } = useParams();
@@ -23,11 +26,21 @@ const EditIqroSantri = () => {
   const [select, setSelect] = useState();
   console.log(select);
 
-  const { iqrosantridata } = useSelector((state) => state.iqroSantriState);
+  // const { iqroid } = useSelector((state) => state.iqroSantriState);
+
+  const [iqroid, setIqro] = useState([]);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetIqroSantriByIdRequest(payload));
+    const fetchdetailsantri = async () => {
+      try {
+        const data = await ApiSantri.getData("/iqrosantri/getid/" + id);
+
+        setIqro(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchdetailsantri();
   }, []);
 
   const handleChange = (e) => {
@@ -48,28 +61,36 @@ const EditIqroSantri = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      namesantri: iqrosantridata.length ? iqrosantridata[0].Santri.name : null,
-      name: iqrosantridata.length ? iqrosantridata[0].name : null,
-      halaman: iqrosantridata.length ? iqrosantridata[0].halaman : null,
-      tgl_selesai: iqrosantridata.length
-        ? moment(iqrosantridata[0].tgl_selesai).format("YYYY-MM-DD")
+      namesantri: iqroid.length ? iqroid[0].namasantri : null,
+      name: iqroid.length ? iqroid[0].name : null,
+      halaman: iqroid.length ? iqroid[0].halaman : null,
+      tgl_selesai: iqroid.length
+        ? moment(iqroid[0].tgl_selesai).format("YYYY-MM-DD")
         : null,
-      ket: iqrosantridata.length ? iqrosantridata[0].ket : null,
-      santriId: iqrosantridata.length ? iqrosantridata[0].Santri.id : null,
+      ket: iqroid.length ? iqroid[0].ket : null,
+      santriId: iqroid.length ? iqroid[0].santri_id : null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const payload = {
-        id,
         name: values.name,
         halaman: values.halaman,
         tgl_selesai: moment(values.tgl_selesai).format("YYYY-MM-DD"),
         ket: values.ket,
       };
 
-      dispatch(doUpdateIqroSantriRequest(payload));
-
-      toast.success("Data berhasil ditambahkan...");
+      const updateiqro = async () => {
+        const loadingToast = Alert.loading("Sedang diperbaharui...");
+        try {
+          await ApiSantri.postData("/iqrosantri/update/" + id, payload);
+          toast.dismiss(loadingToast);
+          Alert.success("Berhasil diperbaharui !");
+        } catch (error) {
+          toast.dismiss(loadingToast);
+          Alert.error(error.data.data);
+        }
+      };
+      updateiqro();
 
       // setTimeout(() => {
       //   navigate("/dataiqrosantri", { state: { refresh: true } });
@@ -82,6 +103,7 @@ const EditIqroSantri = () => {
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Hafalan Iqro
@@ -197,9 +219,6 @@ const EditIqroSantri = () => {
             CANCEL
           </button>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

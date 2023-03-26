@@ -1,27 +1,47 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import ApiSantri from "../../../api/ApiSantri";
 import { rumahtahfidz } from "../../../gambar";
 import { doGetMasterPondokByIdRequest } from "../../../reduxsaga/actions/Masterpondok";
 import { doGetRumahTahfidzByIdRequest } from "../../../reduxsaga/actions/RumahTahfidz";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
+import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
 
 const Detailmastertahfidz = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { masterpondokdata } = useSelector((state) => state.masterPondokState);
-  console.log(masterpondokdata);
+  // const { masterpondokdata } = useSelector((state) => state.masterPondokState);
+
+  const [detailpondok, setDetailpondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetMasterPondokByIdRequest(payload));
+    const fetchdetailmasterpondok = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/masterpondok/getbyid/?masterpondokId=" + id
+        );
+        setLoading(false);
+        setDetailpondok(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchdetailmasterpondok();
   }, []);
 
   return (
     <div className="">
-      {masterpondokdata.map((e) => (
+      {Loading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
+      {detailpondok.map((e) => (
         <div>
           <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
             <h1 className="text-white font-semibold lg:text-2xl text-lg font-poppins">

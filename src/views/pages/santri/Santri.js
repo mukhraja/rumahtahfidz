@@ -7,48 +7,75 @@ import Table, {
   SelectColumnFilter,
   tanggalcustom,
 } from "../../components/datatable/Table.js";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-  doGetSantriByMasterTahfidzRequest,
-  doGetSantriByRumahTahfidzRequest,
-  doGetSantriByUserIdRequest,
-  doGetSantriRequest,
-} from "../../../reduxsaga/actions/Santri";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
+import { Toaster } from "react-hot-toast";
+
 const Santri = () => {
-  const dispatch = useDispatch();
-
-  const { isLoading, santridata } = useSelector((state) => state.santriState);
   const { userProfile } = useSelector((state) => state.userState);
+  const [Loading, setLoading] = useState(true);
+  const [listsantris, setSantris] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(
-      santridata.sort(function (a, b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  }, [santridata]);
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetSantriRequest());
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData("/santri/getAll");
+          setSantris(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistsantri();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetSantriByMasterTahfidzRequest(userProfile.masterpondokId));
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/santri/getByMasterPondokId/" + userProfile.masterpondokId
+          );
+          setSantris(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+
+      fetchlistsantri();
     } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
-      dispatch(doGetSantriByUserIdRequest(userProfile.userId));
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/usersantri/byuserid/" + userProfile.userId
+          );
+          setSantris(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistsantri();
     } else {
-      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/santri/getByPondokId/" + userProfile.pondokId
+          );
+          setSantris(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistsantri();
     }
-  }, []);
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -62,7 +89,9 @@ const Santri = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkSantri,
+          Cell: (props) => (
+            <ButtonLinkSantri value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     } else {
@@ -88,14 +117,16 @@ const Santri = () => {
         },
         {
           Header: "PONDOK",
-          accessor: "Pondok.name",
+          accessor: "nama_pondok",
           Filter: SelectColumnFilter, // new
           filter: "includes",
         },
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkSantri,
+          Cell: (props) => (
+            <ButtonLinkSantri value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     }
@@ -103,7 +134,8 @@ const Santri = () => {
 
   return (
     <div className="">
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
+      {Loading == true ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Santri
@@ -111,10 +143,7 @@ const Santri = () => {
         <img src={santri} className="h-20" />
       </div>
       <div className="mt-6 px-4 text-gray-500">
-        <Table columns={Display} data={databaru} url="tambah" />
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
+        <Table columns={Display} data={listsantris} url="tambah" />
       </div>
     </div>
   );

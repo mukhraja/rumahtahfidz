@@ -1,13 +1,15 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import ApiSantri from "../../../api/ApiSantri";
 import { bacaiqro } from "../../../gambar";
 import { doGetGuruByIdRequest } from "../../../reduxsaga/actions/Guru";
 import { doGetSantriByIdRequest } from "../../../reduxsaga/actions/Santri";
 import { doGetSurahPendekGuruRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
 import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   ButtonLinkAlquranGuruList,
   ButtonLinkIqro,
@@ -29,11 +31,39 @@ const DetailSurahPendekGuru = () => {
   );
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [listSurahPendek, setListSurahPendek] = useState([]);
+  const [listguru, setListguru] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetGuruByIdRequest(payload));
-    dispatch(doGetSurahPendekGuruRequest(payload));
-  }, []);
+    const fetchdetailsurahpendek = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/surahpendekguru/getlisthafalan/" + id
+        );
+
+        setListSurahPendek(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchdetailsurahpendek();
+
+    const fetchdetailsantri = async () => {
+      try {
+        const data = await ApiSantri.getData("/guru/getbyid/" + id);
+
+        setListguru(data);
+      } catch (error) {
+        Alert.error("Periksa Jaringan anda !");
+      }
+    };
+    fetchdetailsantri();
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -50,10 +80,6 @@ const DetailSurahPendekGuru = () => {
           accessor: "name",
         },
         {
-          Header: "Hal",
-          accessor: "halaman",
-        },
-        {
           Header: "Ket",
           accessor: "ket",
         },
@@ -65,7 +91,12 @@ const DetailSurahPendekGuru = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkSurahPendekGuruList,
+          Cell: (props) => (
+            <ButtonLinkSurahPendekGuruList
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else if (
@@ -80,10 +111,6 @@ const DetailSurahPendekGuru = () => {
           accessor: "name",
           Filter: SelectColumnFilter, // new
           filter: "includes",
-        },
-        {
-          Header: "Hal",
-          accessor: "halaman",
         },
         {
           Header: "Ket",
@@ -107,10 +134,6 @@ const DetailSurahPendekGuru = () => {
           filter: "includes",
         },
         {
-          Header: "Halaman",
-          accessor: "halaman",
-        },
-        {
           Header: "Keterangan",
           accessor: "ket",
         },
@@ -122,7 +145,12 @@ const DetailSurahPendekGuru = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkSurahPendekGuruList,
+          Cell: (props) => (
+            <ButtonLinkSurahPendekGuruList
+              value={props.value}
+              onRefresh={handleRefresh}
+            />
+          ),
         },
       ]);
     } else {
@@ -132,10 +160,6 @@ const DetailSurahPendekGuru = () => {
           accessor: "name",
           Filter: SelectColumnFilter, // new
           filter: "includes",
-        },
-        {
-          Header: "Halaman",
-          accessor: "halaman",
         },
         {
           Header: "Keterangan",
@@ -153,7 +177,8 @@ const DetailSurahPendekGuru = () => {
   // const data = React.useMemo(() => surahpendekgurudata, [surahpendekgurudata]);
   return (
     <div className="">
-      {gurudata.map((e) => (
+      <Toaster />
+      {listguru.map((e) => (
         <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
           <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
             Data Hafalan Surah Pendek {e.name}
@@ -162,7 +187,7 @@ const DetailSurahPendekGuru = () => {
         </div>
       ))}
       <div className="mt-6 px-4">
-        {surahpendekgurudata < 1 ? (
+        {listSurahPendek < 1 ? (
           <div className=" bg-white w-full rounded-md py-8 shadow-sm text-center">
             <h1 className=" text-sm font-poppins font-medium italic">
               Belum ada Hafalan
@@ -171,13 +196,10 @@ const DetailSurahPendekGuru = () => {
         ) : (
           <Table
             columns={Display}
-            data={surahpendekgurudata}
+            data={listSurahPendek}
             url="/datasurahpendekguru/tambah"
           />
         )}
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

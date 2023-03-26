@@ -4,8 +4,6 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { rumahtahfidz } from "../../../gambar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   doGetRumahTahfidzByIdRequest,
   doUpdateNoFIleRumahTahfidzRequest,
@@ -17,6 +15,10 @@ import {
   doUpdateMasterPondokRequest,
   doUpdateNoFIleMasterPondokRequest,
 } from "../../../reduxsaga/actions/Masterpondok";
+import axios from "axios";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
+import { toast, Toaster } from "react-hot-toast";
 
 const Editmastertahfidz = () => {
   const { id } = useParams();
@@ -26,9 +28,26 @@ const Editmastertahfidz = () => {
 
   const { masterpondokdata } = useSelector((state) => state.masterPondokState);
 
+  // useEffect(() => {
+  //   const payload = { id };
+  //   dispatch(doGetMasterPondokByIdRequest(payload));
+  // }, []);
+
+  const [detailpondok, setDetailpondok] = useState([]);
+
   useEffect(() => {
-    const payload = { id };
-    dispatch(doGetMasterPondokByIdRequest(payload));
+    const fetchdetailmasterpondok = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/masterpondok/getbyid/?masterpondokId=" + id
+        );
+        setDetailpondok(data);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchdetailmasterpondok();
   }, []);
 
   const [uploaded, setUploaded] = useState(false);
@@ -37,7 +56,7 @@ const Editmastertahfidz = () => {
   useEffect(() => {
     let img = config.urlImage + "/" + formik.values.logo;
     setPreviewLogo(img);
-  }, [masterpondokdata]);
+  }, [detailpondok]);
 
   const uploadOnChange = (name) => (event) => {
     let reader = new FileReader();
@@ -95,13 +114,13 @@ const Editmastertahfidz = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: masterpondokdata.length ? masterpondokdata[0].name : null,
-      nit: masterpondokdata.length ? masterpondokdata[0].nit : null,
-      address: masterpondokdata.length ? masterpondokdata[0].address : null,
-      telephone: masterpondokdata.length ? masterpondokdata[0].telephone : null,
-      chief: masterpondokdata.length ? masterpondokdata[0].chief : null,
-      logo: masterpondokdata.length ? masterpondokdata[0].logo : undefined,
-      photo: masterpondokdata.length ? masterpondokdata[0].photo : undefined,
+      name: detailpondok.length ? detailpondok[0].name : null,
+      nit: detailpondok.length ? detailpondok[0].nit : null,
+      address: detailpondok.length ? detailpondok[0].address : null,
+      telephone: detailpondok.length ? detailpondok[0].telephone : null,
+      chief: detailpondok.length ? detailpondok[0].chief : null,
+      logo: detailpondok.length ? detailpondok[0].logo : undefined,
+      photo: detailpondok.length ? detailpondok[0].photo : undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -114,8 +133,20 @@ const Editmastertahfidz = () => {
         payload.append("chief", values.chief);
         payload.append("logo", values.logo);
         payload.append("photo", values.photo);
-        payload.append("id", id);
-        dispatch(doUpdateMasterPondokRequest(payload));
+        // payload.append("id", id);
+        const updaterumahtahfidz = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+
+          try {
+            await ApiSantri.postData("/masterpondok/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updaterumahtahfidz();
         // setTimeout(() => {
         //   navigate("/datarumahtahfiz");
         // }, 3000);
@@ -127,8 +158,19 @@ const Editmastertahfidz = () => {
         payload.append("telephone", values.telephone);
         payload.append("chief", values.chief);
         payload.append("photo", values.photo);
-        payload.append("id", id);
-        dispatch(doUpdateMasterPondokRequest(payload));
+        const updaterumahtahfidz = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+
+          try {
+            await ApiSantri.postData("/masterpondok/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updaterumahtahfidz();
       } else if (uploadLogo === true) {
         let payload = new FormData();
         payload.append("name", values.name);
@@ -137,27 +179,55 @@ const Editmastertahfidz = () => {
         payload.append("telephone", values.telephone);
         payload.append("chief", values.chief);
         payload.append("logo", values.logo);
-        payload.append("id", id);
-        dispatch(doUpdateMasterPondokRequest(payload));
+
+        const updaterumahtahfidz = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+
+          try {
+            await ApiSantri.postData("/masterpondok/update/" + id, payload);
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updaterumahtahfidz();
       } else {
         const payload = {
-          id,
           name: values.name,
           nit: values.nit,
           address: values.address,
           telephone: values.telephone,
           chief: values.chief,
         };
-        dispatch(doUpdateNoFIleMasterPondokRequest(payload));
+
+        const updaterumahtahfidz = async () => {
+          const loadingToast = Alert.loading("Sedang diupdate...");
+
+          try {
+            await ApiSantri.postData(
+              "/masterpondok/updatenofile/" + id,
+              payload
+            );
+            toast.dismiss(loadingToast);
+            Alert.success("Berhasil diupdate");
+          } catch (error) {
+            toast.dismiss(loadingToast);
+            Alert.error(error.data.data);
+          }
+        };
+        updaterumahtahfidz();
       }
     },
   });
 
   return (
     <div className="">
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
-          Edit Rumah Tahfidz
+          Edit Master Tahfidz
         </h1>
         <img src={previewLogo} className=" bg-cover w-20 h-20" />
       </div>
@@ -367,9 +437,6 @@ const Editmastertahfidz = () => {
             </div>
           </div>
         </form>
-        <div className="z-30">
-          <ToastContainer autoClose={2000} />
-        </div>
 
         <div>
           <button

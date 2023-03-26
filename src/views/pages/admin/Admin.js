@@ -11,32 +11,43 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { doGetByAdminUserRequest } from "../../../reduxsaga/actions/User";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import { Toaster } from "react-hot-toast";
+import Alert from "../../../utils/Alert";
+import ApiSantri from "../../../api/ApiSantri";
 const Admin = () => {
   const dispatch = useDispatch();
 
   const { isLoading, userdata } = useSelector((state) => state.userState);
 
+  const [listuser, setListuser] = useState([]);
+
+  const { userProfile } = useSelector((state) => state.userState);
+
+  const [refresh, setRefresh] = useState(false);
+  const [Loading, setLoading] = useState(true);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
+
   useEffect(() => {
-    dispatch(doGetByAdminUserRequest());
-  }, []);
+    const fetchlistuser = async () => {
+      try {
+        const data = await ApiSantri.getData(
+          "/user/byrole/8b273d68-fe09-422d-a660-af3d8312f884"
+        );
+        setListuser(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+    fetchlistuser();
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
-
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(
-      userdata.sort(function (a, b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  }, [userdata]);
 
   useEffect(() => {
     if (window.innerWidth <= 500) {
@@ -48,7 +59,9 @@ const Admin = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkUser,
+          Cell: (props) => (
+            <ButtonLinkUser value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     } else {
@@ -70,14 +83,16 @@ const Admin = () => {
           },
           {
             Header: "Pondok",
-            accessor: "Pondok.name",
+            accessor: "nama_pondok",
             Filter: SelectColumnFilter, // new
             filter: "includes",
           },
           {
             Header: "Detail",
             accessor: "id",
-            Cell: ButtonLinkUser,
+            Cell: (props) => (
+              <ButtonLinkUser value={props.value} onRefresh={handleRefresh} />
+            ),
           },
         ],
         []
@@ -87,7 +102,8 @@ const Admin = () => {
 
   return (
     <div className="">
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
+      {Loading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Administrator
@@ -95,10 +111,7 @@ const Admin = () => {
         <img src={user} className="h-20" />
       </div>
       <div className="mt-6 px-4 text-gray-500">
-        <Table columns={Display} data={databaru} url="tambah" />
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
+        <Table columns={Display} data={listuser} url="tambah" />
       </div>
     </div>
   );

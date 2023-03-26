@@ -1,11 +1,16 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import ApiSantri from "../../../api/ApiSantri";
 import { hafalquran } from "../../../gambar";
 import {
   doGetAlquranAwalGuruRequest,
   doGetAlquranGuruByMasterTahfidzRequest,
   doGetAlquranGuruByRumahTahfidzRequest,
 } from "../../../reduxsaga/actions/Alquranguru";
+import config from "../../../reduxsaga/config/config";
+import Alert from "../../../utils/Alert";
 import Table, {
   AvatarCell,
   ButtonLink,
@@ -24,33 +29,67 @@ const AlquranGuru = () => {
   );
   const { userProfile } = useSelector((state) => state.userState);
 
+  const [alquran, setAlquran] = useState([]);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetAlquranAwalGuruRequest());
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/alquranguru/getlistawal/?pondokId=&masterpondokId=&userId="
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(
-        doGetAlquranGuruByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/alquranguru/getlistawal/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId +
+              "&userId="
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
+    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/usersantri/hafalanalquranguru/" + userProfile.userId
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     } else {
-      dispatch(doGetAlquranGuruByRumahTahfidzRequest(userProfile.pondokId));
+      const fetchlistalquran = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/alquranguru/getlistawal/?pondokId= " +
+              userProfile.pondokId +
+              "&masterpondokId=&userId="
+          );
+
+          setAlquran(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistalquran();
     }
   }, []);
-
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(
-      alqurangurudata.sort(function (a, b) {
-        if (a.namaguru < b.namaguru) {
-          return -1;
-        }
-        if (a.namaguru > b.namaguru) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  }, [alqurangurudata]);
 
   const [Display, setDisplay] = useState([]);
 
@@ -71,7 +110,7 @@ const AlquranGuru = () => {
         },
         {
           Header: "Detail",
-          accessor: "guruId",
+          accessor: "id",
           Cell: ButtonLinkIqro,
         },
       ]);
@@ -106,17 +145,17 @@ const AlquranGuru = () => {
         },
         {
           Header: "Detail",
-          accessor: "guruId",
+          accessor: "id",
           Cell: ButtonLinkIqro,
         },
       ]);
     }
-  }, [alqurangurudata]);
+  }, []);
 
   // const data = React.useMemo(() => alqurangurudata, [alqurangurudata]);
   return (
     <div className="">
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Hafalan Qur'an Guru
@@ -131,7 +170,7 @@ const AlquranGuru = () => {
             </h1>
           </div>
         ) : ( */}
-        <Table columns={Display} data={databaru} url="tambah" />
+        <Table columns={Display} data={alquran} url="tambah" />
         {/* )} */}
       </div>
     </div>

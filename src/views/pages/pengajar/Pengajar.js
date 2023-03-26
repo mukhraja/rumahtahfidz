@@ -16,42 +16,71 @@ import Table, {
   StatusPill,
   tanggalcustom,
 } from "../../components/datatable/Table.js";
-import Moment from "react-moment";
+import Alert from "../../../utils/Alert";
+import { Toaster } from "react-hot-toast";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import ApiSantri from "../../../api/ApiSantri";
 
 const Pengajar = () => {
   const dispatch = useDispatch();
 
   const { isLoading, gurudata } = useSelector((state) => state.guruState);
   const { userProfile } = useSelector((state) => state.userState);
+  const [listgurus, setGurus] = useState([]);
+  const [Loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevState) => !prevState);
+  };
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetGuruRequest());
+      async function fetchlistguru() {
+        try {
+          const data = await ApiSantri.getData("/guru/getAll");
+          setGurus(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      }
+
+      fetchlistguru();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetGuruByMasterTahfidzRequest(userProfile.masterpondokId));
+      async function fetchlistguru() {
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getByMasterPondokId/" + userProfile.masterpondokId
+          );
+          setGurus(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      }
+
+      fetchlistguru();
     } else {
-      dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId));
+      async function fetchlistguru() {
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getByPondokId/" + userProfile.pondokId
+          );
+          setGurus(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      }
+
+      fetchlistguru();
     }
-  }, []);
+  }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
-
-  const [databaru, setDatabaru] = useState([]);
-
-  useEffect(() => {
-    setDatabaru(
-      gurudata.sort(function (a, b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  }, [gurudata]);
 
   useEffect(() => {
     if (window.innerWidth <= 500) {
@@ -63,7 +92,9 @@ const Pengajar = () => {
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkGuru,
+          Cell: (props) => (
+            <ButtonLinkGuru value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     } else {
@@ -89,23 +120,25 @@ const Pengajar = () => {
         },
         {
           Header: "PONDOK",
-          accessor: "Pondok.name",
+          accessor: "nama_pondok",
           Filter: SelectColumnFilter, // new
           filter: "includes",
         },
         {
           Header: "Detail",
           accessor: "id",
-          Cell: ButtonLinkGuru,
+          Cell: (props) => (
+            <ButtonLinkGuru value={props.value} onRefresh={handleRefresh} />
+          ),
         },
       ]);
     }
-  }, [gurudata]);
+  }, [listgurus]);
 
-  // const data = React.useMemo(() => gurudata, [gurudata]);
   return (
     <div>
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
+      {Loading ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="mx-4 my-4 bg-gradient-to-r from-green-400 ro bg-mamasingle rounded-lg px-4 py-6 flex justify-between items-center shadow-lg hover:from-mamasingle hover:to-green-400">
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Data Pengajar
@@ -113,10 +146,7 @@ const Pengajar = () => {
         <img src={pengajar} className="h-20" />
       </div>
       <div className="mt-6 px-4 text-gray-500">
-        <Table columns={Display} data={databaru} url="tambah" />
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
+        <Table columns={Display} data={listgurus} url="tambah" />
       </div>
     </div>
   );

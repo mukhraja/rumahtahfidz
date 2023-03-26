@@ -9,43 +9,14 @@ import {
   santri,
 } from "../../../gambar";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  doGetSantriByMasterTahfidzRequest,
-  doGetSantriByRumahTahfidzRequest,
-  doGetSantriByRumahTahfidzSucceed,
-  doGetSantriRequest,
-} from "../../../reduxsaga/actions/Santri";
-import {
-  doGetIqroAwalSantriRequest,
-  doGetIqroSantriByMasterTahfidzRequest,
-  doGetIqroSantriByRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/Iqrosantri";
-import {
-  doGetAlquranAwalSantriRequest,
-  doGetAlquranSantriByMasterTahfidzRequest,
-  doGetAlquranSantriByRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/Alquransantri";
-import {
-  doGetSurahPendekAwalSantriRequest,
-  doGetSurahPendekSantriByMasterTahfidzRequest,
-  doGetSurahPendekSantriByRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/SurahPendekSantri";
-import {
-  doGetGuruByMasterTahfidzRequest,
-  doGetGuruByRumahTahfidzRequest,
-  doGetGuruRequest,
-} from "../../../reduxsaga/actions/Guru";
-import {
-  doGetByRumahTahfidzRequest,
-  doGetRumahTahfidzRequest,
-} from "../../../reduxsaga/actions/RumahTahfidz";
 import { Link } from "react-router-dom";
-import { doGetSurahPendekGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/SurahPendekGuru";
-import { doGetAlquranGuruByRumahTahfidzRequest } from "../../../reduxsaga/actions/Alquranguru";
-import { doGetMasterPondokRequest } from "../../../reduxsaga/actions/Masterpondok";
 import LoadingSpinnerLogin from "../../components/spinner/LoadingSpinnerLogin";
-import { ToastContainer } from "react-toastify";
 import LoadingSpinnerAwal from "../../components/spinner/LoadingSprinnerAwal";
+import axios from "axios";
+import config from "../../../reduxsaga/config/config";
+import { Toaster } from "react-hot-toast";
+import ApiSantri from "../../../api/ApiSantri";
+import Alert from "../../../utils/Alert";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -64,66 +35,354 @@ const Dashboard = () => {
     (state) => state.masterPondokState
   );
 
+  const [countsantri, setCountSantri] = useState(0);
+  const [countguru, setCountGuru] = useState(0);
+  const [countiqro, setCountIqroSantri] = useState(0);
+  const [countsurahpendek, setCountSurahPendekSantri] = useState(0);
+  const [countalquran, setCountAlquranSantri] = useState(0);
+  const [countmasterpondok, setCountMasterPondok] = useState(0);
+  const [countpondok, setCountPondok] = useState(0);
+  const [listmasterpondok, setListmasterpondok] = useState([]);
+  const [listpondok, setListpondok] = useState([]);
+  const [Loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      dispatch(doGetSantriRequest());
-      dispatch(doGetIqroAwalSantriRequest());
-      dispatch(doGetSurahPendekAwalSantriRequest());
-      dispatch(doGetAlquranAwalSantriRequest());
-      dispatch(doGetGuruRequest());
-      dispatch(doGetMasterPondokRequest());
+      // TOTAL SANTRI
+      const fetchtotalsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/santri/getcountsantri/?pondokId=&masterpondokId="
+          );
+          setCountSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalsantri();
+      // TOTAL GURU
+      const fetchtotalguru = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getcountguru/?pondokId=&masterpondokId="
+          );
+          setCountGuru(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalguru();
+
+      const fetchtotaliqrosantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/iqrosantri/getcountiqrosantri/?pondokId=&masterpondokId="
+          );
+          setCountIqroSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotaliqrosantri();
+
+      const fetchtotalsurahpendeksantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/surahpendeksantri/getcountsurahpendeksantri/?pondokId=&masterpondokId="
+          );
+          setCountSurahPendekSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalsurahpendeksantri();
+
+      const fetchtotalalquransantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/alquransantri/getcountalquransantri/?pondokId=&masterpondokId="
+          );
+          setCountAlquranSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalalquransantri();
+
+      const fetchtotalmasterpondok = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/masterpondok/getcountmasterpondok"
+          );
+
+          setCountMasterPondok(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalmasterpondok();
+
+      const fetchlistmasterpondok = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData("/masterpondok/getbysumsantri");
+          setListmasterpondok(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistmasterpondok();
     } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      dispatch(doGetSantriByMasterTahfidzRequest(userProfile.masterpondokId));
-      dispatch(doGetGuruByMasterTahfidzRequest(userProfile.masterpondokId));
-      dispatch(
-        doGetIqroSantriByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
-      dispatch(
-        doGetSurahPendekSantriByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
-      dispatch(
-        doGetAlquranSantriByMasterTahfidzRequest(userProfile.masterpondokId)
-      );
-      dispatch(doGetByRumahTahfidzRequest(userProfile.masterpondokId));
-      dispatch(doGetMasterPondokRequest());
+      // TOTAL SANTRI BY MASTER TAHFODZ
+
+      const fetchtotalsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/santri/getcountsantri/?pondokId=&masterpondokId=${userProfile.masterpondokId}`
+          );
+          setCountSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalsantri();
+
+      // TOTAL GURU
+      const fetchtotalguru = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getcountguru/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setCountGuru(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalguru();
+
+      // TOTAL IQRO SANTRI
+
+      const fetchtotaliqrosantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/iqrosantri/getcountiqrosantri/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setCountIqroSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotaliqrosantri();
+
+      // TOTAL SURAH PENDEK SANTRI
+
+      const fetchtotalsurahpendeksantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/surahpendeksantri/getcountsurahpendeksantri/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setCountSurahPendekSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalsurahpendeksantri();
+
+      // TOTAL ALQURAN SANTRI
+
+      const fetchtotalalquransantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/alquransantri/getcountalquransantri/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setCountAlquranSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalalquransantri();
+
+      // TOTAL PONDOK
+      const fetchtotalpondok = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getcountpondok/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setCountPondok(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalpondok();
+
+      // LIST PONDOK
+
+      const fetchlistpondok = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlistpondokdashboard/?masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setListpondok(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     } else {
-      dispatch(doGetSantriByRumahTahfidzRequest(userProfile.pondokId));
-      dispatch(doGetGuruByRumahTahfidzRequest(userProfile.pondokId));
-      dispatch(doGetIqroSantriByRumahTahfidzRequest(userProfile.pondokId));
-      dispatch(
-        doGetSurahPendekSantriByRumahTahfidzRequest(userProfile.pondokId)
-      );
-      dispatch(doGetAlquranSantriByRumahTahfidzRequest(userProfile.pondokId));
-      dispatch(doGetMasterPondokRequest());
+      const fetchtotalsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/santri/getcountsantri/?pondokId=${userProfile.pondokId}&masterpondokId=`
+          );
+          setCountSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalsantri();
+
+      // TOTAL GURU
+
+      const fetchtotalguru = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/guru/getcountguru/?pondokId=" +
+              userProfile.pondokId +
+              "&masterpondokId="
+          );
+          setCountGuru(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalguru();
+
+      // TOTAL IQRO SANTRI
+
+      const fetchtotaliqrosantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/iqrosantri/getcountiqrosantri/?pondokId=" +
+              userProfile.pondokId +
+              "&masterpondokId="
+          );
+          setCountIqroSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotaliqrosantri();
+
+      // TOTAL SURAH PENDEK SANTRI
+
+      const fetchtotalsurahpendeksantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/surahpendeksantri/getcountsurahpendeksantri/?pondokId=" +
+              userProfile.pondokId +
+              "&masterpondokId="
+          );
+          setCountSurahPendekSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalsurahpendeksantri();
+
+      // TOTAL ALQURAN SANTRI
+
+      const fetchtotalalquransantri = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/alquransantri/getcountalquransantri/?pondokId=" +
+              userProfile.pondokId +
+              "&masterpondokId="
+          );
+          setCountAlquranSantri(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalalquransantri();
+
+      const fetchtotalpondok = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getcountpondok/?pondokId=&masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setCountPondok(data.hasil);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchtotalpondok();
+
+      // LIST PONDOK
+
+      const fetchlistpondok = async () => {
+        setLoading(true);
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlistpondokdashboard/?masterpondokId=" +
+              userProfile.masterpondokId
+          );
+          setListpondok(data);
+          setLoading(false);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
     }
   }, []);
 
-  const [datasan, setDatasan] = useState([]);
-  const [dataguru, setDataguru] = useState([]);
-  const [dataiqro, setDataiqro] = useState([]);
-  const [datasurahpendek, setDatasurahpendek] = useState([]);
-  const [dataalquran, setDataalquran] = useState([]);
-
-  useEffect(() => {
-    setDatasan(santridata.filter((e) => e.mulai_vakum === null));
-    setDataguru(gurudata.filter((e) => e.mulai_vakum === null));
-    setDataiqro(iqrosantridata.filter((e) => e.mulai_vakum === null));
-    setDatasurahpendek(
-      surahpendeksantridata.filter((e) => e.mulai_vakum === null)
-    );
-    setDataalquran(alquransantridata.filter((e) => e.mulai_vakum === null));
-  }, [
-    santridata,
-    gurudata,
-    iqrosantridata,
-    surahpendeksantridata,
-    alquransantridata,
-  ]);
-
   return (
     <div className=" font-poppins">
-      {isLoading ? <LoadingSpinnerLogin /> : ""}
-      {isKoneksi ? <LoadingSpinnerAwal /> : ""}
+      {Loading == true ? <LoadingSpinnerLogin /> : ""}
+      <Toaster />
       <div className="sm:flex-none lg:flex justify-center mx-2">
         <div className="my-4 lg:ml-4 lg:mr-2 shadow-md rounded-lg lg:h-28 w-full bg-gradient-to-r from-green-400 ro bg-mamasingle hover:from-mamasingle hover:to-green-400">
           <div className="p-1 flex sm:flex-wrap justify-center lg:justify-around sm:static md:top-0 lg:relative lg:top-5">
@@ -133,7 +392,7 @@ const Dashboard = () => {
                   <img src={santri} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Santri</h1>
-                <h2 className="font-medium">{santridata && datasan.length}</h2>
+                <h2 className="font-medium">{countsantri}</h2>
               </div>
             </Link>
             <Link to="/dataalquransantri">
@@ -142,9 +401,7 @@ const Dashboard = () => {
                   <img src={hafalquran} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Hafal Qur'an</h1>
-                <h2 className="font-medium">
-                  {alquransantridata && dataalquran.length}
-                </h2>
+                <h2 className="font-medium">{countalquran}</h2>
               </div>
             </Link>
             <Link to="/dataiqrosantri">
@@ -153,9 +410,7 @@ const Dashboard = () => {
                   <img src={bacaiqro} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Baca Iqro</h1>
-                <h2 className="font-medium">
-                  {iqrosantridata && dataiqro.length}
-                </h2>
+                <h2 className="font-medium">{countiqro}</h2>
               </div>
             </Link>
             <Link to="/datasurahpendeksantri">
@@ -164,9 +419,7 @@ const Dashboard = () => {
                   <img src={bacajuz} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Baca Juz 30</h1>
-                <h2 className="font-medium">
-                  {surahpendeksantridata && datasurahpendek.length}
-                </h2>
+                <h2 className="font-medium">{countsurahpendek}</h2>
               </div>
             </Link>
           </div>
@@ -186,7 +439,7 @@ const Dashboard = () => {
                   <img src={pengajar} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Pengajar</h1>
-                <h2 className="font-medium">{gurudata && dataguru.length}</h2>
+                <h2 className="font-medium">{countguru}</h2>
               </div>
             </Link>
             <Link
@@ -202,9 +455,7 @@ const Dashboard = () => {
                   <img src={rumahtahfidz} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Rumah Tahfidz</h1>
-                <h2 className="font-medium">
-                  {rumahtahfidzdata && rumahtahfidzdata.length}
-                </h2>
+                <h2 className="font-medium">{countpondok}</h2>
               </div>
             </Link>
             <Link
@@ -220,9 +471,7 @@ const Dashboard = () => {
                   <img src={rumahtahfidz} className="h-10" />
                 </div>
                 <h1 className=" font-medium">Master Tahfidz</h1>
-                <h2 className="font-medium">
-                  {masterpondokdata && masterpondokdata.length}
-                </h2>
+                <h2 className="font-medium">{countmasterpondok}</h2>
               </div>
             </Link>
           </div>
@@ -253,25 +502,16 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-xs font-light">
-                  {rumahtahfidzdata &&
-                    rumahtahfidzdata
-                      .sort((a, b) =>
-                        a.Santris.length < b.Santris.length
-                          ? 1
-                          : a.Santris.length > b.Santris.length
-                          ? -1
-                          : 0
-                      )
-                      .map((e, i) => (
-                        <tr>
-                          <td className="border border-gray-200 border-x-0 px-4 py-3">
-                            {e.name}
-                          </td>
-                          <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                            {e.Santris.length} Santri
-                          </td>
-                        </tr>
-                      ))}
+                  {listpondok.map((e, i) => (
+                    <tr>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3">
+                        {e.name}
+                      </td>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                        {e.total_santri_aktif} Santri
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -302,34 +542,22 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-xs font-light">
-                  {masterpondokdata &&
-                    masterpondokdata
-                      .sort((a, b) =>
-                        a.Pondoks.length < b.Pondoks.length
-                          ? 1
-                          : a.Pondoks.length > b.Pondoks.length
-                          ? -1
-                          : 0
-                      )
-                      .map((e, i) => (
-                        <tr>
-                          <td className="border border-gray-200 border-x-0 px-4 py-3">
-                            {e.name}
-                          </td>
-                          <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
-                            {e.Pondoks.length} Cabang
-                          </td>
-                        </tr>
-                      ))}
+                  {listmasterpondok.map((e, i) => (
+                    <tr>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3">
+                        {e.name}
+                      </td>
+                      <td className="border border-gray-200 border-x-0 px-4 py-3 text-center">
+                        {e.total_pondok} Cabang
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       )}
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
-      </div>
     </div>
   );
 };
