@@ -6,7 +6,7 @@ const config = {
   domain: "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api",
   urlImage: "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api/gambar",
   urlImageUser:
-    "https://backend.pondoktahfidzquran.ac.id/v1/api/gambar/userdata",
+    "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api/gambar/userdata",
   // domain: "https://newbackend.pondoktahfidzquran.my.id/newbackend/v1/api",
   // urlImageCure: "http://localhost:3001/codeid/api/curriculum_reviews/images",
   // urlImageInst: "http://localhost:3001/codeid/api/instructor/images",
