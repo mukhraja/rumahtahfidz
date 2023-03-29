@@ -66,6 +66,9 @@ function* handleSignin(action) {
         })
       );
     } else {
+      yield call(toast, "Berhasil Login", {
+        type: toast.TYPE.SUCCESS,
+      });
       localStorage.setItem("token", result.data.token);
       yield put(doSigninSucceed(result.data));
     }

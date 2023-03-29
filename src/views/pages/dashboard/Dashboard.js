@@ -377,7 +377,7 @@ const Dashboard = () => {
       };
       fetchlistpondok();
     }
-  }, []);
+  }, [userProfile]);
 
   return (
     <div className=" font-poppins">

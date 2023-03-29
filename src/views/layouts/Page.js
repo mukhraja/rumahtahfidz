@@ -105,7 +105,7 @@ export const Page = (props) => {
         className={`sidebar md:w-52 sm:w-96 shadow transform lg:block ${
           menu === true ? "hidden" : "translate-x-0"
         } transition-transform duration-150 ease-in bg-white flex flex-col
-         absolute z-20 lg:absolute sm:h-screen h-screen sm:w-full lg:h-full overflow-y-auto overflow-x-hidden scrollbar-hide`}
+         absolute z-20 lg:absolute sm:h-screen h-screen sm:w-full lg:h-full overflow-y-auto overflow-x-hidden scrollbar-thin scroll scrollbar-thumb-gray-300 scrollbar-track-gray-100`}
       >
         <div className="bg-white">
           <div className="sidebar-header flex items-center justify-center py-4">
@@ -119,7 +119,7 @@ export const Page = (props) => {
           </div>
           <div className="sidebar-content px-4 py-6 font-poppins">
             <ul className="flex flex-col w-full">
-              <li className="my-px">
+              <li className="my-px cursor-pointer">
                 <Link
                   to="dashboard"
                   className={
@@ -141,7 +141,7 @@ export const Page = (props) => {
                   <span className="ml-3 font-semibold">Dashboard</span>
                 </Link>
                 <li
-                  className={`my-px ${
+                  className={`my-px cursor-pointer ${
                     userProfile.role ===
                       "8b273d68-fe09-422d-a660-af3d8312f884" ||
                     userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
@@ -173,8 +173,8 @@ export const Page = (props) => {
                     to="datasantri"
                     className={
                       pathname === "/datasantri"
-                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
-                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                        ? "cursor-pointer flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : "cursor-pointer flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
                     }
                     onClick={
                       Display === true
@@ -193,8 +193,8 @@ export const Page = (props) => {
                     to="datapengajar"
                     className={
                       pathname === "/datapengajar"
-                        ? "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
-                        : "flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
+                        ? " cursor-pointer flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+                        : " cursor-pointer flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100"
                     }
                     onClick={
                       Display === true
@@ -272,7 +272,7 @@ export const Page = (props) => {
                 </li>
               </li>
               <div
-                className={`flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 ${
+                className={`flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 cursor-pointer ${
                   userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
                   userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
                     ? ""
@@ -433,7 +433,7 @@ export const Page = (props) => {
               ) : null}
 
               <li
-                className={`my-px ${
+                className={`my-px cursor-pointer ${
                   userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
                   userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
                     ? ""
@@ -452,7 +452,10 @@ export const Page = (props) => {
               </li>
               {hafalan ? (
                 <ul className="font-semibold relative left-5">
-                  <li className="py-2 flex" onClick={getsubHafalan}>
+                  <li
+                    className="py-2 flex cursor-pointer"
+                    onClick={getsubHafalan}
+                  >
                     <FolderOpenIcon className="w-5 mr-2" />
                     <h1>Santri</h1>
                   </li>
@@ -512,7 +515,7 @@ export const Page = (props) => {
                     </ul>
                   ) : null}
                   <li
-                    className={`py-2 flex ${
+                    className={`py-2 flex cursor-pointer ${
                       userProfile.role !==
                         "8b273d68-fe09-422d-a660-af3d8312f883" &&
                       userProfile.role !==
@@ -582,7 +585,7 @@ export const Page = (props) => {
                   ) : null}
                 </ul>
               ) : null}
-              <li className="my-px" onClick={laporkan}>
+              <li className="my-px cursor-pointer" onClick={laporkan}>
                 <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700">
                   <span className="text-lg text-gray-700">
                     <FolderIcon className="w-5" />
@@ -713,7 +716,9 @@ export const Page = (props) => {
         <header className="header bg-white shadow py-4 px-4">
           <div className="header-content flex items-center flex-row">
             <div
-              className={`lg:hidden ${menu === false ? "hidden" : ""}`}
+              className={`lg:hidden cursor-pointer ${
+                menu === false ? "hidden" : ""
+              }`}
               onClick={onMenu}
             >
               <svg
@@ -750,7 +755,7 @@ export const Page = (props) => {
           </div>
         </header>
         {showModal && <ModalLogout onCancel={tutupkan} onDelete={onSignOut} />}
-        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto scrollbar-hide overflow-x-hidden min-w-fit">
+        <div className="relative flex flex-col flex-grow flex-1 overflow-y-auto scrollbar-thin scroll scrollbar-thumb-gray-300 scrollbar-track-gray-100 overflow-x-hidden min-w-fit">
           <Outlet />
         </div>
         <footer className="footer px-4 py-6">
