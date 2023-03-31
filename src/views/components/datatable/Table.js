@@ -28,6 +28,7 @@ import Modal from "../modal/Modal";
 import toast from "react-hot-toast";
 import Alert from "../../../utils/Alert";
 import ApiSantri from "../../../api/ApiSantri";
+import { UserAddIcon } from "@heroicons/react/outline";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -543,25 +544,31 @@ export function ButtonLinkUser({ value, onRefresh }) {
   };
 
   return (
-    <div className=" flex">
-      <Link
-        to={"detail/" + status}
-        className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <EyeIcon className="lg:w-5 sm:w-2" />
-      </Link>
-      <Link
-        to={"edit/" + status}
-        className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <PencilIcon className="lg:w-5 sm:w-2" />
-      </Link>
-      <button
-        onClick={tampilkan}
-        className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
-      >
-        <TrashIcon className="lg:w-5 sm:w-2" />
-      </button>
+    <div>
+      <div className="flex">
+        <Link
+          to={"detail/" + status}
+          className="px-3 sm:px-1 bg-mamasingle py-1 rounded-md mx-1 text-white shadow-md"
+        >
+          <EyeIcon className="lg:w-5 sm:w-2" />
+        </Link>
+        <Link
+          to={"edit/" + status}
+          className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+        >
+          <PencilIcon className="lg:w-5 sm:w-2" />
+        </Link>
+        {status === "1c7258f8-0ac0-4c36-aba2-94ba3f4f3039" ? (
+          ""
+        ) : (
+          <button
+            onClick={tampilkan}
+            className="px-3 sm:px-1 bg-red-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <TrashIcon className="lg:w-5 sm:w-2" />
+          </button>
+        )}
+      </div>
       {showModal && (
         <Modal onCancel={tutupkan} onDelete={() => onDelete(status)} />
       )}

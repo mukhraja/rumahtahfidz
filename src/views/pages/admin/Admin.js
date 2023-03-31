@@ -35,9 +35,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchlistuser = async () => {
       try {
-        const data = await ApiSantri.getData(
-          "/user/byrole/8b273d68-fe09-422d-a660-af3d8312f884"
-        );
+        const data = await ApiSantri.getData("/user/byrole/masterandadmin");
         setListuser(data);
         setLoading(false);
       } catch (error) {
