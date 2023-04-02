@@ -105,7 +105,7 @@ const LaporanSantri = () => {
       const fetchlistsantri = async () => {
         try {
           const data = await ApiSantri.getData(
-            `/laporan/laporansantri/?userId=${userProfile.pondokId}&pondokId=${select}&masterpondokId=`
+            `/laporan/laporansantri/?userId=&pondokId=${select}&masterpondokId=`
           );
 
           setSantri(data);

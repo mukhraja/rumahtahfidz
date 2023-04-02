@@ -16,6 +16,8 @@ import {
   EyeIcon,
   PencilIcon,
   ViewListIcon,
+  DotsHorizontalIcon,
+  CogIcon,
 } from "@heroicons/react/solid";
 import { Button, PageButton } from "./shared/Button";
 import { classNames } from "./shared/Utils";
@@ -28,7 +30,7 @@ import Modal from "../modal/Modal";
 import toast from "react-hot-toast";
 import Alert from "../../../utils/Alert";
 import ApiSantri from "../../../api/ApiSantri";
-import { UserAddIcon } from "@heroicons/react/outline";
+import { PlusCircleIcon, UserAddIcon } from "@heroicons/react/outline";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -340,6 +342,12 @@ export function ButtonLinkMasterRumahTahfidz({ value, onRefresh }) {
           >
             <PencilIcon className="lg:w-5 sm:w-2" />
           </Link>
+          <Link
+            to={"option/" + status}
+            className="px-3 sm:px-1 bg-blue-600 py-1 rounded-md mx-1 text-white shadow-md"
+          >
+            <CogIcon className="lg:w-5 sm:w-2" />
+          </Link>
           {status == "96f95aea-ef38-4623-82af-979c383bbb01" ? (
             ""
           ) : (
@@ -402,7 +410,8 @@ export function ButtonLinkSantri({ value, onRefresh }) {
   return (
     <div>
       {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
-      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" ? (
         <div className="flex">
           <Link
             to={"detail/" + status}
@@ -473,7 +482,8 @@ export function ButtonLinkGuru({ value, onRefresh }) {
   return (
     <div>
       {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
-      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
+      userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" ? (
         <div className="flex">
           <Link
             to={"detail/" + status}
@@ -981,7 +991,8 @@ function Table({ columns, data, url }) {
           )
         )}
         {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
-        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ? (
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
+        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" ? (
           pathname.substring(0, 27) == "/datamasterrumahtahfiz/list" ? null : (
             <Link
               to={url}

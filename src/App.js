@@ -65,6 +65,7 @@ import Tambahrumahtahfizbymaster from "./views/pages/mastertahfidz/Tambahrumahta
 import AuthVerify from "./reduxsaga/config/AuthVerify";
 import { useCallback } from "react";
 import { doSignoutRequest } from "./reduxsaga/actions/User";
+import Options from "./views/pages/mastertahfidz/Options";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.userState);
@@ -99,6 +100,10 @@ function App() {
           <Route
             path="datamasterrumahtahfiz/edit/:id"
             element={isLoggedIn ? <Editmastertahfidz /> : <Navigate to="/" />}
+          />
+          <Route
+            path="datamasterrumahtahfiz/option/:id"
+            element={isLoggedIn ? <Options /> : <Navigate to="/" />}
           />
           <Route
             path="datamasterrumahtahfiz/detail/:id"

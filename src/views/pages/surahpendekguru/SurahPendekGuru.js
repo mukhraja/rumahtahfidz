@@ -75,7 +75,7 @@ const SurahPendekGuru = () => {
       const fetchsurahpendek = async () => {
         try {
           const data = await ApiSantri.getData(
-            "/surahpendekguru/getlistawal/?pondokId= " +
+            "/surahpendekguru/getlistawal/?pondokId=" +
               userProfile.pondokId +
               "&masterpondokId=&userId="
           );

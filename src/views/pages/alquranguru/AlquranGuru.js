@@ -77,7 +77,7 @@ const AlquranGuru = () => {
       const fetchlistalquran = async () => {
         try {
           const data = await ApiSantri.getData(
-            "/alquranguru/getlistawal/?pondokId= " +
+            "/alquranguru/getlistawal/?pondokId=" +
               userProfile.pondokId +
               "&masterpondokId=&userId="
           );

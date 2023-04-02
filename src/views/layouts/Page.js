@@ -96,9 +96,6 @@ export const Page = (props) => {
     }
   }, []);
 
-  console.log(menu);
-  //lg:w-64
-  // -translate-x-full
   return (
     <div className="flex h-screen w-screen bg-gray-100 text-gray-800 overflow-hidden sm:text-xs">
       <aside
@@ -144,7 +141,9 @@ export const Page = (props) => {
                   className={`my-px cursor-pointer ${
                     userProfile.role ===
                       "8b273d68-fe09-422d-a660-af3d8312f884" ||
-                    userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
+                    userProfile.role ===
+                      "8b273d68-fe09-422d-a660-af3d8312f883" ||
+                    userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885"
                       ? "hidden"
                       : ""
                   }`}
@@ -274,7 +273,8 @@ export const Page = (props) => {
               <div
                 className={`flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-700 cursor-pointer ${
                   userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
-                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
+                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
+                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885"
                     ? ""
                     : "hidden"
                 }`}
@@ -292,13 +292,17 @@ export const Page = (props) => {
                       pathname === "/datamasterrumahtahfiz"
                         ? `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 bg-gray-100 w-4/5 ${
                             userProfile.role ===
-                            "8b273d68-fe09-422d-a660-af3d8312f884"
+                              "8b273d68-fe09-422d-a660-af3d8312f884" ||
+                            userProfile.role ===
+                              "8b273d68-fe09-422d-a660-af3d8312f885"
                               ? "hidden"
                               : ""
                           }`
                         : `flex items-center h-10 p-2 my-2 rounded-lg text-gray-700 hover:bg-gray-100 w-4/5 ${
                             userProfile.role ===
-                            "8b273d68-fe09-422d-a660-af3d8312f884"
+                              "8b273d68-fe09-422d-a660-af3d8312f884" ||
+                            userProfile.role ===
+                              "8b273d68-fe09-422d-a660-af3d8312f885"
                               ? "hidden"
                               : ""
                           }`
@@ -435,7 +439,8 @@ export const Page = (props) => {
               <li
                 className={`my-px cursor-pointer ${
                   userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
-                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883"
+                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
+                  userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885"
                     ? ""
                     : "hidden"
                 }`}
@@ -519,7 +524,9 @@ export const Page = (props) => {
                       userProfile.role !==
                         "8b273d68-fe09-422d-a660-af3d8312f883" &&
                       userProfile.role !==
-                        "8b273d68-fe09-422d-a660-af3d8312f884"
+                        "8b273d68-fe09-422d-a660-af3d8312f884" &&
+                      userProfile.role !==
+                        "8b273d68-fe09-422d-a660-af3d8312f885"
                         ? "hidden"
                         : ""
                     }`}

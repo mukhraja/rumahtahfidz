@@ -4,7 +4,7 @@ const Alert = {
   success: (message, idtoast) => {
     toast.success(message, {
       position: "top-center",
-      duration: 1000,
+      duration: 2000,
       style: {
         fontWeight: "bold",
       },
@@ -13,7 +13,7 @@ const Alert = {
   error: (message) => {
     toast.error(message, {
       position: "top-center",
-      duration: 1000,
+      duration: 2000,
       style: {
         fontWeight: "bold",
       },

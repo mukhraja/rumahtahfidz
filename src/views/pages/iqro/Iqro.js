@@ -76,7 +76,7 @@ const Iqro = () => {
       const fetchiqro = async () => {
         try {
           const data = await ApiSantri.getData(
-            "/iqrosantri/getlistawal/?pondokId= " +
+            "/iqrosantri/getlistawal/?pondokId=" +
               userProfile.pondokId +
               "&masterpondokId=&userId="
           );
