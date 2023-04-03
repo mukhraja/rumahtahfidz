@@ -86,6 +86,31 @@ const LaporanPengajar = () => {
         }
       };
       fetchlistguru();
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f885") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlistbyid/?pondokId=" + userProfile.pondokId
+          );
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+
+      const fetchlistguru = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/laporan/laporanguru/?pondokId=${userProfile.pondokId}&masterpondokId=`
+          );
+
+          setGuru(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistguru();
     } else {
       const fetchpondok = async () => {
         try {

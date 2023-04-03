@@ -108,7 +108,7 @@ export const Page = (props) => {
           <div className="sidebar-header flex items-center justify-center py-4">
             <div className="inline-flex">
               <img
-                className=" w-28"
+                className=" w-28 h-28 object-cover"
                 src={config.urlImage + "/" + userProfile.logotahfidz}
                 alt="logo.jpg"
               />
@@ -746,7 +746,7 @@ export const Page = (props) => {
             <div className="flex ml-auto">
               <a className="flex flex-row items-center">
                 <img
-                  className=" w-12 rounded-lg"
+                  className=" w-12 h-12 object-cover rounded-lg"
                   src={config.urlImageUser + "/" + userProfile.photo}
                 />
                 <span className="flex flex-col ml-2 text-xs">

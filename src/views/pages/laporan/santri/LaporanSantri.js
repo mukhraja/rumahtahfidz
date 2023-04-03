@@ -88,6 +88,31 @@ const LaporanSantri = () => {
         }
       };
       fetchlistsantri();
+    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f885") {
+      const fetchlistpondok = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            "/pondok/getlistbyid/?pondokId=" + userProfile.pondokId
+          );
+          setPondok(data);
+        } catch (error) {
+          Alert.error("Periksa Koneksi Jaringan");
+        }
+      };
+      fetchlistpondok();
+
+      const fetchlistsantri = async () => {
+        try {
+          const data = await ApiSantri.getData(
+            `/laporan/laporansantri/?userId=&pondokId=${userProfile.pondokId}&masterpondokId=`
+          );
+
+          setSantri(data);
+        } catch (error) {
+          Alert.error("Periksa Jaringan anda !");
+        }
+      };
+      fetchlistsantri();
     } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
       const fetchlistsantri = async () => {
         try {
