@@ -42,7 +42,7 @@ const DetailPengajar = () => {
             </h1>
             <img
               src={e.photo == "" ? pengajar : config.urlImage + "/" + e.photo}
-              className="h-20"
+              className="h-20 w-20 object-cover"
             />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">

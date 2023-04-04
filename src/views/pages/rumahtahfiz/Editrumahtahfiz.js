@@ -178,7 +178,7 @@ const Editrumahtahfiz = () => {
         <h1 className="text-white font-semibold lg:text-2xl text-xl font-poppins">
           Edit Rumah Tahfidz
         </h1>
-        <img src={rumahtahfidz} className=" bg-cover h-20" />
+        <img src={rumahtahfidz} className=" bg-cover h-20 w-20 object-cover" />
       </div>
 
       <div className="m-4 bg-white p-4 rounded-md font-poppins">

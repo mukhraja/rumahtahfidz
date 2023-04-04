@@ -46,7 +46,7 @@ const InfoUser = () => {
             </h1>
             <img
               src={config.urlImageUser + "/" + e.photo}
-              className="h-20 rounded-full"
+              className="h-20 w-20 object-cover rounded-full"
             />
           </div>
           <div className="m-4 bg-white p-4 rounded-md font-poppins">

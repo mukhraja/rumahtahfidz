@@ -190,7 +190,7 @@ const EditAdmin = () => {
         </h1>
         <img
           src={config.urlImageUser + "/" + formik.values.photo}
-          className="rounded-full bg-white bg-cover w-20 h-20 shadow-md"
+          className="rounded-full bg-white bg-cover w-20 h-20 object-cover shadow-md"
         />
       </div>
 

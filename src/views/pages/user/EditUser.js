@@ -377,7 +377,7 @@ const EditUser = () => {
         </h1>
         <img
           src={config.urlImageUser + "/" + formik.values.photo}
-          className="rounded-full bg-cover w-20 h-20"
+          className="rounded-full bg-cover h-20 w-20 object-cover"
         />
       </div>
       <div className="m-4 bg-white p-4 rounded-md font-poppins">
