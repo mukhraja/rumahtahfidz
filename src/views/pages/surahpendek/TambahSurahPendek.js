@@ -239,7 +239,7 @@ const TambahSurahPendek = () => {
           </select>
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block lg:col-span-2 col-span-4">Hafalan</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
           <select
             name="santriId"
             id="santriId"
