@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { pengajar } from "../../../../gambar";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   doGetByRumahTahfidzRequest,
   doGetRumahTahfidzRequest,
@@ -657,9 +655,6 @@ const LaporanPengajar = () => {
             </table>
           </div>
         </div>
-      </div>
-      <div className="z-30">
-        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );
