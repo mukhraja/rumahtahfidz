@@ -27,14 +27,14 @@ const TambahIqroGuru = () => {
 
   const [listpondok, setListpondok] = useState([]);
 
-  const [listguru, setListGurus] = useState([]);
+  const [listguru, setListGuru] = useState([]);
 
   useEffect(() => {
     if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
       const fetchlistguru = async () => {
         try {
           const data = await ApiSantri.getData("/guru/getAll");
-          setListGurus(data);
+          setListGuru(data);
         } catch (error) {
           Alert.error("Periksa Koneksi Jaringan");
         }
@@ -46,7 +46,7 @@ const TambahIqroGuru = () => {
           const data = await ApiSantri.getData(
             "/guru/getByMasterPondokId/" + userProfile.masterpondokId
           );
-          setListGurus(data);
+          setListGuru(data);
         } catch (error) {
           Alert.error("Periksa Koneksi Jaringan");
         }
@@ -60,7 +60,7 @@ const TambahIqroGuru = () => {
           const data = await ApiSantri.getData(
             "/guru/getByPondokId/" + userProfile.pondokId
           );
-          setListGurus(data);
+          setListGuru(data);
         } catch (error) {
           Alert.error("Periksa Koneksi Jaringan");
         }
@@ -87,34 +87,6 @@ const TambahIqroGuru = () => {
         try {
           const data = await ApiSantri.getData(
             "/pondok/getlistbyid/?pondokId=" + userProfile.pondokId
-          );
-          setListpondok(data);
-        } catch (error) {
-          Alert.error("Periksa Koneksi Jaringan");
-        }
-      };
-      fetchlistpondok();
-    } else {
-      const fetchlistpondok = async () => {
-        try {
-          const data = await ApiSantri.getData(
-            "/pondok/getlist/?masterpondokId=" + userProfile.masterpondokId
-          );
-          setListpondok(data);
-        } catch (error) {
-          Alert.error("Periksa Koneksi Jaringan");
-        }
-      };
-      fetchlistpondok();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      const fetchlistpondok = async () => {
-        try {
-          const data = await ApiSantri.getData(
-            "/pondok/getlist/?masterpondokId="
           );
           setListpondok(data);
         } catch (error) {
