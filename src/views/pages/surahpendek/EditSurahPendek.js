@@ -151,7 +151,7 @@ const EditSurahPendekSantri = () => {
       </div>
       <div className="m-4 bg-white p-4 rounded-md font-poppins text-xs">
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block lg:col-span-2 col-span-4">Nama</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Santri</h1>
           <input
             className="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             placeholder="Iqro Ke ..."

@@ -211,7 +211,7 @@ const TambahAlquranGuru = () => {
           </select>
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block lg:col-span-2 col-span-4">Guru</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Ustadz/ah</h1>
           <select
             name="guruId"
             id="guruId"
@@ -222,7 +222,7 @@ const TambahAlquranGuru = () => {
             class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
           >
             <option value="" selected disabled hidden>
-              Pilih Pengajar
+              Pilih Ustadz/ah
             </option>
             {listguru
               .filter((e) => e.pondok_id === select)

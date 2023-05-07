@@ -120,13 +120,23 @@ const Rumahtahfiz = () => {
           accessor: "chief",
         },
         {
-          Header: "Ustadz/ah",
+          Header: "Ustadz/ah Aktif",
           accessor: "total_guru_aktif",
           Cell: Jumlahorang,
         },
         {
-          Header: "Santri",
+          Header: "Ustadz/ah Vakum",
+          accessor: "total_guru_vakum",
+          Cell: Jumlahorang,
+        },
+        {
+          Header: "Santri Aktif",
           accessor: "total_santri_aktif",
+          Cell: Jumlahorang,
+        },
+        {
+          Header: "Santri Vakum",
+          accessor: "total_santri_vakum",
           Cell: Jumlahorang,
         },
         {

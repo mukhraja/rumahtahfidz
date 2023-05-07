@@ -196,7 +196,7 @@ const TambahIqroGuru = () => {
           </select>
         </div>
         <div className="grid grid-cols-8 my-2">
-          <h1 className="block lg:col-span-2 col-span-4">Pengajar</h1>
+          <h1 className="block lg:col-span-2 col-span-4">Ustadz/ah</h1>
           <select
             name="guruId"
             id="guruId"
