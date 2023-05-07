@@ -53,11 +53,6 @@ const Listrumahtahfidz = () => {
 
     fetchlistmasterpondok();
   }, [refresh]);
-  // useEffect(() => {
-  //   setDatabaru(rumahtahfidzdata);
-  // }, [rumahtahfidzdata]);
-
-  // console.log(userProfile.pondokId);
 
   const [Display, setDisplay] = useState([]);
 
