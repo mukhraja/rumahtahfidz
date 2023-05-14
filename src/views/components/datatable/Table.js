@@ -993,7 +993,8 @@ function Table({ columns, data, url }) {
         {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
         userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
         userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" ? (
-          pathname.substring(0, 27) == "/datamasterrumahtahfiz/list" ||
+          (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" &&
+            pathname.substring(0, 27) == "/datamasterrumahtahfiz/list") ||
           (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" &&
             pathname == "/datarumahtahfiz") ? null : (
             <Link
