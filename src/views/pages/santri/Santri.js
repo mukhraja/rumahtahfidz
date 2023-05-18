@@ -22,59 +22,90 @@ const Santri = () => {
     setRefresh((prevState) => !prevState);
   };
 
-  useEffect(() => {
-    if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
-      const fetchlistsantri = async () => {
-        try {
-          const data = await ApiSantri.getData("/santri/getAll");
-          setSantris(data);
-          setLoading(false);
-        } catch (error) {
-          Alert.error("Periksa Koneksi Jaringan");
-        }
-      };
-      fetchlistsantri();
-    } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
-      const fetchlistsantri = async () => {
-        try {
-          const data = await ApiSantri.getData(
-            "/santri/getByMasterPondokId/" + userProfile.masterpondokId
-          );
-          setSantris(data);
-          setLoading(false);
-        } catch (error) {
-          Alert.error("Periksa Koneksi Jaringan");
-        }
-      };
+  // useEffect(() => {
+  //   if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883") {
+  //     const fetchlistsantri = async () => {
+  //       try {
+  //         const data = await ApiSantri.getData("/santri/getAll");
+  //         setSantris(data);
+  //         setLoading(false);
+  //       } catch (error) {
+  //         Alert.error("Periksa Koneksi Jaringan");
+  //       }
+  //     };
+  //     fetchlistsantri();
+  //   } else if (userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f884") {
+  //     const fetchlistsantri = async () => {
+  //       try {
+  //         const data = await ApiSantri.getData(
+  //           "/santri/getByMasterPondokId/" + userProfile.masterpondokId
+  //         );
+  //         setSantris(data);
+  //         setLoading(false);
+  //       } catch (error) {
+  //         Alert.error("Periksa Koneksi Jaringan");
+  //       }
+  //     };
 
-      fetchlistsantri();
-    } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
-      const fetchlistsantri = async () => {
-        try {
-          const data = await ApiSantri.getData(
-            "/usersantri/byuserid/" + userProfile.userId
-          );
-          setSantris(data);
-          setLoading(false);
-        } catch (error) {
-          Alert.error("Periksa Koneksi Jaringan");
+  //     fetchlistsantri();
+  //   } else if (userProfile.role == "1a2832f9-ceb7-4ff9-930a-af176c88dcc5") {
+  //     const fetchlistsantri = async () => {
+  //       try {
+  //         const data = await ApiSantri.getData(
+  //           "/usersantri/byuserid/" + userProfile.userId
+  //         );
+  //         setSantris(data);
+  //         setLoading(false);
+  //       } catch (error) {
+  //         Alert.error("Periksa Koneksi Jaringan");
+  //       }
+  //     };
+  //     fetchlistsantri();
+  //   } else {
+  //     const fetchlistsantri = async () => {
+  //       try {
+  //         const data = await ApiSantri.getData(
+  //           "/santri/getByPondokId/" + userProfile.pondokId
+  //         );
+  //         setSantris(data);
+  //         setLoading(false);
+  //       } catch (error) {
+  //         Alert.error("Periksa Koneksi Jaringan");
+  //       }
+  //     };
+  //     fetchlistsantri();
+  //   }
+  // }, [refresh]);
+
+  useEffect(() => {
+    const fetchListSantri = async () => {
+      try {
+        let endpoint = "";
+
+        if (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883") {
+          endpoint = "/santri/getAll";
+        } else if (
+          userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884"
+        ) {
+          endpoint =
+            "/santri/getByMasterPondokId/" + userProfile.masterpondokId;
+        } else if (
+          userProfile.role === "1a2832f9-ceb7-4ff9-930a-af176c88dcc5"
+        ) {
+          endpoint = "/usersantri/byuserid/" + userProfile.userId;
+        } else {
+          endpoint = "/santri/getByPondokId/" + userProfile.pondokId;
         }
-      };
-      fetchlistsantri();
-    } else {
-      const fetchlistsantri = async () => {
-        try {
-          const data = await ApiSantri.getData(
-            "/santri/getByPondokId/" + userProfile.pondokId
-          );
-          setSantris(data);
-          setLoading(false);
-        } catch (error) {
-          Alert.error("Periksa Koneksi Jaringan");
-        }
-      };
-      fetchlistsantri();
-    }
+
+        const data = await ApiSantri.getData(endpoint);
+        setSantris(data);
+        setLoading(false);
+      } catch (error) {
+        Alert.error("Periksa Koneksi Jaringan");
+      }
+    };
+
+    fetchListSantri();
   }, [refresh]);
 
   const [Display, setDisplay] = useState([]);
