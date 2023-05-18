@@ -972,6 +972,20 @@ function Table({ columns, data, url }) {
 
   const { userProfile } = useSelector((state) => state.userState);
 
+  const allowedRoles = [
+    "8b273d68-fe09-422d-a660-af3d8312f883",
+    "8b273d68-fe09-422d-a660-af3d8312f884",
+    "8b273d68-fe09-422d-a660-af3d8312f885",
+  ];
+
+  const isAllowedRole = allowedRoles.includes(userProfile.role);
+
+  const shouldRenderLink = !(
+    pathname.substring(0, 27) === "/datamasterrumahtahfiz/list" ||
+    (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" &&
+      pathname === "/datarumahtahfiz")
+  );
+
   // Render the UI for your table
   return (
     <div className="">
@@ -990,21 +1004,15 @@ function Table({ columns, data, url }) {
             ) : null
           )
         )}
-        {userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883" ||
-        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" ||
-        userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" ? (
-          (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f884" &&
-            pathname.substring(0, 27) == "/datamasterrumahtahfiz/list") ||
-          (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f885" &&
-            pathname == "/datarumahtahfiz") ? null : (
-            <Link
-              to={url}
-              className=" bg-mamasingle lg:px-4 px-2 py-1 rounded-md text-white"
-            >
-              Tambah
-            </Link>
-          )
-        ) : null}
+
+        {isAllowedRole && shouldRenderLink && (
+          <Link
+            to={url}
+            className=" bg-mamasingle lg:px-4 px-2 py-1 rounded-md text-white"
+          >
+            Tambah
+          </Link>
+        )}
       </div>
       {/* table */}
       <div className="relative">

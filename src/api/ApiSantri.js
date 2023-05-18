@@ -1,11 +1,10 @@
 import api from "./Api";
 
-const token = localStorage.getItem("token");
-
 export default class ApiSantri {
   static getData = async (url) => {
     try {
-      let config = {
+      const token = localStorage.getItem("token");
+      const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -18,10 +17,10 @@ export default class ApiSantri {
     }
   };
 
-  // fungsi untuk menangani permintaan POST
   static postData = async (url, data) => {
     try {
-      let config = {
+      const token = localStorage.getItem("token");
+      const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,7 +32,7 @@ export default class ApiSantri {
         data = JSON.stringify(data);
       }
       const response = await api.post(url, data, config);
-      return response.data.data.hasil;
+      return response.data.hasil;
     } catch (error) {
       console.error("Error:", error);
       throw error;

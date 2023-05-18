@@ -1,8 +1,8 @@
 const config = {
-  // domain: "http://localhost:8003/pondok/v1/api",
+  domain: "http://localhost:8003/pondok/v1/api",
   // urlImage: "http://localhost:8003/pondok/v1/api/gambar",
   // urlImageUser: "http://localhost:8003/pondok/v1/api/gambar/userdata",
-  domain: "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api",
+  // domain: "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api",
   urlImage: "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api/gambar",
   urlImageUser:
     "https://backend.pondoktahfidzquran.ac.id/pondok/v1/api/gambar/userdata",

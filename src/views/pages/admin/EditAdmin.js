@@ -36,7 +36,7 @@ const EditAdmin = () => {
   useEffect(() => {
     const fetchdetailadmin = async () => {
       try {
-        const data = await ApiSantri.getData("/user/" + id);
+        const data = await ApiSantri.getData("/user/getadminbyid/" + id);
         setLoading(false);
         setDetailadmin(data);
       } catch (error) {
@@ -62,7 +62,7 @@ const EditAdmin = () => {
     const fetchlistpondok = async () => {
       setLoading(true);
       try {
-        const data = await ApiSantri.getData("/pondok/getall");
+        const data = await ApiSantri.getData("/masterpondok/getall");
         setLoading(false);
         setListpondok(data);
       } catch (error) {
@@ -109,7 +109,9 @@ const EditAdmin = () => {
       age: detailadmin.length ? detailadmin[0].age : null,
       gender: detailadmin.length ? detailadmin[0].gender : null,
       roleId: detailadmin.length ? detailadmin[0].role_id : null,
-      pondokId: detailadmin.length ? detailadmin[0].pondok_id : null,
+      masterpondokId: detailadmin.length
+        ? detailadmin[0].masterpondok_id
+        : null,
       photo: detailadmin.length ? detailadmin[0].photo : null,
     },
     onSubmit: async (values) => {
@@ -124,7 +126,7 @@ const EditAdmin = () => {
         payload.append("age", values.age);
         payload.append("gender", values.gender);
         payload.append("roleId", values.roleId);
-        payload.append("pondokId", values.pondokId);
+        payload.append("masterpondokId", values.masterpondokId);
         payload.append("photo", values.photo);
 
         const updateuser = async () => {
@@ -153,7 +155,7 @@ const EditAdmin = () => {
           age: values.age,
           gender: values.gender,
           roleId: values.roleId,
-          pondokId: values.pondokId,
+          masterpondokId: values.masterpondokId,
         };
 
         const updateuser = async () => {
@@ -168,9 +170,6 @@ const EditAdmin = () => {
           }
         };
         updateuser();
-        // setTimeout(() => {
-        //   navigate("/datauser");
-        // }, 3000);
       }
     },
   });
@@ -322,24 +321,26 @@ const EditAdmin = () => {
           <div className="grid grid-cols-8 my-2">
             <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
             <select
-              name="pondokId"
-              id="pondokId"
-              value={formik.values.pondokId}
+              name="masterpondokId"
+              id="masterpondokId"
+              value={formik.values.masterpondokId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              autoComplete="pondokId"
+              autoComplete="masterpondokId"
               class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
             >
               <option value="" selected disabled hidden>
-                Pilih Rumah Tahfidz
+                Pilih Master Tahfidz
               </option>
-              {listpondok.map((e) => (
-                <option value={e.id}>{e.name}</option>
-              ))}
+              {listpondok.map((e) =>
+                e.id == "96f95aea-ef38-4623-82af-979c383bbb01" ? null : (
+                  <option value={e.id}>{e.name}</option>
+                )
+              )}
             </select>
-            {formik.touched.pondokId && formik.errors.pondokId ? (
+            {formik.touched.masterpondokId && formik.errors.masterpondokId ? (
               <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.pondokId}
+                {formik.errors.masterpondokId}
               </span>
             ) : null}
           </div>

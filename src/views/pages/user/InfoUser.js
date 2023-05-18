@@ -24,9 +24,15 @@ const InfoUser = () => {
   useEffect(() => {
     const fetchuser = async () => {
       try {
-        const data = await ApiSantri.getData("/user/" + id);
-        setUser(data);
-        setLoading(false);
+        if ((userProfile.role = "8b273d68-fe09-422d-a660-af3d8312f883")) {
+          const data = await ApiSantri.getData("/user/getadminbyid/" + id);
+          setUser(data);
+          setLoading(false);
+        } else {
+          const data = await ApiSantri.getData("/user/" + id);
+          setUser(data);
+          setLoading(false);
+        }
       } catch (error) {
         Alert.error("Periksa Koneksi Jaringan");
       }

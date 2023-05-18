@@ -17,13 +17,7 @@ import { Toaster } from "react-hot-toast";
 import Alert from "../../../utils/Alert";
 import ApiSantri from "../../../api/ApiSantri";
 const Admin = () => {
-  const dispatch = useDispatch();
-
-  const { isLoading, userdata } = useSelector((state) => state.userState);
-
   const [listuser, setListuser] = useState([]);
-
-  const { userProfile } = useSelector((state) => state.userState);
 
   const [refresh, setRefresh] = useState(false);
   const [Loading, setLoading] = useState(true);
@@ -35,7 +29,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchlistuser = async () => {
       try {
-        const data = await ApiSantri.getData("/user/byrole/masterandadmin");
+        const data = await ApiSantri.getData("/user/getadmin");
         setListuser(data);
         setLoading(false);
       } catch (error) {
@@ -81,7 +75,7 @@ const Admin = () => {
           },
           {
             Header: "Pondok",
-            accessor: "nama_pondok",
+            accessor: "nama_masterpondok",
             Filter: SelectColumnFilter, // new
             filter: "includes",
           },

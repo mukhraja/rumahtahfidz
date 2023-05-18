@@ -21,7 +21,7 @@ const DetailAdmin = () => {
   useEffect(() => {
     const fetchuser = async () => {
       try {
-        const data = await ApiSantri.getData("/user/" + id);
+        const data = await ApiSantri.getData("/user/getadminbyid/" + id);
         setDetailadmin(data);
         setLoading(false);
       } catch (error) {
