@@ -25,6 +25,7 @@ const EditAdmin = () => {
   const navigate = useNavigate();
 
   const { userdata } = useSelector((state) => state.userState);
+  const { userProfile } = useSelector((state) => state.userState);
   const { roledata } = useSelector((state) => state.roleState);
   const { rumahtahfidzdata } = useSelector((state) => state.rumahTahfidzState);
 
@@ -44,8 +45,6 @@ const EditAdmin = () => {
       }
     };
 
-    fetchdetailadmin();
-
     const fetchlistrole = async () => {
       setLoading(true);
       try {
@@ -56,8 +55,6 @@ const EditAdmin = () => {
         Alert.error("Periksa Koneksi Jaringan");
       }
     };
-
-    fetchlistrole();
 
     const fetchlistpondok = async () => {
       setLoading(true);
@@ -70,7 +67,12 @@ const EditAdmin = () => {
       }
     };
 
-    fetchlistpondok();
+    fetchdetailadmin();
+    fetchlistrole();
+
+    if (userProfile.role === "8b273d68-fe09-422d-a660-af3d8312f883") {
+      fetchlistpondok();
+    }
   }, []);
 
   const uploadOnChange = (name) => (event) => {
@@ -318,32 +320,36 @@ const EditAdmin = () => {
               </option>
             </select>
           </div>
-          <div className="grid grid-cols-8 my-2">
-            <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
-            <select
-              name="masterpondokId"
-              id="masterpondokId"
-              value={formik.values.masterpondokId}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              autoComplete="masterpondokId"
-              class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
-            >
-              <option value="" selected disabled hidden>
-                Pilih Master Tahfidz
-              </option>
-              {listpondok.map((e) =>
-                e.id == "96f95aea-ef38-4623-82af-979c383bbb01" ? null : (
-                  <option value={e.id}>{e.name}</option>
-                )
-              )}
-            </select>
-            {formik.touched.masterpondokId && formik.errors.masterpondokId ? (
-              <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
-                {formik.errors.masterpondokId}
-              </span>
-            ) : null}
-          </div>
+          {userProfile.role == "8b273d68-fe09-422d-a660-af3d8312f883" ? (
+            <div className="grid grid-cols-8 my-2">
+              <h1 className="block lg:col-span-2 col-span-4">Penempatan</h1>
+              <select
+                name="masterpondokId"
+                id="masterpondokId"
+                value={formik.values.masterpondokId}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                autoComplete="masterpondokId"
+                class="border rounded-md block lg:col-span-2 col-span-4 pl-2 py-1 placeholder:text-xs"
+              >
+                <option value="" selected disabled hidden>
+                  Pilih Master Tahfidz
+                </option>
+                {listpondok.map((e) =>
+                  e.id == "96f95aea-ef38-4623-82af-979c383bbb01" ? null : (
+                    <option value={e.id}>{e.name}</option>
+                  )
+                )}
+              </select>
+              {formik.touched.masterpondokId && formik.errors.masterpondokId ? (
+                <span className="my-1 lg:col-span-2 col-span-4 text-sm text-red-600 w-full ml-3">
+                  {formik.errors.masterpondokId}
+                </span>
+              ) : null}
+            </div>
+          ) : (
+            ""
+          )}
           <div class="col-span-4 row-span-2 py-2">
             <label className="block text-sm font-medium text-gray-700">
               Photo
